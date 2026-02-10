@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Biodyn — Mechanistic Interpretability for Biological Foundation Models</title>
+  <meta name="description" content="Biodyn is a research project applying mechanistic interpretability to biological foundation models, enabling causal understanding of gene regulatory networks and perturbation responses.">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav" id="nav">
+    <div class="container">
+      <a href="#" class="nav-logo">Biodyn</a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#vision">Vision</a></li>
+        <li><a href="#research">Research</a></li>
+        <li><a href="#methodology">Methodology</a></li>
+        <li><a href="#impact">Impact</a></li>
+        <li><a href="#portfolio">Portfolio</a></li>
+        <li><a href="#team">Team</a></li>
+        <li><a href="https://github.com/Kendiukhov/bio_foundation_models" target="_blank" rel="noopener" class="nav-cta">GitHub →</a></li>
+      </ul>
+      <div class="hamburger" id="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero section" id="hero">
+    <div class="mesh-bg"></div>
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-badge">Research Project</div>
+        <h1>
+          Understanding biology's<br>
+          <span class="gradient-text">foundation models</span>
+        </h1>
+        <p class="hero-description">
+          We apply mechanistic interpretability to single-cell foundation models — turning black-box AI into causal, verifiable insights about gene regulation, cell programs, and perturbation responses.
+        </p>
+        <div class="hero-actions">
+          <a href="#research" class="btn-primary">Explore Our Research ↓</a>
+          <a href="https://github.com/Kendiukhov/bio_foundation_models" target="_blank" rel="noopener" class="btn-secondary">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+            View on GitHub
+          </a>
+        </div>
+        <div class="hero-stats">
+          <div class="hero-stat">
+            <h3>4</h3>
+            <p>Research Tracks</p>
+          </div>
+          <div class="hero-stat">
+            <h3>8+</h3>
+            <p>Workshop Projects</p>
+          </div>
+          <div class="hero-stat">
+            <h3>3</h3>
+            <p>Evaluation Benchmarks</p>
+          </div>
+          <div class="hero-stat">
+            <h3>15</h3>
+            <p>Agent Roles</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Vision -->
+  <section class="vision section" id="vision">
+    <div class="container">
+      <div class="vision-grid">
+        <div class="vision-text reveal">
+          <span class="section-label">Our Vision</span>
+          <h2>Biology demands more than predictions — it demands understanding</h2>
+          <p>
+            Foundation models like scGPT learn powerful representations from millions of cells. But in biology, <span class="vision-highlight">a prediction without a mechanism is just a correlation</span>. If we can't explain why a model predicts a gene interaction, we can't trust it to guide experiments, discover drug targets, or advance scientific knowledge.
+          </p>
+          <p>
+            Biodyn bridges this gap. We apply mechanistic interpretability — the science of understanding what neural networks learn internally — to biological foundation models. Our goal: <span class="vision-highlight">reduce the time from biological question to reproducible, mechanistic result by 10–100×</span> using rigorous, causally-grounded methods.
+          </p>
+        </div>
+        <div class="vision-visual reveal reveal-delay-2">
+          <div class="vision-card-stack">
+            <div class="vision-stat-card">
+              <div class="icon">🧬</div>
+              <h4>Beyond Black Boxes</h4>
+              <p>We open the hood of foundation models to find biologically meaningful circuits — gene programs, pathways, and cell-state representations.</p>
+            </div>
+            <div class="vision-stat-card">
+              <div class="icon">🔬</div>
+              <h4>Causal, Not Correlational</h4>
+              <p>Every interpretability claim must survive causal intervention tests. We ablate, patch, and perturb to verify mechanistic hypotheses.</p>
+            </div>
+            <div class="vision-stat-card">
+              <div class="icon">⚡</div>
+              <h4>Automation as Advantage</h4>
+              <p>Every solved research step becomes reusable infrastructure, compounding our R&D velocity across projects.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Research Areas -->
+  <section class="research-areas section" id="research">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-label">Research Areas</span>
+        <h2 class="section-title">Four interconnected tracks</h2>
+        <p class="section-subtitle">
+          Our research spans mechanistic interpretability, network inference, perturbation modeling, and automated R&D — each feeding into the others.
+        </p>
+      </div>
+      <div class="research-grid">
+        <div class="research-card reveal reveal-delay-1" style="--card-accent: linear-gradient(135deg, #00d4ff, #00a0e0)">
+          <div class="card-icon">🧠</div>
+          <h3>Mechanistic Interpretability</h3>
+          <p>
+            Convert black-box single-cell foundation models into mechanistically understood systems. We use representation probes, sparse autoencoders, activation patching, and targeted ablations to identify gene programs, pathways, and cell-state circuits within transformer models — with causal verification at every step.
+          </p>
+          <div class="card-tags">
+            <span class="tag">Activation Patching</span>
+            <span class="tag">Sparse Features</span>
+            <span class="tag">Concept Probes</span>
+            <span class="tag">Causal Tracing</span>
+          </div>
+        </div>
+        <div class="research-card reveal reveal-delay-2" style="--card-accent: linear-gradient(135deg, #7c5cfc, #a78bfa)">
+          <div class="card-icon">🕸️</div>
+          <h3>Biological Network Inference</h3>
+          <p>
+            Build and benchmark gene regulatory network (GRN) and signaling inference pipelines from single-cell data. We extract attention-based interaction scores, calibrate against ground-truth databases (TRRUST, DoRothEA), and produce versioned, queryable network objects for downstream analysis.
+          </p>
+          <div class="card-tags">
+            <span class="tag">GRN Recovery</span>
+            <span class="tag">Signaling Chains</span>
+            <span class="tag">Confidence Calibration</span>
+          </div>
+        </div>
+        <div class="research-card reveal reveal-delay-3" style="--card-accent: linear-gradient(135deg, #00c9a7, #00e0b8)">
+          <div class="card-icon">💊</div>
+          <h3>Perturbation Modeling</h3>
+          <p>
+            Predict cellular responses to CRISPR knockouts, drug treatments, and genetic perturbations across cell types and doses. We use perturbation-derived edges from Perturb-seq experiments as ground truth to validate model predictions and build perturbation-to-network benchmarks.
+          </p>
+          <div class="card-tags">
+            <span class="tag">Perturb-seq</span>
+            <span class="tag">CRISPR Screens</span>
+            <span class="tag">Active Learning</span>
+          </div>
+        </div>
+        <div class="research-card reveal reveal-delay-4" style="--card-accent: linear-gradient(135deg, #f472b6, #fb7185)">
+          <div class="card-icon">🤖</div>
+          <h3>Agentic R&D Automation</h3>
+          <p>
+            Automate the entire research loop — from data ingestion and quality control to experiment design, execution, evaluation, and reporting. Coordinated AI agents handle the repetitive work while humans provide scientific steering and strategic direction.
+          </p>
+          <div class="card-tags">
+            <span class="tag">Dataset Factory</span>
+            <span class="tag">Experiment Factory</span>
+            <span class="tag">Auto-Reporting</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works -->
+  <section class="flywheel section" id="methodology">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-label">Methodology</span>
+        <h2 class="section-title">The R&D Flywheel</h2>
+        <p class="section-subtitle">
+          Our operating loop compounds progress. Every cycle produces reusable infrastructure, rigorous evaluation, and mechanistic insight.
+        </p>
+      </div>
+      <div class="flywheel-steps">
+        <div class="flywheel-step reveal reveal-delay-1">
+          <div class="step-number">01</div>
+          <h3>Discover</h3>
+          <p>Continuous scanning of research opportunities, market signals, and emerging datasets. AI agents produce scored Opportunity Briefs.</p>
+        </div>
+        <div class="flywheel-step reveal reveal-delay-2">
+          <div class="step-number">02</div>
+          <h3>Design</h3>
+          <p>Experiments are designed with falsifiable hypotheses, explicit controls, and pre-registered evaluation criteria. No fishing expeditions.</p>
+        </div>
+        <div class="flywheel-step reveal reveal-delay-3">
+          <div class="step-number">03</div>
+          <h3>Implement</h3>
+          <p>Reproducible pipelines with pinned data versions, tracked configurations, and deterministic seeds. Every run is auditable.</p>
+        </div>
+        <div class="flywheel-step reveal reveal-delay-1">
+          <div class="step-number">04</div>
+          <h3>Evaluate</h3>
+          <p>Standardized benchmarks with ablations, baselines, robustness checks, and bias-aware evaluation protocols to prevent misleading claims.</p>
+        </div>
+        <div class="flywheel-step reveal reveal-delay-2">
+          <div class="step-number">05</div>
+          <h3>Interpret</h3>
+          <p>Mechanistic reports with causal intervention evidence, boundary conditions, and explicit separation between biological insights and suggestive observations.</p>
+        </div>
+        <div class="flywheel-step reveal reveal-delay-3">
+          <div class="step-number">06</div>
+          <h3>Automate</h3>
+          <p>Every repeated step becomes a reusable command, template, or agent skill — compounding speed and consistency across future projects.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why It Matters -->
+  <section class="why-matters section" id="impact">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-label">Why It Matters</span>
+        <h2 class="section-title">Opening biology's black boxes</h2>
+        <p class="section-subtitle">
+          Mechanistic interpretability of biological foundation models isn't just an academic exercise — it's a prerequisite for trustworthy, actionable AI in the life sciences.
+        </p>
+      </div>
+      <div class="why-grid">
+        <div class="why-card reveal reveal-delay-1">
+          <div class="why-icon">🎯</div>
+          <h3>Drug Target Discovery</h3>
+          <p>Understanding which internal model features correspond to real gene regulatory mechanisms enables principled identification of drug targets — grounded in causal evidence rather than statistical correlation.</p>
+        </div>
+        <div class="why-card reveal reveal-delay-2">
+          <div class="why-icon">🧪</div>
+          <h3>Scientific Rigor</h3>
+          <p>Biology demands explanations that survive falsification. Our causal intervention framework — ablation, patching, perturbation validation — ensures mechanistic claims are testable and reproducible, not just pattern-matching.</p>
+        </div>
+        <div class="why-card reveal reveal-delay-3">
+          <div class="why-icon">📊</div>
+          <h3>Evaluation Integrity</h3>
+          <p>Current benchmarks are brittle: mapping and candidate-set choices dominate metrics, causing misleading ranking reversals. Our evaluation bias protocols expose and correct these hidden confounds.</p>
+        </div>
+      </div>
+
+      <!-- Extended paragraph -->
+      <div class="why-extended reveal" style="margin-top: 64px; max-width: 800px;">
+        <p style="color: var(--text-secondary); line-height: 1.9; font-size: 1.05rem;">
+          Foundation models are transforming biology — learning rich, compressed representations from millions of single cells across tissues, conditions, and perturbations. But <strong style="color: var(--text-primary);">predictive power without interpretability is a liability</strong>. In domains like drug discovery and precision medicine, deploying a model that "just works" without understanding <em>why</em> it works can lead to false confidence, wasted experiments, and missed therapeutic opportunities.
+        </p>
+        <p style="color: var(--text-secondary); line-height: 1.9; font-size: 1.05rem; margin-top: 20px;">
+          Mechanistic interpretability changes this equation. By mapping a model's internal representations to known biology — gene programs, signaling pathways, cell-state transitions — we can <strong style="color: var(--text-primary);">verify that models learn real mechanisms rather than dataset artifacts</strong>. And by testing these circuits with causal interventions, we produce insights that are not just plausible but <em>falsifiable</em> — meeting the standard that biology demands.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Portfolio -->
+  <section class="portfolio section" id="portfolio">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-label">Research Portfolio</span>
+        <h2 class="section-title">Active research projects</h2>
+        <p class="section-subtitle">
+          Ranked by scientific leverage, feasibility, and differentiation potential.
+        </p>
+      </div>
+      <div class="portfolio-list">
+        <div class="portfolio-item reveal reveal-delay-1">
+          <span class="portfolio-rank">#1</span>
+          <div class="portfolio-info">
+            <h3>Causal Interventions vs Attention for GRN Recovery</h3>
+            <p>Multi-tissue benchmark comparing causal interventions against attention-based gene regulatory network extraction, with perturbation validation.</p>
+          </div>
+          <span class="portfolio-status status-active">Active</span>
+        </div>
+        <div class="portfolio-item reveal reveal-delay-2">
+          <span class="portfolio-rank">#2</span>
+          <div class="portfolio-info">
+            <h3>Mechanistic Interpretability → GRN Extraction</h3>
+            <p>Converting internal representations of single-cell transformers into interpretable and verifiable gene regulatory networks.</p>
+          </div>
+          <span class="portfolio-status status-active">Active</span>
+        </div>
+        <div class="portfolio-item reveal reveal-delay-3">
+          <span class="portfolio-rank">#3</span>
+          <div class="portfolio-info">
+            <h3>Perturbation-to-Network Bridging Benchmark</h3>
+            <p>Standardized benchmark using perturbation-derived edges (Perturb-seq) as functional ground truth for network inference methods.</p>
+          </div>
+          <span class="portfolio-status status-active">Active</span>
+        </div>
+        <div class="portfolio-item reveal reveal-delay-4">
+          <span class="portfolio-rank">#4</span>
+          <div class="portfolio-info">
+            <h3>Evaluation Bias Protocol for GRN Benchmarks</h3>
+            <p>Reproducible evaluation protocol exposing how mapping and candidate-set choices dominate metrics and reverse method rankings.</p>
+          </div>
+          <span class="portfolio-status status-active">Active</span>
+        </div>
+        <div class="portfolio-item reveal reveal-delay-5">
+          <span class="portfolio-rank">#5</span>
+          <div class="portfolio-info">
+            <h3>Multi-omics Alignment & Multimodal Prediction</h3>
+            <p>Unifying representations across scRNA-seq, scATAC-seq, CITE-seq, and spatial transcriptomics with uncertainty-aware integration.</p>
+          </div>
+          <span class="portfolio-status status-watchlist">Watchlist</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Publications & Reports -->
+  <section class="publications section" id="publications">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-label">Publications & Reports</span>
+        <h2 class="section-title">Research outputs</h2>
+        <p class="section-subtitle">
+          Workshop papers, technical reports, and evaluation protocols from our research pipeline.
+        </p>
+      </div>
+      <div class="pub-grid">
+        <div class="pub-card reveal reveal-delay-1">
+          <div class="pub-type">Workshop Paper Draft</div>
+          <h3>Evaluation Bias in Gene Regulatory Network Benchmarks</h3>
+          <p>Systematic analysis showing how mapping choices and candidate-set construction dominate evaluation metrics, causing ranking reversals across methods and tissues.</p>
+          <div class="pub-meta">
+            <span>📄 In preparation</span>
+            <span>🏷️ Evaluation Protocol</span>
+          </div>
+        </div>
+        <div class="pub-card reveal reveal-delay-2">
+          <div class="pub-type">Technical Report</div>
+          <h3>Causal Interventions for GRN Recovery from scGPT</h3>
+          <p>Comparing ablation-based causal tracing against raw attention extraction for recovering gene regulatory networks across multiple tissues from the Tabula Sapiens atlas.</p>
+          <div class="pub-meta">
+            <span>📄 Internal report</span>
+            <span>🏷️ Mechanistic Interpretability</span>
+          </div>
+        </div>
+        <div class="pub-card reveal reveal-delay-1">
+          <div class="pub-type">Benchmark Suite</div>
+          <h3>Attention Head & Layer Specialization Atlas</h3>
+          <p>Comprehensive cartography of attention head specialization across tissues, revealing tissue-specific top heads with weak cross-tissue overlap and non-random specialization patterns.</p>
+          <div class="pub-meta">
+            <span>📄 Internal report</span>
+            <span>🏷️ Network Inference</span>
+          </div>
+        </div>
+        <div class="pub-card reveal reveal-delay-2">
+          <div class="pub-type">Technical Report</div>
+          <h3>Scaling and Robustness Analysis of Attention-Based GRN Inference</h3>
+          <p>Investigation into why attention-derived network quality degrades with scale — analyzing aggregation policies, robustness variance, and baseline comparisons.</p>
+          <div class="pub-meta">
+            <span>📄 Internal report</span>
+            <span>🏷️ Scaling Analysis</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Team -->
+  <section class="team section" id="team">
+    <div class="container">
+      <div class="section-header reveal" style="text-align: center;">
+        <span class="section-label">Team</span>
+        <h2 class="section-title">Led by</h2>
+      </div>
+      <div class="team-card reveal">
+        <div class="team-avatar">IK</div>
+        <h3>Ihor Kendiukhov</h3>
+        <div class="team-role">Founder & Principal Researcher</div>
+        <div class="team-affiliation">University of Tübingen, Computer Science Department</div>
+        <p class="team-bio">
+          Building at the intersection of AI interpretability and systems biology. Research focus on mechanistic understanding of biological foundation models, gene regulatory network inference, and agentic R&D automation.
+        </p>
+        <div class="team-links">
+          <a href="https://github.com/Kendiukhov" target="_blank" rel="noopener" class="team-link">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+            GitHub
+          </a>
+          <a href="mailto:kenduhov.ig@gmail.com" class="team-link">
+            ✉️ Email
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <span class="footer-logo">Biodyn</span>
+        <span class="footer-text">© 2025 Biodyn Research Project. All rights reserved.</span>
+        <div class="footer-links">
+          <a href="https://github.com/Kendiukhov/bio_foundation_models" target="_blank" rel="noopener">GitHub</a>
+          <a href="mailto:kenduhov.ig@gmail.com">Contact</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
