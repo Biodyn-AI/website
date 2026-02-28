@@ -816,6 +816,19 @@ a:hover {
   margin-bottom: 4px;
 }
 
+.portfolio-title-link {
+  font-family: var(--font-heading);
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--text-heading);
+  margin-bottom: 4px;
+  display: inline-block;
+}
+
+.portfolio-title-link:hover {
+  color: var(--accent-cyan);
+}
+
 .portfolio-info p {
   font-size: 0.85rem;
   color: var(--text-secondary);
@@ -852,6 +865,18 @@ a:hover {
   background: rgba(100, 116, 139, 0.1);
   color: var(--text-muted);
   border: 1px solid rgba(100, 116, 139, 0.2);
+}
+
+.status-completed {
+  background: rgba(59, 130, 246, 0.12);
+  color: #93c5fd;
+  border: 1px solid rgba(59, 130, 246, 0.24);
+}
+
+.status-paused {
+  background: rgba(244, 114, 182, 0.1);
+  color: #f9a8d4;
+  border: 1px solid rgba(244, 114, 182, 0.24);
 }
 
 /* --- Publications --- */
@@ -897,6 +922,14 @@ a:hover {
   line-height: 1.4;
 }
 
+.pub-title-link {
+  color: var(--text-heading);
+}
+
+.pub-title-link:hover {
+  color: var(--accent-cyan);
+}
+
 .pub-card p {
   color: var(--text-secondary);
   font-size: 0.9rem;
@@ -916,6 +949,38 @@ a:hover {
   display: flex;
   align-items: center;
   gap: 6px;
+}
+
+.pub-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 18px;
+  padding: 8px 14px;
+  border-radius: 8px;
+  border: 1px solid var(--border-glass-hover);
+  color: var(--accent-cyan);
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+.pub-link:hover {
+  border-color: var(--accent-cyan);
+}
+
+.content-empty,
+.content-error {
+  padding: 20px;
+  border-radius: var(--radius-md);
+  background: var(--bg-card);
+  border: 1px solid var(--border-glass);
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.content-error {
+  color: #fecaca;
+  border-color: rgba(248, 113, 113, 0.35);
 }
 
 /* --- Team --- */

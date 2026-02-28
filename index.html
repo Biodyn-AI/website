@@ -20,6 +20,7 @@
         <li><a href="#methodology">Methodology</a></li>
         <li><a href="#impact">Impact</a></li>
         <li><a href="#portfolio">Portfolio</a></li>
+        <li><a href="#atlases">Atlases</a></li>
         <li><a href="#team">Team</a></li>
         <li><a href="https://github.com/Kendiukhov/bio_foundation_models" target="_blank" rel="noopener" class="nav-cta">GitHub →</a></li>
       </ul>
@@ -269,47 +270,53 @@
           Ranked by scientific leverage, feasibility, and differentiation potential.
         </p>
       </div>
-      <div class="portfolio-list">
-        <div class="portfolio-item reveal reveal-delay-1">
-          <span class="portfolio-rank">#1</span>
-          <div class="portfolio-info">
-            <h3>Causal Interventions vs Attention for GRN Recovery</h3>
-            <p>Multi-tissue benchmark comparing causal interventions against attention-based gene regulatory network extraction, with perturbation validation.</p>
+      <div class="portfolio-list" id="portfolioList" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <!-- Foundation Model Atlases -->
+  <section class="atlases section" id="atlases">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-label">Foundation Model Atlases</span>
+        <h2 class="section-title">Mechanistic interpretability explorations</h2>
+        <p class="section-subtitle">
+          Interactive atlas modules for sparse autoencoder (SAE) feature analysis across Geneformer and scGPT.
+        </p>
+      </div>
+      <div class="pub-grid" aria-live="polite">
+        <article class="pub-card reveal reveal-delay-1">
+          <div class="pub-type">Atlas Module</div>
+          <h3>
+            <a class="pub-title-link" href="https://biodyn-ai.github.io/geneformer-atlas/" target="_blank" rel="noopener">
+              Geneformer Atlas
+            </a>
+          </h3>
+          <p>
+            Interactive SAE mechanistic interpretability exploration for Geneformer, focused on feature-level biological semantics and circuit inspection.
+          </p>
+          <div class="pub-meta">
+            <span>🧠 SAE MechInterp</span>
+            <span>🧬 Geneformer</span>
           </div>
-          <span class="portfolio-status status-active">Active</span>
-        </div>
-        <div class="portfolio-item reveal reveal-delay-2">
-          <span class="portfolio-rank">#2</span>
-          <div class="portfolio-info">
-            <h3>Mechanistic Interpretability → GRN Extraction</h3>
-            <p>Converting internal representations of single-cell transformers into interpretable and verifiable gene regulatory networks.</p>
+          <a class="pub-link" href="https://biodyn-ai.github.io/geneformer-atlas/" target="_blank" rel="noopener">Open atlas</a>
+        </article>
+        <article class="pub-card reveal reveal-delay-2">
+          <div class="pub-type">Atlas Module</div>
+          <h3>
+            <a class="pub-title-link" href="https://biodyn-ai.github.io/scgpt-atlas/" target="_blank" rel="noopener">
+              scGPT Atlas
+            </a>
+          </h3>
+          <p>
+            Interactive SAE mechanistic interpretability exploration for scGPT, including atlas views for feature behavior across biological contexts.
+          </p>
+          <div class="pub-meta">
+            <span>🧠 SAE MechInterp</span>
+            <span>🧬 scGPT</span>
           </div>
-          <span class="portfolio-status status-active">Active</span>
-        </div>
-        <div class="portfolio-item reveal reveal-delay-3">
-          <span class="portfolio-rank">#3</span>
-          <div class="portfolio-info">
-            <h3>Perturbation-to-Network Bridging Benchmark</h3>
-            <p>Standardized benchmark using perturbation-derived edges (Perturb-seq) as functional ground truth for network inference methods.</p>
-          </div>
-          <span class="portfolio-status status-active">Active</span>
-        </div>
-        <div class="portfolio-item reveal reveal-delay-4">
-          <span class="portfolio-rank">#4</span>
-          <div class="portfolio-info">
-            <h3>Evaluation Bias Protocol for GRN Benchmarks</h3>
-            <p>Reproducible evaluation protocol exposing how mapping and candidate-set choices dominate metrics and reverse method rankings.</p>
-          </div>
-          <span class="portfolio-status status-active">Active</span>
-        </div>
-        <div class="portfolio-item reveal reveal-delay-5">
-          <span class="portfolio-rank">#5</span>
-          <div class="portfolio-info">
-            <h3>Multi-omics Alignment & Multimodal Prediction</h3>
-            <p>Unifying representations across scRNA-seq, scATAC-seq, CITE-seq, and spatial transcriptomics with uncertainty-aware integration.</p>
-          </div>
-          <span class="portfolio-status status-watchlist">Watchlist</span>
-        </div>
+          <a class="pub-link" href="https://biodyn-ai.github.io/scgpt-atlas/" target="_blank" rel="noopener">Open atlas</a>
+        </article>
       </div>
     </div>
   </section>
@@ -324,44 +331,7 @@
           Workshop papers, technical reports, and evaluation protocols from our research pipeline.
         </p>
       </div>
-      <div class="pub-grid">
-        <div class="pub-card reveal reveal-delay-1">
-          <div class="pub-type">Workshop Paper Draft</div>
-          <h3>Evaluation Bias in Gene Regulatory Network Benchmarks</h3>
-          <p>Systematic analysis showing how mapping choices and candidate-set construction dominate evaluation metrics, causing ranking reversals across methods and tissues.</p>
-          <div class="pub-meta">
-            <span>📄 In preparation</span>
-            <span>🏷️ Evaluation Protocol</span>
-          </div>
-        </div>
-        <div class="pub-card reveal reveal-delay-2">
-          <div class="pub-type">Technical Report</div>
-          <h3>Causal Interventions for GRN Recovery from scGPT</h3>
-          <p>Comparing ablation-based causal tracing against raw attention extraction for recovering gene regulatory networks across multiple tissues from the Tabula Sapiens atlas.</p>
-          <div class="pub-meta">
-            <span>📄 Internal report</span>
-            <span>🏷️ Mechanistic Interpretability</span>
-          </div>
-        </div>
-        <div class="pub-card reveal reveal-delay-1">
-          <div class="pub-type">Benchmark Suite</div>
-          <h3>Attention Head & Layer Specialization Atlas</h3>
-          <p>Comprehensive cartography of attention head specialization across tissues, revealing tissue-specific top heads with weak cross-tissue overlap and non-random specialization patterns.</p>
-          <div class="pub-meta">
-            <span>📄 Internal report</span>
-            <span>🏷️ Network Inference</span>
-          </div>
-        </div>
-        <div class="pub-card reveal reveal-delay-2">
-          <div class="pub-type">Technical Report</div>
-          <h3>Scaling and Robustness Analysis of Attention-Based GRN Inference</h3>
-          <p>Investigation into why attention-derived network quality degrades with scale — analyzing aggregation policies, robustness variance, and baseline comparisons.</p>
-          <div class="pub-meta">
-            <span>📄 Internal report</span>
-            <span>🏷️ Scaling Analysis</span>
-          </div>
-        </div>
-      </div>
+      <div class="pub-grid" id="articlesList" aria-live="polite"></div>
     </div>
   </section>
 
@@ -402,6 +372,7 @@
         <div class="footer-links">
           <a href="https://github.com/Kendiukhov/bio_foundation_models" target="_blank" rel="noopener">GitHub</a>
           <a href="mailto:kenduhov.ig@gmail.com">Contact</a>
+          <a href="admin.html">Admin</a>
         </div>
       </div>
     </div>

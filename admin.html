@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Biodyn Admin Dashboard</title>
+  <meta name="description" content="Admin dashboard for managing Biodyn website projects and articles.">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div>
+        <h1>Biodyn Admin</h1>
+        <p>Edit projects and research outputs, then publish to GitHub.</p>
+      </div>
+      <div class="topbar-actions">
+        <a href="index.html" class="btn btn-secondary">Open Website</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="layout">
+    <section class="panel">
+      <h2>GitHub Publish Settings</h2>
+      <p class="muted">These values are used to commit updates to <code>content/site-data.json</code>.</p>
+      <div class="grid-2">
+        <label>
+          <span>Owner</span>
+          <input type="text" id="ownerInput" value="Biodyn-AI" autocomplete="off">
+        </label>
+        <label>
+          <span>Repository</span>
+          <input type="text" id="repoInput" value="website" autocomplete="off">
+        </label>
+        <label>
+          <span>Branch</span>
+          <input type="text" id="branchInput" value="main" autocomplete="off">
+        </label>
+        <label>
+          <span>Content Path</span>
+          <input type="text" id="pathInput" value="content/site-data.json" autocomplete="off">
+        </label>
+      </div>
+
+      <label>
+        <span>GitHub Personal Access Token</span>
+        <input type="password" id="tokenInput" autocomplete="off" placeholder="Paste token with contents:write access">
+      </label>
+
+      <label>
+        <span>Commit Message</span>
+        <input type="text" id="messageInput" value="Update website content via admin dashboard" autocomplete="off">
+      </label>
+
+      <div class="action-row">
+        <button type="button" class="btn" id="reloadButton">Reload Local Content</button>
+        <button type="button" class="btn" id="downloadButton">Download JSON Backup</button>
+        <button type="button" class="btn btn-primary" id="publishButton">Publish to GitHub</button>
+      </div>
+
+      <p class="status" id="statusMessage" role="status" aria-live="polite">Ready.</p>
+    </section>
+
+    <section class="panel">
+      <div class="panel-heading">
+        <h2>Active Research Projects</h2>
+        <button type="button" class="btn" id="addProjectButton">+ Add Project</button>
+      </div>
+      <div id="projectsEditor" class="editor-list"></div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-heading">
+        <h2>Articles / Research Outputs</h2>
+        <button type="button" class="btn" id="addArticleButton">+ Add Article</button>
+      </div>
+      <div id="articlesEditor" class="editor-list"></div>
+    </section>
+  </main>
+
+  <script src="admin.js"></script>
+</body>
+</html>
