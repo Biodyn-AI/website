@@ -71,7 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
     info.className = 'portfolio-info';
 
     const title = normalizeText(project.title, `Project ${index + 1}`);
-    const summary = normalizeText(project.summary, 'No summary provided.');
+    const summary = normalizeText(project.summary);
     const url = normalizeText(project.url);
 
     if (url) {
@@ -88,9 +88,11 @@ document.addEventListener('DOMContentLoaded', () => {
       info.appendChild(heading);
     }
 
-    const paragraph = document.createElement('p');
-    paragraph.textContent = summary;
-    info.appendChild(paragraph);
+    if (summary) {
+      const paragraph = document.createElement('p');
+      paragraph.textContent = summary;
+      info.appendChild(paragraph);
+    }
 
     const statusLabel = normalizeStatus(project.status);
     const status = document.createElement('span');

@@ -1,230 +1,230 @@
 {
   "projects": [
     {
-      "title": "subproject_01_causal_intervention_vs_attention",
-      "summary": "Workspace subproject tracked in this repository.",
+      "title": "Causal Intervention Versus Attention",
+      "summary": "",
       "status": "Active",
       "url": ""
     },
     {
-      "title": "subproject_02_evaluation_bias_protocol",
-      "summary": "Workspace subproject tracked in this repository.",
+      "title": "Evaluation Bias Protocol",
+      "summary": "",
       "status": "Active",
       "url": ""
     },
     {
-      "title": "subproject_03_head_layer_specialization_atlas",
-      "summary": "Workspace subproject tracked in this repository.",
+      "title": "Head and Layer Specialization Atlas",
+      "summary": "",
       "status": "Active",
       "url": ""
     },
     {
-      "title": "subproject_04_cross_tissue_probe_threshold_transfer",
-      "summary": "Workspace subproject tracked in this repository.",
+      "title": "Cross-Tissue Probe Threshold Transfer",
+      "summary": "",
       "status": "Active",
       "url": ""
     },
     {
-      "title": "subproject_05_prior_enhanced_signaling_inference",
-      "summary": "Workspace subproject tracked in this repository.",
+      "title": "Prior-Enhanced Signaling Inference",
+      "summary": "",
       "status": "Active",
       "url": ""
     },
     {
-      "title": "subproject_06_scaling_failure_analysis",
-      "summary": "Workspace subproject tracked in this repository.",
+      "title": "Scaling Failure Analysis",
+      "summary": "",
       "status": "Active",
       "url": ""
     },
     {
-      "title": "subproject_07_perturbation_to_network_bridging",
-      "summary": "Workspace subproject tracked in this repository.",
+      "title": "Perturbation-to-Network Bridging",
+      "summary": "",
       "status": "Active",
       "url": ""
     },
     {
-      "title": "subproject_08_attention_failure_meta_study",
-      "summary": "Workspace subproject tracked in this repository.",
+      "title": "Attention Failure Meta-Study",
+      "summary": "",
       "status": "Active",
       "url": ""
     },
     {
-      "title": "subproject_09_causal_mediation_circuit_map",
-      "summary": "Workspace subproject tracked in this repository.",
+      "title": "Causal Mediation Circuit Map",
+      "summary": "",
       "status": "Active",
       "url": ""
     },
     {
-      "title": "subproject_10_identifiability_latent_cell_state_confounding",
-      "summary": "Workspace subproject tracked in this repository.",
+      "title": "Identifiability Under Latent Cell-State Confounding",
+      "summary": "",
       "status": "Active",
       "url": ""
     },
     {
-      "title": "subproject_11_counterfactual_perturbation_consistency",
-      "summary": "Workspace subproject tracked in this repository.",
+      "title": "Counterfactual Perturbation Consistency",
+      "summary": "",
       "status": "Active",
       "url": ""
     },
     {
-      "title": "subproject_20_invariant_causal_edges",
-      "summary": "Workspace subproject tracked in this repository.",
+      "title": "Invariant Causal Edges",
+      "summary": "",
       "status": "Active",
       "url": ""
     },
     {
-      "title": "subproject_21_detectability_phase_diagram",
-      "summary": "Workspace subproject tracked in this repository.",
+      "title": "Detectability Phase Diagram",
+      "summary": "",
       "status": "Active",
       "url": ""
     },
     {
-      "title": "subproject_22_patching_mediation_bias_bounds",
-      "summary": "Workspace subproject tracked in this repository.",
+      "title": "Patching Mediation Bias Bounds",
+      "summary": "",
       "status": "Active",
       "url": ""
     },
     {
-      "title": "subproject_23_mechanistic_robustness_index",
-      "summary": "Workspace subproject tracked in this repository.",
+      "title": "Mechanistic Robustness Index",
+      "summary": "",
       "status": "Active",
       "url": ""
     },
     {
-      "title": "subproject_24_multireference_latent_truth_model",
-      "summary": "Workspace subproject tracked in this repository.",
+      "title": "Multi-Reference Latent Truth Model",
+      "summary": "",
       "status": "Active",
       "url": ""
     },
     {
-      "title": "subproject_25_evaluation_invariance_metrics",
-      "summary": "Workspace subproject tracked in this repository.",
+      "title": "Evaluation Invariance Metrics",
+      "summary": "",
       "status": "Active",
       "url": ""
     },
     {
-      "title": "subproject_26_identifiability_bounds",
-      "summary": "Workspace subproject tracked in this repository.",
+      "title": "Identifiability Bounds",
+      "summary": "",
       "status": "Active",
       "url": ""
     },
     {
-      "title": "subproject_27_agentic_regulatory_network_discovery",
-      "summary": "Workspace subproject tracked in this repository.",
+      "title": "Agentic Regulatory Network Discovery",
+      "summary": "",
       "status": "Active",
       "url": ""
     },
     {
-      "title": "subproject_28_cell_state_conditional_circuits",
-      "summary": "Workspace subproject tracked in this repository.",
+      "title": "Cell-State Conditional Circuits",
+      "summary": "",
       "status": "Active",
       "url": ""
     },
     {
-      "title": "subproject_29_pseudotime_directionality_audit",
-      "summary": "Workspace subproject tracked in this repository.",
+      "title": "Pseudotime Directionality Audit",
+      "summary": "",
       "status": "Active",
       "url": ""
     },
     {
-      "title": "subproject_30_ortholog_transfer_stress_test",
-      "summary": "Workspace subproject tracked in this repository.",
+      "title": "Ortholog Transfer Stress Test",
+      "summary": "",
       "status": "Active",
       "url": ""
     },
     {
-      "title": "subproject_31_uncertainty_calibration_edge_scores",
-      "summary": "Workspace subproject tracked in this repository.",
+      "title": "Uncertainty Calibration for Edge Scores",
+      "summary": "",
       "status": "Active",
       "url": ""
     },
     {
-      "title": "subproject_32_active_perturbation_selection",
-      "summary": "Workspace subproject tracked in this repository.",
+      "title": "Active Perturbation Selection",
+      "summary": "",
       "status": "Active",
       "url": ""
     },
     {
-      "title": "subproject_33_batch_donor_leakage_audit",
-      "summary": "Workspace subproject tracked in this repository.",
+      "title": "Batch and Donor Leakage Audit",
+      "summary": "",
       "status": "Active",
       "url": ""
     },
     {
-      "title": "subproject_34_higher_order_motif_recovery",
-      "summary": "Workspace subproject tracked in this repository.",
+      "title": "Higher-Order Motif Recovery",
+      "summary": "",
       "status": "Active",
       "url": ""
     },
     {
-      "title": "subproject_35_counterfactual_compositional_shift",
-      "summary": "Workspace subproject tracked in this repository.",
+      "title": "Counterfactual Compositional Shift",
+      "summary": "",
       "status": "Active",
       "url": ""
     },
     {
-      "title": "subproject_36_disagreement_typology_consensus",
-      "summary": "Workspace subproject tracked in this repository.",
+      "title": "Disagreement Typology and Consensus",
+      "summary": "",
       "status": "Active",
       "url": ""
     },
     {
-      "title": "subproject_37_clinical_anchored_prioritization",
-      "summary": "Workspace subproject tracked in this repository.",
+      "title": "Clinical-Anchored Prioritization",
+      "summary": "",
       "status": "Active",
       "url": ""
     },
     {
-      "title": "subproject_38_geometric_residual_stream_interpretability",
-      "summary": "Workspace subproject tracked in this repository.",
+      "title": "Geometric Residual Stream Interpretability",
+      "summary": "",
       "status": "Active",
       "url": ""
     },
     {
-      "title": "subproject_39_sparse_dictionary_autoloop",
-      "summary": "Workspace subproject tracked in this repository.",
+      "title": "Sparse Dictionary Autoloop",
+      "summary": "",
       "status": "Active",
       "url": ""
     },
     {
-      "title": "subproject_40_topology_hypothesis_screening_autoloop",
-      "summary": "Workspace subproject tracked in this repository.",
+      "title": "Topology Hypothesis Screening Autoloop",
+      "summary": "",
       "status": "Active",
       "url": ""
     },
     {
-      "title": "subproject_41_claude_topology_hypothesis_screening_autoloop",
-      "summary": "Workspace subproject tracked in this repository.",
+      "title": "Claude Topology Hypothesis Screening Autoloop",
+      "summary": "",
       "status": "Active",
       "url": ""
     },
     {
-      "title": "subproject_42_sparse_autoencoder_biological_map",
-      "summary": "Workspace subproject tracked in this repository.",
+      "title": "Sparse Autoencoder Biological Map",
+      "summary": "",
       "status": "Active",
       "url": ""
     },
     {
-      "title": "subproject_43_general_autoloop_engine",
-      "summary": "Workspace subproject tracked in this repository.",
+      "title": "General Autoloop Engine",
+      "summary": "",
       "status": "Active",
       "url": ""
     },
     {
-      "title": "subproject_44_genformer_polynomial_manifold_interpretability",
-      "summary": "Workspace subproject tracked in this repository.",
+      "title": "Geneformer Polynomial Manifold Interpretability",
+      "summary": "",
       "status": "Active",
       "url": ""
     },
     {
-      "title": "subproject_45_curiosity_driven_bio_mechinterp_autoloop",
-      "summary": "Workspace subproject tracked in this repository.",
+      "title": "Curiosity-Driven Bio MechInterp Autoloop",
+      "summary": "",
       "status": "Active",
       "url": ""
     },
     {
-      "title": "subproject_46_claude_curiosity_driven_bio_mechinterp_autoloop",
-      "summary": "Workspace subproject tracked in this repository.",
+      "title": "Claude Curiosity-Driven Bio MechInterp Autoloop",
+      "summary": "",
       "status": "Active",
       "url": ""
     }
