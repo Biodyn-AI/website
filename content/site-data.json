@@ -265,42 +265,6 @@
       "metaTag": "🏷️ q-bio.GN / q-bio.QM",
       "url": "https://arxiv.org/abs/2504.10239",
       "linkText": "Read on arXiv"
-    },
-    {
-      "type": "Workshop Paper Draft",
-      "title": "Evaluation Bias in Gene Regulatory Network Benchmarks",
-      "summary": "Systematic analysis showing how mapping choices and candidate-set construction dominate evaluation metrics, causing ranking reversals across methods and tissues.",
-      "metaPrimary": "📄 In preparation",
-      "metaTag": "🏷️ Evaluation Protocol",
-      "url": "",
-      "linkText": ""
-    },
-    {
-      "type": "Technical Report",
-      "title": "Causal Interventions for GRN Recovery from scGPT",
-      "summary": "Comparing ablation-based causal tracing against raw attention extraction for recovering gene regulatory networks across multiple tissues from the Tabula Sapiens atlas.",
-      "metaPrimary": "📄 Internal report",
-      "metaTag": "🏷️ Mechanistic Interpretability",
-      "url": "",
-      "linkText": ""
-    },
-    {
-      "type": "Benchmark Suite",
-      "title": "Attention Head & Layer Specialization Atlas",
-      "summary": "Comprehensive cartography of attention head specialization across tissues, revealing tissue-specific top heads with weak cross-tissue overlap and non-random specialization patterns.",
-      "metaPrimary": "📄 Internal report",
-      "metaTag": "🏷️ Network Inference",
-      "url": "",
-      "linkText": ""
-    },
-    {
-      "type": "Technical Report",
-      "title": "Scaling and Robustness Analysis of Attention-Based GRN Inference",
-      "summary": "Investigation into why attention-derived network quality degrades with scale - analyzing aggregation policies, robustness variance, and baseline comparisons.",
-      "metaPrimary": "📄 Internal report",
-      "metaTag": "🏷️ Scaling Analysis",
-      "url": "",
-      "linkText": ""
     }
   ]
 }
