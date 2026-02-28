@@ -232,38 +232,38 @@
   "articles": [
     {
       "type": "arXiv Preprint",
-      "title": "A Comparative Study of Causal Interventions vs. Attention for Extracting Gene Regulatory Networks from scGPT",
-      "summary": "Compares causal interventions and attention-based extraction for recovering gene regulatory networks from scGPT representations.",
+      "title": "What Topological and Geometric Structure Do Biological Foundation Models Learn? Evidence from 141 Hypotheses",
+      "summary": "Autonomous large-scale hypothesis screening investigates which geometric and topological structures emerge in internal representations of scGPT and Geneformer, and how biologically meaningful they are.",
       "metaPrimary": "📄 arXiv:2602.22289",
-      "metaTag": "🏷️ q-bio.QM / cs.LG / q-bio.GN",
+      "metaTag": "🏷️ q-bio.QM cs.LG q-bio.GN",
       "url": "https://arxiv.org/abs/2602.22289",
       "linkText": "Read on arXiv"
     },
     {
       "type": "arXiv Preprint",
-      "title": "A Benchmark Framework for Bridging Perturbation Experiments and Gene Regulatory Network Inference Methods",
-      "summary": "Defines a benchmark that links perturbation experiments with gene regulatory network inference methods for more grounded evaluation.",
-      "metaPrimary": "📄 arXiv:2509.03859",
-      "metaTag": "🏷️ q-bio.QM",
-      "url": "https://arxiv.org/abs/2509.03859",
+      "title": "Multi-Dimensional Spectral Geometry of Biological Knowledge in Single-Cell Transformer Representations",
+      "summary": "Systematic decoding of scGPT internal geometry through automated hypothesis screening reveals structured biological organization in gene representations.",
+      "metaPrimary": "📄 arXiv:2602.22247",
+      "metaTag": "🏷️ q-bio.GN cs.AI cs.LG",
+      "url": "https://arxiv.org/abs/2602.22247",
       "linkText": "Read on arXiv"
     },
     {
       "type": "arXiv Preprint",
-      "title": "Evaluation Bias in Gene Regulatory Network Benchmarks: How Candidate Set Design and Mapping Choices Dominate Method Rankings",
-      "summary": "Analyzes how candidate-set construction and identifier mapping choices can dominate metrics and reverse benchmark rankings.",
-      "metaPrimary": "📄 arXiv:2504.10283",
-      "metaTag": "🏷️ q-bio.GN / cs.AI",
-      "url": "https://arxiv.org/abs/2504.10283",
+      "title": "Systematic Evaluation of Single-Cell Foundation Model Interpretability Reveals Attention Captures Co-Expression Rather Than Unique Regulatory Signal",
+      "summary": "A large evaluation framework across cell types, perturbation modalities, and statistical tests finds attention captures structured biology but largely co-expression rather than unique regulatory signal.",
+      "metaPrimary": "📄 arXiv:2602.17532",
+      "metaTag": "🏷️ q-bio.GN cs.AI",
+      "url": "https://arxiv.org/abs/2602.17532",
       "linkText": "Read on arXiv"
     },
     {
       "type": "arXiv Preprint",
-      "title": "Attention Head Specialization in scGPT: A Multi-Tissue Analysis and Implications for Gene Regulatory Network Inference",
-      "summary": "Studies multi-tissue attention head specialization in scGPT and implications for extracting biologically meaningful regulatory networks.",
-      "metaPrimary": "📄 arXiv:2504.10239",
-      "metaTag": "🏷️ q-bio.GN / q-bio.QM",
-      "url": "https://arxiv.org/abs/2504.10239",
+      "title": "Scaling Laws for Masked-Reconstruction Transformers on Single-Cell Transcriptomics",
+      "summary": "Systematic analysis of scaling behavior for masked-reconstruction transformers on scRNA-seq data, examining power-law relationships between loss, model size, and data.",
+      "metaPrimary": "📄 arXiv:2602.15253",
+      "metaTag": "🏷️ cs.LG q-bio.GN",
+      "url": "https://arxiv.org/abs/2602.15253",
       "linkText": "Read on arXiv"
     }
   ]
