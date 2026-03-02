@@ -2,229 +2,229 @@
   "projects": [
     {
       "title": "Causal Intervention Versus Attention",
-      "summary": "",
+      "summary": "Compares intervention-based causal tracing against attention-derived signals for extracting biologically meaningful regulatory edges.",
       "status": "Active",
       "url": ""
     },
     {
       "title": "Evaluation Bias Protocol",
-      "summary": "",
+      "summary": "Defines a reproducible protocol that quantifies how mapping, candidate sets, and scoring rules distort benchmark conclusions.",
       "status": "Active",
       "url": ""
     },
     {
       "title": "Head and Layer Specialization Atlas",
-      "summary": "",
+      "summary": "Maps where biological signals localize across transformer heads and layers to identify specialization patterns.",
       "status": "Active",
       "url": ""
     },
     {
       "title": "Cross-Tissue Probe Threshold Transfer",
-      "summary": "",
+      "summary": "Tests whether probe thresholds learned in one tissue transfer reliably to others without performance collapse.",
       "status": "Active",
       "url": ""
     },
     {
       "title": "Prior-Enhanced Signaling Inference",
-      "summary": "",
+      "summary": "Injects curated prior knowledge into signaling inference while measuring gains and failure modes.",
       "status": "Active",
       "url": ""
     },
     {
       "title": "Scaling Failure Analysis",
-      "summary": "",
+      "summary": "Analyzes why model and inference quality can degrade with scale across data size, model size, and evaluation settings.",
       "status": "Active",
       "url": ""
     },
     {
       "title": "Perturbation-to-Network Bridging",
-      "summary": "",
+      "summary": "Connects perturb-seq effects to network edges for functionally grounded validation of inferred mechanisms.",
       "status": "Active",
       "url": ""
     },
     {
       "title": "Attention Failure Meta-Study",
-      "summary": "",
+      "summary": "Systematic meta-analysis of attention-based failure cases and the conditions that produce misleading edges.",
       "status": "Active",
       "url": ""
     },
     {
       "title": "Causal Mediation Circuit Map",
-      "summary": "",
+      "summary": "Builds circuit-level mediation maps to separate direct from indirect model pathways behind predictions.",
       "status": "Active",
       "url": ""
     },
     {
       "title": "Identifiability Under Latent Cell-State Confounding",
-      "summary": "",
+      "summary": "Studies when regulatory claims remain identifiable under hidden cell-state confounders.",
       "status": "Active",
       "url": ""
     },
     {
       "title": "Counterfactual Perturbation Consistency",
-      "summary": "",
+      "summary": "Checks whether model behavior remains consistent under counterfactual perturbation scenarios.",
       "status": "Active",
       "url": ""
     },
     {
       "title": "Invariant Causal Edges",
-      "summary": "",
+      "summary": "Finds regulatory edges that remain stable across seeds, tissues, and evaluation choices.",
       "status": "Active",
       "url": ""
     },
     {
       "title": "Detectability Phase Diagram",
-      "summary": "",
+      "summary": "Characterizes where biological effects are detectable versus irrecoverable under noise and sample constraints.",
       "status": "Active",
       "url": ""
     },
     {
       "title": "Patching Mediation Bias Bounds",
-      "summary": "",
+      "summary": "Quantifies bias introduced by activation patching and derives practical bounds for mediation claims.",
       "status": "Active",
       "url": ""
     },
     {
       "title": "Mechanistic Robustness Index",
-      "summary": "",
+      "summary": "Introduces a composite robustness score to compare interpretability methods under realistic shifts.",
       "status": "Active",
       "url": ""
     },
     {
       "title": "Multi-Reference Latent Truth Model",
-      "summary": "",
+      "summary": "Combines multiple imperfect references to estimate latent ground truth for fairer evaluation.",
       "status": "Active",
       "url": ""
     },
     {
       "title": "Evaluation Invariance Metrics",
-      "summary": "",
+      "summary": "Develops metrics that track whether conclusions are invariant to preprocessing and evaluation policy changes.",
       "status": "Active",
       "url": ""
     },
     {
       "title": "Identifiability Bounds",
-      "summary": "",
+      "summary": "Derives empirical bounds on what mechanisms can be identified from available observational and perturbation data.",
       "status": "Active",
       "url": ""
     },
     {
       "title": "Agentic Regulatory Network Discovery",
-      "summary": "",
+      "summary": "Uses coordinated agents to automate hypothesis generation, testing, and network refinement.",
       "status": "Active",
       "url": ""
     },
     {
       "title": "Cell-State Conditional Circuits",
-      "summary": "",
+      "summary": "Discovers circuits that activate conditionally on cell state and developmental context.",
       "status": "Active",
       "url": ""
     },
     {
       "title": "Pseudotime Directionality Audit",
-      "summary": "",
+      "summary": "Audits whether inferred interactions respect pseudotime directionality and lineage progression.",
       "status": "Active",
       "url": ""
     },
     {
       "title": "Ortholog Transfer Stress Test",
-      "summary": "",
+      "summary": "Stress-tests cross-species transfer by evaluating ortholog-based mechanism portability.",
       "status": "Active",
       "url": ""
     },
     {
       "title": "Uncertainty Calibration for Edge Scores",
-      "summary": "",
+      "summary": "Calibrates edge confidence so network scores better match empirical reliability.",
       "status": "Active",
       "url": ""
     },
     {
       "title": "Active Perturbation Selection",
-      "summary": "",
+      "summary": "Selects highest-value perturbations to maximize information gain under fixed experimental budgets.",
       "status": "Active",
       "url": ""
     },
     {
       "title": "Batch and Donor Leakage Audit",
-      "summary": "",
+      "summary": "Detects and mitigates leakage from batch and donor effects in model interpretation pipelines.",
       "status": "Active",
       "url": ""
     },
     {
       "title": "Higher-Order Motif Recovery",
-      "summary": "",
+      "summary": "Recovers multi-gene regulatory motifs beyond pairwise edges from model internals.",
       "status": "Active",
       "url": ""
     },
     {
       "title": "Counterfactual Compositional Shift",
-      "summary": "",
+      "summary": "Evaluates robustness when cell-type composition shifts between training and deployment conditions.",
       "status": "Active",
       "url": ""
     },
     {
       "title": "Disagreement Typology and Consensus",
-      "summary": "",
+      "summary": "Classifies method disagreements and builds consensus strategies for stable conclusions.",
       "status": "Active",
       "url": ""
     },
     {
       "title": "Clinical-Anchored Prioritization",
-      "summary": "",
+      "summary": "Prioritizes hypotheses using clinical relevance constraints alongside mechanistic evidence.",
       "status": "Active",
       "url": ""
     },
     {
       "title": "Geometric Residual Stream Interpretability",
-      "summary": "",
+      "summary": "Interprets residual-stream geometry to identify biologically meaningful representation structure.",
       "status": "Active",
       "url": ""
     },
     {
       "title": "Sparse Dictionary Autoloop",
-      "summary": "",
+      "summary": "Automates sparse dictionary experiments for iterative feature discovery and validation.",
       "status": "Active",
       "url": ""
     },
     {
       "title": "Topology Hypothesis Screening Autoloop",
-      "summary": "",
+      "summary": "Runs automated screening of topological hypotheses about learned representation manifolds.",
       "status": "Active",
       "url": ""
     },
     {
       "title": "Claude Topology Hypothesis Screening Autoloop",
-      "summary": "",
+      "summary": "Parallel autoloop implementation focused on topology hypothesis generation and review.",
       "status": "Active",
       "url": ""
     },
     {
       "title": "Sparse Autoencoder Biological Map",
-      "summary": "",
+      "summary": "Maps sparse autoencoder features to biological functions and pathway-level semantics.",
       "status": "Active",
       "url": ""
     },
     {
       "title": "General Autoloop Engine",
-      "summary": "",
+      "summary": "Reusable engine for orchestrating iterative hypothesis-execution-review research loops.",
       "status": "Active",
       "url": ""
     },
     {
       "title": "Geneformer Polynomial Manifold Interpretability",
-      "summary": "",
+      "summary": "Explores polynomial manifold structure in Geneformer representations for interpretability signals.",
       "status": "Active",
       "url": ""
     },
     {
       "title": "Curiosity-Driven Bio MechInterp Autoloop",
-      "summary": "",
+      "summary": "Curiosity-driven autoloop that proposes and tests novel mechanistic hypotheses in biological models.",
       "status": "Active",
       "url": ""
     },
     {
       "title": "Claude Curiosity-Driven Bio MechInterp Autoloop",
-      "summary": "",
+      "summary": "Claude-based variant of the curiosity autoloop for independent hypothesis exploration.",
       "status": "Active",
       "url": ""
     }
