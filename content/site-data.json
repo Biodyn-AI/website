@@ -232,6 +232,15 @@
   "articles": [
     {
       "type": "arXiv Preprint",
+      "title": "Causal Circuit Tracing Reveals Distinct Computational Architectures in Single-Cell Foundation Models: Inhibitory Dominance, Biological Coherence, and Cross-Model Convergence",
+      "summary": "Introduces causal circuit tracing with SAE feature ablations in Geneformer and scGPT, reporting inhibitory-dominant dynamics, cross-model consensus circuits, and CRISPRi-grounded validation.",
+      "metaPrimary": "📄 arXiv:2603.01752",
+      "metaTag": "🏷️ cs.LG q-bio.CB q-bio.GN",
+      "url": "https://arxiv.org/abs/2603.01752",
+      "linkText": "Read on arXiv"
+    },
+    {
+      "type": "arXiv Preprint",
       "title": "What Topological and Geometric Structure Do Biological Foundation Models Learn? Evidence from 141 Hypotheses",
       "summary": "Autonomous large-scale hypothesis screening investigates which geometric and topological structures emerge in internal representations of scGPT and Geneformer, and how biologically meaningful they are.",
       "metaPrimary": "📄 arXiv:2602.22289",
