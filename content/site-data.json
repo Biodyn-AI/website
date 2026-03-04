@@ -232,6 +232,15 @@
   "articles": [
     {
       "type": "arXiv Preprint",
+      "title": "Sparse autoencoders reveal organized biological knowledge but minimal regulatory logic in single-cell foundation models: a comparative atlas of Geneformer and scGPT",
+      "summary": "Comprehensive SAE atlases across Geneformer and scGPT show rich biological organization and modular structure, while CRISPRi validation indicates limited causal regulatory logic encoding.",
+      "metaPrimary": "📄 arXiv:2603.02952",
+      "metaTag": "🏷️ q-bio.GN cs.LG q-bio.CB",
+      "url": "https://arxiv.org/abs/2603.02952",
+      "linkText": "Read on arXiv"
+    },
+    {
+      "type": "arXiv Preprint",
       "title": "Causal Circuit Tracing Reveals Distinct Computational Architectures in Single-Cell Foundation Models: Inhibitory Dominance, Biological Coherence, and Cross-Model Convergence",
       "summary": "Introduces causal circuit tracing with SAE feature ablations in Geneformer and scGPT, reporting inhibitory-dominant dynamics, cross-model consensus circuits, and CRISPRi-grounded validation.",
       "metaPrimary": "📄 arXiv:2603.01752",
