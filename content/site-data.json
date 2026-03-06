@@ -232,6 +232,24 @@
   "articles": [
     {
       "type": "arXiv Preprint",
+      "title": "Quantifying Ranking Instability Across Evaluation Protocol Axes in Gene Regulatory Network Benchmarking",
+      "summary": "Introduces a diagnostic framework for ranking instability in GRN benchmarks and quantifies reversal risk across candidate sets, tissue context, and reference network choices.",
+      "metaPrimary": "📄 arXiv:2603.03493",
+      "metaTag": "🏷️ q-bio.MN cs.LG",
+      "url": "https://arxiv.org/abs/2603.03493",
+      "linkText": "Read on arXiv"
+    },
+    {
+      "type": "SSRN Preprint",
+      "title": "Sparse Autoencoders Reveal Interpretable Cell-Type Programs in Single-Cell Foundation Model Representations",
+      "summary": "Applies sparse autoencoders to scGPT residual activations and shows interpretable, biologically coherent feature programs with domain-specific sparsity calibration requirements.",
+      "metaPrimary": "📄 SSRN: 6304512",
+      "metaTag": "🏷️ Mechanistic Interpretability",
+      "url": "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6304512",
+      "linkText": "Read on SSRN"
+    },
+    {
+      "type": "arXiv Preprint",
       "title": "Sparse autoencoders reveal organized biological knowledge but minimal regulatory logic in single-cell foundation models: a comparative atlas of Geneformer and scGPT",
       "summary": "Comprehensive SAE atlases across Geneformer and scGPT show rich biological organization and modular structure, while CRISPRi validation indicates limited causal regulatory logic encoding.",
       "metaPrimary": "📄 arXiv:2603.02952",
