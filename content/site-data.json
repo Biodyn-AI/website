@@ -232,6 +232,15 @@
   "articles": [
     {
       "type": "arXiv Preprint",
+      "title": "Discovery of a Hematopoietic Manifold in scGPT Yields a Method for Extracting Performant Algorithms from Biological Foundation Model Internals",
+      "summary": "Reports a compact hematopoietic algorithm extracted from scGPT internals, with strong donor-holdout performance, large efficiency gains, and interpretable core factors aligned to hematopoietic gene programs.",
+      "metaPrimary": "📄 arXiv:2603.10261",
+      "metaTag": "🏷️ cs.LG q-bio.CB q-bio.GN",
+      "url": "https://arxiv.org/abs/2603.10261",
+      "linkText": "Read on arXiv"
+    },
+    {
+      "type": "arXiv Preprint",
       "title": "Quantifying Ranking Instability Across Evaluation Protocol Axes in Gene Regulatory Network Benchmarking",
       "summary": "Introduces a diagnostic framework for ranking instability in GRN benchmarks and quantifies reversal risk across candidate sets, tissue context, and reference network choices.",
       "metaPrimary": "📄 arXiv:2603.03493",
