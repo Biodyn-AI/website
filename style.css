@@ -901,6 +901,206 @@ a:hover {
   gap: 14px;
 }
 
+/* --- Blog --- */
+.blog-posts {
+  background: var(--bg-secondary);
+}
+
+.blog-feature-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  gap: 32px;
+  align-items: stretch;
+  padding: 32px;
+  background: var(--gradient-card);
+  border: 1px solid var(--border-glass);
+  border-radius: var(--radius-xl);
+  backdrop-filter: blur(12px);
+  transition: all var(--transition-medium);
+}
+
+.blog-feature-card:hover {
+  border-color: var(--border-glass-hover);
+  transform: translateY(-3px);
+  box-shadow: var(--card-shadow-hover);
+}
+
+.blog-feature-media {
+  display: block;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--border-glass);
+  background: var(--bg-card);
+}
+
+.blog-feature-media img {
+  width: 100%;
+  height: 100%;
+  min-height: 320px;
+  object-fit: cover;
+  transition: transform var(--transition-slow);
+}
+
+.blog-feature-card:hover .blog-feature-media img {
+  transform: scale(1.02);
+}
+
+.blog-feature-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.blog-feature-content h3 {
+  font-family: var(--font-heading);
+  font-size: clamp(1.5rem, 2.6vw, 2.1rem);
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 16px;
+}
+
+.blog-feature-content p {
+  font-size: 1rem;
+  line-height: 1.8;
+  margin-bottom: 22px;
+}
+
+/* --- Article Page --- */
+.article-page {
+  background: var(--bg-secondary);
+  padding-top: 180px;
+}
+
+.article-layout {
+  max-width: 920px;
+}
+
+.article-header {
+  margin-bottom: 28px;
+}
+
+.article-header h1 {
+  font-family: var(--font-heading);
+  font-size: clamp(2.6rem, 5vw, 4.4rem);
+  font-weight: 800;
+  line-height: 1.05;
+  color: var(--text-heading);
+  letter-spacing: -1.5px;
+  margin-bottom: 20px;
+}
+
+.article-summary {
+  max-width: 760px;
+  font-size: 1.08rem;
+  color: var(--text-secondary);
+  line-height: 1.85;
+}
+
+.article-meta {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.article-meta span {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--accent-cyan);
+  background: rgba(0, 212, 255, 0.08);
+  border: 1px solid rgba(0, 212, 255, 0.14);
+}
+
+.article-cover {
+  width: 100%;
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--border-glass);
+  margin-bottom: 36px;
+  box-shadow: var(--card-shadow-hover);
+}
+
+.article-prose {
+  padding: 48px;
+  background: var(--gradient-card);
+  border: 1px solid var(--border-glass);
+  border-radius: var(--radius-xl);
+  backdrop-filter: blur(12px);
+}
+
+.article-prose h1 {
+  display: none;
+}
+
+.article-prose h2,
+.article-prose h3,
+.article-prose h4 {
+  font-family: var(--font-heading);
+  color: var(--text-heading);
+  line-height: 1.25;
+}
+
+.article-prose h2 {
+  font-size: 1.8rem;
+  margin: 44px 0 18px;
+}
+
+.article-prose h3 {
+  font-size: 1.25rem;
+  margin: 32px 0 14px;
+}
+
+.article-prose p,
+.article-prose li {
+  color: var(--text-secondary);
+  font-size: 1rem;
+  line-height: 1.9;
+}
+
+.article-prose p,
+.article-prose ul,
+.article-prose ol,
+.article-prose blockquote {
+  margin-bottom: 20px;
+}
+
+.article-prose ul,
+.article-prose ol {
+  padding-left: 24px;
+}
+
+.article-prose li + li {
+  margin-top: 10px;
+}
+
+.article-prose strong {
+  color: var(--text-primary);
+}
+
+.article-prose a {
+  color: var(--accent-cyan);
+}
+
+.article-prose blockquote {
+  padding: 24px 28px;
+  border-left: 3px solid var(--accent-cyan);
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  background: rgba(0, 212, 255, 0.05);
+}
+
+.article-prose em {
+  color: var(--text-primary);
+}
+
+.article-prose > *:first-child {
+  margin-top: 0;
+}
+
 /* --- Portfolio --- */
 .portfolio {
   background: var(--bg-secondary);
@@ -1298,6 +1498,10 @@ a:hover {
     flex-direction: column;
     align-items: flex-start;
   }
+
+  .blog-feature-card {
+    grid-template-columns: 1fr;
+  }
 }
 
 @media (max-width: 768px) {
@@ -1371,6 +1575,18 @@ a:hover {
 
   .portfolio-page-hero {
     padding-top: 140px;
+  }
+
+  .article-page {
+    padding-top: 140px;
+  }
+
+  .article-header h1 {
+    letter-spacing: -1px;
+  }
+
+  .article-prose {
+    padding: 32px 24px;
   }
 }
 

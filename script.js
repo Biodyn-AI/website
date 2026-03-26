@@ -2,7 +2,7 @@
    BIODYN — Interactive Scripts
    ======================================== */
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
   const DATA_URL = 'content/site-data.json';
   const THEME_STORAGE_KEY = 'biodyn-theme';
 
@@ -242,14 +242,36 @@ document.addEventListener('DOMContentLoaded', () => {
       const data = await response.json();
       renderProjects(data.projects);
       renderArticles(data.articles);
+      return data;
     } catch (error) {
       console.error('Content loading error:', error);
       renderLoadError();
+      return null;
     }
   };
 
+  const updateHeroStats = (data) => {
+    const statValues = {
+      tracks: document.querySelectorAll('.research-grid .research-card').length,
+      projects: Array.isArray(data?.projects)
+        ? data.projects.filter((project) => normalizeStatus(project.status).toLowerCase() === 'active').length
+        : null,
+      articles: Array.isArray(data?.articles) ? data.articles.length : null,
+      atlases: document.querySelectorAll('#atlases .pub-card').length
+    };
+
+    document.querySelectorAll('.hero-stat h3[data-stat]').forEach((element) => {
+      const key = element.dataset.stat;
+      const value = statValues[key];
+
+      if (typeof value === 'number' && value > 0) {
+        element.textContent = String(value);
+      }
+    });
+  };
+
   observeReveals(document);
-  loadSiteData();
+  const siteDataPromise = loadSiteData();
 
   // --- Theme Toggle ---
   const root = document.documentElement;
@@ -352,6 +374,9 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // --- Animated Stat Counters ---
+  const siteData = await siteDataPromise;
+  updateHeroStats(siteData);
+
   const statElements = document.querySelectorAll('.hero-stat h3');
   let statsAnimated = false;
 
