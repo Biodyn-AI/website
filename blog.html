@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Biodyn Portfolio — Active Research Projects</title>
-  <meta name="description" content="Detailed portfolio of active Biodyn research projects with annotated descriptions.">
+  <title>Biodyn Blog — Research Outputs and Articles</title>
+  <meta name="description" content="Biodyn blog and research archive featuring preprints, papers, and public research outputs.">
   <script>
     (() => {
       const storedTheme = localStorage.getItem('biodyn-theme');
@@ -21,7 +21,6 @@
 </head>
 <body>
 
-  <!-- Navigation -->
   <nav class="nav" id="nav">
     <div class="container">
       <a href="index.html" class="nav-logo">Biodyn</a>
@@ -33,8 +32,8 @@
         <li><a href="index.html#atlases">Atlases</a></li>
         <li><a href="index.html#publications">Research Outputs</a></li>
         <li><a href="index.html#team">Team</a></li>
-        <li><a href="blog.html">Blog</a></li>
-        <li><a href="portfolio.html" class="nav-current">Portfolio</a></li>
+        <li><a href="blog.html" class="nav-current">Blog</a></li>
+        <li><a href="portfolio.html">Portfolio</a></li>
         <li>
           <button type="button" class="theme-toggle" id="themeToggle" aria-label="Toggle color theme">
             Theme
@@ -50,32 +49,29 @@
     </div>
   </nav>
 
-  <!-- Portfolio Hero -->
-  <section class="portfolio-page-hero section" id="portfolioHero">
+  <section class="portfolio-page-hero blog-page-hero section" id="blogHero">
     <div class="mesh-bg"></div>
     <div class="container">
       <div class="section-header reveal">
-        <span class="section-label">Portfolio</span>
-        <h1 class="section-title">Active research projects</h1>
+        <span class="section-label">Blog</span>
+        <h1 class="section-title">Research outputs and articles</h1>
         <p class="section-subtitle">
-          Detailed catalog of current Biodyn projects, each with a short annotation and status.
+          Public archive of Biodyn preprints, papers, and research articles across mechanistic interpretability, biological foundation models, and evaluation.
         </p>
       </div>
       <div class="portfolio-page-actions reveal reveal-delay-1">
         <a href="index.html" class="btn-secondary">← Back to Main Page</a>
-        <a href="blog.html" class="btn-primary">View Blog</a>
+        <a href="portfolio.html" class="btn-primary">View Portfolio</a>
       </div>
     </div>
   </section>
 
-  <!-- Portfolio List -->
-  <section class="portfolio section" id="portfolioCatalog">
+  <section class="publications section" id="blogArticles">
     <div class="container">
-      <div class="portfolio-list" id="portfolioList" aria-live="polite"></div>
+      <div class="pub-grid" id="articlesList" aria-live="polite"></div>
     </div>
   </section>
 
-  <!-- Footer -->
   <footer class="footer">
     <div class="container">
       <div class="footer-content">
@@ -83,7 +79,7 @@
         <span class="footer-text">© 2025 Biodyn Research Project. All rights reserved.</span>
         <div class="footer-links">
           <a href="index.html">Home</a>
-          <a href="blog.html">Blog</a>
+          <a href="portfolio.html">Portfolio</a>
           <a href="https://github.com/orgs/Biodyn-AI/repositories" target="_blank" rel="noopener">GitHub</a>
           <a href="mailto:kenduhov.ig@gmail.com">Contact</a>
         </div>

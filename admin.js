@@ -44,8 +44,8 @@ const createDefaultArticle = () => ({
   type: 'Technical Report',
   title: '',
   summary: '',
-  metaPrimary: '📄 Draft',
-  metaTag: '🏷️ Research',
+  metaPrimary: 'Draft',
+  metaTag: 'Research',
   url: '',
   linkText: 'Read article'
 });
@@ -81,8 +81,8 @@ const normalizeData = (rawData) => {
       type: normalizeText(article.type, 'Technical Report'),
       title: normalizeText(article.title),
       summary: normalizeText(article.summary),
-      metaPrimary: normalizeText(article.metaPrimary, '📄 Draft'),
-      metaTag: normalizeText(article.metaTag, '🏷️ Research'),
+      metaPrimary: normalizeText(article.metaPrimary, 'Draft'),
+      metaTag: normalizeText(article.metaTag, 'Research'),
       url: normalizeText(article.url),
       linkText: normalizeText(article.linkText, 'Read article')
     }))
@@ -339,7 +339,7 @@ const renderArticles = () => {
     metaGrid.appendChild(createInput({
       label: 'Meta (left)',
       value: article.metaPrimary,
-      placeholder: '📄 In preparation',
+      placeholder: 'In preparation',
       onChange: (newValue) => {
         article.metaPrimary = newValue;
       }
@@ -348,7 +348,7 @@ const renderArticles = () => {
     metaGrid.appendChild(createInput({
       label: 'Meta (right)',
       value: article.metaTag,
-      placeholder: '🏷️ Evaluation Protocol',
+      placeholder: 'Evaluation Protocol',
       onChange: (newValue) => {
         article.metaTag = newValue;
       }

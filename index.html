@@ -5,6 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Biodyn — Mechanistic Interpretability for Biological Foundation Models</title>
   <meta name="description" content="Biodyn is a research project applying mechanistic interpretability to biological foundation models, enabling causal understanding of gene regulatory networks and perturbation responses.">
+  <script>
+    (() => {
+      const storedTheme = localStorage.getItem('biodyn-theme');
+      const systemPrefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+      const theme = storedTheme === 'light' || storedTheme === 'dark'
+        ? storedTheme
+        : (systemPrefersLight ? 'light' : 'dark');
+
+      document.documentElement.dataset.theme = theme;
+    })();
+  </script>
   <link rel="stylesheet" href="style.css">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
 </head>
@@ -22,7 +33,13 @@
         <li><a href="#atlases">Atlases</a></li>
         <li><a href="#publications">Research Outputs</a></li>
         <li><a href="#team">Team</a></li>
+        <li><a href="blog.html">Blog</a></li>
         <li><a href="portfolio.html">Portfolio</a></li>
+        <li>
+          <button type="button" class="theme-toggle" id="themeToggle" aria-label="Toggle color theme">
+            Theme
+          </button>
+        </li>
         <li><a href="https://github.com/orgs/Biodyn-AI/repositories" target="_blank" rel="noopener" class="nav-cta">GitHub →</a></li>
       </ul>
       <div class="hamburger" id="hamburger">
@@ -38,7 +55,6 @@
     <div class="mesh-bg"></div>
     <div class="container">
       <div class="hero-content">
-        <div class="hero-badge">Research Project</div>
         <h1>
           Understanding biology's<br>
           <span class="gradient-text">foundation models</span>
@@ -92,17 +108,17 @@
         <div class="vision-visual reveal reveal-delay-2">
           <div class="vision-card-stack">
             <div class="vision-stat-card">
-              <div class="icon">🧬</div>
+              <div class="icon">Principle 01</div>
               <h4>Beyond Black Boxes</h4>
               <p>We open the hood of foundation models to find biologically meaningful circuits — gene programs, pathways, and cell-state representations.</p>
             </div>
             <div class="vision-stat-card">
-              <div class="icon">🔬</div>
+              <div class="icon">Principle 02</div>
               <h4>Causal, Not Correlational</h4>
               <p>Every interpretability claim must survive causal intervention tests. We ablate, patch, and perturb to verify mechanistic hypotheses.</p>
             </div>
             <div class="vision-stat-card">
-              <div class="icon">⚡</div>
+              <div class="icon">Principle 03</div>
               <h4>Automation as Advantage</h4>
               <p>Every solved research step becomes reusable infrastructure, compounding our R&D velocity across projects.</p>
             </div>
@@ -124,7 +140,7 @@
       </div>
       <div class="research-grid">
         <div class="research-card reveal reveal-delay-1" style="--card-accent: linear-gradient(135deg, #00d4ff, #00a0e0)">
-          <div class="card-icon">🧠</div>
+          <div class="card-icon">Track 01</div>
           <h3>Mechanistic Interpretability</h3>
           <p>
             Convert black-box single-cell foundation models into mechanistically understood systems. We use representation probes, sparse autoencoders, activation patching, and targeted ablations to identify gene programs, pathways, and cell-state circuits within transformer models — with causal verification at every step.
@@ -137,7 +153,7 @@
           </div>
         </div>
         <div class="research-card reveal reveal-delay-2" style="--card-accent: linear-gradient(135deg, #7c5cfc, #a78bfa)">
-          <div class="card-icon">🕸️</div>
+          <div class="card-icon">Track 02</div>
           <h3>Biological Network Inference</h3>
           <p>
             Build and benchmark gene regulatory network (GRN) and signaling inference pipelines from single-cell data. We extract attention-based interaction scores, calibrate against ground-truth databases (TRRUST, DoRothEA), and produce versioned, queryable network objects for downstream analysis.
@@ -149,7 +165,7 @@
           </div>
         </div>
         <div class="research-card reveal reveal-delay-3" style="--card-accent: linear-gradient(135deg, #00c9a7, #00e0b8)">
-          <div class="card-icon">💊</div>
+          <div class="card-icon">Track 03</div>
           <h3>Perturbation Modeling</h3>
           <p>
             Predict cellular responses to CRISPR knockouts, drug treatments, and genetic perturbations across cell types and doses. We use perturbation-derived edges from Perturb-seq experiments as ground truth to validate model predictions and build perturbation-to-network benchmarks.
@@ -161,7 +177,7 @@
           </div>
         </div>
         <div class="research-card reveal reveal-delay-4" style="--card-accent: linear-gradient(135deg, #f472b6, #fb7185)">
-          <div class="card-icon">🤖</div>
+          <div class="card-icon">Track 04</div>
           <h3>Agentic R&D Automation</h3>
           <p>
             Automate the entire research loop — from data ingestion and quality control to experiment design, execution, evaluation, and reporting. Coordinated AI agents handle the repetitive work while humans provide scientific steering and strategic direction.
@@ -233,17 +249,17 @@
       </div>
       <div class="why-grid">
         <div class="why-card reveal reveal-delay-1">
-          <div class="why-icon">🎯</div>
+          <div class="why-icon">Priority 01</div>
           <h3>Drug Target Discovery</h3>
           <p>Understanding which internal model features correspond to real gene regulatory mechanisms enables principled identification of drug targets — grounded in causal evidence rather than statistical correlation.</p>
         </div>
         <div class="why-card reveal reveal-delay-2">
-          <div class="why-icon">🧪</div>
+          <div class="why-icon">Priority 02</div>
           <h3>Scientific Rigor</h3>
           <p>Biology demands explanations that survive falsification. Our causal intervention framework — ablation, patching, perturbation validation — ensures mechanistic claims are testable and reproducible, not just pattern-matching.</p>
         </div>
         <div class="why-card reveal reveal-delay-3">
-          <div class="why-icon">📊</div>
+          <div class="why-icon">Priority 03</div>
           <h3>Evaluation Integrity</h3>
           <p>Current benchmarks are brittle: mapping and candidate-set choices dominate metrics, causing misleading ranking reversals. Our evaluation bias protocols expose and correct these hidden confounds.</p>
         </div>
@@ -302,8 +318,8 @@
             Interactive SAE mechanistic interpretability exploration for Geneformer, focused on feature-level biological semantics and circuit inspection.
           </p>
           <div class="pub-meta">
-            <span>🧠 SAE MechInterp</span>
-            <span>🧬 Geneformer</span>
+            <span>SAE Mechanistic Interpretability</span>
+            <span>Model: Geneformer</span>
           </div>
           <a class="pub-link" href="https://biodyn-ai.github.io/geneformer-atlas/" target="_blank" rel="noopener">Open atlas</a>
         </article>
@@ -318,8 +334,8 @@
             Interactive SAE mechanistic interpretability exploration for scGPT, including atlas views for feature behavior across biological contexts.
           </p>
           <div class="pub-meta">
-            <span>🧠 SAE MechInterp</span>
-            <span>🧬 scGPT</span>
+            <span>SAE Mechanistic Interpretability</span>
+            <span>Model: scGPT</span>
           </div>
           <a class="pub-link" href="https://biodyn-ai.github.io/scgpt-atlas/" target="_blank" rel="noopener">Open atlas</a>
         </article>
@@ -334,10 +350,13 @@
         <span class="section-label">Publications & Reports</span>
         <h2 class="section-title">Research outputs</h2>
         <p class="section-subtitle">
-          Workshop papers, technical reports, and evaluation protocols from our research pipeline.
+          Preprints, papers, and public research outputs from the Biodyn pipeline.
         </p>
       </div>
       <div class="pub-grid" id="articlesList" aria-live="polite"></div>
+      <div class="section-actions reveal reveal-delay-1">
+        <a href="blog.html" class="btn-secondary">Open Blog Page →</a>
+      </div>
     </div>
   </section>
 
@@ -362,7 +381,7 @@
             GitHub
           </a>
           <a href="mailto:kenduhov.ig@gmail.com" class="team-link">
-            ✉️ Email
+            Email
           </a>
         </div>
       </div>
@@ -376,6 +395,8 @@
         <span class="footer-logo">Biodyn</span>
         <span class="footer-text">© 2025 Biodyn Research Project. All rights reserved.</span>
         <div class="footer-links">
+          <a href="blog.html">Blog</a>
+          <a href="portfolio.html">Portfolio</a>
           <a href="https://github.com/orgs/Biodyn-AI/repositories" target="_blank" rel="noopener">GitHub</a>
           <a href="mailto:kenduhov.ig@gmail.com">Contact</a>
           <a href="admin.html">Admin</a>

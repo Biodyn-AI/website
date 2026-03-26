@@ -4,9 +4,11 @@
 
 document.addEventListener('DOMContentLoaded', () => {
   const DATA_URL = 'content/site-data.json';
+  const THEME_STORAGE_KEY = 'biodyn-theme';
 
   const portfolioList = document.getElementById('portfolioList');
   const articlesList = document.getElementById('articlesList');
+  const themeToggle = document.getElementById('themeToggle');
 
   const revealObserver = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
@@ -36,6 +38,11 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   const normalizeStatus = (value) => normalizeText(value, 'Active');
+
+  const normalizeMetaText = (value, fallback = '') => {
+    const normalized = normalizeText(value, fallback);
+    return normalized.replace(/^[^A-Za-z0-9]+/, '').trim();
+  };
 
   const statusClassFromLabel = (statusLabel) => {
     const status = statusLabel.toLowerCase();
@@ -140,10 +147,10 @@ document.addEventListener('DOMContentLoaded', () => {
     meta.className = 'pub-meta';
 
     const primary = document.createElement('span');
-    primary.textContent = normalizeText(article.metaPrimary, '📄 Draft');
+    primary.textContent = normalizeMetaText(article.metaPrimary, 'Draft');
 
     const tag = document.createElement('span');
-    tag.textContent = normalizeText(article.metaTag, '🏷️ Research');
+    tag.textContent = normalizeMetaText(article.metaTag, 'Research');
 
     meta.append(primary, tag);
 
@@ -243,6 +250,57 @@ document.addEventListener('DOMContentLoaded', () => {
 
   observeReveals(document);
   loadSiteData();
+
+  // --- Theme Toggle ---
+  const root = document.documentElement;
+  const systemThemeQuery = window.matchMedia('(prefers-color-scheme: light)');
+
+  const getSystemTheme = () => (systemThemeQuery.matches ? 'light' : 'dark');
+
+  const getStoredTheme = () => {
+    const storedTheme = normalizeText(localStorage.getItem(THEME_STORAGE_KEY));
+    return storedTheme === 'light' || storedTheme === 'dark' ? storedTheme : '';
+  };
+
+  const updateThemeToggle = (theme) => {
+    if (!themeToggle) {
+      return;
+    }
+
+    const nextTheme = theme === 'light' ? 'dark' : 'light';
+    themeToggle.textContent = theme === 'light' ? 'Dark mode' : 'Light mode';
+    themeToggle.setAttribute('aria-label', `Switch to ${nextTheme} mode`);
+    themeToggle.setAttribute('aria-pressed', String(theme === 'light'));
+  };
+
+  const applyTheme = (theme) => {
+    root.dataset.theme = theme;
+    updateThemeToggle(theme);
+  };
+
+  applyTheme(getStoredTheme() || getSystemTheme());
+
+  if (themeToggle) {
+    themeToggle.addEventListener('click', () => {
+      const currentTheme = root.dataset.theme === 'light' ? 'light' : 'dark';
+      const nextTheme = currentTheme === 'light' ? 'dark' : 'light';
+
+      localStorage.setItem(THEME_STORAGE_KEY, nextTheme);
+      applyTheme(nextTheme);
+    });
+  }
+
+  const handleSystemThemeChange = (event) => {
+    if (!getStoredTheme()) {
+      applyTheme(event.matches ? 'light' : 'dark');
+    }
+  };
+
+  if (typeof systemThemeQuery.addEventListener === 'function') {
+    systemThemeQuery.addEventListener('change', handleSystemThemeChange);
+  } else if (typeof systemThemeQuery.addListener === 'function') {
+    systemThemeQuery.addListener(handleSystemThemeChange);
+  }
 
   // --- Nav Scroll Effect ---
   const nav = document.getElementById('nav');
