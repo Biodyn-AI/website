@@ -1323,6 +1323,83 @@ a:hover {
   margin-top: 32px;
 }
 
+/* --- Collaborations --- */
+.collaborations {
+  background: var(--bg-secondary);
+}
+
+.collab-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.collab-group {
+  padding: 32px;
+  background: var(--gradient-card);
+  border: 1px solid var(--border-glass);
+  border-radius: var(--radius-xl);
+  backdrop-filter: blur(12px);
+}
+
+.collab-group-header {
+  margin-bottom: 24px;
+}
+
+.collab-group-header h3 {
+  font-family: var(--font-heading);
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--text-heading);
+  margin-bottom: 10px;
+}
+
+.collab-group-header p {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  line-height: 1.75;
+}
+
+.collab-list {
+  display: grid;
+  gap: 18px;
+}
+
+.collab-card {
+  padding: 28px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-glass);
+  border-radius: var(--radius-lg);
+  transition: all var(--transition-medium);
+}
+
+.collab-card:hover {
+  border-color: var(--border-glass-hover);
+  transform: translateY(-2px);
+}
+
+.collab-card h3 {
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--text-heading);
+  margin-bottom: 12px;
+  line-height: 1.35;
+}
+
+.collab-card p {
+  color: var(--text-secondary);
+  font-size: 0.92rem;
+  line-height: 1.75;
+  margin-bottom: 18px;
+}
+
+.collab-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
 .content-empty,
 .content-error {
   padding: 20px;
@@ -1524,6 +1601,10 @@ a:hover {
       "media"
       "top"
       "bottom";
+  }
+
+  .collab-grid {
+    grid-template-columns: 1fr;
   }
 }
 
