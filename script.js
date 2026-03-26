@@ -324,6 +324,18 @@ document.addEventListener('DOMContentLoaded', async () => {
     systemThemeQuery.addListener(handleSystemThemeChange);
   }
 
+  // --- Article Links ---
+  document.querySelectorAll('.article-summary a[href], .article-prose a[href]').forEach((link) => {
+    const href = normalizeText(link.getAttribute('href'));
+
+    if (!href || href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('tel:')) {
+      return;
+    }
+
+    link.target = '_blank';
+    link.rel = 'noopener noreferrer';
+  });
+
   // --- Nav Scroll Effect ---
   const nav = document.getElementById('nav');
 

@@ -908,7 +908,10 @@ a:hover {
 
 .blog-feature-card {
   display: grid;
-  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  grid-template-areas:
+    "media top"
+    "bottom bottom";
   gap: 32px;
   align-items: start;
   padding: 32px;
@@ -927,6 +930,7 @@ a:hover {
 
 .blog-feature-media {
   display: block;
+  grid-area: media;
   border-radius: var(--radius-lg);
   overflow: hidden;
   border: 1px solid var(--border-glass);
@@ -945,24 +949,38 @@ a:hover {
   transform: scale(1.02);
 }
 
-.blog-feature-content {
+.blog-feature-top {
+  grid-area: top;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
+  align-self: start;
 }
 
-.blog-feature-content h3 {
+.blog-feature-top h3 {
   font-family: var(--font-heading);
   font-size: clamp(1.5rem, 2.6vw, 2.1rem);
   font-weight: 700;
   line-height: 1.2;
-  margin-bottom: 16px;
+  margin-bottom: 0;
 }
 
-.blog-feature-content p {
+.blog-feature-bottom {
+  grid-area: bottom;
+}
+
+.blog-feature-bottom p {
   font-size: 1rem;
   line-height: 1.8;
   margin-bottom: 22px;
+}
+
+.blog-feature-bottom .pub-meta {
+  margin-bottom: 18px;
+}
+
+.blog-feature-bottom .pub-link {
+  margin-top: 0;
 }
 
 /* --- Article Page --- */
@@ -1502,6 +1520,10 @@ a:hover {
 
   .blog-feature-card {
     grid-template-columns: 1fr;
+    grid-template-areas:
+      "media"
+      "top"
+      "bottom";
   }
 }
 
