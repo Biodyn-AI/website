@@ -906,6 +906,11 @@ a:hover {
   background: var(--bg-secondary);
 }
 
+.blog-posts .container {
+  display: grid;
+  gap: 28px;
+}
+
 .blog-feature-card {
   display: grid;
   grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);

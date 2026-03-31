@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Eight Ways Mechanistic Interpretability Can Drive Scientific Discovery in Biology - Biodyn Blog</title>
+  <meta name="description" content="A framework for turning biological foundation model internals into concrete scientific deliverables, from biomarkers and GRN hypotheses to extracted algorithms and experimental design.">
+  <link rel="canonical" href="https://biodynai.com/eight-ways-mechanistic-interpretability.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Biodyn">
+  <meta property="og:url" content="https://biodynai.com/eight-ways-mechanistic-interpretability.html">
+  <meta property="og:title" content="Eight Ways Mechanistic Interpretability Can Drive Scientific Discovery in Biology - Biodyn Blog">
+  <meta property="og:description" content="A framework for turning biological foundation model internals into concrete scientific deliverables, from biomarkers and GRN hypotheses to extracted algorithms and experimental design.">
+  <meta property="og:image" content="https://biodynai.com/content/eight-ways-cover.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1536">
+  <meta property="og:image:height" content="1024">
+  <meta property="og:image:alt" content="Cover image for Eight Ways Mechanistic Interpretability Can Drive Scientific Discovery in Biology">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Eight Ways Mechanistic Interpretability Can Drive Scientific Discovery in Biology - Biodyn Blog">
+  <meta name="twitter:description" content="A framework for turning biological foundation model internals into concrete scientific deliverables, from biomarkers and GRN hypotheses to extracted algorithms and experimental design.">
+  <meta name="twitter:image" content="https://biodynai.com/content/eight-ways-cover.png">
+  <meta name="twitter:image:alt" content="Cover image for Eight Ways Mechanistic Interpretability Can Drive Scientific Discovery in Biology">
+  <script>
+    (() => {
+      const storedTheme = localStorage.getItem('biodyn-theme');
+      const systemPrefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+      const theme = storedTheme === 'light' || storedTheme === 'dark'
+        ? storedTheme
+        : (systemPrefersLight ? 'light' : 'dark');
+
+      document.documentElement.dataset.theme = theme;
+    })();
+  </script>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+</head>
+<body>
+
+  <nav class="nav" id="nav">
+    <div class="container">
+      <a href="index.html" class="nav-logo">Biodyn</a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html#vision">Vision</a></li>
+        <li><a href="index.html#research">Research</a></li>
+        <li><a href="index.html#methodology">Methodology</a></li>
+        <li><a href="index.html#impact">Impact</a></li>
+        <li><a href="index.html#atlases">Atlases</a></li>
+        <li><a href="index.html#publications">Research Outputs</a></li>
+        <li><a href="index.html#team">Team</a></li>
+        <li><a href="blog.html" class="nav-current">Blog</a></li>
+        <li><a href="portfolio.html">Portfolio</a></li>
+        <li>
+          <button type="button" class="theme-toggle" id="themeToggle" aria-label="Toggle color theme">
+            Theme
+          </button>
+        </li>
+        <li><a href="https://github.com/orgs/Biodyn-AI/repositories" target="_blank" rel="noopener" class="nav-cta">GitHub →</a></li>
+      </ul>
+      <div class="hamburger" id="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </nav>
+
+  <main class="article-page section" id="articlePage">
+    <div class="container article-layout">
+      <div class="article-header">
+        <span class="section-label">Blog</span>
+        <div class="article-meta">
+          <span>Research Essay</span>
+          <span>Mechanistic Interpretability</span>
+          <span>Biological Discovery</span>
+        </div>
+        <h1>Eight Ways Mechanistic Interpretability Can Drive Scientific Discovery in Biology</h1>
+        <p class="article-summary">
+          A framework for translating mechanistic interpretability into concrete discovery outputs: biomarkers, regulatory hypotheses, cell-state taxonomies, drug target prioritization, compact algorithm extraction, artifact detection, and manifold-guided experimental design.
+        </p>
+        <div class="portfolio-page-actions">
+          <a href="blog.html" class="btn-secondary">← Back to Blog</a>
+          <a href="index.html" class="btn-primary">Open Main Site</a>
+        </div>
+      </div>
+      <img class="article-cover" src="content/eight-ways-cover.png" alt="Cover image for Eight Ways Mechanistic Interpretability Can Drive Scientific Discovery in Biology">
+      <article class="article-prose">
+<h1 id="eight-ways-mechanistic-interpretability-can-drive-scientific-discovery-in-biology"><strong>Eight Ways Mechanistic Interpretability Can Drive Scientific Discovery in Biology</strong></h1>
+<p><em>A framework for translating what's inside biological foundation models into end-product knowledge about how life works.</em></p>
+<p>Biological foundation models are getting impressively good at prediction. Models like <a href="https://www.nature.com/articles/s41592-024-02201-0">scGPT</a>, <a href="https://www.nature.com/articles/s41586-023-06139-9">Geneformer</a>, <a href="https://www.biorxiv.org/content/10.1101/2025.02.18.638918v1">Evo 2</a>, and <a href="https://www.biorxiv.org/content/10.1101/2025.07.16.665231v1">Pleiades</a> can classify cell types, predict perturbation responses, detect disease from blood, and model DNA across all domains of life. But a prediction, in biology, without a mechanism is just a correlation. And correlations, as every biologist knows, have a nasty habit of not replicating.</p>
+<p>The question that matters for science is not <em>can the model predict?</em> but <em>what has the model learned that we haven't?</em> Mechanistic interpretability, the discipline of reverse-engineering what neural networks compute internally, offers a systematic way to answer this question. And the answer, increasingly, is: quite a lot.</p>
+<p>Here I lay out a framework of eight concrete ways that mechanistic interpretability of biological foundation models can produce end-product scientific discoveries, meaning not just observations about model internals, but testable, model-independent hypotheses about biology that can stand on their own. Some of these are already demonstrated. Others are speculative but grounded in existing methodology. Together, they sketch a research program that may become central to biological discovery over the next decade.</p>
+<h2 id="1-novel-biomarker-discovery-via-feature-attribution"><strong>1. Novel Biomarker Discovery via Feature Attribution</strong></h2>
+<p><strong>The pattern:</strong> Train or fine-tune a biological foundation model on a disease classification task, then use interpretability tools (sparse autoencoders, gradient attribution, probing) to identify which input features actually drive the model's decisions, and check whether those features were previously known to be relevant.</p>
+<p><strong>The demonstrated case:</strong> The clearest existing example is Goodfire and Prima Mente's <a href="https://www.goodfire.ai/research/interpretability-for-alzheimers-detection">recent work on Alzheimer's detection</a>. They applied mechanistic interpretability to Pleiades, a 7-billion parameter epigenetic foundation model, to understand how it detects Alzheimer's disease from cell-free DNA in blood. Going in, the research team expected methylation patterns to dominate the classifier's decisions, given the existing AD literature. Instead, their SAE decomposition with gradient attribution revealed that approximately nine SAE features responsible for the majority of the classifier's performance were all strongly correlated with <em>fragment length</em>, a signal class (fragmentomics) that had been studied extensively in cancer detection but never systematically applied to Alzheimer's.</p>
+<p>The critical step was distillation: they built a simple logistic regression model using only fragment-length features extracted directly from raw sequencing data, with no Pleiades embeddings involved at all. This model-independent classifier achieved 0.78 AUROC on an independent test cohort, while classifiers built on the literature-expected signals (methylation alone: 0.55, cell-type deconvolution alone: 0.54) barely generalized. The foundation model served as a hypothesis generation engine, and the final deliverable was a conventional biostatistical model that any lab could reproduce.</p>
+<p><strong>Where this goes next:</strong> The same pattern applies naturally to single-cell transcriptomics. Consider fine-tuning scGPT or Geneformer on a disease classification task, say distinguishing ulcerative colitis from Crohn's disease using gut biopsy single-cell data, and then running the same SAE + gradient attribution pipeline. The model might reveal that its classifier relies heavily on gene programs in a rare immune cell subtype, or on metabolic pathway activations, that the field hadn't prioritized as diagnostic markers. The key requirement is that the interpretability must surprise you relative to prior knowledge; if the model simply rediscovers known markers, the contribution is validation rather than discovery, which is valuable but not transformative.</p>
+<p>This approach extends naturally to treatment response prediction as well: if a model predicts which patients respond to a given therapy and interpretability reveals it keys on a specific transcriptomic signature in a specific cell type, that signature becomes a candidate companion diagnostic biomarker.</p>
+<h2 id="2-gene-regulatory-network-refinement-and-causal-edge-discovery"><strong>2. Gene Regulatory Network Refinement and Causal Edge Discovery</strong></h2>
+<p><strong>The pattern:</strong> Extract interaction graphs from model internals (attention patterns, SAE feature co-activation, activation patching) and compare them against known GRN databases. Where the model-derived network contains strong edges not present in existing databases, those become candidate novel regulatory relationships.</p>
+<p><strong>What we know so far:</strong> Our <a href="https://arxiv.org/abs/2602.17532">systematic evaluation</a> at Biodyn showed that attention patterns in scGPT and Geneformer capture co-expression structure with layer-specific organization (protein-protein interactions in early layers, transcriptional regulation in later layers), but this structure provides no incremental value for perturbation prediction beyond trivial gene-level baselines. In other words, attention encodes biological structure, but not the <em>causal regulatory logic</em> that would constitute genuine GRN discovery.</p>
+<p>However, our subsequent <a href="https://arxiv.org/abs/2603.02952">SAE atlas work</a> revealed that the residual stream encodes far richer biological organization than attention alone: 29-59% of SAE features annotate to Gene Ontology, KEGG, Reactome, STRING, or TRRUST terms, and features organize into 141 co-activation modules in Geneformer. The negative result on attention sharpens the question of where regulatory knowledge <em>does</em> reside, and the SAE atlas provides a much more promising substrate for GRN extraction.</p>
+<p><strong>The concrete end-product:</strong> Suppose you train SAEs on foundation model representations computed over <a href="https://www.sciencedirect.com/science/article/pii/S0092867416316105">Perturb-seq</a> data, where cells have been subjected to CRISPR-mediated gene knockouts. If you find features that activate specifically when a particular gene is perturbed and that encode the downstream transcriptomic consequences, you can then do causal tracing (activation patching) to discover how the model routes information from the perturbed gene through intermediate representations. If one of those intermediate nodes maps onto a transcription factor not currently annotated in GRN databases as regulating the downstream targets, that node becomes a hypothesis for a novel regulatory link. The end-product is a refined gene regulatory network where new edges come with mechanistic evidence from the model's internal circuitry, plus quantified confidence from causal intervention tests.</p>
+<h2 id="3-cell-state-taxonomy-discovery-via-representation-geometry"><strong>3. Cell State Taxonomy Discovery via Representation Geometry</strong></h2>
+<p><strong>The pattern:</strong> Study the manifold structure of model embeddings, identify clusters, trajectories, and branching points, and check whether these correspond to known cell states or reveal new ones.</p>
+<p><strong>Existing precedents:</strong> Goodfire's <a href="https://www.goodfire.ai/research/phylogeny-manifold">phylogeny manifold work</a> on Evo 2 demonstrated that geodesic distances along a curved manifold in the model's embedding space correlate linearly with evolutionary branch lengths across 2,400+ bacterial species, constituting one of the most complex natural manifolds yet found in a foundation model. The Alzheimer's paper showed a similar geometric finding at a different scale: fragment lengths form a U-shaped manifold in Pleiades' embeddings with curvature peaks at biologically meaningful values (147 bp for the nucleosome core, 167 bp with linker DNA), suggesting the model devotes additional representational capacity to biologically privileged lengths. Our own <a href="https://arxiv.org/abs/2603.10261">hematopoietic manifold extraction work</a> and <a href="https://arxiv.org/abs/2602.22289">topological hypothesis screening</a> across scGPT and Geneformer confirmed that these models learn genuine geometric structure, with persistent homology significant in 11 of 12 transformer layers and cross-model geometric alignment between independently trained architectures.</p>
+<p><strong>The end-product discovery:</strong> Consider running SAE decomposition on Geneformer embeddings across a large multi-tissue atlas. If you find an SAE feature that activates strongly for a specific subpopulation of cells that doesn't cleanly map onto any existing cell type annotation, but which is characterized by a coherent gene program (and which appears consistently across donors and tissues), you may have discovered a novel cell state. The interpretability tools give you both the existence claim (the feature) and the characterization (which genes define it, where in the manifold it sits, what its neighbors are).</p>
+<p>The especially interesting case is when the manifold geometry reveals <strong>transition states</strong> between known cell types that are biologically meaningful. If there's a bottleneck in the differentiation manifold that maps onto a specific, previously under-characterized progenitor population, the geometry itself is telling you something about the topology of differentiation that standard clustering approaches would miss entirely.</p>
+<h2 id="4-drug-target-prioritization-via-perturbation-circuit-analysis"><strong>4. Drug Target Prioritization via Perturbation Circuit Analysis</strong></h2>
+<p><strong>The pattern:</strong> Use circuit-level interpretability on perturbation-trained models to identify which genes, when perturbed, produce the largest and most specific effects on disease-relevant model features, and rank these as drug target candidates.</p>
+<p><strong>Existing validation:</strong> <a href="https://www.nature.com/articles/s41586-023-06139-9">Geneformer's original paper</a> already demonstrated a version of this: in silico perturbation with zero-shot learning identified TEAD4, a novel transcription factor in cardiomyocytes that was experimentally validated to be critical for contractile force generation, and in silico treatment with limited patient data revealed candidate therapeutic targets for cardiomyopathy that were experimentally validated to improve contractility in an iPSC disease model. However, this approach used the model as a black box; interpretability can make it substantially more powerful.</p>
+<p><strong>What interpretability adds:</strong> Suppose you've used SAEs to identify a feature that corresponds to a disease-associated inflammatory program. You could then systematically trace, for each possible gene perturbation, how much it shifts the activation of that disease feature. The genes whose perturbation most effectively suppresses the disease feature, while minimally activating other features representing potential side effects or toxicity programs, become top drug target candidates. You're doing <em>in silico</em> target discovery by searching for perturbations that selectively modulate specific model-internal circuits.</p>
+<p>What makes this different from just running the model as a black-box predictor of perturbation outcomes is that the interpretability layer gives you a mechanistic story. You can say not just "knocking out gene X reduces the disease score" but "knocking out gene X disrupts the circuit through which the model represents the NF-κB inflammatory cascade, specifically by eliminating the upstream activation of a feature encoding IL-6/STAT3 pathway co-activation." This mechanistic story is exactly what a drug discovery team needs to assess biological plausibility before investing in experimental validation.</p>
+<h2 id="5-cross-species-and-cross-tissue-mechanism-transfer"><strong>5. Cross-Species and Cross-Tissue Mechanism Transfer</strong></h2>
+<p><strong>The pattern:</strong> Find features or circuits in a biological foundation model that are conserved across species or tissues, and use this to transfer biological knowledge from well-studied systems to poorly-studied ones.</p>
+<p><strong>Existing evidence for conservation:</strong> Our topological hypothesis screening work found strong cross-model geometric alignment between scGPT and Geneformer despite independent training on different data with different architectures, showing that the two models converge on similar geometric organization of gene relationships. This is analogous to independently constructed maps of a city agreeing on the positions of landmarks: strong evidence that the landmarks (biological relationships) are real features of the territory and not artifacts of the cartographer. The Evo 2 phylogeny manifold provides a complementary form of evidence: the model has implicitly learned what's conserved and what diverges across species by encoding evolutionary distances geometrically.</p>
+<p><strong>The end-product discovery:</strong> Consider identifying a circuit in Geneformer that represents the epithelial-to-mesenchymal transition (EMT) in human lung cancer cells, characterized by a specific set of SAE features and their causal interactions. If you find the same features (or highly analogous ones) activating in mouse model data or in a different tissue (pancreatic cancer), you've established that the model has learned a conserved mechanism, which tells you that findings from one system are likely to transfer to the other.</p>
+<p>Conversely, and this is the more novel discovery, if the circuit is partially conserved but diverges at a specific point (say, a different transcription factor takes over a regulatory role in one tissue versus another), that divergence point is itself a discovery about tissue-specific biology. The model's internals become a systematic way to map conservation and divergence across biological contexts, something that would be extraordinarily labor-intensive to do experimentally.</p>
+<h2 id="6-compact-algorithm-extraction"><strong>6. Compact Algorithm Extraction</strong></h2>
+<p><strong>The pattern:</strong> Identify a circuit in a biological foundation model that performs a specific biological computation, reverse-engineer the algorithm the circuit implements, and export that algorithm as a standalone, human-interpretable procedure that can be run independently of the model.</p>
+<p>This is arguably the highest-ceiling category in the framework, and it maps onto what I've argued in <a href="https://biodynai.com/the-map-inside-the-machine.html">The Map Inside the Machine</a> regarding extracting "compact biological algorithms" from foundation model internals. Unlike the other categories, which produce hypotheses or statistical models, this one produces <em>computational objects</em> that encode biological logic directly.</p>
+<p><strong>The demonstrated case:</strong> Our <a href="https://arxiv.org/abs/2603.10261">hematopoietic manifold extraction work</a> provides what we believe is the first published instance of a biologically useful, competitive algorithm extracted from a foundation model via mechanistic interpretability. We showed that scGPT internally encodes a compact (~8-10 dimensional) hematopoietic manifold with significant developmental branch structure, validated on a strict non-overlap Tabula Sapiens external panel (616 anchors, 564,253 cells) and confirmed via frozen-head zero-shot transfer to an independent multi-donor immune panel. To isolate this geometry, we introduced a general three-stage extraction method: direct operator export from frozen attention weights, a lightweight learned adaptor, and a task-specific readout, producing a standalone algorithm without target-dataset retraining. In 88-split donor-holdout benchmarks against scVI, Palantir, DPT, CellTypist, PCA, and raw-expression baselines, the extracted algorithm achieves the strongest pseudotime-depth ordering and competitive cell-type classification. Mechanistic interpretability of the compact operator reveals a concentrated four-factor core explaining 66.2% of ablation impact, with factors resolving into explicit T/lymphoid, B/plasma, granulocytic, and monocyte/macrophage gene programs. The exported operator compresses from three pooled attention heads to a single head without statistically significant loss, and further to a rank-64 surrogate.</p>
+<p>The key point is that the end-product here is not a claim about the model but rather a standalone, lightweight computational object (a low-rank attention operator with interpretable biological factors) that can be applied to new data without scGPT, that outperforms standard methods on multiple benchmarks, and whose internal structure maps onto known hematopoietic biology. The model served as a source of compressed biological knowledge, and interpretability was the extraction tool.</p>
+<p><strong>Where this goes further:</strong> The Goodfire/Prima Mente fragment-length distillation for Alzheimer's is structurally the same idea at a simpler level: extracting the decision rule the model uses and exporting it as a model-free logistic regression. The next frontier is to apply this extraction methodology to more algorithmically complex computations that models may have learned, such as scoring functions for protein-protein interactions that weight biophysical properties in novel combinations, or quantitative cell fate decision rules that function as something akin to a Waddington landscape function, giving developmental biologists a mechanistically grounded model of differentiation that goes beyond the qualitative metaphors currently available.</p>
+<h2 id="7-artifact-detection-and-ground-truth-correction"><strong>7. Artifact Detection and Ground Truth Correction</strong></h2>
+<p><strong>The pattern:</strong> Use interpretability to discover that a model's high performance on a biological task is driven by confounders or batch effects rather than real biology, thereby correcting the scientific record.</p>
+<p>This is a "negative" discovery, but potentially just as valuable as a positive one.</p>
+<p><strong>Existing evidence that this matters:</strong> Our <a href="https://arxiv.org/abs/2602.17532">evaluation bias work</a> showed that mapping and candidate-set choices dominate GRN benchmark metrics, causing misleading ranking reversals, meaning that published accuracy metrics for gene regulatory network extraction may be substantially inflated by benchmark artifacts rather than reflecting genuine biological signal recovery. The finding that trivial gene-level baselines outperform attention-derived edges (AUROC 0.81-0.88 versus 0.70) is itself a form of artifact detection at the benchmark level.</p>
+<p><strong>The end-product discovery:</strong> If you apply SAE decomposition to a cell-type classifier and discover that the top features driving classification encode sequencing platform artifacts (10x versus Smart-seq2 signatures) rather than genuine cell-type markers, you've identified a specific case where published accuracy metrics are inflated. More importantly, by removing those artifact features and examining what remains, you get a cleaner picture of what the real biological signal is. This kind of systematic deconfounding, guided by the model's own internal representations, could correct significant portions of the published biological literature that rely on machine learning classifiers without understanding what those classifiers actually learned.</p>
+<p>The Goodfire Alzheimer's paper acknowledged this limitation honestly: fragment length might be predictive because it tracks real pathology, or because it correlates with confounders. Interpretability doesn't automatically resolve this ambiguity, but it surfaces the question in a way that black-box prediction never can.</p>
+<h2 id="8-manifold-guided-experimental-design"><strong>8. Manifold-Guided Experimental Design</strong></h2>
+<p><strong>The pattern:</strong> Use the geometric structure of model representations to identify "gaps" or "sparse regions" in biological knowledge that should be prioritized for experimental investigation.</p>
+<p><strong>How the geometry becomes actionable:</strong> If the hematopoietic differentiation manifold in scGPT has a region of high curvature or low data density between two known cell states, that region represents a biological transition that is poorly characterized by existing data. You can use the model to predict what the transcriptomic profile of cells in that region <em>should</em> look like (by interpolating on the manifold), and then design FACS sorting strategies to specifically isolate cells matching that predicted profile. The model's internal geometry becomes a map that tells experimentalists where to look next.</p>
+<p>The curvature analysis in the Goodfire Alzheimer's paper (finding biologically privileged fragment lengths at curvature peaks around 147 bp and 167 bp) is exactly this kind of reasoning: the geometry of the representation itself pointed to specific values worth investigating, and those values turned out to correspond to known nucleosome biology and to be informative for disease classification.</p>
+<p><strong>The broader vision:</strong> At scale, this becomes a systematic experimental prioritization engine. Instead of exploring biological parameter space blindly, you let the model's learned geometry tell you where the interesting transitions, boundaries, and anomalies are, and you direct experimental effort toward those regions. The model doesn't replace experiments; it tells you which experiments are most likely to be informative.</p>
+<h2 id="the-recurring-structure"><strong>The Recurring Structure</strong></h2>
+<p>Looking across all eight categories, there is a recurring structural pattern: <strong>the interpretability step converts an opaque predictive success into a transparent, testable claim about biology that can stand independently of the model</strong>. The end-product is never "the model says X" but rather "the model's internals suggest hypothesis X, which we can test with a model-free approach." The Alzheimer's logistic regression distillation is the cleanest example of this principle, but it applies everywhere: the model is a hypothesis generation engine, and interpretability is the interface through which you extract and validate those hypotheses.</p>
+<p>What makes this fundamentally different from just using model predictions as hypotheses (which any black-box model can do) is that mechanistic understanding gives you <strong>structured hypotheses</strong> rather than point predictions. When you know that the model routes information through a specific circuit, you get a whole family of testable claims: about the intermediate nodes, about the edges, about what happens when you ablate each component. Each of those claims is a potential scientific discovery, and the causal intervention toolkit (patching, ablation, feature steering) provides a built-in mechanism for testing them before you ever go to the wet lab.</p>
+<p>There is a vision of the future here that I find exciting on many dimensions: one in which the next generation of biological breakthroughs come not from training ever-larger models and treating them as oracles, but from opening those models up and reading the biology they've written in their weights. The models have already seen more data than any human researcher ever will. The question is whether we can learn to read what they've learned.</p>
+<hr />
+<p><em>Ihor Kendiukhov is the founder of <a href="https://biodynai.com/">Biodyn</a>, a mechanistic interpretability research organization focused on biological foundation models. The interactive SAE feature atlases for <a href="https://biodyn-ai.github.io/geneformer-atlas/">Geneformer</a> and <a href="https://biodyn-ai.github.io/scgpt-atlas/">scGPT</a> are publicly available.</em></p>
+      </article>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <span class="footer-logo">Biodyn</span>
+        <span class="footer-text">© 2026 Biodyn Research Project. All rights reserved.</span>
+        <div class="footer-links">
+          <a href="index.html">Home</a>
+          <a href="blog.html">Blog</a>
+          <a href="portfolio.html">Portfolio</a>
+          <a href="https://github.com/orgs/Biodyn-AI/repositories" target="_blank" rel="noopener">GitHub</a>
+          <a href="https://docs.google.com/forms/d/e/1FAIpQLSdfnxPmdCtrHqDenf0VECp3H0sphOy1uEfQ1UYsbO3NwCVlkQ/viewform?usp=dialog" target="_blank" rel="noopener">Contact Form</a>
+          <a href="https://docs.google.com/forms/d/e/1FAIpQLSedo8RPXfIl5ISE2ar7TDx9Me0vlVwfCHOzZ8NI7BDNiueTsw/viewform?usp=sharing&ouid=108024776730411231677" target="_blank" rel="noopener">Subscribe</a>
+          <a href="mailto:kenduhov.ig@gmail.com">Contact</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
