@@ -231,6 +231,33 @@
   ],
   "articles": [
     {
+      "type": "SSRN Preprint",
+      "title": "Two Axes in the Gene-Embedding Space of Single-Cell Foundation Models: What a Protein Language Model Already Knows, and what Requires Single-Cell Pretraining",
+      "summary": "Replicates the GPL probe battery across seven single-cell foundation models, a frozen ESM2-3B protein language model, and a co-expression baseline, separating protein-sequence semantics from regulatory geometry that genuinely requires single-cell pretraining.",
+      "metaPrimary": "SSRN: 6577900",
+      "metaTag": "Embedding Geometry",
+      "url": "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6577900",
+      "linkText": "Read on SSRN"
+    },
+    {
+      "type": "Journal Article",
+      "title": "Adversarial validation of in silico perturbation profiles for intelligence-associated genes in human prefrontal cortex",
+      "summary": "Introduces an adversarial-validation framework for foundation-model perturbation claims and shows that raw Geneformer perturbation shifts in human DLPFC are heavily expression-confounded, with no individual gene surviving expression-matched null testing.",
+      "metaPrimary": "Computational Biology and Chemistry",
+      "metaTag": "Perturbation Validation",
+      "url": "https://www.sciencedirect.com/science/article/abs/pii/S1476927126002045",
+      "linkText": "Read on ScienceDirect"
+    },
+    {
+      "type": "Research Square Preprint",
+      "title": "Inflammation-Linked Aging Signals in Frozen Single-Cell Foundation Models: Donor-Aware Detection and Robustness Testing",
+      "summary": "Presents a donor-aware interpretability workflow for testing aging signals in frozen scGPT and Geneformer representations, finding biologically plausible inflammatory aging structure but weak replication under stricter donor- and composition-aware controls.",
+      "metaPrimary": "Research Square",
+      "metaTag": "Aging Biology",
+      "url": "https://www.researchsquare.com/article/rs-9289672/v1",
+      "linkText": "Read on Research Square"
+    },
+    {
       "type": "arXiv Preprint",
       "title": "Exhaustive Circuit Mapping of a Single-Cell Foundation Model Reveals Massive Redundancy, Heavy-Tailed Hub Architecture, and Layer-Dependent Differentiation Control",
       "summary": "Uses exhaustive circuit tracing, higher-order combinatorial ablation, and causal trajectory steering in Geneformer to reveal hub-heavy redundancy and layer-dependent control of differentiation directionality.",
