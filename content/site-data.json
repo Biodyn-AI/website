@@ -231,9 +231,18 @@
   ],
   "articles": [
     {
+      "type": "Research Square Preprint",
+      "title": "Three Classes of Confound in Gene-Regulatory-Network Inference: A Systematic Audit and Open-Source Diagnostic Toolkit",
+      "summary": "Introduces a unified audit toolkit for technical leakage, genomic-proximity inflation, and degree-distribution artifacts in inferred gene regulatory networks, showing that joint confound filtering removes most candidate edges and improves perturbation-grounded reliability.",
+      "metaPrimary": "Research Square",
+      "metaTag": "GRN Confound Audit",
+      "url": "https://www.researchsquare.com/article/rs-8997629/v1",
+      "linkText": "Read on Research Square"
+    },
+    {
       "type": "SSRN Preprint",
       "title": "Two Axes in the Gene-Embedding Space of Single-Cell Foundation Models: What a Protein Language Model Already Knows, and what Requires Single-Cell Pretraining",
-      "summary": "Replicates the GPL probe battery across seven single-cell foundation models, a frozen ESM2-3B protein language model, and a co-expression baseline, separating protein-sequence semantics from regulatory geometry that genuinely requires single-cell pretraining.",
+      "summary": "Compares seven single-cell foundation models against a protein language model and a co-expression baseline, showing which biological signals come from protein-sequence information alone and which truly require single-cell training to capture regulatory structure.",
       "metaPrimary": "SSRN: 6577900",
       "metaTag": "Embedding Geometry",
       "url": "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6577900",
