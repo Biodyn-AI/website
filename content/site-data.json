@@ -231,6 +231,24 @@
   ],
   "articles": [
     {
+      "type": "Conference Paper",
+      "title": "What does \"spatial\" mean in a spatial foundation model? Feature-permutation ablation and a four-category SAE taxonomy for Novae",
+      "summary": "Uses sparse autoencoders and feature-permutation ablations to interpret Novae, a spatial omics foundation model, recovering a four-category taxonomy of cell-identity, niche, context-dependent, and graph-suppressed features.",
+      "metaPrimary": "AI Transparency Conference",
+      "metaTag": "Spatial Foundation Models",
+      "url": "https://openreview.net/forum?id=JPlVXdug3K",
+      "linkText": "Read on OpenReview"
+    },
+    {
+      "type": "Journal Article",
+      "title": "Partial-label metric ceilings for evaluating gene regulatory networks inferred from single-cell foundation models",
+      "summary": "Analyzes how incomplete reference labels cap apparent performance when evaluating gene regulatory networks inferred from single-cell foundation models, clarifying when benchmark scores reflect model quality versus annotation limits.",
+      "metaPrimary": "BioSystems",
+      "metaTag": "GRN Evaluation",
+      "url": "https://www.sciencedirect.com/science/article/pii/S0303264726001747?dgcid=author",
+      "linkText": "Read on ScienceDirect"
+    },
+    {
       "type": "Research Square Preprint",
       "title": "Three Classes of Confound in Gene-Regulatory-Network Inference: A Systematic Audit and Open-Source Diagnostic Toolkit",
       "summary": "Introduces a unified audit toolkit for technical leakage, genomic-proximity inflation, and degree-distribution artifacts in inferred gene regulatory networks, showing that joint confound filtering removes most candidate edges and improves perturbation-grounded reliability.",
@@ -294,13 +312,13 @@
       "linkText": "Read on arXiv"
     },
     {
-      "type": "SSRN Preprint",
+      "type": "Journal Article",
       "title": "Sparse Autoencoders Reveal Interpretable Cell-Type Programs in Single-Cell Foundation Model Representations",
       "summary": "Applies sparse autoencoders to scGPT residual activations and shows interpretable, biologically coherent feature programs with domain-specific sparsity calibration requirements.",
-      "metaPrimary": "SSRN: 6304512",
+      "metaPrimary": "Journal of Biomedical Informatics",
       "metaTag": "Mechanistic Interpretability",
-      "url": "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6304512",
-      "linkText": "Read on SSRN"
+      "url": "https://www.sciencedirect.com/science/article/pii/S1532046426000808",
+      "linkText": "Read on ScienceDirect"
     },
     {
       "type": "arXiv Preprint",
@@ -312,13 +330,13 @@
       "linkText": "Read on arXiv"
     },
     {
-      "type": "arXiv Preprint",
+      "type": "Journal Article",
       "title": "Causal Circuit Tracing Reveals Distinct Computational Architectures in Single-Cell Foundation Models: Inhibitory Dominance, Biological Coherence, and Cross-Model Convergence",
       "summary": "Introduces causal circuit tracing with SAE feature ablations in Geneformer and scGPT, reporting inhibitory-dominant dynamics, cross-model consensus circuits, and CRISPRi-grounded validation.",
-      "metaPrimary": "arXiv:2603.01752",
-      "metaTag": "cs.LG q-bio.CB q-bio.GN",
-      "url": "https://arxiv.org/abs/2603.01752",
-      "linkText": "Read on arXiv"
+      "metaPrimary": "Bioinformatics",
+      "metaTag": "Causal Circuit Tracing",
+      "url": "https://academic.oup.com/bioinformatics/advance-article/doi/10.1093/bioinformatics/btag379/8708321",
+      "linkText": "Read in Bioinformatics"
     },
     {
       "type": "arXiv Preprint",
@@ -348,13 +366,13 @@
       "linkText": "Read on arXiv"
     },
     {
-      "type": "arXiv Preprint",
+      "type": "Journal Article",
       "title": "Scaling Laws for Masked-Reconstruction Transformers on Single-Cell Transcriptomics",
       "summary": "Systematic analysis of scaling behavior for masked-reconstruction transformers on scRNA-seq data, examining power-law relationships between loss, model size, and data.",
-      "metaPrimary": "arXiv:2602.15253",
-      "metaTag": "cs.LG q-bio.GN",
+      "metaPrimary": "Transactions on Machine Learning Research",
+      "metaTag": "Scaling Laws",
       "url": "https://arxiv.org/abs/2602.15253",
-      "linkText": "Read on arXiv"
+      "linkText": "Read preprint on arXiv"
     }
   ]
 }
