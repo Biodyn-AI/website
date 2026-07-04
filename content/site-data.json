@@ -231,6 +231,15 @@
   ],
   "articles": [
     {
+      "type": "Journal Article",
+      "title": "Causal intervention validation of gene regulatory signals in scGPT",
+      "summary": "Uses causal interventions in scGPT to test whether model-internal gene regulatory signals produce measurable changes in target-token readouts.",
+      "metaPrimary": "Journal of Biomedical Informatics",
+      "metaTag": "Causal Intervention",
+      "url": "https://www.sciencedirect.com/science/article/pii/S1532046426001048?via%3Dihub",
+      "linkText": "Read on ScienceDirect"
+    },
+    {
       "type": "Conference Paper",
       "title": "What does \"spatial\" mean in a spatial foundation model? Feature-permutation ablation and a four-category SAE taxonomy for Novae",
       "summary": "Uses sparse autoencoders and feature-permutation ablations to interpret Novae, a spatial omics foundation model, recovering a four-category taxonomy of cell-identity, niche, context-dependent, and graph-suppressed features.",
