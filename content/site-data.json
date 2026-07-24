@@ -348,13 +348,13 @@
       "linkText": "Read in Bioinformatics"
     },
     {
-      "type": "arXiv Preprint",
-      "title": "What Topological and Geometric Structure Do Biological Foundation Models Learn? Evidence from 141 Hypotheses",
+      "type": "Journal Article",
+      "title": "What topological and geometric structure do biological foundation models learn? Evidence from 141 hypotheses",
       "summary": "Autonomous large-scale hypothesis screening investigates which geometric and topological structures emerge in internal representations of scGPT and Geneformer, and how biologically meaningful they are.",
-      "metaPrimary": "arXiv:2602.22289",
-      "metaTag": "q-bio.QM cs.LG q-bio.GN",
-      "url": "https://arxiv.org/abs/2602.22289",
-      "linkText": "Read on arXiv"
+      "metaPrimary": "PLOS One",
+      "metaTag": "Geometry and Topology",
+      "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0344826",
+      "linkText": "Read in PLOS One"
     },
     {
       "type": "arXiv Preprint",
@@ -366,13 +366,13 @@
       "linkText": "Read on arXiv"
     },
     {
-      "type": "arXiv Preprint",
-      "title": "Systematic Evaluation of Single-Cell Foundation Model Interpretability Reveals Attention Captures Co-Expression Rather Than Unique Regulatory Signal",
-      "summary": "A large evaluation framework across cell types, perturbation modalities, and statistical tests finds attention captures structured biology but largely co-expression rather than unique regulatory signal.",
-      "metaPrimary": "arXiv:2602.17532",
-      "metaTag": "q-bio.GN cs.AI",
-      "url": "https://arxiv.org/abs/2602.17532",
-      "linkText": "Read on arXiv"
+      "type": "Journal Article",
+      "title": "Systematic evaluation of single-cell foundation model interpretability: attention-derived edge scores add no incremental value over gene-level features for perturbation-target prediction",
+      "summary": "A large evaluation framework across models, cell types, perturbation modalities, and statistical tests finds that attention-derived edge scores encode structured biology but add no incremental value over simple gene-level features for perturbation-target prediction.",
+      "metaPrimary": "BMC Genomics",
+      "metaTag": "Attention Evaluation",
+      "url": "https://link.springer.com/article/10.1186/s12864-026-12965-8",
+      "linkText": "Read in BMC Genomics"
     },
     {
       "type": "Journal Article",
