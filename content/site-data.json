@@ -232,6 +232,15 @@
   "articles": [
     {
       "type": "Journal Article",
+      "title": "Residual-stream geometry of single-cell foundation models carries incremental gene-regulatory signal across tissues",
+      "summary": "Shows that residual-stream geometry in scGPT and Geneformer carries regulatory-relevant signal across tissues, complementing expression-based gene regulatory network inference as an orthogonal evidence channel for edge prioritization.",
+      "metaPrimary": "BMC Bioinformatics",
+      "metaTag": "Representation Geometry",
+      "url": "https://link.springer.com/article/10.1186/s12859-026-06538-5",
+      "linkText": "Read in BMC Bioinformatics"
+    },
+    {
+      "type": "Journal Article",
       "title": "Causal intervention validation of gene regulatory signals in scGPT",
       "summary": "Uses causal interventions in scGPT to test whether model-internal gene regulatory signals produce measurable changes in target-token readouts.",
       "metaPrimary": "Journal of Biomedical Informatics",
@@ -285,13 +294,13 @@
       "linkText": "Read on ScienceDirect"
     },
     {
-      "type": "Research Square Preprint",
-      "title": "Inflammation-Linked Aging Signals in Frozen Single-Cell Foundation Models: Donor-Aware Detection and Robustness Testing",
+      "type": "Journal Article",
+      "title": "Inflammation-linked aging signals in frozen single-cell foundation models: donor-aware detection and robustness testing",
       "summary": "Presents a donor-aware interpretability workflow for testing aging signals in frozen scGPT and Geneformer representations, finding biologically plausible inflammatory aging structure but weak replication under stricter donor- and composition-aware controls.",
-      "metaPrimary": "Research Square",
+      "metaPrimary": "Biogerontology",
       "metaTag": "Aging Biology",
-      "url": "https://www.researchsquare.com/article/rs-9289672/v1",
-      "linkText": "Read on Research Square"
+      "url": "https://link.springer.com/article/10.1007/s10522-026-10471-8",
+      "linkText": "Read in Biogerontology"
     },
     {
       "type": "arXiv Preprint",
