@@ -1,5 +1,3 @@
-# 109 Open Problems in Biological Mechanistic Interpretability
-
 Biological AIs are getting better quickly. By *biological AI*, I mean models trained on things such as DNA sequences, proteins, gene-expression profiles, cell images, tissue samples, spatial measurements, and other biological data. Many of them learn through some version of “hide part of the data and predict it back”, although the exact objective varies.
 
 I run a [research programme at BiodynAI](https://biodynai.com) on mechanistic interpretability for these models. The programme has three broad aims: use biological models to test and improve general mechinterp methods, audit the models for biosecurity-relevant capabilities, and extract biological knowledge from their internals.
@@ -43,7 +41,7 @@ Feature names, circuit edges, pathway assignments, and proposed mechanisms shoul
 
 ### 5. Measure whether interpretability pays for itself
 
-Given the same amount of compute, researcher time, and laboratory money, does interpretability produce better hypotheses than differential expression, classical network inference, black-box attribution, or ordinary screening? This comparison matters. Otherwise the field may become very good at producing attractive diagrams whose main downstream effect is further attractive diagrams.
+Given the same amount of compute, researcher time, and laboratory money, does interpretability produce better hypotheses than differential expression, classical network inference, black-box attribution, or ordinary screening? Otherwise the field may become very good at producing attractive diagrams whose main downstream effect is further attractive diagrams.
 
 ## II. Where does biological knowledge live inside a model?
 
@@ -505,6 +503,6 @@ Automate hypothesis generation, analysis, replication, and report writing, while
 
 ### 109. Try modern mechinterp methods on biological models and see what happens
 
-This final problem is deliberately unsophisticated. Take manifolds, J-space, natural-language autoencoders, compositional methods, or whatever useful technique appeared last month, apply it carefully to biological models, and check whether the setting gives cleaner evidence than LLMs do. Biological models are often smaller, their inputs have more external structure, and some claims can ultimately be tested in experiments. That makes them a good place to find out whether a method works at all.
+Take manifolds, J-space, natural-language autoencoders, compositional methods, or whatever useful technique appeared last month, apply it carefully to biological models, and check whether the setting gives cleaner evidence than LLMs do. Biological models are often smaller, their inputs have more external structure, and some claims can ultimately be tested in experiments. That makes them a good place to find out whether a method works at all.
 
-If you start working on any of these problems, please get in touch with me so that we can coordinate.
+## If you start working on any of these problems, please get in touch with me so that we can coordinate.
