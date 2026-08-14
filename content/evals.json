@@ -1,5 +1,5 @@
 {
-  "generated_from_n_cards": 6,
+  "generated_from_n_cards": 8,
   "models": [
     {
       "id": "geneformer-v2-104m",
@@ -24,6 +24,14 @@
       "source": "probe.adapters.reference.RawExpressionReference",
       "notes": "Log-normalised HVG expression. The floor for every single-cell task.",
       "n_cards": 2
+    },
+    {
+      "id": "scgpt-whole-human",
+      "modality": "single-cell",
+      "params": 51000000,
+      "source": "scGPT/whole-human",
+      "notes": "12 layers, d_model 512, 51 expression bins, max_seq_len 1200. Cell embedding = <cls> position, L2-normalised. Flash-attention weights remapped to stock attention; ? tensors renamed.",
+      "n_cards": 2
     }
   ],
   "tasks": [
@@ -40,7 +48,7 @@
       ],
       "metric": "macro_f1",
       "dataset_id": "ts-immune-20k",
-      "n_models": 3
+      "n_models": 4
     },
     {
       "id": "sc4-donor-invariance",
@@ -53,12 +61,43 @@
       ],
       "metric": "donor_macro_f1_lower_is_better",
       "dataset_id": "ts-immune-20k",
-      "n_models": 3
+      "n_models": 4
     }
   ],
   "leaderboards": {
     "sc1-celltype-transfer": {
       "rows": [
+        {
+          "model": "scgpt-whole-human",
+          "best": 0.585039,
+          "zero_shot": 0.495272,
+          "behavioural": 0.544877,
+          "probe": 0.585039,
+          "elicited": null,
+          "elicitation_gap": 0.040162,
+          "gap_ci95": [
+            -0.10102729449515253,
+            0.07741890212525565
+          ],
+          "gap_positive_fraction": 0.9,
+          "gap_structural_zero": false,
+          "gap_separated_from_zero": false,
+          "best_baseline": 0.565744,
+          "beats_baseline": true,
+          "ceiling": 0.5800860898726297,
+          "headroom": -0.008538,
+          "null_p": 0.009900990099009901,
+          "survives_null": true,
+          "ci95": [
+            0.3620358590012024,
+            0.6007196009095669
+          ],
+          "caveats": [
+            "Exceeds the empirical ceiling (0.580): the representation adds over the best cheap supervised readout of raw features. Either genuine added value or too narrow a ceiling sweep \u2014 worth rechecking with a wider sweep before the claim is leaned on.",
+            "Elicitation gap +0.0402 has a paired 95% interval [-0.1010, +0.0774] spanning zero (positive in 90% of donor resamples); not distinguishable from no gap on this dataset.",
+            "Fine-tuning (F) not measured: adapter does not support it."
+          ]
+        },
         {
           "model": "geneformer-v2-104m",
           "best": 0.571124,
@@ -221,6 +260,37 @@
           ]
         },
         {
+          "model": "scgpt-whole-human",
+          "best": 0.53075,
+          "zero_shot": 0.223704,
+          "behavioural": 0.505606,
+          "probe": 0.53075,
+          "elicited": null,
+          "elicitation_gap": 0.025144,
+          "gap_ci95": [
+            -0.013370799614486123,
+            0.06482002621237497
+          ],
+          "gap_positive_fraction": 0.85,
+          "gap_structural_zero": false,
+          "gap_separated_from_zero": false,
+          "best_baseline": 0.560532,
+          "beats_baseline": true,
+          "ceiling": 0.7377050968696789,
+          "headroom": null,
+          "null_p": 0.009900990099009901,
+          "survives_null": true,
+          "ci95": [
+            0.4972335077615041,
+            0.5579689964298992
+          ],
+          "caveats": [
+            "Lower is better on this task: the score is how well donor identity can be read out of the representation.",
+            "Surfaces 107% of the donor identity that raw expression yields at the same readout capacity -- it makes donor *more* decodable than the untransformed data does, not less.",
+            "Internals leak more donor identity than the sanctioned surface does, so the sanctioned surface is hiding nuisance structure rather than removing it."
+          ]
+        },
+        {
           "model": "geneformer-v2-104m",
           "best": 0.69166,
           "zero_shot": 0.219339,
@@ -272,9 +342,9 @@
     },
     "grid": {
       "single-cell": {
-        "A1": 3,
-        "A3": 3,
-        "A8": 3
+        "A1": 4,
+        "A3": 4,
+        "A8": 4
       }
     }
   },
@@ -282,33 +352,16 @@
     "evaluable": [
       "geneformer-v2-104m",
       "pca-reference",
-      "raw-expression"
+      "raw-expression",
+      "scgpt-brain",
+      "scgpt-kidney",
+      "scgpt-whole-human"
     ],
     "queued": [
-      {
-        "id": "scgpt-whole-human",
-        "modality": "single-cell",
-        "status": "checkpoint local"
-      },
-      {
-        "id": "scgpt-brain",
-        "modality": "single-cell",
-        "status": "checkpoint local"
-      },
-      {
-        "id": "scgpt-kidney",
-        "modality": "single-cell",
-        "status": "checkpoint local"
-      },
       {
         "id": "scgpt-cp",
         "modality": "single-cell",
         "status": "checkpoint local"
-      },
-      {
-        "id": "geneformer-v2-104m",
-        "modality": "single-cell",
-        "status": "pipeline exists"
       },
       {
         "id": "geneformer-v1-10m",
@@ -698,6 +751,116 @@
       "disclosure_tier": 0
     },
     {
+      "model": "scgpt-whole-human",
+      "modality": "single-cell",
+      "task": "sc1-celltype-transfer",
+      "task_version": "1.0",
+      "axis": [
+        "A1",
+        "A3"
+      ],
+      "metric": "macro_f1",
+      "dataset_id": "ts-immune-20k",
+      "dataset_sha256": "987b766552a0",
+      "scores": {
+        "zero_shot": 0.495272,
+        "behavioural": 0.544877,
+        "probe": 0.585039,
+        "elicited": null,
+        "readout_budget": {
+          "n_components": 64,
+          "C": 1.0,
+          "max_iter": 2000,
+          "metric": "macro_f1"
+        },
+        "probe_best_layer": "layer-8"
+      },
+      "derived": {
+        "elicitation_gap": 0.040162,
+        "recoverability": null,
+        "headroom": -0.008538
+      },
+      "baselines": {
+        "majority_class": 0.016076,
+        "library_size_only": 0.017956,
+        "pca50_logreg": 0.563273,
+        "nearest_centroid_raw": 0.565744
+      },
+      "controls": {
+        "group_stratified": true,
+        "group_key": "donor_id",
+        "n_groups_train": 14,
+        "n_groups_test": 8,
+        "null": {
+          "method": "covariate-matched label permutation (10 quantile bins)",
+          "n_permutations": 100,
+          "matched_covariate": "total_counts",
+          "p_value": 0.009900990099009901,
+          "null_mean": 0.05938312066249086,
+          "null_std": 0.004235637405475389,
+          "observed": 0.5850387459333073
+        },
+        "ceiling": {
+          "method": "empirical: best of {scaled, unscaled} x {raw, pca50, pca128} x {C=1, C=0.1} logistic regression, same split",
+          "value": 0.5800860898726297,
+          "note": "Won by unscaled/pca128/C=1. Interpret model scores relative to this: at or above it, the representation adds nothing over standard supervised practice on the raw features."
+        },
+        "extra": {
+          "per_layer_scores": {
+            "layer-0": 0.016076,
+            "layer-1": 0.517365,
+            "layer-2": 0.521589,
+            "layer-3": 0.533915,
+            "layer-4": 0.528114,
+            "layer-5": 0.555613,
+            "layer-6": 0.554959,
+            "layer-7": 0.560339,
+            "layer-8": 0.585039,
+            "layer-9": 0.553953,
+            "layer-10": 0.528921,
+            "layer-11": 0.555536,
+            "layer-12": 0.544877
+          },
+          "n_labels": 21,
+          "n_bootstrap_usable": 60
+        }
+      },
+      "uncertainty": {
+        "ci95": [
+          0.3620358590012024,
+          0.6007196009095669
+        ],
+        "n_bootstrap": 60,
+        "std": 0.05818967469228734,
+        "gap_ci95": [
+          -0.10102729449515253,
+          0.07741890212525565
+        ],
+        "gap_positive_fraction": 0.9,
+        "rank_reversal_risk": {}
+      },
+      "compute": {
+        "device": "unloaded",
+        "seconds": 252.93,
+        "gpu_hours": null,
+        "peak_memory_gb": null
+      },
+      "provenance": {
+        "code_commit": "f1084c9",
+        "run_id": "182223dc3062",
+        "run_date": "2026-08-14T22:08:00+00:00",
+        "seed": 0,
+        "env_lock_sha256": null,
+        "harness_version": "1.0"
+      },
+      "caveats": [
+        "Exceeds the empirical ceiling (0.580): the representation adds over the best cheap supervised readout of raw features. Either genuine added value or too narrow a ceiling sweep \u2014 worth rechecking with a wider sweep before the claim is leaned on.",
+        "Elicitation gap +0.0402 has a paired 95% interval [-0.1010, +0.0774] spanning zero (positive in 90% of donor resamples); not distinguishable from no gap on this dataset.",
+        "Fine-tuning (F) not measured: adapter does not support it."
+      ],
+      "disclosure_tier": 0
+    },
+    {
       "model": "geneformer-v2-104m",
       "modality": "single-cell",
       "task": "sc4-donor-invariance",
@@ -1008,6 +1171,118 @@
         "Lower is better on this task: the score is how well donor identity can be read out of the representation.",
         "Retains 100% of the donor signal decodable from raw expression at equal capacity; this representation is not donor-invariant.",
         "No elicitation gap by construction: the best internal layer is the sanctioned surface."
+      ],
+      "disclosure_tier": 0
+    },
+    {
+      "model": "scgpt-whole-human",
+      "modality": "single-cell",
+      "task": "sc4-donor-invariance",
+      "task_version": "1.0",
+      "axis": [
+        "A8"
+      ],
+      "metric": "donor_macro_f1_lower_is_better",
+      "dataset_id": "ts-immune-20k",
+      "dataset_sha256": "987b766552a0",
+      "scores": {
+        "zero_shot": 0.223704,
+        "behavioural": 0.505606,
+        "probe": 0.53075,
+        "elicited": null,
+        "readout_budget": {
+          "n_components": 64,
+          "C": 1.0,
+          "max_iter": 2000,
+          "metric": "macro_f1"
+        },
+        "probe_best_layer": "layer-3"
+      },
+      "derived": {
+        "elicitation_gap": 0.025144,
+        "recoverability": null,
+        "headroom": null
+      },
+      "baselines": {
+        "raw_expression_same_budget": 0.495562,
+        "library_size_only": 0.026292,
+        "pca50_logreg": 0.560532
+      },
+      "controls": {
+        "group_stratified": false,
+        "group_key": null,
+        "n_groups_train": null,
+        "n_groups_test": 14,
+        "null": {
+          "method": "covariate-matched label permutation (10 quantile bins)",
+          "n_permutations": 100,
+          "matched_covariate": "total_counts",
+          "p_value": 0.009900990099009901,
+          "null_mean": 0.04468756962587066,
+          "null_std": 0.005581426830022187,
+          "observed": 0.530750129397104
+        },
+        "ceiling": {
+          "method": "empirical: best of {scaled, unscaled} x {raw, pca50, pca128} x {C=1, C=0.1} logistic regression, same split",
+          "value": 0.7377050968696789,
+          "note": "Won by unscaled/raw/C=0.1. Interpret model scores relative to this: at or above it, the representation adds nothing over standard supervised practice on the raw features."
+        },
+        "extra": {
+          "why_not_group_stratified": "predicting donor identity requires donors on both sides of the split, so a donor-disjoint split is impossible by construction. Cells are split within each donor instead.",
+          "donor_retention": 1.071,
+          "donor_retention_denominator": 0.495562,
+          "donor_retention_note": "model donor decodability divided by raw-expression donor decodability under the identical readout budget. >1 means the representation surfaces more donor identity than raw expression does at the same capacity.",
+          "retention_vs_unbudgeted_ceiling": 0.7195,
+          "per_layer_scores": {
+            "layer-0": 0.026321,
+            "layer-1": 0.487309,
+            "layer-2": 0.528944,
+            "layer-3": 0.53075,
+            "layer-4": 0.510935,
+            "layer-5": 0.510586,
+            "layer-6": 0.499608,
+            "layer-7": 0.502976,
+            "layer-8": 0.522764,
+            "layer-9": 0.514212,
+            "layer-10": 0.495573,
+            "layer-11": 0.49494,
+            "layer-12": 0.505606
+          },
+          "n_donors": 14
+        }
+      },
+      "uncertainty": {
+        "ci95": [
+          0.4972335077615041,
+          0.5579689964298992
+        ],
+        "n_bootstrap": 60,
+        "std": 0.015148609506173598,
+        "gap_ci95": [
+          -0.013370799614486123,
+          0.06482002621237497
+        ],
+        "gap_positive_fraction": 0.85,
+        "rank_reversal_risk": {}
+      },
+      "compute": {
+        "device": "unloaded",
+        "seconds": 486.5,
+        "gpu_hours": null,
+        "peak_memory_gb": null
+      },
+      "provenance": {
+        "code_commit": "f1084c9",
+        "run_id": "dda2bb11614e",
+        "run_date": "2026-08-14T22:02:39+00:00",
+        "seed": 0,
+        "env_lock_sha256": null,
+        "harness_version": "1.0"
+      },
+      "caveats": [
+        "Lower is better on this task: the score is how well donor identity can be read out of the representation.",
+        "Surfaces 107% of the donor identity that raw expression yields at the same readout capacity -- it makes donor *more* decodable than the untransformed data does, not less.",
+        "Internals leak more donor identity than the sanctioned surface does, so the sanctioned surface is hiding nuisance structure rather than removing it."
       ],
       "disclosure_tier": 0
     }
