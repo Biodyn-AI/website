@@ -130,6 +130,16 @@
           Elicitation&nbsp;Gap = P − B &nbsp;&nbsp;·&nbsp;&nbsp; knowledge held internally that the sanctioned interface does not express<br>
           Recoverability = F − B &nbsp;&nbsp;·&nbsp;&nbsp; how much of it light fine-tuning unlocks
         </div>
+
+        <p class="ev-note">
+          The gap carries its own <strong>paired</strong> interval. B and P are scored on
+          the same resampled donors and differenced inside each replicate, because they
+          come from the same cells through the same classifier and are strongly
+          correlated — judging a small gap against the much wider marginal interval of P
+          would understate the evidence. Donors are resampled, not cells: cells within a
+          donor are not independent. Where that paired interval spans zero, the table
+          says so rather than reporting the point estimate alone.
+        </p>
       </div>
     </section>
 
@@ -141,6 +151,32 @@
           PCA, raw expression — sit in the table on purpose rather than in a footnote: a
           foundation model that cannot beat PCA on a task has not earned the compute.
         </p>
+
+        <div class="ev-note">
+          <strong>What the first cards show</strong> — Geneformer V2-104M, Tabula Sapiens
+          immune, 6,101 cells across 22 donors, August 2026.
+          <ul class="ev-caveats" style="margin-top:10px">
+            <li>Geneformer's <em>sanctioned</em> surface scores 0.558 on cell-type identity
+              against a nearest-centroid-on-raw-expression baseline of 0.566. The documented
+              way to use the model loses to a dumb baseline; only an internal layer (0.571)
+              edges past it, and the empirical ceiling is 0.580.</li>
+            <li>Layer 3 of 12 is the best layer on <em>both</em> tasks. It beats the final
+              layer by +0.013 on cell-type identity — not distinguishable from zero — and by
+              +0.108 on donor identity, which is unambiguous. The same layer that looks
+              best for capability is decisively the leakiest for nuisance, so the apparent
+              capability advantage of probing internals is, on this evidence, plausibly
+              donor memorisation.</li>
+            <li>Geneformer makes donor identity <em>40% more</em> decodable than
+              untransformed expression at the same readout capacity. It concentrates the
+              nuisance rather than discarding it.</li>
+          </ul>
+          <p style="margin-top:10px">
+            Two tasks pointing in opposite directions on the same layers is what makes the
+            second point available. A single-task suite would have reported "internals beat
+            the sanctioned surface" and stopped.
+          </p>
+        </div>
+
         <div id="evBoards"></div>
       </div>
     </section>
@@ -170,9 +206,11 @@
           An evaluator that hides its own limits is not one. As of v0.1:
         </p>
         <ul class="ev-caveats">
-          <li>Per-model bootstrap replicates are not retained, so pairwise rank-reversal risk is implemented but not populated. The tables above are point estimates and should not be read as rankings.</li>
+          <li><strong>No elicitation gap measured so far is distinguishable from zero on a capability task.</strong> Geneformer's best internal layer beats its sanctioned final layer by +0.013, but the paired interval spans zero across 22 donors. The effect is real in 70% of resamples and that is not enough. More donors, or more models, will settle it — the honest present answer is "not shown".</li>
+          <li>The one gap that <em>is</em> separated from zero is on the nuisance task: PCA's internals leak donor identity well beyond its sanctioned surface. Leakage is easier to detect than capability.</li>
+          <li>Per-model bootstrap replicates are not retained across models, so pairwise rank-reversal risk is implemented but not populated. The tables above are point estimates and should not be read as rankings.</li>
           <li>Fine-tuning (F) is not yet measured for any model, so no Recoverability figure is published.</li>
-          <li>Coverage is one task on one dataset in one modality. Everything else in the matrix is honest emptiness.</li>
+          <li>Coverage is two tasks on one dataset in one modality. Everything else in the matrix is honest emptiness.</li>
           <li>The safety battery (S1–S5) is specified but not yet run.</li>
         </ul>
         <p class="ev-note">

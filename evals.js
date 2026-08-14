@@ -35,6 +35,7 @@
     ['P probe', 'probe'],
     ['F elicited', 'elicited'],
     ['Gap P−B', 'elicitation_gap'],
+    ['Gap 95% CI (paired)', 'gap_ci95'],
     ['Best baseline', 'best_baseline'],
     ['Ceiling', 'ceiling'],
     ['Beats baseline', 'beats'],
@@ -71,7 +72,29 @@
         tr.appendChild(td);
       });
 
-      tr.appendChild(el('td', 'ev-num', signed(r.elicitation_gap)));
+      const gapTd = el('td', 'ev-num', signed(r.elicitation_gap));
+      if (r.gap_separated_from_zero === true) gapTd.classList.add('is-best');
+      tr.appendChild(gapTd);
+
+      // A gap whose paired interval spans zero is shown, but marked. Reporting
+      // the point estimate alone is how small differences become claims.
+      const gapCi = el('td', 'ev-num ev-dim');
+      if (r.gap_structural_zero) {
+        // The best layer *is* the sanctioned surface, so there is no gap to
+        // measure. Flagging this "spans zero" would dilute the warning on rows
+        // where a gap was measured and came out uncertain.
+        gapCi.appendChild(el('span', 'ev-flag', 'no internals'));
+      } else if (r.gap_ci95) {
+        gapCi.textContent = `${signed(r.gap_ci95[0])} … ${signed(r.gap_ci95[1])}`;
+        if (r.gap_separated_from_zero === false) {
+          gapCi.appendChild(document.createElement('br'));
+          gapCi.appendChild(el('span', 'ev-flag warn', 'spans zero'));
+        }
+      } else {
+        gapCi.textContent = '—';
+      }
+      tr.appendChild(gapCi);
+
       tr.appendChild(el('td', 'ev-num ev-dim', fmt(r.best_baseline)));
       tr.appendChild(el('td', 'ev-num ev-dim', fmt(r.ceiling)));
 
