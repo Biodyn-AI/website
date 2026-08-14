@@ -1,0 +1,411 @@
+{
+  "generated_from_n_cards": 2,
+  "models": [
+    {
+      "id": "pca-reference-32",
+      "modality": "single-cell",
+      "params": 0,
+      "source": "probe.adapters.reference.PCAReference",
+      "notes": "Not a foundation model. Included as the reference every model must beat before its score means anything.",
+      "n_cards": 1
+    },
+    {
+      "id": "raw-expression",
+      "modality": "single-cell",
+      "params": 0,
+      "source": "probe.adapters.reference.RawExpressionReference",
+      "notes": "Log-normalised HVG expression. The floor for every single-cell task.",
+      "n_cards": 1
+    }
+  ],
+  "tasks": [
+    {
+      "id": "sc1-celltype-transfer",
+      "version": "1.0",
+      "axis": [
+        "A1",
+        "A3"
+      ],
+      "axis_labels": [
+        "Representation quality",
+        "Transfer / generalisation"
+      ],
+      "metric": "macro_f1",
+      "dataset_id": "ts-immune-20k",
+      "n_models": 2
+    }
+  ],
+  "leaderboards": {
+    "sc1-celltype-transfer": {
+      "rows": [
+        {
+          "model": "raw-expression",
+          "best": 0.565744,
+          "zero_shot": 0.565744,
+          "behavioural": 0.543594,
+          "probe": 0.543594,
+          "elicited": null,
+          "elicitation_gap": 0.0,
+          "best_baseline": 0.565744,
+          "beats_baseline": false,
+          "ceiling": 0.5800860898726297,
+          "headroom": 0.024724,
+          "null_p": 0.009900990099009901,
+          "survives_null": true,
+          "ci95": [
+            0.3845802577189356,
+            0.5521879916866465
+          ],
+          "caveats": [
+            "Does not beat the nearest_centroid_raw baseline (0.566); the representation adds nothing on this task.",
+            "Fine-tuning (F) not measured: adapter does not support it."
+          ]
+        },
+        {
+          "model": "pca-reference-32",
+          "best": 0.54718,
+          "zero_shot": 0.496383,
+          "behavioural": 0.54718,
+          "probe": 0.54718,
+          "elicited": null,
+          "elicitation_gap": 0.0,
+          "best_baseline": 0.565744,
+          "beats_baseline": false,
+          "ceiling": 0.5800860898726297,
+          "headroom": 0.056726,
+          "null_p": 0.009900990099009901,
+          "survives_null": true,
+          "ci95": [
+            0.4517003367138983,
+            0.5539253908769184
+          ],
+          "caveats": [
+            "Does not beat the nearest_centroid_raw baseline (0.566); the representation adds nothing on this task.",
+            "Fine-tuning (F) not measured: adapter does not support it."
+          ]
+        }
+      ],
+      "rank_reversal_risk": {},
+      "note": "Bootstrap replicates are not retained per model in v0.1, so pairwise reversal risk is not yet computable. The ordering below is a point estimate and should not be read as a ranking."
+    }
+  },
+  "coverage": {
+    "axis_labels": {
+      "A1": "Representation quality",
+      "A2": "Native-task performance",
+      "A3": "Transfer / generalisation",
+      "A4": "Causal / interventional",
+      "A5": "Structural knowledge",
+      "A6": "Compositionality",
+      "A7": "Calibration",
+      "A8": "Robustness",
+      "A9": "Efficiency",
+      "A10": "Scaling"
+    },
+    "grid": {
+      "single-cell": {
+        "A1": 2,
+        "A3": 2
+      }
+    }
+  },
+  "registry": {
+    "evaluable": [
+      "geneformer-v2-104m",
+      "pca-reference",
+      "raw-expression"
+    ],
+    "queued": [
+      {
+        "id": "scgpt-whole-human",
+        "modality": "single-cell",
+        "status": "checkpoint local"
+      },
+      {
+        "id": "scgpt-brain",
+        "modality": "single-cell",
+        "status": "checkpoint local"
+      },
+      {
+        "id": "scgpt-kidney",
+        "modality": "single-cell",
+        "status": "checkpoint local"
+      },
+      {
+        "id": "scgpt-cp",
+        "modality": "single-cell",
+        "status": "checkpoint local"
+      },
+      {
+        "id": "geneformer-v2-104m",
+        "modality": "single-cell",
+        "status": "pipeline exists"
+      },
+      {
+        "id": "geneformer-v1-10m",
+        "modality": "single-cell",
+        "status": "pipeline exists"
+      },
+      {
+        "id": "scfoundation",
+        "modality": "single-cell",
+        "status": "pipeline exists"
+      },
+      {
+        "id": "aido-cell-100m",
+        "modality": "single-cell",
+        "status": "pipeline exists"
+      },
+      {
+        "id": "uce",
+        "modality": "single-cell",
+        "status": "pipeline exists"
+      },
+      {
+        "id": "tgpt",
+        "modality": "single-cell",
+        "status": "pipeline exists"
+      },
+      {
+        "id": "c2s-scale-gemma2-2b",
+        "modality": "text",
+        "status": "checkpoint local"
+      },
+      {
+        "id": "methylgpt-medium",
+        "modality": "methylation",
+        "status": "checkpoint local"
+      },
+      {
+        "id": "novae-human-0",
+        "modality": "spatial",
+        "status": "checkpoint local"
+      },
+      {
+        "id": "novae-mouse-0",
+        "modality": "spatial",
+        "status": "checkpoint local"
+      },
+      {
+        "id": "novae-brain-0",
+        "modality": "spatial",
+        "status": "checkpoint local"
+      },
+      {
+        "id": "esm2-650m",
+        "modality": "protein",
+        "status": "open weights"
+      },
+      {
+        "id": "evo2",
+        "modality": "dna",
+        "status": "needs compute"
+      }
+    ],
+    "datasets": [
+      {
+        "id": "ts-immune-20k",
+        "modality": "single-cell",
+        "note": "Tabula Sapiens immune compartment, 20k-cell subset."
+      },
+      {
+        "id": "ts-kidney",
+        "modality": "single-cell",
+        "note": "Tabula Sapiens kidney."
+      },
+      {
+        "id": "ts-lung",
+        "modality": "single-cell",
+        "note": "Tabula Sapiens lung."
+      }
+    ]
+  },
+  "cards": [
+    {
+      "model": "pca-reference-32",
+      "modality": "single-cell",
+      "task": "sc1-celltype-transfer",
+      "task_version": "1.0",
+      "axis": [
+        "A1",
+        "A3"
+      ],
+      "metric": "macro_f1",
+      "dataset_id": "ts-immune-20k",
+      "dataset_sha256": "987b766552a0",
+      "scores": {
+        "zero_shot": 0.496383,
+        "behavioural": 0.54718,
+        "probe": 0.54718,
+        "elicited": null,
+        "readout_budget": {
+          "n_components": 64,
+          "C": 1.0,
+          "max_iter": 2000,
+          "metric": "macro_f1"
+        },
+        "probe_best_layer": "pca-32"
+      },
+      "derived": {
+        "elicitation_gap": 0.0,
+        "recoverability": null,
+        "headroom": 0.056726
+      },
+      "baselines": {
+        "majority_class": 0.016076,
+        "library_size_only": 0.017956,
+        "pca50_logreg": 0.563273,
+        "nearest_centroid_raw": 0.565744
+      },
+      "controls": {
+        "group_stratified": true,
+        "group_key": "donor_id",
+        "n_groups_train": 14,
+        "n_groups_test": 8,
+        "null": {
+          "method": "covariate-matched label permutation (10 quantile bins)",
+          "n_permutations": 100,
+          "matched_covariate": "total_counts",
+          "p_value": 0.009900990099009901,
+          "null_mean": 0.04662838140501706,
+          "null_std": 0.003538541880659488,
+          "observed": 0.5471797370309748
+        },
+        "ceiling": {
+          "method": "empirical: best of {scaled, unscaled} x {raw, pca50, pca128} x {C=1, C=0.1} logistic regression, same split",
+          "value": 0.5800860898726297,
+          "note": "Won by unscaled/pca128/C=1. Interpret model scores relative to this: at or above it, the representation adds nothing over standard supervised practice on the raw features."
+        },
+        "extra": {
+          "per_layer_scores": {
+            "hvg-scaled": 0.543235,
+            "pca-32": 0.54718,
+            "pca-128": 0.338823
+          },
+          "n_labels": 21,
+          "n_bootstrap_usable": 60
+        }
+      },
+      "uncertainty": {
+        "ci95": [
+          0.4517003367138983,
+          0.5539253908769184
+        ],
+        "n_bootstrap": 60,
+        "std": 0.026434382597783978,
+        "rank_reversal_risk": {}
+      },
+      "compute": {
+        "device": "cpu",
+        "seconds": 122.74,
+        "gpu_hours": null,
+        "peak_memory_gb": null
+      },
+      "provenance": {
+        "code_commit": "0cfb3e2",
+        "run_id": "950d6a737988",
+        "run_date": "2026-08-14T17:56:45+00:00",
+        "seed": 0,
+        "env_lock_sha256": null,
+        "harness_version": "1.0"
+      },
+      "caveats": [
+        "Does not beat the nearest_centroid_raw baseline (0.566); the representation adds nothing on this task.",
+        "Fine-tuning (F) not measured: adapter does not support it."
+      ],
+      "disclosure_tier": 0
+    },
+    {
+      "model": "raw-expression",
+      "modality": "single-cell",
+      "task": "sc1-celltype-transfer",
+      "task_version": "1.0",
+      "axis": [
+        "A1",
+        "A3"
+      ],
+      "metric": "macro_f1",
+      "dataset_id": "ts-immune-20k",
+      "dataset_sha256": "987b766552a0",
+      "scores": {
+        "zero_shot": 0.565744,
+        "behavioural": 0.543594,
+        "probe": 0.543594,
+        "elicited": null,
+        "readout_budget": {
+          "n_components": 64,
+          "C": 1.0,
+          "max_iter": 2000,
+          "metric": "macro_f1"
+        },
+        "probe_best_layer": "expression"
+      },
+      "derived": {
+        "elicitation_gap": 0.0,
+        "recoverability": null,
+        "headroom": 0.024724
+      },
+      "baselines": {
+        "majority_class": 0.016076,
+        "library_size_only": 0.017956,
+        "pca50_logreg": 0.563273,
+        "nearest_centroid_raw": 0.565744
+      },
+      "controls": {
+        "group_stratified": true,
+        "group_key": "donor_id",
+        "n_groups_train": 14,
+        "n_groups_test": 8,
+        "null": {
+          "method": "covariate-matched label permutation (10 quantile bins)",
+          "n_permutations": 100,
+          "matched_covariate": "total_counts",
+          "p_value": 0.009900990099009901,
+          "null_mean": 0.05035379257377866,
+          "null_std": 0.004018102753859856,
+          "observed": 0.5435938984549855
+        },
+        "ceiling": {
+          "method": "empirical: best of {scaled, unscaled} x {raw, pca50, pca128} x {C=1, C=0.1} logistic regression, same split",
+          "value": 0.5800860898726297,
+          "note": "Won by unscaled/pca128/C=1. Interpret model scores relative to this: at or above it, the representation adds nothing over standard supervised practice on the raw features."
+        },
+        "extra": {
+          "per_layer_scores": {
+            "expression": 0.543594
+          },
+          "n_labels": 21,
+          "n_bootstrap_usable": 60
+        }
+      },
+      "uncertainty": {
+        "ci95": [
+          0.3845802577189356,
+          0.5521879916866465
+        ],
+        "n_bootstrap": 60,
+        "std": 0.045365982463487706,
+        "rank_reversal_risk": {}
+      },
+      "compute": {
+        "device": "cpu",
+        "seconds": 223.61,
+        "gpu_hours": null,
+        "peak_memory_gb": null
+      },
+      "provenance": {
+        "code_commit": "0cfb3e2",
+        "run_id": "bf0f8e7dd472",
+        "run_date": "2026-08-14T18:00:32+00:00",
+        "seed": 0,
+        "env_lock_sha256": null,
+        "harness_version": "1.0"
+      },
+      "caveats": [
+        "Does not beat the nearest_centroid_raw baseline (0.566); the representation adds nothing on this task.",
+        "Fine-tuning (F) not measured: adapter does not support it."
+      ],
+      "disclosure_tier": 0
+    }
+  ]
+}

@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PROBE — capability and safety evaluations for biological AI | Biodyn</title>
+  <meta name="description" content="PROBE runs independent capability and safety evaluations on biological foundation models, reporting what a model's internals know alongside what its outputs express.">
+  <link rel="canonical" href="https://biodynai.com/evals.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Biodyn">
+  <meta property="og:url" content="https://biodynai.com/evals.html">
+  <meta property="og:title" content="PROBE — capability and safety evaluations for biological AI">
+  <meta property="og:description" content="Existing benchmarks read what a biological model says. PROBE also reads what it knows.">
+  <meta property="og:image" content="https://biodynai.com/content/social-preview.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="PROBE — capability and safety evaluations for biological AI">
+  <meta name="twitter:description" content="Existing benchmarks read what a biological model says. PROBE also reads what it knows.">
+  <meta name="twitter:image" content="https://biodynai.com/content/social-preview.png">
+  <script>
+    (() => {
+      const storedTheme = localStorage.getItem('biodyn-theme');
+      const systemPrefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+      const theme = storedTheme === 'light' || storedTheme === 'dark'
+        ? storedTheme
+        : (systemPrefersLight ? 'light' : 'dark');
+      document.documentElement.dataset.theme = theme;
+    })();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="evals.css">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+</head>
+<body class="ev-page">
+
+  <nav class="nav" id="nav">
+    <div class="container">
+      <a href="index.html" class="nav-logo">Biodyn</a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="about.html">About</a></li>
+        <li><a href="evals.html" class="nav-current">Evals</a></li>
+        <li><a href="index.html#vision">Vision</a></li>
+        <li><a href="index.html#research">Research</a></li>
+        <li><a href="index.html#methodology">Methodology</a></li>
+        <li><a href="index.html#impact">Impact</a></li>
+        <li><a href="index.html#atlases">Atlases</a></li>
+        <li><a href="index.html#publications">Research Outputs</a></li>
+        <li><a href="index.html#team">Team</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="portfolio.html">Portfolio</a></li>
+        <li>
+          <button type="button" class="theme-toggle" id="themeToggle" aria-label="Toggle color theme">
+            Theme
+          </button>
+        </li>
+        <li><a href="https://github.com/orgs/Biodyn-AI/repositories" target="_blank" rel="noopener" class="nav-cta">GitHub →</a></li>
+      </ul>
+      <div class="hamburger" id="hamburger">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </nav>
+
+  <header class="ev-hero">
+    <div class="container">
+      <p class="ev-acronym">
+        <b>P</b>rofiling · <b>R</b>epresentations · <b>O</b>utputs · <b>B</b>iosecurity · <b>E</b>licitation
+      </p>
+      <h1>Existing benchmarks read what a model says. PROBE also reads what it knows.</h1>
+      <p class="ev-lede">
+        Biological foundation models are trained to predict sequences, expression levels and
+        cell states. To do that they learn biology — and a benchmark that only scores their
+        outputs cannot see how much of it is in there. PROBE measures both surfaces, on the
+        same held-out data, under one fixed readout budget.
+      </p>
+      <p class="ev-lede">
+        Independent, open-source, and deliberately hard on itself: every score ships with the
+        baseline it must beat, the ceiling it is measured against, and the null that could
+        kill it.
+      </p>
+      <dl class="ev-strip" id="evStrip"></dl>
+    </div>
+  </header>
+
+  <main>
+    <section class="ev-section">
+      <div class="container">
+        <h2 class="ev-h2">The measurement</h2>
+        <p class="ev-sub">
+          Every task, capability or safety, reports the same surfaces on one held-out split.
+          B and P use an <em>identical</em> readout budget — same projection dimensionality,
+          same regularisation — so a difference between them is a fact about the
+          representation, not about classifier size.
+        </p>
+
+        <div class="ev-surfaces">
+          <div class="ev-surface">
+            <div class="ev-surface-key">zero-shot</div>
+            <div class="ev-surface-body">
+              <strong>No task training at all</strong>
+              <span>Nearest class centroid in the model's own embedding space — what a practitioner gets out of the box.</span>
+            </div>
+          </div>
+          <div class="ev-surface">
+            <div class="ev-surface-key">B · behavioural</div>
+            <div class="ev-surface-body">
+              <strong>The sanctioned surface</strong>
+              <span>A fixed-capacity readout of the representation the model's own documentation tells you to use. This is the surface every existing benchmark evaluates.</span>
+            </div>
+          </div>
+          <div class="ev-surface">
+            <div class="ev-surface-key">P · probe</div>
+            <div class="ev-surface-body">
+              <strong>The best internal layer</strong>
+              <span>The same readout, same budget, applied to every layer inside the model. Reported with the layer that won.</span>
+            </div>
+          </div>
+          <div class="ev-surface">
+            <div class="ev-surface-key">F · elicited</div>
+            <div class="ev-surface-body">
+              <strong>Light fine-tuning</strong>
+              <span>What a modest adversary unlocks under a fixed data and step budget. Reported as absent, never as zero, when an adapter cannot fine-tune.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="ev-formula">
+          Elicitation&nbsp;Gap = P − B &nbsp;&nbsp;·&nbsp;&nbsp; knowledge held internally that the sanctioned interface does not express<br>
+          Recoverability = F − B &nbsp;&nbsp;·&nbsp;&nbsp; how much of it light fine-tuning unlocks
+        </div>
+      </div>
+    </section>
+
+    <section class="ev-section">
+      <div class="container">
+        <h2 class="ev-h2">Results</h2>
+        <p class="ev-sub">
+          Rendered directly from result cards emitted by the harness. Reference models —
+          PCA, raw expression — sit in the table on purpose rather than in a footnote: a
+          foundation model that cannot beat PCA on a task has not earned the compute.
+        </p>
+        <div id="evBoards"></div>
+      </div>
+    </section>
+
+    <section class="ev-section">
+      <div class="container">
+        <h2 class="ev-h2">Coverage</h2>
+        <p class="ev-sub">
+          Ten capability axes across five modalities. This matrix is published with its gaps
+          visible because partial coverage, clearly marked, is more useful than a delayed
+          launch that implies completeness. Numbers are result cards; a dot means not yet
+          measured.
+        </p>
+        <div id="evCoverage"></div>
+        <p class="ev-note">
+          Axis keys: A1 representation quality · A2 native-task performance · A3 transfer ·
+          A4 causal/interventional · A5 structural knowledge · A6 compositionality ·
+          A7 calibration · A8 robustness · A9 efficiency · A10 scaling.
+        </p>
+      </div>
+    </section>
+
+    <section class="ev-section">
+      <div class="container">
+        <h2 class="ev-h2">What is not yet true</h2>
+        <p class="ev-sub">
+          An evaluator that hides its own limits is not one. As of v0.1:
+        </p>
+        <ul class="ev-caveats">
+          <li>Per-model bootstrap replicates are not retained, so pairwise rank-reversal risk is implemented but not populated. The tables above are point estimates and should not be read as rankings.</li>
+          <li>Fine-tuning (F) is not yet measured for any model, so no Recoverability figure is published.</li>
+          <li>Coverage is one task on one dataset in one modality. Everything else in the matrix is honest emptiness.</li>
+          <li>The safety battery (S1–S5) is specified but not yet run.</li>
+        </ul>
+        <p class="ev-note">
+          Read the <a href="evals-standard.html">PROBE Standard</a> for the six rules every
+          card must satisfy, or the <a href="evals-registry.html">model registry</a> for what
+          is evaluated, queued and out of scope.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <span class="footer-logo">Biodyn</span>
+        <span class="footer-text">© 2026 Biodyn Research Project. All rights reserved.</span>
+        <div class="footer-links">
+          <a href="index.html">Home</a>
+          <a href="about.html">About</a>
+          <a href="evals-standard.html">Standard</a>
+          <a href="evals-registry.html">Registry</a>
+          <a href="blog.html">Blog</a>
+          <a href="mailto:kenduhov.ig@gmail.com">Contact</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script src="evals.js"></script>
+</body>
+</html>

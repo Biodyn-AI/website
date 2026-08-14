@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PROBE model registry — evaluated, queued, out of scope | Biodyn</title>
+  <meta name="description" content="Every biological foundation model PROBE tracks, with its current evaluation status: evaluated, queued, or out of scope.">
+  <link rel="canonical" href="https://biodynai.com/evals-registry.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Biodyn">
+  <meta property="og:url" content="https://biodynai.com/evals-registry.html">
+  <meta property="og:title" content="PROBE model registry">
+  <meta property="og:description" content="Every biological foundation model PROBE tracks, with its current evaluation status.">
+  <meta property="og:image" content="https://biodynai.com/content/social-preview.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <script>
+    (() => {
+      const storedTheme = localStorage.getItem('biodyn-theme');
+      const systemPrefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+      const theme = storedTheme === 'light' || storedTheme === 'dark'
+        ? storedTheme
+        : (systemPrefersLight ? 'light' : 'dark');
+      document.documentElement.dataset.theme = theme;
+    })();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="evals.css">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+</head>
+<body class="ev-page">
+
+  <nav class="nav" id="nav">
+    <div class="container">
+      <a href="index.html" class="nav-logo">Biodyn</a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="about.html">About</a></li>
+        <li><a href="evals.html" class="nav-current">Evals</a></li>
+        <li><a href="index.html#vision">Vision</a></li>
+        <li><a href="index.html#research">Research</a></li>
+        <li><a href="index.html#methodology">Methodology</a></li>
+        <li><a href="index.html#impact">Impact</a></li>
+        <li><a href="index.html#atlases">Atlases</a></li>
+        <li><a href="index.html#publications">Research Outputs</a></li>
+        <li><a href="index.html#team">Team</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="portfolio.html">Portfolio</a></li>
+        <li>
+          <button type="button" class="theme-toggle" id="themeToggle" aria-label="Toggle color theme">
+            Theme
+          </button>
+        </li>
+        <li><a href="https://github.com/orgs/Biodyn-AI/repositories" target="_blank" rel="noopener" class="nav-cta">GitHub →</a></li>
+      </ul>
+      <div class="hamburger" id="hamburger">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </nav>
+
+  <header class="ev-hero">
+    <div class="container">
+      <p class="ev-acronym">Model registry</p>
+      <h1>What is evaluated, what is queued, and what we have not touched</h1>
+      <p class="ev-lede">
+        The registry is published ahead of the results. A model listed as queued with no
+        card is more honest, and more useful to anyone choosing a model, than a leaderboard
+        that quietly omits whatever nobody got round to running.
+      </p>
+      <p class="ev-lede">
+        Almost every biological foundation model ships with open weights, so nothing here
+        depends on a lab granting access. Status reflects engineering effort, not permission.
+      </p>
+      <dl class="ev-strip" id="evStrip"></dl>
+    </div>
+  </header>
+
+  <main>
+    <section class="ev-section">
+      <div class="container">
+        <h2 class="ev-h2">Models</h2>
+        <p class="ev-sub">
+          Reference models (PCA, raw expression) are registered as models rather than as
+          baselines hidden in a methods section, and appear in every leaderboard.
+        </p>
+        <div class="ev-reg" id="evRegistry"></div>
+      </div>
+    </section>
+
+    <section class="ev-section">
+      <div class="container">
+        <h2 class="ev-h2">Coverage</h2>
+        <p class="ev-sub">
+          Result cards per modality and capability axis. A dot is an honest gap.
+        </p>
+        <div id="evCoverage"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <span class="footer-logo">Biodyn</span>
+        <span class="footer-text">© 2026 Biodyn Research Project. All rights reserved.</span>
+        <div class="footer-links">
+          <a href="index.html">Home</a>
+          <a href="about.html">About</a>
+          <a href="evals.html">Evals</a>
+          <a href="evals-standard.html">Standard</a>
+          <a href="blog.html">Blog</a>
+          <a href="mailto:kenduhov.ig@gmail.com">Contact</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script src="evals.js"></script>
+</body>
+</html>
