@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>The Map Inside the Machine — Biodyn Blog</title>
+  <title>The Map Inside the Machine: Biodyn Blog</title>
   <meta name="description" content="A research manifest for extracting biological knowledge, causal structure, and usable algorithms from biological foundation models.">
   <link rel="canonical" href="https://biodynai.com/the-map-inside-the-machine.html">
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="Biodyn">
   <meta property="og:url" content="https://biodynai.com/the-map-inside-the-machine.html">
-  <meta property="og:title" content="The Map Inside the Machine — Biodyn Blog">
+  <meta property="og:title" content="The Map Inside the Machine: Biodyn Blog">
   <meta property="og:description" content="A research manifest for extracting biological knowledge, causal structure, and usable algorithms from biological foundation models.">
   <meta property="og:image" content="https://biodynai.com/content/map-inside-social.png">
   <meta property="og:image:type" content="image/png">
@@ -17,7 +17,7 @@
   <meta property="og:image:height" content="630">
   <meta property="og:image:alt" content="Social preview for The Map Inside the Machine">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="The Map Inside the Machine — Biodyn Blog">
+  <meta name="twitter:title" content="The Map Inside the Machine: Biodyn Blog">
   <meta name="twitter:description" content="A research manifest for extracting biological knowledge, causal structure, and usable algorithms from biological foundation models.">
   <meta name="twitter:image" content="https://biodynai.com/content/map-inside-social.png">
   <meta name="twitter:image:alt" content="Social preview for The Map Inside the Machine">
@@ -32,6 +32,9 @@
       document.documentElement.dataset.theme = theme;
     })();
   </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
 </head>
@@ -41,9 +44,8 @@
     <div class="container">
       <a href="index.html" class="nav-logo">Biodyn</a>
       <ul class="nav-links" id="navLinks">
-        <li><a href="about.html">About</a></li>
+        <li><a href="index.html#about">About</a></li>
         <li><a href="evals.html">Evals</a></li>
-        <li><a href="index.html#vision">Vision</a></li>
         <li><a href="index.html#research">Research</a></li>
         <li><a href="index.html#methodology">Methodology</a></li>
         <li><a href="index.html#impact">Impact</a></li>
@@ -51,7 +53,6 @@
         <li><a href="index.html#publications">Research Outputs</a></li>
         <li><a href="index.html#team">Team</a></li>
         <li><a href="blog.html" class="nav-current">Blog</a></li>
-        <li><a href="portfolio.html">Portfolio</a></li>
         <li>
           <button type="button" class="theme-toggle" id="themeToggle" aria-label="Toggle color theme">
             Theme
@@ -70,7 +71,6 @@
   <main class="article-page section" id="articlePage">
     <div class="container article-layout">
       <div class="article-header">
-        <span class="section-label">Blog</span>
         <h1>The Map Inside the Machine: A Research Doctrine for Extracting Biological Knowledge from Foundation Models</h1>
         <p class="article-summary">
           A research manifest on why biological foundation models can be treated as compressed maps of biological reality, and how mechanistic interpretability can extract validated knowledge, causal circuits, and compact biological algorithms from their internals.
@@ -340,7 +340,7 @@ cartographer.</p>
 <h2 id="the-superposition-layer"><strong>The Superposition
 Layer</strong></h2>
 <p>The spectral analysis of residual-stream geometry described above
-operates on the dominant axes of variation — the directions that SVD can
+operates on the dominant axes of variation, the directions that SVD can
 see. But a fundamental insight from language model interpretability is
 that neural networks can encode far more features than they have
 dimensions, through a phenomenon called <em>superposition</em>: features
@@ -352,7 +352,7 @@ superposition, then the spectral axes described above, however
 informative, capture only the tip of the representational iceberg.</p>
 <p>Sparse autoencoders (SAEs) are the standard tool for resolving
 superposition. They decompose dense neural activations into a much
-larger set of sparse, interpretable features — directions in
+larger set of sparse, interpretable features, directions in
 representation space that correspond to individual concepts the network
 has learned. Our <a href="https://arxiv.org/abs/2603.02952">systematic
 application of SAEs to biological foundation models</a> trained TopK
@@ -360,7 +360,7 @@ SAEs on the residual stream at every layer of Geneformer V2-316M (18
 layers, d=1152) and scGPT whole-human (12 layers, d=512).</p>
 <p>The headline finding is that superposition in biological foundation
 models is massive. <strong>99.8% of SAE features are invisible to
-SVD</strong> — they exist in directions that singular value
+SVD</strong>, they exist in directions that singular value
 decomposition cannot detect, because they are encoded as
 nearly-orthogonal vectors in a space of far lower dimensionality. The
 biological knowledge accessible through spectral analysis, substantial
@@ -368,8 +368,7 @@ as it is, represents a small fraction of what the models have actually
 learned.</p>
 <p>What do the 107,000+ features encode? Systematic annotation against
 Gene Ontology, KEGG, Reactome, STRING, and TRRUST reveals that
-<strong>29–59% of features map to known biological programs</strong> —
-pathway membership, protein-protein interaction modules, functional
+<strong>29–59% of features map to known biological programs</strong>, pathway membership, protein-protein interaction modules, functional
 annotations, regulatory associations. The annotation rate follows a
 U-shaped profile across layers: early layers encode molecular-level
 programs (ribosomal assembly, metabolic enzymes), middle layers develop
@@ -379,7 +378,7 @@ This U-shaped profile mirrors the hierarchical abstraction observed in
 language model SAEs, where early features capture syntactic
 regularities, middle features become more abstract, and late features
 specialize for next-token prediction.</p>
-<p>Features organize into co-activation modules — groups of features
+<p>Features organize into co-activation modules, groups of features
 that fire together across cells. Geneformer contains 141 such modules
 across its 18 layers, scGPT contains 76 across its 12 layers, with 5–7
 modules per layer in both models. Despite the different dictionary sizes
@@ -390,7 +389,7 @@ feature patching confirms that individual features have measurable
 causal impact on the model's computations.</p>
 <p>A particularly striking finding concerns cross-layer information
 flow. Tracking decoder weight similarity across layers reveals
-information highways — features whose representational content persists
+information highways, features whose representational content persists
 across depth. Between 63% and 99.8% of features at any given layer
 participate in such highways. Yet features are overwhelmingly
 layer-specific in their precise identity: only 2–3% of features at any
@@ -398,11 +397,11 @@ layer match a feature at the adjacent layer by decoder weight
 similarity, and no layer 0 feature survives past layer 11 in Geneformer.
 The model progressively transforms its representations rather than
 simply passing features forward. And feature persistence anti-correlates
-with biological content — the features that annotate most richly to
+with biological content, the features that annotate most richly to
 known biology are also the ones that transform most rapidly across
 depth.</p>
 <p>So, SAEs decompose activations into features, but features at
-different layers are not independent — they are connected by the model's
+different layers are not independent, they are connected by the model's
 computation. The natural next question is whether these inter-layer
 connections form biologically meaningful circuits. <a
 href="https://arxiv.org/abs/2603.01752">Causal circuit tracing answers
@@ -420,7 +419,7 @@ inter-feature interaction is suppressive, a computational architecture
 reminiscent of lateral inhibition in biological neural circuits and
 winner-take-all dynamics in competitive networks.</p>
 <p><strong>Biological coherence.</strong> Approximately 53% of causal
-edges connect features that share Gene Ontology annotations — meaning
+edges connect features that share Gene Ontology annotations, meaning
 more than half of all feature-to-feature causal interactions in the
 model connect biologically related programs. This coherence is invariant
 to model architecture and cell type.</p>
@@ -441,7 +440,7 @@ transition feature (sharing 75 terms including sister chromatid
 separation and p53 signaling). The Layer 0 source also directly drives
 the Layer 17 target through a "skip connection," revealing a parallel
 fast-path. This cascade recapitulates the complete biological
-progression from DNA damage detection through cell cycle arrest — a
+progression from DNA damage detection through cell cycle arrest, a
 sequence established by decades of experimental cell biology, here
 recovered from model internals alone.</p>
 <h2
@@ -451,9 +450,8 @@ From Extracting Knowledge To Extracting Algorithm</strong></h2>
 characterize what the models know without putting that knowledge to
 practical use. The deepest test of whether mechanistic interpretability
 can extract biologically useful knowledge from foundation models is
-whether it can produce a standalone algorithm — a tool that works
-outside the model, on new data, solving a real biological problem —
-derived entirely from the model's internal representations.</p>
+whether it can produce a standalone algorithm, a tool that works
+outside the model, on new data, solving a real biological problem, derived entirely from the model's internal representations.</p>
 <p>First such discovery came through systematic exploration of scGPT's
 attention tensor using an autonomous AI executor-reviewer loop that
 searched over candidate manifold hypotheses by varying biological
@@ -486,7 +484,7 @@ far fewer parameters than a standard MLP probe.</p>
 layer maps manifold coordinates to the desired biological prediction
 (pseudotime ordering, cell-type classification, or developmental stage
 assignment).</p>
-<p>The resulting algorithm is a standalone tool — it does not require
+<p>The resulting algorithm is a standalone tool, it does not require
 the full foundation model at inference time. Multi-stage compaction
 reduced the operator from three pooled attention heads to a single head
 (5.9 MB) without statistically significant loss, and further to a
@@ -495,7 +493,7 @@ rank-64 surrogate (0.73 MB). <strong>The extracted algorithm is roughly
 3-layer MLP probe of the frozen embeddings</strong>.</p>
 <p>In 88-split donor-holdout benchmarks against scVI, Palantir, DPT,
 CellTypist, PCA, and raw-expression baselines, the extracted algorithm
-achieves the strongest pseudotime-depth ordering — outperforming all
+achieves the strongest pseudotime-depth ordering, outperforming all
 comparators on the task of aligning cells along their developmental
 trajectory. On cell-type classification, it is competitive with
 established methods while being Bonferroni-Holm significantly better
@@ -505,9 +503,9 @@ algorithm extracted from a foundation model via mechanistic
 interpretability. The algorithm was not designed by a human biologist;
 it was discovered inside the model's weights and surgically removed.</p>
 <h2 id="the-synthesis"><strong>The Synthesis</strong></h2>
-<p>Taken together, five lines of investigation — attention patterns,
+<p>Taken together, five lines of investigation, attention patterns,
 residual-stream geometry, sparse autoencoders, causal circuit tracing,
-and algorithm extraction — paint a coherent and increasingly detailed
+and algorithm extraction, paint a coherent and increasingly detailed
 picture:</p>
 <ol type="1">
 <li><strong>Biological foundation models learn real biological
@@ -518,8 +516,8 @@ graded PPI encoding, co-expression-independent regulatory geometry,
 cross-model convergence, dynamic signatures of differentiation programs,
 107,000+ SAE features with rich biological annotation, biologically
 coherent causal circuits, and an extractable developmental manifold. The
-massive superposition revealed by SAEs — 99.8% of learned features
-invisible to SVD — means that the models' biological knowledge is far
+massive superposition revealed by SAEs, 99.8% of learned features
+invisible to SVD, means that the models' biological knowledge is far
 richer than even the spectral analyses suggested.</li>
 <li><strong>This knowledge is organized hierarchically, both within and
 across representational substrates.</strong> Early layers preserve
@@ -534,7 +532,7 @@ analytical lenses.</li>
 <li><strong>The extraction problem is solvable, and has been solved in
 at least one case.</strong> The hematopoietic manifold demonstrates that
 mechanistic interpretability can produce standalone, biologically useful
-algorithms from foundation model internals — algorithms that outperform
+algorithms from foundation model internals, algorithms that outperform
 established methods, generalize across donors and tissues, compress to
 sub-megabyte scale, and admit detailed mechanistic decomposition into
 interpretable biological factors. This is no longer a theoretical
@@ -553,7 +551,7 @@ transcriptome that models can in principle capture.</li>
 </ol>
 <h2 id="the-research-program-extracting-the-complete-map"><strong>The
 Research Program: Extracting the Complete Map</strong></h2>
-<p>We have a vast territory — the totality of molecular biology in human
+<p>We have a vast territory, the totality of molecular biology in human
 cells. Several frontiers remain unexplored or only partially
 explored:</p>
 <p><strong>Generalization of geometric findings.</strong> The geometric
@@ -563,7 +561,7 @@ begun to extend the reach. Whether the same geometric organization holds
 across all tissues is unknown. The immune system's unusually modular
 regulatory architecture may make it a "best case" for geometric
 interpretability. Systematic evaluation across the full Tabula Sapiens
-atlas and other tissue atlases is needed — and the extraction
+atlas and other tissue atlases is needed, and the extraction
 methodology demonstrated on the hematopoietic manifold provides a
 concrete template for doing so, tissue by tissue, developmental system
 by developmental system.</p>
@@ -580,19 +578,19 @@ cell-type anchors), but the model generates different representations
 for the same gene in different cellular contexts. The hematopoietic
 manifold shows that context-dependent structure exists and can be
 extracted, but understanding how the complete biological map changes
-across cell states — how the same gene is represented differently in a
-stem cell versus a terminally differentiated neutrophil — is an open
+across cell states, how the same gene is represented differently in a
+stem cell versus a terminally differentiated neutrophil, is an open
 question with profound implications for understanding context-dependent
 gene regulation.</p>
 <p><strong>The regulatory logic gap.</strong> The most consistent
 finding across all analytical methods is that these models encode
 organized biological knowledge but not causal regulatory logic.
-Understanding <em>why</em> this is the case — whether it reflects a
+Understanding <em>why</em> this is the case, whether it reflects a
 limitation of the training objective (masked gene prediction does not
 require learning causal direction), of the training data (single-cell
 snapshots contain correlational but not interventional information), or
 of the model architecture (transformers may not naturally represent
-asymmetric causal relationships) — is essential for determining whether
+asymmetric causal relationships), is essential for determining whether
 future models could learn regulatory logic, or whether this requires
 fundamentally different approaches such as training on perturbation data
 or incorporating causal inductive biases.</p>
@@ -639,7 +637,7 @@ hematopoietic manifold discovery (which was conducted through a
 two-phase autonomous research loop driven by an AI executor-reviewer
 pair operating under pre-registered quality gates). In each case, the
 loop designs experiments, executes with appropriate controls, evaluates
-results, identifies promising directions, and iterates — recording every
+results, identifies promising directions, and iterates, recording every
 negative result alongside every positive, building comprehensive maps of
 what the model does and does not encode.</p>
 <p>The hypothesis is that the extraction of biological knowledge from
@@ -652,8 +650,8 @@ context. This division of labor has already accelerated the mapping
 program by what appears to be at least an order of magnitude, and there
 is no reason to expect this ceiling has been reached.</p>
 <h2 id="what-success-looks-like">What Success Looks Like</h2>
-<p>The end state of this research program — achievable not immediately,
-but within the foreseeable trajectory of current methods — is a
+<p>The end state of this research program, achievable not immediately,
+but within the foreseeable trajectory of current methods, is a
 human-readable, validated, comprehensive description of the biological
 knowledge contained in foundation models. Some components of this end
 state have already been partially realized:</p>
@@ -663,8 +661,8 @@ space: which dimensions encode which biological variables, at which
 layers, with what fidelity.</li>
 <li>A <strong>library of extracted algorithms</strong>: standalone,
 compact, interpretable tools derived from model internals, each solving
-a specific biological problem — developmental ordering, cell-type
-classification, communication geometry — validated against established
+a specific biological problem, developmental ordering, cell-type
+classification, communication geometry, validated against established
 methods and annotated with mechanistic decompositions.</li>
 <li>A <strong>causal circuit atlas</strong>: a map of how biological
 features interact computationally within the model, which programs drive
@@ -697,14 +695,14 @@ spectacularly successful, but also spectacularly slow. Decades of work
 have produced databases that cover a fraction of the regulatory
 relationships in a single cell type.</p>
 <p>Foundation models offer a fundamentally different approach. They
-consume the aggregate output of biological systems — the patterns of
-gene expression across millions of cells — and compress that aggregate
+consume the aggregate output of biological systems, the patterns of
+gene expression across millions of cells, and compress that aggregate
 into internal representations. If those representations faithfully
 capture the underlying biological structure, then studying the
 <em>model</em> becomes a way of studying <em>biology itself</em>, at a
 scale and speed that direct experimentation cannot match.</p>
 <p>The analogy is to cartography. For centuries, maps were drawn by
-direct survey — walking the territory, measuring distances, recording
+direct survey, walking the territory, measuring distances, recording
 landmarks. This produced accurate but painfully slow accumulation of
 geographic knowledge. Satellite imagery changed the paradigm: a single
 instrument, observing from above, could produce a complete map in a
@@ -769,7 +767,6 @@ Acids Research</em>, 46(D1):D199–D202.</li>
         <div class="footer-links">
           <a href="index.html">Home</a>
           <a href="blog.html">Blog</a>
-          <a href="portfolio.html">Portfolio</a>
           <a href="https://github.com/orgs/Biodyn-AI/repositories" target="_blank" rel="noopener">GitHub</a>
           <a href="https://docs.google.com/forms/d/e/1FAIpQLSdfnxPmdCtrHqDenf0VECp3H0sphOy1uEfQ1UYsbO3NwCVlkQ/viewform?usp=dialog" target="_blank" rel="noopener">Contact Form</a>
           <a href="https://docs.google.com/forms/d/e/1FAIpQLSedo8RPXfIl5ISE2ar7TDx9Me0vlVwfCHOzZ8NI7BDNiueTsw/viewform?usp=sharing&ouid=108024776730411231677" target="_blank" rel="noopener">Subscribe</a>

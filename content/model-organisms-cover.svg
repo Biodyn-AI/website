@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1536 1024" width="1536" height="1024" role="img" aria-label="A small organism drawn as a traced specimen: a tapered body outline with a dorsal nerve cord of numbered nodes and lateral ganglia, over a faint measurement grid">
+  <defs>
+    <linearGradient id="field" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f7f2e6"/>
+      <stop offset="1" stop-color="#efe8d8"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#1d3b46" stop-opacity="0.30"/>
+      <stop offset="1" stop-color="#1d3b46" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1536" height="1024" fill="url(#field)"/>
+
+  <!-- measurement grid -->
+  <g stroke="#1d3b46" stroke-opacity="0.055" stroke-width="1">
+    <path d="M96 0V1024M192 0V1024M288 0V1024M384 0V1024M480 0V1024M576 0V1024M672 0V1024M768 0V1024M864 0V1024M960 0V1024M1056 0V1024M1152 0V1024M1248 0V1024M1344 0V1024M1440 0V1024"/>
+    <path d="M0 96H1536M0 192H1536M0 288H1536M0 384H1536M0 480H1536M0 576H1536M0 672H1536M0 768H1536M0 864H1536M0 960H1536"/>
+  </g>
+
+  <!-- plate corner ticks -->
+  <g stroke="#1d3b46" stroke-opacity="0.4" stroke-width="2" fill="none">
+    <path d="M96 132V96H132M1404 96h36v36M1440 892v36h-36M132 928H96v-36"/>
+  </g>
+
+  <ellipse cx="768" cy="516" rx="470" ry="210" fill="url(#glow)"/>
+
+  <!-- body wall -->
+  <g fill="none" stroke="#1d3b46" stroke-linecap="round">
+    <path d="M300 516c60-118 190-176 468-176s408 58 468 176c-60 118-190 176-468 176s-408-58-468-176z"
+          stroke-opacity="0.5" stroke-width="2.5"/>
+    <path d="M338 516c56-92 176-140 430-140s374 48 430 140c-56 92-176 140-430 140s-374-48-430-140z"
+          stroke-opacity="0.18" stroke-width="1.5"/>
+
+    <!-- cross-section rings -->
+    <g stroke-opacity="0.16" stroke-width="1.4">
+      <ellipse cx="430" cy="516" rx="18" ry="86"/>
+      <ellipse cx="560" cy="516" rx="24" ry="126"/>
+      <ellipse cx="700" cy="516" rx="26" ry="146"/>
+      <ellipse cx="840" cy="516" rx="26" ry="148"/>
+      <ellipse cx="980" cy="516" rx="24" ry="134"/>
+      <ellipse cx="1110" cy="516" rx="19" ry="102"/>
+    </g>
+  </g>
+
+  <!-- dorsal nerve cord -->
+  <path d="M318 470C480 424 660 410 800 412s280 22 418 60"
+        fill="none" stroke="#1d3b46" stroke-opacity="0.85" stroke-width="2.5" stroke-linecap="round"/>
+
+  <!-- commissures down to the ganglia -->
+  <g stroke="#1d3b46" stroke-opacity="0.4" stroke-width="1.6">
+    <path d="M402 449 388 596M486 436 500 610M570 428 556 618M654 420 668 622M738 414 724 624M822 413 836 622M906 418 892 618M990 426 1004 610M1074 438 1060 594M1158 454 1170 574"/>
+  </g>
+
+  <!-- cord nodes -->
+  <g fill="#12303a">
+    <circle cx="318" cy="470" r="5"/><circle cx="402" cy="449" r="6"/><circle cx="486" cy="436" r="6"/>
+    <circle cx="570" cy="428" r="6"/><circle cx="654" cy="420" r="6"/><circle cx="738" cy="414" r="6"/>
+    <circle cx="822" cy="413" r="6"/><circle cx="906" cy="418" r="6"/><circle cx="990" cy="426" r="6"/>
+    <circle cx="1074" cy="438" r="6"/><circle cx="1158" cy="454" r="6"/><circle cx="1218" cy="470" r="5"/>
+  </g>
+
+  <!-- ganglia -->
+  <g fill="none" stroke="#12303a" stroke-opacity="0.7" stroke-width="2">
+    <circle cx="388" cy="596" r="7"/><circle cx="500" cy="610" r="8"/><circle cx="556" cy="618" r="7"/>
+    <circle cx="668" cy="622" r="8"/><circle cx="724" cy="624" r="7"/><circle cx="836" cy="622" r="8"/>
+    <circle cx="892" cy="618" r="7"/><circle cx="1004" cy="610" r="8"/><circle cx="1060" cy="594" r="7"/>
+    <circle cx="1170" cy="574" r="7"/>
+  </g>
+
+  <!-- caliper marking the traced extent -->
+  <g stroke="#12303a" stroke-opacity="0.55" stroke-width="1.6" fill="none">
+    <path d="M300 762v28M1236 762v28M300 776h936"/>
+    <path d="M1218 768l18 8-18 8M318 768l-18 8 18 8"/>
+  </g>
+</svg>

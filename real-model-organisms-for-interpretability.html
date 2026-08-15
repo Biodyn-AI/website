@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Real Model Organisms for Mechanistic Interpretability - Biodyn Blog</title>
+  <meta name="description" content="Interpretability borrowed the term model organism from biology and kept the toy. Biological foundation models are the real thing: small enough to trace exhaustively, with ground truth that exists outside the model, and a wet lab at the end of the argument.">
+  <link rel="canonical" href="https://biodynai.com/real-model-organisms-for-interpretability.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Biodyn">
+  <meta property="og:url" content="https://biodynai.com/real-model-organisms-for-interpretability.html">
+  <meta property="og:title" content="Real Model Organisms for Mechanistic Interpretability - Biodyn Blog">
+  <meta property="og:description" content="Interpretability borrowed the term model organism from biology and kept the toy. Biological foundation models are the real thing.">
+  <meta property="og:image" content="https://biodynai.com/content/social-preview.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Biodyn social preview">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Real Model Organisms for Mechanistic Interpretability - Biodyn Blog">
+  <meta name="twitter:description" content="Interpretability borrowed the term model organism from biology and kept the toy. Biological foundation models are the real thing.">
+  <meta name="twitter:image" content="https://biodynai.com/content/social-preview.png">
+  <meta name="twitter:image:alt" content="Biodyn social preview">
+  <script>
+    (() => {
+      const storedTheme = localStorage.getItem('biodyn-theme');
+      const systemPrefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+      const theme = storedTheme === 'light' || storedTheme === 'dark'
+        ? storedTheme
+        : (systemPrefersLight ? 'light' : 'dark');
+
+      document.documentElement.dataset.theme = theme;
+    })();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+</head>
+<body>
+
+  <nav class="nav" id="nav">
+    <div class="container">
+      <a href="index.html" class="nav-logo">Biodyn</a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html#about">About</a></li>
+        <li><a href="evals.html">Evals</a></li>
+        <li><a href="index.html#research">Research</a></li>
+        <li><a href="index.html#methodology">Methodology</a></li>
+        <li><a href="index.html#impact">Impact</a></li>
+        <li><a href="index.html#atlases">Atlases</a></li>
+        <li><a href="index.html#publications">Research Outputs</a></li>
+        <li><a href="index.html#team">Team</a></li>
+        <li><a href="blog.html" class="nav-current">Blog</a></li>
+        <li>
+          <button type="button" class="theme-toggle" id="themeToggle" aria-label="Toggle color theme">
+            Theme
+          </button>
+        </li>
+        <li><a href="https://github.com/orgs/Biodyn-AI/repositories" target="_blank" rel="noopener" class="nav-cta">GitHub →</a></li>
+      </ul>
+      <div class="hamburger" id="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </nav>
+
+  <main class="article-page section" id="articlePage">
+    <div class="container article-layout">
+      <div class="article-header">
+        <h1>Real Model Organisms for Mechanistic Interpretability</h1>
+        <p class="article-summary">
+          Interpretability borrowed the term <em>model organism</em> from biology and kept the toy.
+          Biological foundation models are the real thing: small enough to trace exhaustively, with
+          ground truth that exists outside the model, and a wet lab at the end of the argument.
+        </p>
+        <div class="portfolio-page-actions">
+          <a href="blog.html" class="btn-secondary">← Back to Blog</a>
+          <a href="index.html" class="btn-primary">Open Main Site</a>
+        </div>
+      </div>
+      <img class="article-cover" src="content/model-organisms-cover.svg" alt="A small organism drawn as a traced specimen: a tapered body outline with a dorsal nerve cord of numbered nodes and lateral ganglia, over a faint measurement grid">
+      <article class="article-prose">
+
+<p><em>Model organism</em> is a term mechanistic interpretability borrowed from
+biology and then quietly changed the meaning of.</p>
+
+<p>In biology, a model organism is a real animal. <em>C. elegans</em>,
+<em>Drosophila</em>, zebrafish, <em>Arabidopsis</em>. You choose it because it is
+small, cheap, fast, and tractable, and because the things you learn from it keep
+being true elsewhere. Nobody chose <em>C. elegans</em> because it was a
+simplified cartoon of a worm. They chose it because it <em>is</em> a worm, one
+with 302 neurons and a connectome you can finish.</p>
+
+<p>In interpretability, <em>model organism</em> usually means a toy: a small
+transformer trained on a synthetic task that was designed to exhibit the
+phenomenon you already had in mind. Modular addition, induction, a planted
+backdoor. These are genuinely useful and I do not want to talk anyone out of
+them. But they have a structural problem that no amount of care fixes: the
+ground truth is yours by construction. You wrote the generator, so you know the
+answer, and the model's job was to find the answer you planted. When your method
+recovers it, what you have shown is that your method can recover something you
+put there.</p>
+
+<p>Biological foundation models give you the biology version of the term
+instead. This post is the argument for why, and an account of what we have
+already got out of treating them that way. It is a companion to
+<a href="109-open-problems-biological-mechanistic-interpretability.html">Open
+Problems in Biological Mechanistic Interpretability</a>, which is the list of
+things to do; this is the argument for the venue.</p>
+
+<h2>What actually makes a good model organism</h2>
+
+<p>Four properties, translated out of biology:</p>
+
+<ol type="1">
+<li>You can afford to look at all of it.</li>
+<li>Ground truth exists outside the system, and you did not make it.</li>
+<li>It is doing real work that people depend on, so being wrong has a cost.</li>
+<li>What you learn transfers to the systems you actually care about.</li>
+</ol>
+
+<p>Toy models have the first, and sometimes the fourth. Frontier language models
+have the third, and arguably the fourth, and neither of the others. Biological
+foundation models have all four at once, which as far as I can tell makes them
+the only widely available system that does.</p>
+
+<h3>1. You can afford to look at all of it</h3>
+
+<p>scGPT and Geneformer sit in the tens to hundreds of millions of parameters.
+That is small enough that the exhaustive version of an experiment is the version
+you actually run, rather than the version you describe in the future work
+section.</p>
+
+<p>Our <a href="https://arxiv.org/abs/2603.11940">exhaustive circuit mapping
+work</a> is the clearest case. Every head ablated, higher-order combinatorial
+ablations, causal trajectory steering across the whole model. What came back was
+massive redundancy, a heavy-tailed hub architecture, and layer-dependent control
+of differentiation directionality. None of those findings are exotic methods.
+They are what you see when you can afford to run the sweep to completion, and
+almost nobody can afford to run it to completion on a frontier model.</p>
+
+<p>The same economics let you do things that are otherwise absurd. We ran
+<a href="https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0344826">141
+geometric and topological hypotheses</a> through an automated screen, because
+screening 141 hypotheses was cheaper than arguing about which three to test. We
+have measured
+<a href="https://arxiv.org/abs/2602.15253">scaling behaviour for
+masked-reconstruction transformers</a> on single-cell data directly, rather than
+inferring it. Cheapness is not a minor convenience here. It changes which
+experiments are thinkable.</p>
+
+<h3>2. The ground truth is not yours</h3>
+
+<p>This is the property a toy model cannot have, and it is the important one.</p>
+
+<p>Biology arrives with an answer key that nobody wrote for your benefit. CRISPRi
+and Perturb-seq screens say which perturbations actually move which genes.
+Curated regulatory references say which transcription factors are known to
+regulate which targets. Donor identity, batch structure, tissue of origin,
+sequencing depth and evolutionary conservation are all recorded, and all of them
+are inconvenient. None of it was constructed to make an interpretability method
+look good.</p>
+
+<p>Which means claims can fail against it, and ours have. Our
+<a href="https://arxiv.org/abs/2603.02952">comparative SAE atlas of Geneformer
+and scGPT</a> found rich, modular, biologically coherent organisation in the
+representations, and then, on CRISPRi validation, minimal causal regulatory
+logic. Both halves of that sentence are results. The first half is the kind of
+thing that gets a paper; the second half is the kind of thing that stops you
+believing the first half means more than it does. In a toy model the regulatory
+logic is whatever we wrote into the generator, so the second half of that
+sentence could not have existed.</p>
+
+<p>Two more in the same shape. We found that
+<a href="https://link.springer.com/article/10.1186/s12864-026-12965-8">attention-derived
+edge scores add no incremental value</a> over simple gene-level features for
+perturbation-target prediction, across models, cell types and perturbation
+modalities, the attention scores encode structured biology, and are still not
+useful for the thing people use them for. And when we put in-silico perturbation
+profiles for intelligence-associated genes in human prefrontal cortex through
+<a href="https://www.sciencedirect.com/science/article/abs/pii/S1476927126002045">expression-matched
+null testing</a>, no individual gene survived.</p>
+
+<p>A model organism you cannot be wrong about is not a model organism. It is a
+demo.</p>
+
+<h3>3. The ways the evaluation lies are measurable</h3>
+
+<p>A subtler benefit: because the reference data is incomplete in
+<em>characterised</em> ways, you can quantify how it misleads you instead of
+just worrying about it.</p>
+
+<p>Incomplete reference labels put a ceiling on apparent performance, and we can
+<a href="https://www.sciencedirect.com/science/article/pii/S0303264726001747?dgcid=author">compute
+where that ceiling is</a>, so a mediocre score can be recognised as a saturated
+one. Benchmark rankings move when you change candidate sets, tissue context or
+reference network, and we can
+<a href="https://arxiv.org/abs/2603.03493">put a reversal probability on the
+ordering</a> rather than reporting a rank as if it were stable. Technical
+leakage, genomic-proximity inflation and degree-distribution artifacts each
+manufacture edges that look real, and we can
+<a href="https://www.researchsquare.com/article/rs-8997629/v1">audit all three
+and report how many candidate edges survive</a>.</p>
+
+<p>These are not biology-specific problems. Leaky splits, absent baselines,
+ceilings nobody reported and rankings that invert under resampling are the
+ambient failure modes of interpretability everywhere. Biological AI is a place
+where their size can be measured, and a method that survives the audit here has
+survived something.</p>
+
+<h3>4. Sometimes you can take the mechanism out and keep it</h3>
+
+<p>The strongest thing a mechanistic result can do is stop needing the model.
+Extract the mechanism, delete the network, and find that the mechanism still
+works.</p>
+
+<p>The <a href="https://arxiv.org/abs/2603.10261">hematopoietic manifold
+work</a> is our clearest instance of this, and I think it is the single best
+argument in the post. scGPT internally carries a compact, roughly eight to ten
+dimensional hematopoietic manifold with real developmental branch structure. We
+exported it: direct operator export from frozen attention weights, a lightweight
+learned adaptor, and a task-specific readout, with no retraining on the target
+dataset. The result is a standalone algorithm.</p>
+
+<p>It is also a competitive one. On donor-holdout benchmarks against scVI,
+Palantir, DPT, CellTypist, PCA and raw expression, the extracted algorithm gives
+the strongest pseudotime-depth ordering and competitive cell-type
+classification. Interpreting the exported operator turns up a concentrated
+four-factor core accounting for 66.2% of ablation impact, and those four factors
+resolve into explicit T/lymphoid, B/plasma, granulocytic and monocyte/macrophage
+gene programmes. The operator compresses from three pooled attention heads to
+one without statistically significant loss, and then further to a rank-64
+surrogate.</p>
+
+<p>There is no language-model analogue of this, and the absence is
+instructive. You cannot export the induction head and ship it as a product that
+competes with the state of the art on an established benchmark, because there is
+no established benchmark for what the induction head does that other people were
+already trying to win. Biology has decades of methods competition on tasks that
+matter to somebody, which means an extracted mechanism can be entered into a
+contest it might lose.</p>
+
+<h2>Things you cannot do on language models at all</h2>
+
+<p>Collecting the argument into the list I actually care about:</p>
+
+<p><strong>Prospective experimental validation.</strong> You can take a claim
+the model's internals imply, walk it into a lab, and find out. There is no wet
+lab for <em>the model has an induction head</em>. This is the only setting I
+know of where mechanistic interpretability can be wrong about the world rather
+than merely wrong about a network.</p>
+
+<p><strong>Controlled attribution of what pretraining bought you.</strong> We
+compared seven single-cell foundation models against a protein language model
+and a co-expression baseline to ask
+<a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6577900">which
+signals need single-cell pretraining at all</a> and which were already available
+from protein sequence. Running that comparison requires several independently
+trained models on the same underlying reality, with meaningful non-neural
+baselines. Language modelling has neither.</p>
+
+<p><strong>Cross-model convergence as evidence.</strong> Geneformer and scGPT
+have different tokenisations, objectives and training corpora, and both are
+modelling the same cells. When
+<a href="https://academic.oup.com/bioinformatics/advance-article/doi/10.1093/bioinformatics/btag379/8708321">causal
+circuit tracing finds consensus circuits across both</a>, that convergence is
+evidence about biology rather than about a shared architectural quirk.</p>
+
+<p><strong>Ablations that would be a compute programme elsewhere.</strong>
+Feature-permutation ablation over an entire spatial model, as in our
+<a href="https://openreview.net/forum?id=JPlVXdug3K">four-category SAE taxonomy
+for Novae</a>, is a normal experiment here.</p>
+
+<h2>Making the model organism easier to read</h2>
+
+<p>Everything above takes the architecture as given and works around it. The
+next move is to stop doing that.</p>
+
+<p>Almost everything we can currently say about a transformer's computation is a
+statement about activations on a distribution. You interpret what the model did
+on the data you showed it, and the honest version of any such claim carries a
+silent <em>on this dataset</em>. Sparse autoencoders, probes, activation
+patching and circuit tracing are all, in the end, input-conditioned. That is not
+a criticism of the methods. It is a property of where the computation lives.</p>
+
+<p>Tensor-network layers change where it lives.
+<a href="https://www.lesswrong.com/posts/hp9bvkiN3RzHgP9cq/tensor-transformer-variants-are-surprisingly-performant"
+target="_blank" rel="noopener">Tensor-transformer variants are surprisingly
+performant</a> as a general architectural result, which was the necessary
+precondition for any of this being interesting: an interpretable architecture
+that costs you performance is a demonstration, not an option.</p>
+
+<p>We have been training tensor-network foundation models on single-cell data,
+and multimodal ones over several biological modalities at once. This work is not
+published yet and I will keep the claims to the shape of the result rather than
+the numbers. Three things seem to hold. Performance does not suffer, and in
+places appears to improve. Much more of the computation is carried in
+structured weights rather than in input-dependent attention, so a far larger
+share of what the model does can be read directly off the parameters, weight-based
+interpretability, without the silent <em>on this dataset</em> attached. And the
+representations that come out are richer and easier to extract, which matters
+directly for the extraction programme in the previous section.</p>
+
+<p>If that holds up, the model-organism argument gets a good deal stronger. It
+would mean we are no longer only choosing systems that happen to be tractable.
+We would be building systems designed to be read, in the one domain where there
+is external ground truth to check the reading against. That is the version of
+this programme I am most interested in, and it is also the part I am least able
+to defend in public right now, so treat it as a statement of direction.</p>
+
+<h2>What would change my mind</h2>
+
+<p>Three things would substantially damage the argument.</p>
+
+<p><strong>The ground truth could be too weak to carry the weight I am putting
+on it.</strong> CRISPRi screens are noisy, curated references are incomplete and
+biased toward well-studied genes, and pathway annotations reflect what people
+have looked at. I have argued that this is manageable because the incompleteness
+is characterised. If it turns out that the characterisation is itself wrong in
+the direction that flatters us, a lot of the above weakens at once.</p>
+
+<p><strong>The transfer to language models might not happen.</strong> The claim
+that methods surviving here will survive there is, at present, mostly an
+argument from the generality of the failure modes. It is not yet an
+empirical result, and it is the part of the case I would most like someone to
+attack.</p>
+
+<p><strong>The models might be doing something much shallower than we
+think.</strong> Our own SAE atlas already found much less causal regulatory
+logic than the organisation of the representations suggested. If that keeps
+happening, the honest conclusion is that these systems are excellent
+compressors of expression statistics and poor models of regulation, and the
+interesting interpretability target is elsewhere.</p>
+
+<p>All three are testable, which is roughly the point.</p>
+
+<h2>Summary</h2>
+
+<p>Interpretability took a word from biology and dropped the part that made the
+concept work, which was that the organism is real and can therefore disagree
+with you. Biological foundation models give that part back. They are small
+enough to trace exhaustively, they are checked against evidence nobody generated
+for our convenience, their evaluation pathologies can be measured rather than
+merely feared, and every so often a mechanism can be lifted out of one and made
+to stand on its own. We are now trying to build the next generation of them so
+that reading the weights is the primary way you understand the model, rather
+than the thing you wish you could do.</p>
+
+<p>The list of specific problems is
+<a href="109-open-problems-biological-mechanistic-interpretability.html">here</a>.
+The published work behind the claims above is in
+<a href="index.html#publications">Research Outputs</a>.</p>
+
+      </article>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <span class="footer-logo">Biodyn</span>
+        <span class="footer-text">© 2026 Biodyn Research Project. All rights reserved.</span>
+        <div class="footer-links">
+          <a href="index.html">Home</a>
+          <a href="https://github.com/orgs/Biodyn-AI/repositories" target="_blank" rel="noopener">GitHub</a>
+          <a href="https://docs.google.com/forms/d/e/1FAIpQLSdfnxPmdCtrHqDenf0VECp3H0sphOy1uEfQ1UYsbO3NwCVlkQ/viewform?usp=dialog" target="_blank" rel="noopener">Contact Form</a>
+          <a href="mailto:kenduhov.ig@gmail.com">Contact</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -32,6 +32,9 @@
       document.documentElement.dataset.theme = theme;
     })();
   </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
 </head>
@@ -41,9 +44,8 @@
     <div class="container">
       <a href="index.html" class="nav-logo">Biodyn</a>
       <ul class="nav-links" id="navLinks">
-        <li><a href="about.html">About</a></li>
+        <li><a href="index.html#about">About</a></li>
         <li><a href="evals.html">Evals</a></li>
-        <li><a href="index.html#vision">Vision</a></li>
         <li><a href="index.html#research">Research</a></li>
         <li><a href="index.html#methodology">Methodology</a></li>
         <li><a href="index.html#impact">Impact</a></li>
@@ -51,7 +53,6 @@
         <li><a href="index.html#publications">Research Outputs</a></li>
         <li><a href="index.html#team">Team</a></li>
         <li><a href="blog.html" class="nav-current">Blog</a></li>
-        <li><a href="portfolio.html">Portfolio</a></li>
         <li>
           <button type="button" class="theme-toggle" id="themeToggle" aria-label="Toggle color theme">
             Theme
@@ -75,13 +76,30 @@
       </div>
       <div class="portfolio-page-actions reveal reveal-delay-1">
         <a href="index.html" class="btn-secondary">← Back to Main Page</a>
-        <a href="portfolio.html" class="btn-primary">View Portfolio</a>
       </div>
     </div>
   </section>
 
   <section class="blog-posts section" id="blogPosts">
     <div class="container">
+      <article class="blog-feature-card reveal reveal-delay-1">
+        <a class="blog-feature-media" href="real-model-organisms-for-interpretability.html">
+          <img src="content/model-organisms-cover.svg" alt="Cover image for Real Model Organisms for Mechanistic Interpretability">
+        </a>
+        <div class="blog-feature-top">
+          <h3>
+            <a class="pub-title-link" href="real-model-organisms-for-interpretability.html">
+              Real Model Organisms for Mechanistic Interpretability
+            </a>
+          </h3>
+        </div>
+        <div class="blog-feature-bottom">
+          <p>
+            Interpretability borrowed the term model organism from biology and kept the toy. Biological foundation models are the real thing: small enough to trace exhaustively, with ground truth that exists outside the model, and a wet lab at the end of the argument.
+          </p>
+          <a class="pub-link" href="real-model-organisms-for-interpretability.html">Read article</a>
+        </div>
+      </article>
       <article class="blog-feature-card reveal reveal-delay-1">
         <a class="blog-feature-media" href="109-open-problems-biological-mechanistic-interpretability.html">
           <img src="content/109-open-problems-cover.png" alt="Cover image for Open Problems in Biological Mechanistic Interpretability">
@@ -142,7 +160,6 @@
   <section class="publications section" id="blogArticles">
     <div class="container">
       <div class="section-header reveal">
-        <span class="section-label">Research Archive</span>
         <h2 class="section-title">Preprints and public outputs</h2>
         <p class="section-subtitle">
           Formal research outputs, including preprints and public reports from the Biodyn research pipeline.
@@ -159,7 +176,6 @@
         <span class="footer-text">© 2026 Biodyn Research Project. All rights reserved.</span>
         <div class="footer-links">
           <a href="index.html">Home</a>
-          <a href="portfolio.html">Portfolio</a>
           <a href="https://github.com/orgs/Biodyn-AI/repositories" target="_blank" rel="noopener">GitHub</a>
           <a href="https://docs.google.com/forms/d/e/1FAIpQLSdfnxPmdCtrHqDenf0VECp3H0sphOy1uEfQ1UYsbO3NwCVlkQ/viewform?usp=dialog" target="_blank" rel="noopener">Contact Form</a>
           <a href="https://docs.google.com/forms/d/e/1FAIpQLSedo8RPXfIl5ISE2ar7TDx9Me0vlVwfCHOzZ8NI7BDNiueTsw/viewform?usp=sharing&ouid=108024776730411231677" target="_blank" rel="noopener">Subscribe</a>

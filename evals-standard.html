@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>The PROBE Standard — six rules, enforced in code | Biodyn</title>
+  <title>The PROBE Standard: six rules, enforced in code | Biodyn</title>
   <meta name="description" content="The six methodology rules every PROBE result card must satisfy: baselines, ceilings, reversal risk, confound-stratified splits, nulls, and full provenance.">
   <link rel="canonical" href="https://biodynai.com/evals-standard.html">
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="Biodyn">
   <meta property="og:url" content="https://biodynai.com/evals-standard.html">
-  <meta property="og:title" content="The PROBE Standard — six rules, enforced in code">
+  <meta property="og:title" content="The PROBE Standard: six rules, enforced in code">
   <meta property="og:description" content="A result card that does not carry its baseline, its ceiling and its null does not validate.">
   <meta property="og:image" content="https://biodynai.com/content/social-preview.png">
   <meta name="twitter:card" content="summary_large_image">
@@ -36,9 +36,8 @@
     <div class="container">
       <a href="index.html" class="nav-logo">Biodyn</a>
       <ul class="nav-links" id="navLinks">
-        <li><a href="about.html">About</a></li>
+        <li><a href="index.html#about">About</a></li>
         <li><a href="evals.html" class="nav-current">Evals</a></li>
-        <li><a href="index.html#vision">Vision</a></li>
         <li><a href="index.html#research">Research</a></li>
         <li><a href="index.html#methodology">Methodology</a></li>
         <li><a href="index.html#impact">Impact</a></li>
@@ -46,7 +45,6 @@
         <li><a href="index.html#publications">Research Outputs</a></li>
         <li><a href="index.html#team">Team</a></li>
         <li><a href="blog.html">Blog</a></li>
-        <li><a href="portfolio.html">Portfolio</a></li>
         <li>
           <button type="button" class="theme-toggle" id="themeToggle" aria-label="Toggle color theme">
             Theme
@@ -67,7 +65,7 @@
       <p class="ev-lede">
         Each rule exists because of a published result about how biological benchmarks
         mislead. A result card that does not carry its baseline, its ceiling and its null
-        does not validate — so the failure mode is a crash at emission time, not a
+        does not validate, so the failure mode is a crash at emission time, not a
         misleading number on a leaderboard.
       </p>
     </div>
@@ -82,7 +80,7 @@
             <div>
               <h3>Beat a dumb baseline, or say you didn't</h3>
               <p>
-                Every task carries cheap baselines — majority class, sequencing depth alone,
+                Every task carries cheap baselines, majority class, sequencing depth alone,
                 PCA plus logistic regression, nearest centroid. The reported quantity is the
                 delta, not the raw score, and a card that fails to beat its strongest
                 baseline says so in its own caveats. <code>ResultCard</code> refuses to
@@ -119,7 +117,7 @@
               <h3>Report reversal risk, not a bare rank</h3>
               <p>
                 An ordering of models is a claim that usually does not survive resampling.
-                Orderings ship with the probability that each pair flips — or, where those
+                Orderings ship with the probability that each pair flips, or, where those
                 replicates are not retained, they ship explicitly marked as point estimates
                 rather than rankings.
               </p>
@@ -153,8 +151,7 @@
             <div>
               <h3>Kill it with a null first</h3>
               <p>
-                Labels are permuted within strata matched on a technical covariate —
-                sequencing depth — and the metric recomputed. Signal explainable by depth
+                Labels are permuted within strata matched on a technical covariate, sequencing depth, and the metric recomputed. Signal explainable by depth
                 alone does not survive. The null result, its p-value and the covariate it
                 matched on are stored on the card.
               </p>

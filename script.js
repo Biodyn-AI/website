@@ -1,5 +1,5 @@
 /* ========================================
-   BIODYN — Interactive Scripts
+   BIODYN, Interactive Scripts
    ======================================== */
 
 document.addEventListener('DOMContentLoaded', async () => {
@@ -149,10 +149,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const primary = document.createElement('span');
     primary.textContent = normalizeMetaText(article.metaPrimary, 'Draft');
 
-    const tag = document.createElement('span');
-    tag.textContent = normalizeMetaText(article.metaTag, 'Research');
-
-    meta.append(primary, tag);
+    meta.append(primary);
 
     card.append(summary, meta);
 

@@ -1,5 +1,5 @@
 /* ========================================
-   PROBE — renders content/evals.json
+   PROBE, renders content/evals.json
    The pages compute nothing. Everything shown here, including the unflattering
    parts, comes from result cards emitted by the harness.
    ======================================== */
@@ -8,10 +8,10 @@
   const DATA_URL = 'content/evals.json';
 
   const fmt = (v, digits = 3) =>
-    v === null || v === undefined || Number.isNaN(v) ? '—' : Number(v).toFixed(digits);
+    v === null || v === undefined || Number.isNaN(v) ? ', ' : Number(v).toFixed(digits);
 
   const signed = (v, digits = 3) =>
-    v === null || v === undefined ? '—' : (v >= 0 ? '+' : '') + Number(v).toFixed(digits);
+    v === null || v === undefined ? ', ' : (v >= 0 ? '+' : '') + Number(v).toFixed(digits);
 
   const el = (tag, cls, text) => {
     const n = document.createElement(tag);
@@ -91,7 +91,7 @@
           gapCi.appendChild(el('span', 'ev-flag warn', 'spans zero'));
         }
       } else {
-        gapCi.textContent = '—';
+        gapCi.textContent = ', ';
       }
       tr.appendChild(gapCi);
 
@@ -110,7 +110,7 @@
       tr.appendChild(nullTd);
 
       tr.appendChild(el('td', 'ev-num ev-dim',
-        r.ci95 ? `${fmt(r.ci95[0], 2)}–${fmt(r.ci95[1], 2)}` : '—'));
+        r.ci95 ? `${fmt(r.ci95[0], 2)}–${fmt(r.ci95[1], 2)}` : ', '));
 
       tbody.appendChild(tr);
     });
@@ -128,7 +128,7 @@
       wrap.appendChild(el('strong', null, 'Flagged by the harness'));
       const ul = el('ul', 'ev-caveats');
       flagged.forEach((r) => {
-        r.caveats.forEach((c) => ul.appendChild(el('li', null, `${r.model} — ${c}`)));
+        r.caveats.forEach((c) => ul.appendChild(el('li', null, `${r.model}, ${c}`)));
       });
       wrap.appendChild(ul);
       container.appendChild(wrap);

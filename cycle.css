@@ -1,0 +1,142 @@
+/* ========================================
+   BIODYN , The loop
+   Five stages on a ring that closes.
+   ======================================== */
+
+.cy-section { padding: var(--section-padding); }
+
+.cy-shell {
+  max-width: var(--container-width);
+  margin: 0 auto;
+  padding: var(--container-padding);
+}
+
+.cy-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1.24fr) minmax(0, 0.76fr);
+  column-gap: clamp(30px, 4vw, 66px);
+  align-items: end;
+}
+
+.cy-title {
+  font-family: var(--ab-font-display);
+  font-weight: 400;
+  font-size: clamp(1.9rem, 3.2vw + 0.3rem, 3.2rem);
+  line-height: 1.05;
+  letter-spacing: -0.015em;
+  color: var(--ab-bone);
+}
+
+.cy-title em { font-style: italic; color: var(--ab-ch); }
+
+.cy-lede {
+  font-size: clamp(0.92rem, 0.42vw + 0.8rem, 1.02rem);
+  line-height: 1.75;
+  color: var(--ab-dim);
+  max-width: 46ch;
+  padding-bottom: 0.4em;
+}
+
+.cy-rail {
+  display: flex;
+  margin-top: clamp(26px, 4vh, 44px);
+  border-bottom: 1px solid var(--ab-line);
+}
+
+.cy-stage {
+  position: relative;
+  flex: 1 1 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 14px 16px 0;
+  background: transparent;
+  border: 0;
+  text-align: left;
+  cursor: pointer;
+  color: var(--ab-faint);
+  font-family: var(--ab-font-display);
+  font-size: clamp(0.95rem, 0.55vw + 0.8rem, 1.2rem);
+  transition: color var(--transition-medium);
+}
+
+.cy-stage::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 10px; bottom: -1px;
+  height: 1px;
+  background: var(--ab-ch);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.5s cubic-bezier(0.22, 0.7, 0.2, 1);
+}
+
+.cy-stage.is-active::after { transform: scaleX(1); }
+.cy-stage.is-active, .cy-stage:hover { color: var(--ab-bone); }
+
+.cy-stage-dot {
+  width: 7px; height: 7px; flex: none;
+  border-radius: 50%;
+  border: 1px solid var(--ab-ch);
+  transition: background-color var(--transition-medium), box-shadow var(--transition-medium);
+}
+
+.cy-stage.is-active .cy-stage-dot {
+  background: var(--ab-ch);
+  box-shadow: 0 0 10px var(--ab-ch);
+}
+
+.cy-body {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: clamp(28px, 4vw, 62px);
+  align-items: center;
+  margin-top: clamp(24px, 3.5vh, 40px);
+}
+
+.cy-chamber { position: relative; width: 100%; height: clamp(280px, 32vw, 400px); }
+
+.cy-canvas {
+  display: block; width: 100%; height: 100%;
+  cursor: grab; touch-action: pan-y;
+}
+.cy-canvas.is-dragging { cursor: grabbing; }
+
+.cy-panel.is-entering { animation: cy-in 0.55s cubic-bezier(0.22, 0.7, 0.2, 1); }
+@keyframes cy-in { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+
+.cy-panel-title {
+  font-family: var(--ab-font-display);
+  font-weight: 400;
+  font-size: clamp(1.35rem, 1.4vw + 0.8rem, 2rem);
+  line-height: 1.15;
+  color: var(--ab-bone);
+  margin-bottom: 12px;
+  max-width: 24ch;
+}
+
+.cy-panel-body {
+  font-size: 0.98rem;
+  line-height: 1.78;
+  color: var(--ab-dim);
+  max-width: 56ch;
+}
+
+@media (max-width: 1000px) {
+  .cy-head { grid-template-columns: minmax(0, 1fr); row-gap: 18px; }
+  .cy-lede { max-width: 60ch; padding-bottom: 0; }
+  .cy-body { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+  .cy-chamber { height: min(320px, 68vw); }
+}
+
+@media (max-width: 760px) {
+  .cy-rail { flex-direction: column; }
+  .cy-stage { padding: 12px 0; border-top: 1px solid var(--ab-line); }
+  .cy-stage:first-child { border-top: 0; }
+  .cy-stage::after { bottom: auto; top: 0; right: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cy-stage::after { transition: none; }
+  .cy-panel.is-entering { animation: none; }
+}

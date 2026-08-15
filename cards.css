@@ -1,0 +1,137 @@
+/* ========================================
+   BIODYN , Cards
+   Away from the generic rounded rectangle: a
+   near-square plate with instrument corner
+   ticks, an accent rule that draws itself on
+   hover, and a light that follows the cursor.
+   ======================================== */
+
+.research-card,
+.pub-card,
+.collab-card,
+.team-card {
+  position: relative;
+  isolation: isolate;
+  border-radius: 3px;
+  border: 1px solid var(--border-glass);
+  background: var(--gradient-card);
+  overflow: hidden;
+  transition: border-color var(--transition-medium),
+              transform 0.55s cubic-bezier(0.22, 0.7, 0.2, 1),
+              box-shadow var(--transition-medium);
+}
+
+/* Corner ticks, drawn as two rails so all four corners are marked. */
+.research-card::before,
+.pub-card::before,
+.collab-card::before,
+.team-card::before,
+.research-card::after,
+.pub-card::after,
+.collab-card::after,
+.team-card::after {
+  content: '';
+  position: absolute;
+  left: -1px;
+  right: -1px;
+  height: 14px;
+  border-left: 1px solid var(--card-tick, var(--accent-cyan));
+  border-right: 1px solid var(--card-tick, var(--accent-cyan));
+  opacity: 0;
+  transition: opacity var(--transition-medium);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.research-card::before,
+.pub-card::before,
+.collab-card::before,
+.team-card::before { top: -1px; }
+
+.research-card::after,
+.pub-card::after,
+.collab-card::after,
+.team-card::after { bottom: -1px; }
+
+.research-card:hover::before,
+.research-card:hover::after,
+.pub-card:hover::before,
+.pub-card:hover::after,
+.collab-card:hover::before,
+.collab-card:hover::after,
+.team-card:hover::before,
+.team-card:hover::after { opacity: 0.85; }
+
+/* The light that follows the cursor. Sits behind the content. */
+.card-glow {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+  background: radial-gradient(
+    320px circle at var(--mx, 50%) var(--my, 0%),
+    var(--card-wash, rgba(0, 212, 255, 0.16)),
+    transparent 68%
+  );
+}
+
+.research-card:hover .card-glow,
+.pub-card:hover .card-glow,
+.collab-card:hover .card-glow,
+.team-card:hover .card-glow { opacity: 1; }
+
+/* Accent rule along the top edge, drawn in from the left on hover. */
+.card-rule {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--card-accent, var(--gradient-accent));
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.55s cubic-bezier(0.22, 0.7, 0.2, 1);
+  z-index: 2;
+}
+
+.research-card:hover .card-rule,
+.pub-card:hover .card-rule,
+.collab-card:hover .card-rule,
+.team-card:hover .card-rule { transform: scaleX(1); }
+
+.research-card:hover,
+.pub-card:hover,
+.collab-card:hover,
+.team-card:hover {
+  border-color: var(--border-glass-hover);
+  transform: translateY(-3px);
+  box-shadow: var(--card-shadow-hover);
+}
+
+/* The research cards already carry their own accent; reuse it for the tick
+   and wash so each card keeps its own colour. */
+.research-card:nth-child(1) { --card-tick: #00c9a7; --card-wash: rgba(0, 201, 167, 0.16); }
+.research-card:nth-child(2) { --card-tick: #00d4ff; --card-wash: rgba(0, 212, 255, 0.16); }
+.research-card:nth-child(3) { --card-tick: #f472b6; --card-wash: rgba(244, 114, 182, 0.16); }
+.research-card:nth-child(4) { --card-tick: #7c5cfc; --card-wash: rgba(124, 92, 252, 0.16); }
+
+:root[data-theme="light"] .card-glow {
+  background: radial-gradient(
+    320px circle at var(--mx, 50%) var(--my, 0%),
+    var(--card-wash-light, rgba(8, 145, 178, 0.12)),
+    transparent 68%
+  );
+}
+
+:root[data-theme="light"] .research-card:nth-child(1) { --card-wash-light: rgba(15, 154, 122, 0.13); }
+:root[data-theme="light"] .research-card:nth-child(2) { --card-wash-light: rgba(8, 145, 178, 0.13); }
+:root[data-theme="light"] .research-card:nth-child(3) { --card-wash-light: rgba(219, 93, 152, 0.13); }
+:root[data-theme="light"] .research-card:nth-child(4) { --card-wash-light: rgba(109, 85, 230, 0.13); }
+
+@media (prefers-reduced-motion: reduce) {
+  .research-card, .pub-card, .collab-card, .team-card,
+  .card-rule, .card-glow { transition: none; }
+  .research-card:hover, .pub-card:hover, .collab-card:hover, .team-card:hover { transform: none; }
+}

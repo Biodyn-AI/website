@@ -1,5 +1,5 @@
 /* ========================================
-   BIODYN — Design System & Styles
+   BIODYN , Design System & Styles
    ======================================== */
 
 /* --- Google Fonts --- */
@@ -46,6 +46,7 @@
   /* Typography */
   --font-body: 'Inter', system-ui, -apple-system, sans-serif;
   --font-heading: 'Outfit', 'Inter', system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
 
   /* Spacing */
   --section-padding: 120px 0;
@@ -267,13 +268,18 @@ a:hover {
 }
 
 .nav-cta {
-  padding: 8px 20px;
-  border-radius: 8px;
-  background: var(--gradient-accent);
-  color: var(--text-on-accent) !important;
-  font-weight: 600;
-  font-size: 0.85rem;
-  -webkit-text-fill-color: var(--text-on-accent) !important;
+  padding: 9px 16px;
+  border-radius: 2px;
+  background: transparent;
+  border: 1px solid var(--border-glass-hover);
+  color: var(--accent-cyan) !important;
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  -webkit-text-fill-color: var(--accent-cyan) !important;
+  transition: border-color var(--transition-medium), background-color var(--transition-medium);
 }
 
 .nav-cta::after {
@@ -281,8 +287,9 @@ a:hover {
 }
 
 .nav-cta:hover {
-  opacity: 0.9;
-  transform: translateY(-1px);
+  border-color: var(--accent-cyan);
+  background-color: color-mix(in srgb, var(--accent-cyan) 10%, transparent);
+  transform: none;
 }
 
 .theme-toggle {
@@ -290,14 +297,16 @@ a:hover {
   align-items: center;
   justify-content: center;
   min-width: 104px;
-  padding: 8px 12px;
-  border-radius: 999px;
+  padding: 9px 12px;
+  border-radius: 2px;
   border: 1px solid var(--border-glass);
-  background: var(--bg-glass);
-  color: var(--text-primary);
-  font-family: var(--font-body);
-  font-size: 0.78rem;
-  font-weight: 600;
+  background: transparent;
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
   cursor: pointer;
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
@@ -383,11 +392,13 @@ a:hover {
 
 .hero h1 {
   font-family: var(--font-heading);
-  font-size: clamp(3rem, 7vw, 5.5rem);
+  /* Sized for the full sentence, not for two short words. */
+  font-size: clamp(2.1rem, 4vw + 0.4rem, 3.7rem);
   font-weight: 800;
-  line-height: 1.05;
+  line-height: 1.08;
   margin-bottom: 24px;
-  letter-spacing: -2px;
+  letter-spacing: -1.4px;
+  max-width: 18ch;
 }
 
 .hero h1 .gradient-text {
@@ -412,49 +423,57 @@ a:hover {
   flex-wrap: wrap;
 }
 
-.btn-primary {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 14px 28px;
-  border-radius: var(--radius-md);
-  background: var(--gradient-accent);
-  color: var(--text-on-accent);
-  font-family: var(--font-body);
-  font-weight: 600;
-  font-size: 0.95rem;
-  border: none;
-  cursor: pointer;
-  transition: all var(--transition-medium);
-}
-
-.btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 30px rgba(0, 212, 255, 0.25);
-  color: var(--text-on-accent);
-}
-
+/* Buttons carry the same instrument language as the rest of the site: mono,
+   uppercase, a hairline rather than a gradient fill. */
+.btn-primary,
 .btn-secondary {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  padding: 14px 28px;
-  border-radius: var(--radius-md);
+  gap: 12px;
+  padding: 14px 22px;
+  border-radius: 2px;
   background: transparent;
-  color: var(--text-primary);
-  font-family: var(--font-body);
-  font-weight: 500;
-  font-size: 0.95rem;
+  background-image: none;
   border: 1px solid var(--border-glass-hover);
+  color: var(--text-heading);
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
   cursor: pointer;
-  transition: all var(--transition-medium);
+  box-shadow: none;
+  transition: border-color var(--transition-medium), color var(--transition-medium),
+              background-color var(--transition-medium);
 }
 
-.btn-secondary:hover {
-  background: var(--button-secondary-hover);
+/* The primary is distinguished by taking the accent, not by being filled. */
+.btn-primary {
   border-color: var(--accent-cyan);
-  color: var(--text-primary);
-  transform: translateY(-1px);
+  color: var(--accent-cyan);
+}
+
+.btn-primary:hover,
+.btn-primary:focus-visible {
+  background-color: color-mix(in srgb, var(--accent-cyan) 12%, transparent);
+  color: var(--accent-cyan);
+  transform: none;
+  box-shadow: none;
+}
+
+.btn-secondary:hover,
+.btn-secondary:focus-visible {
+  border-color: var(--accent-cyan);
+  color: var(--accent-cyan);
+  background-color: transparent;
+  transform: none;
+}
+
+.btn-secondary svg,
+.btn-primary svg {
+  width: 15px;
+  height: 15px;
+  opacity: 0.75;
 }
 
 .hero-stats {
@@ -1429,6 +1448,14 @@ a:hover {
   font-weight: 700;
   color: var(--text-on-accent);
   margin: 0 auto 24px;
+}
+
+/* When it is a real photograph rather than initials. */
+img.team-avatar {
+  object-fit: cover;
+  object-position: center 28%;
+  background: none;
+  border: 1px solid var(--border-glass-hover);
 }
 
 .team-card h3 {

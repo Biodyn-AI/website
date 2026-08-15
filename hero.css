@@ -1,0 +1,104 @@
+/* ========================================
+   BIODYN , Hero
+   The opening screen was the last thing still
+   wearing the old template: a geometric sans at
+   800 weight, a cyan-to-violet gradient sweeping
+   across three lines of type, and two pill
+   buttons. Everything below it had already moved
+   to the instrument language, so it moves too:
+   the display serif, one accent, hairlines.
+   ======================================== */
+
+.hero h1 {
+  font-family: var(--ab-font-display);
+  font-weight: 400;
+  font-size: clamp(2.4rem, 4.4vw + 0.35rem, 4.5rem);
+  line-height: 1.02;
+  letter-spacing: -0.015em;
+  color: var(--ab-bone);
+  max-width: 19ch;
+  margin-bottom: 26px;
+}
+
+/* One accent phrase, not a gradient across the whole headline. A gradient run
+   over several lines reads as a colour sweep rather than as emphasis. */
+.hero h1 em {
+  font-style: italic;
+  color: var(--ab-ch);
+}
+
+.hero-description {
+  font-family: var(--font-body);
+  font-size: clamp(0.98rem, 0.5vw + 0.82rem, 1.1rem);
+  line-height: 1.78;
+  color: var(--ab-dim);
+  max-width: 52ch;
+  margin-bottom: 36px;
+}
+
+/* ---------------------------------------
+   Actions
+   --------------------------------------- */
+
+.hero-actions {
+  gap: 12px;
+}
+
+.hero .btn-primary,
+.hero .btn-secondary {
+  /* Only the containment the tracked light needs; the look itself is global. */
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* The arrow travels on hover, the way it does on the About page. */
+.hero .btn-arrow {
+  display: inline-block;
+  transition: transform var(--transition-medium);
+}
+
+.hero .btn-primary:hover .btn-arrow {
+  transform: translateY(3px);
+}
+
+@media (max-width: 620px) {
+  .hero .btn-primary,
+  .hero .btn-secondary {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero .btn-arrow { transition: none; }
+}
+
+/* ---------------------------------------
+   Cursor light on the actions
+   Same idea as the cards: the light tracks the
+   pointer rather than sitting still.
+   --------------------------------------- */
+
+.btn-glow {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s ease;
+  background: radial-gradient(
+    130px circle at var(--mx, 50%) var(--my, 50%),
+    color-mix(in srgb, var(--ab-ch) 30%, transparent),
+    transparent 72%
+  );
+}
+
+.hero .btn-primary:hover .btn-glow,
+.hero .btn-secondary:hover .btn-glow,
+.hero .btn-primary:focus-visible .btn-glow,
+.hero .btn-secondary:focus-visible .btn-glow { opacity: 1; }
+
+@media (prefers-reduced-motion: reduce) {
+  .btn-glow { transition: none; }
+}

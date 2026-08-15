@@ -1,0 +1,489 @@
+/* ========================================
+   BIODYN , About, "Turntable"
+   The opening view is sized to one screen. The
+   case selector sits above the figure. Opening
+   an area keeps the figure pinned beside the
+   detail so it can morph a level deeper.
+   ======================================== */
+
+.tt-main-wrap {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.tt-root {
+  /* The nav shrinks to ~65px once scrolled; anything sticky has to sit exactly
+     under it, or page content shows through the gap between the two. */
+  --tt-stick: 66px;
+
+  /* The opening view has to land inside one screen, with no clipped line of
+     type at the fold. Everything above the detail is budgeted against svh. */
+  min-height: max(660px, 100svh);
+  display: flex;
+  flex-direction: column;
+  padding-top: clamp(92px, 13vh, 148px);
+  padding-bottom: clamp(24px, 4vh, 48px);
+}
+
+/* ---------------------------------------
+   Masthead
+   --------------------------------------- */
+
+.tt-masthead {
+  flex: none;
+  display: grid;
+  grid-template-columns: minmax(0, 1.28fr) minmax(0, 0.72fr);
+  grid-template-areas:
+    "eyebrow eyebrow"
+    "title   lede";
+  column-gap: clamp(30px, 4vw, 66px);
+  align-items: end;
+}
+
+.tt-masthead .ab-eyebrow {
+  grid-area: eyebrow;
+  margin-bottom: clamp(12px, 2vh, 22px);
+}
+
+.tt-masthead .ab-display {
+  grid-area: title;
+  font-size: clamp(1.9rem, 3.5vw + 0.3rem, 3.5rem);
+  line-height: 1.04;
+}
+
+.tt-masthead .ab-lede {
+  grid-area: lede;
+  max-width: 42ch;
+  font-size: clamp(0.9rem, 0.42vw + 0.78rem, 1.02rem);
+  line-height: 1.72;
+  padding-bottom: 0.4em;
+}
+
+/* ---------------------------------------
+   Case selector, above the figure
+   --------------------------------------- */
+
+.tt-rail {
+  flex: none;
+  display: flex;
+  margin-top: clamp(18px, 3vh, 34px);
+  border-bottom: 1px solid var(--ab-line);
+}
+
+.tt-rail-item {
+  position: relative;
+  flex: 1 1 0;
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  padding: clamp(10px, 1.6vh, 16px) 20px clamp(12px, 1.8vh, 18px) 0;
+  background: transparent;
+  border: 0;
+  text-align: left;
+  cursor: pointer;
+  color: var(--ab-faint);
+  font: inherit;
+  transition: color var(--transition-medium);
+}
+
+.tt-rail-item::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 1px;
+  background: var(--tt-c);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.55s cubic-bezier(0.22, 0.7, 0.2, 1);
+}
+
+.tt-rail-item.is-active::after { transform: scaleX(1); }
+.tt-rail-item.is-active,
+.tt-rail-item:hover { color: var(--ab-bone); }
+
+.tt-rail-item[data-channel="1"] { --tt-c: var(--ab-ch1); }
+.tt-rail-item[data-channel="2"] { --tt-c: var(--ab-ch2); }
+.tt-rail-item[data-channel="3"] { --tt-c: var(--ab-ch3); }
+
+.tt-rail-num {
+  flex: none;
+  font-family: var(--ab-font-mono);
+  font-size: 0.64rem;
+  letter-spacing: 0.2em;
+  color: var(--tt-c);
+}
+
+.tt-rail-name {
+  font-family: var(--ab-font-display);
+  font-size: clamp(1.02rem, 0.7vw + 0.8rem, 1.32rem);
+  line-height: 1.2;
+}
+
+/* ---------------------------------------
+   Grid: figure beside text, then beside detail
+   --------------------------------------- */
+
+.tt-grid {
+  /* Basis 0 so the figure takes exactly the space left over by the masthead,
+     rail and closing line , the opening view then always lands on one screen
+     instead of depending on a hand-added budget. */
+  flex: 1 1 0;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1.04fr) minmax(0, 0.96fr);
+  grid-template-areas:
+    "visual text"
+    "visual detail";
+  grid-template-rows: 1fr 0fr;
+  column-gap: clamp(28px, 4vw, 64px);
+  margin-top: clamp(14px, 2.4vh, 28px);
+}
+
+/* Once the detail is out the view is meant to scroll, and the reading column
+   takes the larger share so the papers can sit two-up. */
+.tt-root.is-open .tt-grid {
+  flex: 0 0 auto;
+  grid-template-columns: minmax(0, 0.64fr) minmax(0, 1.36fr);
+  grid-template-rows: 0fr auto;
+}
+
+.tt-visual {
+  grid-area: visual;
+  align-self: stretch;
+  height: 100%;
+  min-height: 0;
+}
+
+.tt-root.is-open .tt-visual { height: auto; }
+
+/* The inactive panel is removed outright rather than clipped: clipped content
+   that is still focusable conflicts with its own aria-hidden, and an
+   overflow-hidden ancestor would also kill the sticky rail inside the detail. */
+.tt-argument {
+  grid-area: text;
+  align-self: start;
+  min-height: 0;
+}
+
+.tt-root.is-open .tt-argument { display: none; }
+
+.tt-detail {
+  grid-area: detail;
+  align-self: start;
+  min-height: 0;
+  display: none;
+}
+
+.tt-root.is-open .tt-detail {
+  display: block;
+  animation: tt-detail-in 0.6s cubic-bezier(0.22, 0.7, 0.2, 1);
+}
+
+@keyframes tt-detail-in {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* ---------------------------------------
+   Chamber
+   --------------------------------------- */
+
+.tt-chamber {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 220px;
+}
+
+/* Pinned while the detail scrolls past, so the figure stays with the text. */
+.tt-root.is-open .tt-chamber {
+  position: sticky;
+  top: var(--tt-stick);
+  height: clamp(230px, 38vh, 400px);
+}
+
+.tt-canvas {
+  cursor: grab;
+  touch-action: pan-y;
+}
+
+.tt-canvas.is-dragging { cursor: grabbing; }
+.tt-canvas:focus-visible { outline: 2px solid var(--ab-ch); outline-offset: 3px; }
+
+.tt-grab {
+  position: absolute;
+  left: 12px;
+  bottom: 10px;
+  font-family: var(--ab-font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ab-faint);
+  opacity: 0.6;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+.tt-chamber.is-touched .tt-grab { opacity: 0; }
+
+/* ---------------------------------------
+   Argument
+   --------------------------------------- */
+
+.tt-numeral {
+  font-size: clamp(1.7rem, 1.6vw + 1rem, 2.4rem);
+  margin-bottom: clamp(6px, 1vh, 14px);
+}
+
+.tt-argument .ab-case-title {
+  font-size: clamp(1.4rem, 1.5vw + 0.75rem, 2.15rem);
+  margin-bottom: clamp(10px, 1.6vh, 18px);
+}
+
+.tt-argument .ab-case-body {
+  font-size: clamp(0.9rem, 0.4vw + 0.78rem, 1rem);
+  line-height: 1.72;
+  max-width: 46ch;
+}
+
+.tt-more { margin-top: clamp(16px, 2.4vh, 28px); }
+
+/* ---------------------------------------
+   Detail
+   --------------------------------------- */
+
+/* The header and the four area tabs stay pinned, so moving between areas
+   never means scrolling back to the top of the list. */
+.tt-detail-bar {
+  position: sticky;
+  top: var(--tt-stick);
+  z-index: 3;
+  background: var(--ab-field);
+  padding-bottom: 2px;
+  /* Paints the field a little above the bar as well, so a subpixel seam or the
+     nav's shrink transition cannot open a window onto the scrolling text. */
+  box-shadow: 0 -14px 0 0 var(--ab-field);
+}
+
+.tt-detail-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 20px;
+  padding-bottom: 14px;
+}
+
+.tt-detail-title {
+  font-family: var(--ab-font-display);
+  font-weight: 400;
+  font-size: clamp(1.35rem, 1.6vw + 0.7rem, 1.95rem);
+  line-height: 1.15;
+  color: var(--ab-bone);
+}
+
+.tt-close {
+  flex: none;
+  padding: 8px 14px;
+  background: transparent;
+  border: 1px solid var(--ab-line);
+  border-radius: 2px;
+  color: var(--ab-dim);
+  font-family: var(--ab-font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: border-color var(--transition-fast), color var(--transition-fast);
+}
+
+.tt-close:hover { border-color: var(--ab-ch); color: var(--ab-ch); }
+
+.tt-detail-lede {
+  font-size: 0.95rem;
+  line-height: 1.75;
+  color: var(--ab-dim);
+  padding: 18px 0 2px;
+}
+
+/* Area tabs */
+
+.tt-tabs {
+  display: flex;
+  border-top: 1px solid var(--ab-line);
+  border-bottom: 1px solid var(--ab-line);
+}
+
+.tt-tab {
+  position: relative;
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 11px 14px 12px 0;
+  background: transparent;
+  border: 0;
+  text-align: left;
+  cursor: pointer;
+  color: var(--ab-faint);
+  font: inherit;
+  transition: color var(--transition-medium);
+}
+
+.tt-tab::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 8px;
+  bottom: -1px;
+  height: 1px;
+  background: var(--ab-ch);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.45s cubic-bezier(0.22, 0.7, 0.2, 1);
+}
+
+.tt-tab.is-active::after { transform: scaleX(1); }
+.tt-tab.is-active, .tt-tab:hover { color: var(--ab-bone); }
+
+.tt-tab-index {
+  font-family: var(--ab-font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.18em;
+  color: var(--ab-faint);
+  transition: color var(--transition-medium);
+}
+
+.tt-tab.is-active .tt-tab-index { color: var(--ab-ch); }
+
+.tt-tab-name {
+  font-family: var(--ab-font-display);
+  font-size: clamp(0.95rem, 0.5vw + 0.78rem, 1.14rem);
+  line-height: 1.18;
+}
+
+/* The panel grows in rather than sliding a spoiler open */
+
+.tt-panel { padding-top: clamp(20px, 3vh, 32px); }
+
+.tt-panel.is-entering {
+  animation: tt-panel-in 0.62s cubic-bezier(0.22, 0.7, 0.2, 1);
+}
+
+@keyframes tt-panel-in {
+  from { opacity: 0; transform: translateY(20px) scale(0.985); }
+  to   { opacity: 1; transform: none; }
+}
+
+.tt-panel-title {
+  font-family: var(--ab-font-display);
+  font-weight: 400;
+  font-size: clamp(1.55rem, 1.9vw + 0.75rem, 2.5rem);
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  color: var(--ab-bone);
+  margin-bottom: 12px;
+  max-width: 22ch;
+}
+
+.tt-panel-note {
+  font-size: 0.96rem;
+  line-height: 1.75;
+  color: var(--ab-dim);
+  max-width: 62ch;
+  margin-bottom: clamp(20px, 3vh, 30px);
+}
+
+.tt-panel-count {
+  display: block;
+  font-family: var(--ab-font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ab-faint);
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--ab-line);
+  margin-bottom: 20px;
+}
+
+.tt-panel .ab-refs {
+  grid-template-columns: repeat(auto-fill, minmax(246px, 1fr));
+  gap: 18px 34px;
+  padding-bottom: 8px;
+}
+
+/* ---------------------------------------
+   Responsive
+   --------------------------------------- */
+
+/* On a short laptop screen the case text, not the figure, is what stops the
+   opening view fitting. Trim the text rather than let it spill past the fold. */
+@media (min-width: 1001px) and (max-height: 840px) {
+  .tt-numeral { font-size: 1.5rem; margin-bottom: 4px; }
+  .tt-argument .ab-case-title { font-size: clamp(1.24rem, 1.2vw + 0.62rem, 1.62rem); margin-bottom: 9px; }
+  .tt-argument .ab-case-body { font-size: 0.87rem; line-height: 1.6; max-width: 44ch; }
+  .tt-more { margin-top: 14px; padding: 10px 17px; }
+  .tt-masthead .ab-lede { font-size: 0.9rem; line-height: 1.62; }
+}
+
+@media (max-width: 1000px) {
+  .tt-root { min-height: 0; padding-top: clamp(96px, 14vh, 140px); }
+
+  .tt-masthead {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: "eyebrow" "title" "lede";
+    row-gap: 20px;
+  }
+  .tt-masthead .ab-eyebrow { margin-bottom: 0; }
+  .tt-masthead .ab-lede { max-width: 60ch; padding-bottom: 0; }
+
+  .tt-grid,
+  .tt-root.is-open .tt-grid {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: "visual" "text" "detail";
+    grid-template-rows: auto auto auto;
+    row-gap: 26px;
+  }
+
+  .tt-chamber { height: min(400px, 78vw); }
+  .tt-root.is-open .tt-chamber { position: sticky; top: 78px; height: min(230px, 46vw); }
+  .tt-detail-bar { top: calc(78px + min(230px, 46vw) + 14px); }
+}
+
+@media (max-width: 720px) {
+  .tt-rail { flex-direction: column; }
+  .tt-rail-item {
+    padding: 12px 0;
+    border-top: 1px solid var(--ab-line);
+  }
+  .tt-rail-item:first-child { border-top: 0; }
+  .tt-rail-item::after { bottom: auto; top: 0; }
+  .tt-tabs { flex-wrap: wrap; }
+  .tt-tab { flex: 1 1 42%; padding-right: 10px; }
+  .tt-panel .ab-refs { grid-template-columns: minmax(0, 1fr); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tt-grid, .tt-chamber, .tt-argument, .tt-detail,
+  .tt-app-body, .tt-rail-item::after { transition: none; }
+}
+
+/* ---------------------------------------
+   Embedded on the main page
+   --------------------------------------- */
+
+/* The same experience, running below the hero rather than as its own page, so
+   it brings its own field instead of inheriting one from .ab-body. */
+.tt-embed {
+  background: var(--ab-field);
+  color: var(--ab-bone);
+}
+
+.tt-embed .tt-root {
+  padding-top: clamp(52px, 7vh, 96px);
+  padding-bottom: clamp(40px, 6vh, 80px);
+  min-height: max(620px, 92svh);
+}
+
+

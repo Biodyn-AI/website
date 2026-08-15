@@ -3,17 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PROBE — capability and safety evaluations for biological AI | Biodyn</title>
+  <title>PROBE: capability and safety evaluations for biological AI | Biodyn</title>
   <meta name="description" content="PROBE runs independent capability and safety evaluations on biological foundation models, reporting what a model's internals know alongside what its outputs express.">
   <link rel="canonical" href="https://biodynai.com/evals.html">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Biodyn">
   <meta property="og:url" content="https://biodynai.com/evals.html">
-  <meta property="og:title" content="PROBE — capability and safety evaluations for biological AI">
+  <meta property="og:title" content="PROBE: capability and safety evaluations for biological AI">
   <meta property="og:description" content="Existing benchmarks read what a biological model says. PROBE also reads what it knows.">
   <meta property="og:image" content="https://biodynai.com/content/social-preview.png">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="PROBE — capability and safety evaluations for biological AI">
+  <meta name="twitter:title" content="PROBE: capability and safety evaluations for biological AI">
   <meta name="twitter:description" content="Existing benchmarks read what a biological model says. PROBE also reads what it knows.">
   <meta name="twitter:image" content="https://biodynai.com/content/social-preview.png">
   <script>
@@ -39,9 +39,8 @@
     <div class="container">
       <a href="index.html" class="nav-logo">Biodyn</a>
       <ul class="nav-links" id="navLinks">
-        <li><a href="about.html">About</a></li>
+        <li><a href="index.html#about">About</a></li>
         <li><a href="evals.html" class="nav-current">Evals</a></li>
-        <li><a href="index.html#vision">Vision</a></li>
         <li><a href="index.html#research">Research</a></li>
         <li><a href="index.html#methodology">Methodology</a></li>
         <li><a href="index.html#impact">Impact</a></li>
@@ -49,7 +48,6 @@
         <li><a href="index.html#publications">Research Outputs</a></li>
         <li><a href="index.html#team">Team</a></li>
         <li><a href="blog.html">Blog</a></li>
-        <li><a href="portfolio.html">Portfolio</a></li>
         <li>
           <button type="button" class="theme-toggle" id="themeToggle" aria-label="Toggle color theme">
             Theme
@@ -65,13 +63,17 @@
 
   <header class="ev-hero">
     <div class="container">
+      <div class="ev-brand">
+        <span class="ev-wordmark">PROBE</span>
+        <span class="ev-brand-note">An independent evaluation programme from Biodyn</span>
+      </div>
       <p class="ev-acronym">
-        <b>P</b>rofiling · <b>R</b>epresentations · <b>O</b>utputs · <b>B</b>iosecurity · <b>E</b>licitation
+        <b>P</b>rofiling <b>R</b>epresentations, <b>O</b>utputs, <b>B</b>iosecurity and <b>E</b>licitation
       </p>
       <h1>Existing benchmarks read what a model says. PROBE also reads what it knows.</h1>
       <p class="ev-lede">
         Biological foundation models are trained to predict sequences, expression levels and
-        cell states. To do that they learn biology — and a benchmark that only scores their
+        cell states. To do that they learn biology, and a benchmark that only scores their
         outputs cannot see how much of it is in there. PROBE measures both surfaces, on the
         same held-out data, under one fixed readout budget.
       </p>
@@ -80,7 +82,6 @@
         baseline it must beat, the ceiling it is measured against, and the null that could
         kill it.
       </p>
-      <dl class="ev-strip" id="evStrip"></dl>
     </div>
   </header>
 
@@ -90,8 +91,8 @@
         <h2 class="ev-h2">The measurement</h2>
         <p class="ev-sub">
           Every task, capability or safety, reports the same surfaces on one held-out split.
-          B and P use an <em>identical</em> readout budget — same projection dimensionality,
-          same regularisation — so a difference between them is a fact about the
+          B and P use an <em>identical</em> readout budget, same projection dimensionality,
+          same regularisation, so a difference between them is a fact about the
           representation, not about classifier size.
         </p>
 
@@ -100,7 +101,7 @@
             <div class="ev-surface-key">zero-shot</div>
             <div class="ev-surface-body">
               <strong>No task training at all</strong>
-              <span>Nearest class centroid in the model's own embedding space — what a practitioner gets out of the box.</span>
+              <span>Nearest class centroid in the model's own embedding space, what a practitioner gets out of the box.</span>
             </div>
           </div>
           <div class="ev-surface">
@@ -135,7 +136,7 @@
           The gap carries its own <strong>paired</strong> interval. B and P are scored on
           the same resampled donors and differenced inside each replicate, because they
           come from the same cells through the same classifier and are strongly
-          correlated — judging a small gap against the much wider marginal interval of P
+          correlated, judging a small gap against the much wider marginal interval of P
           would understate the evidence. Donors are resampled, not cells: cells within a
           donor are not independent. Where that paired interval spans zero, the table
           says so rather than reporting the point estimate alone.
@@ -147,20 +148,19 @@
       <div class="container">
         <h2 class="ev-h2">Results</h2>
         <p class="ev-sub">
-          Rendered directly from result cards emitted by the harness. Reference models —
-          PCA, raw expression — sit in the table on purpose rather than in a footnote: a
+          Rendered directly from result cards emitted by the harness. Reference models, PCA, raw expression, sit in the table on purpose rather than in a footnote: a
           foundation model that cannot beat PCA on a task has not earned the compute.
         </p>
 
         <div class="ev-note">
-          <strong>What the first cards show</strong> — scGPT whole-human and Geneformer
+          <strong>What the first cards show</strong>, scGPT whole-human and Geneformer
           V2-104M against two references, Tabula Sapiens immune, 6,101 cells across 22
           donors, August 2026.
           <ul class="ev-caveats" style="margin-top:10px">
             <li><strong>Both models' documented usage loses to a dumb baseline.</strong>
               Nearest centroid on raw expression scores 0.566 on cell-type identity.
               Geneformer's sanctioned surface scores 0.558 and scGPT's 0.545. Only internal
-              probing gets past it — scGPT to 0.585, the one score here that exceeds the
+              probing gets past it, scGPT to 0.585, the one score here that exceeds the
               empirical ceiling of 0.580.</li>
             <li><strong>scGPT dominates Geneformer on both axes</strong>, higher cell-type
               accuracy (0.585 vs 0.571) and far less donor leakage (0.531 vs 0.692). Neither
@@ -168,12 +168,12 @@
               results are.</li>
             <li><strong>The two models place biology and nuisance differently across
               depth.</strong> In Geneformer the best cell-type layer and the leakiest donor
-              layer are the same one — layer 3 — and donor is more decodable than cell type
+              layer are the same one, layer 3, and donor is more decodable than cell type
               at <em>every</em> layer. In scGPT they separate: cell type peaks at layer 8,
               donor at layer 3, and at layer 8 cell type (0.585) is read more easily than
               donor (0.523).</li>
             <li>Both surface <em>more</em> donor identity than untransformed expression at
-              equal readout capacity — Geneformer 140%, scGPT 107%. Neither is
+              equal readout capacity, Geneformer 140%, scGPT 107%. Neither is
               donor-invariant; one is far from it.</li>
           </ul>
           <p style="margin-top:10px">
@@ -220,7 +220,7 @@
           An evaluator that hides its own limits is not one. As of v0.1:
         </p>
         <ul class="ev-caveats">
-          <li><strong>No elicitation gap measured so far is distinguishable from zero on a capability task.</strong> scGPT's best internal layer beats its sanctioned surface by +0.040 and Geneformer's by +0.013, but both paired intervals span zero across 22 donors — positive in 90% and 70% of resamples respectively, which is not enough. More donors will settle it; the honest present answer is "not shown".</li>
+          <li><strong>No elicitation gap measured so far is distinguishable from zero on a capability task.</strong> scGPT's best internal layer beats its sanctioned surface by +0.040 and Geneformer's by +0.013, but both paired intervals span zero across 22 donors, positive in 90% and 70% of resamples respectively, which is not enough. More donors will settle it; the honest present answer is "not shown".</li>
           <li>The gaps that <em>are</em> separated from zero are all on the nuisance task, where Geneformer (+0.108) and PCA (+0.127) leak donor identity well beyond their sanctioned surfaces. Leakage is easier to detect than capability, on this data by roughly a factor of eight.</li>
           <li>Per-model bootstrap replicates are not retained across models, so pairwise rank-reversal risk is implemented but not populated. The tables above are point estimates and should not be read as rankings.</li>
           <li>Fine-tuning (F) is not yet measured for any model, so no Recoverability figure is published.</li>

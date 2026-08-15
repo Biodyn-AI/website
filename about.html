@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About: The case for reading biological AI from the inside | Biodyn</title>
+  <meta name="description" content="Three arguments for mechanistic interpretability on biological foundation models: they are model organisms for interpretability, capability audits need their internals, and their representations are a route to extracting biology at scale.">
+  <link rel="canonical" href="https://biodynai.com/about.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Biodyn">
+  <meta property="og:url" content="https://biodynai.com/about.html">
+  <meta property="og:title" content="About: The case for reading biological AI from the inside | Biodyn">
+  <meta property="og:description" content="Three arguments for mechanistic interpretability on biological foundation models.">
+  <meta property="og:image" content="https://biodynai.com/content/social-preview.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Biodyn social preview">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="About: The case for reading biological AI from the inside | Biodyn">
+  <meta name="twitter:description" content="Three arguments for mechanistic interpretability on biological foundation models.">
+  <meta name="twitter:image" content="https://biodynai.com/content/social-preview.png">
+  <meta name="twitter:image:alt" content="Biodyn social preview">
+  <script>
+    (() => {
+      const storedTheme = localStorage.getItem('biodyn-theme');
+      const systemPrefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+      const theme = storedTheme === 'light' || storedTheme === 'dark'
+        ? storedTheme
+        : (systemPrefersLight ? 'light' : 'dark');
+      document.documentElement.dataset.theme = theme;
+    })();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="about-core.css">
+  <link rel="stylesheet" href="about.css">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+</head>
+<body class="ab-body" data-page="about">
+
+  <nav class="nav" id="nav">
+    <div class="container">
+      <a href="index.html" class="nav-logo">Biodyn</a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html#about" class="nav-current">About</a></li>
+        <li><a href="evals.html">Evals</a></li>
+        <li><a href="index.html#research">Research</a></li>
+        <li><a href="index.html#methodology">Methodology</a></li>
+        <li><a href="index.html#impact">Impact</a></li>
+        <li><a href="index.html#atlases">Atlases</a></li>
+        <li><a href="index.html#publications">Research Outputs</a></li>
+        <li><a href="index.html#team">Team</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li>
+          <button type="button" class="theme-toggle" id="themeToggle" aria-label="Toggle color theme">
+            Theme
+          </button>
+        </li>
+        <li><a href="https://github.com/orgs/Biodyn-AI/repositories" target="_blank" rel="noopener" class="nav-cta">GitHub →</a></li>
+      </ul>
+      <div class="hamburger" id="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </nav>
+
+  <main class="ab-main tt-main-wrap">
+    <div class="ab-shell tt-root" id="ttRoot">
+
+      <header class="tt-masthead">
+        <h1 class="ab-display">The case for reading biological AI <em>from the inside</em></h1>
+        <p class="ab-lede">
+          Biological foundation models are trained to predict sequences, expression levels and cell
+          states. To do that well, they have to learn biology. Biodyn reads that biology back out of
+          their internals.
+        </p>
+      </header>
+
+      <div class="tt-rail" role="tablist" aria-label="The three cases" id="ttRail"></div>
+
+      <div class="tt-grid" id="ttGrid">
+
+        <div class="tt-visual">
+          <div class="tt-chamber" id="ttChamber">
+            <div class="ab-frame" aria-hidden="true"></div>
+            <canvas class="ab-canvas tt-canvas" id="ttCanvas"
+                    aria-label="Interactive 3D figure. Drag to rotate."
+                    role="img" tabindex="0"></canvas>
+          </div>
+        </div>
+
+        <div class="tt-argument" id="ttArgument">
+          <div class="tt-argument-inner">
+            <h2 class="ab-case-title" id="ttTitle"></h2>
+            <p class="ab-case-body" id="ttBody"></p>
+            <button type="button" class="ab-action tt-more" id="ttMore"
+                    aria-expanded="false" aria-controls="ttDetail">
+              <span>Learn more</span>
+              <span class="ab-action-arrow" aria-hidden="true">→</span>
+            </button>
+          </div>
+        </div>
+
+        <section class="tt-detail" id="ttDetail" aria-hidden="true">
+          <div class="tt-detail-inner" id="ttDetailInner"></div>
+        </section>
+
+      </div>
+
+    </div>
+  </main>
+
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <span class="footer-logo">Biodyn</span>
+        <span class="footer-text">© 2026 Biodyn Research Project. All rights reserved.</span>
+        <div class="footer-links">
+          <a href="index.html">Home</a>
+          <a href="blog.html">Blog</a>
+          <a href="https://github.com/orgs/Biodyn-AI/repositories" target="_blank" rel="noopener">GitHub</a>
+          <a href="mailto:kenduhov.ig@gmail.com">Contact</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script src="about-core.js"></script>
+  <script src="about-figures.js"></script>
+  <script src="about.js"></script>
+</body>
+</html>
