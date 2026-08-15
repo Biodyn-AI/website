@@ -153,9 +153,23 @@
       : p >= 1e6 ? `${Math.round(p / 1e6)}M`
       : `${Math.round(p / 1e3)}K`;
 
+  const yearOf = (d) => {
+    if (!d) return null;
+    const [y, m] = String(d).split('-');
+    return Number(y) + (Number(m || 6) - 0.5) / 12;
+  };
+
   function renderTrend(container, trend, opts = {}) {
     container.innerHTML = '';
-    const pts = (trend.points || []).filter((p) => p.params && p.best != null);
+    const byDate = opts.xMode === 'date';
+    let pts = (trend.points || []).filter((p) => p.params && p.best != null);
+
+    if (byDate) {
+      // A trend against time is only about time if size is held roughly fixed.
+      // Without the band this would be a scaling curve wearing a date axis.
+      const [lo, hi] = opts.sizeBand || [0, Infinity];
+      pts = pts.filter((p) => p.release_date && p.params >= lo && p.params <= hi);
+    }
     if (pts.length < 2) {
       // An empty chart should say what it is waiting for, not just that it is
       // empty. A reader who knows the ladder is mid-run reads this as progress;
@@ -163,9 +177,13 @@
       const n = pts.length;
       setEmpty(
         container,
-        `The scaling ladder is still being measured: ${n} model${n === 1 ? '' : 's'} `
-        + 'has a result so far, and a curve needs at least three. Each additional '
-        + 'model is one run on the same task and protocol.'
+        byDate
+          ? `Only ${n} model of comparable size has a measured release date so far. `
+            + 'A trend against time needs at least three, held at similar size so '
+            + 'that it is a statement about vintage rather than about scale.'
+          : `The scaling ladder is still being measured: ${n} model${n === 1 ? '' : 's'} `
+            + 'has a result so far, and a curve needs at least three. Each additional '
+            + 'model is one run on the same task and protocol.'
       );
       return;
     }
@@ -174,14 +192,16 @@
     const M = { t: 28, r: 168, b: 62, l: 62 };
     const iw = W - M.l - M.r, ih = H - M.t - M.b;
 
-    const xs = pts.map((p) => Math.log10(p.params));
+    const xOf = (p) => (byDate ? yearOf(p.release_date) : Math.log10(p.params));
+    const xs = pts.map(xOf);
     const refVals = (trend.references || []).map((r) => r.best).filter((v) => v != null);
     const ysAll = pts.map((p) => p.best)
       .concat(refVals)
       .concat(trend.ceiling != null ? [trend.ceiling] : []);
 
-    const xMin = Math.floor(Math.min(...xs)) - 0.15;
-    const xMax = Math.ceil(Math.max(...xs)) + 0.15;
+    const xPad = byDate ? 0.45 : 0.15;
+    const xMin = Math.floor(Math.min(...xs)) - xPad;
+    const xMax = Math.ceil(Math.max(...xs)) + xPad;
     let yMin = Math.min(...ysAll), yMax = Math.max(...ysAll);
     const padY = Math.max(0.04, (yMax - yMin) * 0.25);
     yMin = Math.max(0, yMin - padY); yMax = Math.min(1, yMax + padY);
@@ -212,10 +232,10 @@
       svg.appendChild(lab);
     }
 
-    // x ticks, one per decade
+    // x ticks: one per decade of parameters, or one per year
     for (let d = Math.ceil(xMin); d <= Math.floor(xMax); d++) {
       const lab = svgEl('text', { x: X(d), y: M.t + ih + 26, class: 'ev-chart-tick', 'text-anchor': 'middle' });
-      lab.textContent = shortParams(Math.pow(10, d));
+      lab.textContent = byDate ? String(d) : shortParams(Math.pow(10, d));
       svg.appendChild(lab);
     }
 
@@ -252,7 +272,7 @@
 
     // error bars, points, labels
     pts.forEach((p) => {
-      const x = X(Math.log10(p.params));
+      const x = X(xOf(p));
       if (p.ci95) {
         svg.appendChild(svgEl('line', {
           x1: x, x2: x, y1: Y(p.ci95[0]), y2: Y(p.ci95[1]), class: 'ev-chart-err',
@@ -260,13 +280,13 @@
       }
       svg.appendChild(svgEl('circle', { cx: x, cy: Y(p.best), r: 6, class: 'ev-chart-pt' }));
       const lab = svgEl('text', { x: x, y: Y(p.best) - 15, class: 'ev-chart-label', 'text-anchor': 'middle' });
-      lab.textContent = shortParams(p.params);
+      lab.textContent = byDate ? `${p.family} ${shortParams(p.params)}` : shortParams(p.params);
       svg.appendChild(lab);
     });
 
     // axis titles
     const xt = svgEl('text', { x: M.l + iw / 2, y: H - 12, class: 'ev-chart-axis', 'text-anchor': 'middle' });
-    xt.textContent = opts.xLabel || 'Model size (parameters, log scale)';
+    xt.textContent = opts.xLabel || (byDate ? 'Public release' : 'Model size (parameters, log scale)');
     svg.appendChild(xt);
     const yt = svgEl('text', {
       x: -(M.t + ih / 2), y: 18, class: 'ev-chart-axis',
@@ -282,12 +302,12 @@
     // the same numbers, reachable without the picture
     const tbl = el('table', 'ev-table ev-sr');
     const head = el('tr');
-    ['Model', 'Parameters', trend.metric].forEach((h) => head.appendChild(el('th', null, h)));
+    ['Model', byDate ? 'Released' : 'Parameters', trend.metric].forEach((h) => head.appendChild(el('th', null, h)));
     tbl.appendChild(head);
     pts.forEach((p) => {
       const tr = el('tr');
       tr.appendChild(el('td', null, p.model));
-      tr.appendChild(el('td', null, String(p.params)));
+      tr.appendChild(el('td', null, byDate ? String(p.release_date) : String(p.params)));
       tr.appendChild(el('td', null, String(p.best)));
       tbl.appendChild(tr);
     });
@@ -366,6 +386,7 @@
   document.addEventListener('DOMContentLoaded', async () => {
     const targets = {
       trend: document.getElementById('evTrend'),
+      trendTime: document.getElementById('evTrendTime'),
       boards: document.getElementById('evBoards'),
       coverage: document.getElementById('evCoverage'),
       registry: document.getElementById('evRegistry'),
@@ -394,6 +415,17 @@
         });
       } else {
         setEmpty(targets.trend, 'No trend data in the payload yet.');
+      }
+    }
+    if (targets.trendTime) {
+      const tr = (data.trends || {})['pr1-tf-identity'];
+      if (tr) {
+        renderTrend(targets.trendTime, tr, {
+          xMode: 'date',
+          sizeBand: [300e6, 700e6],
+          title: 'Protein model capability against release date, at comparable size',
+          yLabel: 'Accuracy identifying transcription factors',
+        });
       }
     }
     if (targets.coverage) renderCoverage(targets.coverage, data.coverage);
