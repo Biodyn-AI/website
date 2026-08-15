@@ -8,10 +8,10 @@
   const DATA_URL = 'content/evals.json';
 
   const fmt = (v, digits = 3) =>
-    v === null || v === undefined || Number.isNaN(v) ? ', ' : Number(v).toFixed(digits);
+    v === null || v === undefined || Number.isNaN(v) ? 'n/a' : Number(v).toFixed(digits);
 
   const signed = (v, digits = 3) =>
-    v === null || v === undefined ? ', ' : (v >= 0 ? '+' : '') + Number(v).toFixed(digits);
+    v === null || v === undefined ? 'n/a' : (v >= 0 ? '+' : '') + Number(v).toFixed(digits);
 
   const el = (tag, cls, text) => {
     const n = document.createElement(tag);
@@ -85,13 +85,13 @@
         // where a gap was measured and came out uncertain.
         gapCi.appendChild(el('span', 'ev-flag', 'no internals'));
       } else if (r.gap_ci95) {
-        gapCi.textContent = `${signed(r.gap_ci95[0])} … ${signed(r.gap_ci95[1])}`;
+        gapCi.textContent = `${signed(r.gap_ci95[0])} to ${signed(r.gap_ci95[1])}`;
         if (r.gap_separated_from_zero === false) {
           gapCi.appendChild(document.createElement('br'));
           gapCi.appendChild(el('span', 'ev-flag warn', 'spans zero'));
         }
       } else {
-        gapCi.textContent = ', ';
+        gapCi.textContent = 'n/a';
       }
       tr.appendChild(gapCi);
 
@@ -110,7 +110,7 @@
       tr.appendChild(nullTd);
 
       tr.appendChild(el('td', 'ev-num ev-dim',
-        r.ci95 ? `${fmt(r.ci95[0], 2)}–${fmt(r.ci95[1], 2)}` : ', '));
+        r.ci95 ? `${fmt(r.ci95[0], 2)} to ${fmt(r.ci95[1], 2)}` : 'n/a'));
 
       tbody.appendChild(tr);
     });
@@ -201,29 +201,11 @@
     });
   }
 
-  // --- strip -------------------------------------------------------------
-
-  function renderStrip(container, data) {
-    const stats = [
-      ['Models evaluated', data.models.length],
-      ['Tasks live', data.tasks.length],
-      ['Result cards', data.generated_from_n_cards],
-      ['Models queued', (data.registry.queued || []).length],
-    ];
-    container.innerHTML = '';
-    stats.forEach(([label, value]) => {
-      const d = el('div');
-      d.appendChild(el('dt', null, label));
-      d.appendChild(el('dd', null, String(value)));
-      container.appendChild(d);
-    });
-  }
 
   // --- boot --------------------------------------------------------------
 
   document.addEventListener('DOMContentLoaded', async () => {
     const targets = {
-      strip: document.getElementById('evStrip'),
       boards: document.getElementById('evBoards'),
       coverage: document.getElementById('evCoverage'),
       registry: document.getElementById('evRegistry'),
@@ -243,7 +225,6 @@
 
     data.registry = data.registry || {};
 
-    if (targets.strip) renderStrip(targets.strip, data);
     if (targets.coverage) renderCoverage(targets.coverage, data.coverage);
     if (targets.registry) renderRegistry(targets.registry, data);
 
