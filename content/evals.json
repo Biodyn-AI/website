@@ -1,6 +1,22 @@
 {
-  "generated_from_n_cards": 8,
+  "generated_from_n_cards": 10,
   "models": [
+    {
+      "id": "composition-reference",
+      "modality": "protein",
+      "params": 0,
+      "source": "probe.adapters.reference.CompositionReference",
+      "notes": "Not a foundation model. Amino-acid (20) and dipeptide (400) frequencies, the reference every protein model must beat.",
+      "n_cards": 1
+    },
+    {
+      "id": "esm2-t33-650m-ur50d",
+      "modality": "protein",
+      "params": 650000000,
+      "source": "facebook/esm2_t33_650M_UR50D",
+      "notes": "33 layers, hidden 1280, truncated at 1022 residues. Protein embedding = mean over residue positions, excluding <cls>, <eos> and padding.",
+      "n_cards": 1
+    },
     {
       "id": "geneformer-v2-104m",
       "modality": "single-cell",
@@ -36,6 +52,21 @@
   ],
   "tasks": [
     {
+      "id": "pr1-tf-identity",
+      "version": "1.0",
+      "axis": [
+        "A1",
+        "A5"
+      ],
+      "axis_labels": [
+        "Representation quality",
+        "Structural knowledge"
+      ],
+      "metric": "macro_f1",
+      "dataset_id": "human-tf",
+      "n_models": 2
+    },
+    {
       "id": "sc1-celltype-transfer",
       "version": "1.0",
       "axis": [
@@ -65,6 +96,76 @@
     }
   ],
   "leaderboards": {
+    "pr1-tf-identity": {
+      "rows": [
+        {
+          "model": "esm2-t33-650m-ur50d",
+          "best": 0.956095,
+          "zero_shot": 0.811073,
+          "behavioural": 0.925836,
+          "probe": 0.956095,
+          "elicited": null,
+          "elicitation_gap": 0.030259,
+          "gap_ci95": [
+            0.011060784133499642,
+            0.04773516771023725
+          ],
+          "gap_positive_fraction": 1.0,
+          "gap_structural_zero": false,
+          "gap_separated_from_zero": true,
+          "best_baseline": 0.81159,
+          "beats_baseline": true,
+          "ceiling": 0.8257080610021786,
+          "headroom": -0.157909,
+          "null_p": 0.009900990099009901,
+          "survives_null": true,
+          "ci95": [
+            0.9406642525094786,
+            0.970479085427264
+          ],
+          "caveats": [
+            "Homology clustering merged little: 2302 clusters for 2400 proteins, so the split is close to random and the homology control is weak. Treat the score as an upper estimate.",
+            "Exceeds the empirical ceiling (0.826): the representation adds over the best cheap supervised readout of composition features.",
+            "Fine-tuning (F) not measured: adapter does not support it."
+          ]
+        },
+        {
+          "model": "composition-reference",
+          "best": 0.827962,
+          "zero_shot": 0.81159,
+          "behavioural": 0.827962,
+          "probe": 0.827962,
+          "elicited": null,
+          "elicitation_gap": 0.0,
+          "gap_ci95": [
+            0.0,
+            0.0
+          ],
+          "gap_positive_fraction": 0.0,
+          "gap_structural_zero": true,
+          "gap_separated_from_zero": false,
+          "best_baseline": 0.81159,
+          "beats_baseline": true,
+          "ceiling": 0.8257080610021786,
+          "headroom": -0.00273,
+          "null_p": 0.009900990099009901,
+          "survives_null": true,
+          "ci95": [
+            0.8059789629494629,
+            0.8500749586034422
+          ],
+          "caveats": [
+            "Homology clustering merged little: 2302 clusters for 2400 proteins, so the split is close to random and the homology control is weak. Treat the score as an upper estimate.",
+            "Exceeds the empirical ceiling (0.826): the representation adds over the best cheap supervised readout of composition features.",
+            "No elicitation gap by construction: the best internal layer is the sanctioned surface.",
+            "Fine-tuning (F) not measured: adapter does not support it."
+          ]
+        }
+      ],
+      "rank_reversal_risk": {},
+      "higher_is_better": true,
+      "note": "Bootstrap replicates are not retained per model in v0.1, so pairwise reversal risk is not yet computable. The ordering below is a point estimate and should not be read as a ranking."
+    },
     "sc1-celltype-transfer": {
       "rows": [
         {
@@ -341,6 +442,10 @@
       "A10": "Scaling"
     },
     "grid": {
+      "protein": {
+        "A1": 2,
+        "A5": 2
+      },
       "single-cell": {
         "A1": 4,
         "A3": 4,
@@ -350,6 +455,8 @@
   },
   "registry": {
     "evaluable": [
+      "composition-reference",
+      "esm2-650m",
       "geneformer-v2-104m",
       "pca-reference",
       "raw-expression",
@@ -414,17 +521,17 @@
         "status": "checkpoint local"
       },
       {
-        "id": "esm2-650m",
-        "modality": "protein",
-        "status": "open weights"
-      },
-      {
         "id": "evo2",
         "modality": "dna",
         "status": "needs compute"
       }
     ],
     "datasets": [
+      {
+        "id": "human-tf",
+        "modality": "protein",
+        "note": "Human reviewed proteome, transcription factor vs non-TF."
+      },
       {
         "id": "ts-immune-20k",
         "modality": "single-cell",
@@ -443,6 +550,246 @@
     ]
   },
   "cards": [
+    {
+      "model": "composition-reference",
+      "modality": "protein",
+      "task": "pr1-tf-identity",
+      "task_version": "1.0",
+      "axis": [
+        "A1",
+        "A5"
+      ],
+      "metric": "macro_f1",
+      "dataset_id": "human-tf",
+      "dataset_sha256": "15762eab07f5",
+      "scores": {
+        "zero_shot": 0.81159,
+        "behavioural": 0.827962,
+        "probe": 0.827962,
+        "elicited": null,
+        "readout_budget": {
+          "n_components": 64,
+          "C": 1.0,
+          "max_iter": 2000,
+          "metric": "macro_f1"
+        },
+        "probe_best_layer": "composition"
+      },
+      "derived": {
+        "elicitation_gap": 0.0,
+        "recoverability": null,
+        "headroom": -0.00273
+      },
+      "baselines": {
+        "majority_class": 0.407407,
+        "length_only": 0.407407,
+        "composition_pca50_logreg": 0.541788,
+        "composition_centroid": 0.81159
+      },
+      "controls": {
+        "group_stratified": true,
+        "group_key": "homology_cluster",
+        "n_groups_train": 1613,
+        "n_groups_test": 689,
+        "null": {
+          "method": "covariate-matched label permutation (10 quantile bins)",
+          "n_permutations": 100,
+          "matched_covariate": "sequence_length",
+          "p_value": 0.009900990099009901,
+          "null_mean": 0.42315527328077385,
+          "null_std": 0.016607914657008727,
+          "observed": 0.8279624703314908
+        },
+        "ceiling": {
+          "method": "empirical: best of {scaled, unscaled} x {raw, pca50, pca128} x {C=1, C=0.1} logistic regression, same split",
+          "value": 0.8257080610021786,
+          "note": "Won by scaled/pca128/C=1. Interpret model scores relative to this: at or above it, the representation adds nothing over standard supervised practice on the raw features."
+        },
+        "extra": {
+          "clustering": "greedy k-mer containment, k=5, threshold=0.35; approximates identity clustering without an external binary and errs toward merging",
+          "n_clusters_total": 2302,
+          "per_layer_scores": {
+            "composition": 0.827962
+          },
+          "class_balance": {
+            "TF": 800,
+            "non-TF": 1600
+          },
+          "n_bootstrap_usable": 60
+        }
+      },
+      "uncertainty": {
+        "ci95": [
+          0.8059789629494629,
+          0.8500749586034422
+        ],
+        "n_bootstrap": 60,
+        "std": 0.012807840688899936,
+        "gap_ci95": [
+          0.0,
+          0.0
+        ],
+        "gap_positive_fraction": 0.0,
+        "rank_reversal_risk": {}
+      },
+      "compute": {
+        "device": "cpu",
+        "seconds": 33.69,
+        "gpu_hours": null,
+        "peak_memory_gb": null
+      },
+      "provenance": {
+        "code_commit": "d0c986c",
+        "run_id": "98fe1d2fb919",
+        "run_date": "2026-08-15T00:27:17+00:00",
+        "seed": 0,
+        "env_lock_sha256": null,
+        "harness_version": "1.0"
+      },
+      "caveats": [
+        "Homology clustering merged little: 2302 clusters for 2400 proteins, so the split is close to random and the homology control is weak. Treat the score as an upper estimate.",
+        "Exceeds the empirical ceiling (0.826): the representation adds over the best cheap supervised readout of composition features.",
+        "No elicitation gap by construction: the best internal layer is the sanctioned surface.",
+        "Fine-tuning (F) not measured: adapter does not support it."
+      ],
+      "disclosure_tier": 0
+    },
+    {
+      "model": "esm2-t33-650m-ur50d",
+      "modality": "protein",
+      "task": "pr1-tf-identity",
+      "task_version": "1.0",
+      "axis": [
+        "A1",
+        "A5"
+      ],
+      "metric": "macro_f1",
+      "dataset_id": "human-tf",
+      "dataset_sha256": "15762eab07f5",
+      "scores": {
+        "zero_shot": 0.811073,
+        "behavioural": 0.925836,
+        "probe": 0.956095,
+        "elicited": null,
+        "readout_budget": {
+          "n_components": 64,
+          "C": 1.0,
+          "max_iter": 2000,
+          "metric": "macro_f1"
+        },
+        "probe_best_layer": "layer-24"
+      },
+      "derived": {
+        "elicitation_gap": 0.030259,
+        "recoverability": null,
+        "headroom": -0.157909
+      },
+      "baselines": {
+        "majority_class": 0.407407,
+        "length_only": 0.407407,
+        "composition_pca50_logreg": 0.541788,
+        "composition_centroid": 0.81159
+      },
+      "controls": {
+        "group_stratified": true,
+        "group_key": "homology_cluster",
+        "n_groups_train": 1613,
+        "n_groups_test": 689,
+        "null": {
+          "method": "covariate-matched label permutation (10 quantile bins)",
+          "n_permutations": 100,
+          "matched_covariate": "sequence_length",
+          "p_value": 0.009900990099009901,
+          "null_mean": 0.4435606424013253,
+          "null_std": 0.021044438843165352,
+          "observed": 0.9560950821523346
+        },
+        "ceiling": {
+          "method": "empirical: best of {scaled, unscaled} x {raw, pca50, pca128} x {C=1, C=0.1} logistic regression, same split",
+          "value": 0.8257080610021786,
+          "note": "Won by scaled/pca128/C=1. Interpret model scores relative to this: at or above it, the representation adds nothing over standard supervised practice on the raw features."
+        },
+        "extra": {
+          "clustering": "greedy k-mer containment, k=5, threshold=0.35; approximates identity clustering without an external binary and errs toward merging",
+          "n_clusters_total": 2302,
+          "per_layer_scores": {
+            "layer-0": 0.790839,
+            "layer-1": 0.837591,
+            "layer-2": 0.842657,
+            "layer-3": 0.858175,
+            "layer-4": 0.871216,
+            "layer-5": 0.891723,
+            "layer-6": 0.897299,
+            "layer-7": 0.904297,
+            "layer-8": 0.914239,
+            "layer-9": 0.931243,
+            "layer-10": 0.925657,
+            "layer-11": 0.946731,
+            "layer-12": 0.948283,
+            "layer-13": 0.945183,
+            "layer-14": 0.946859,
+            "layer-15": 0.948531,
+            "layer-16": 0.951397,
+            "layer-17": 0.949591,
+            "layer-18": 0.951156,
+            "layer-19": 0.949715,
+            "layer-20": 0.9479,
+            "layer-21": 0.949591,
+            "layer-22": 0.951156,
+            "layer-23": 0.951156,
+            "layer-24": 0.956095,
+            "layer-25": 0.952725,
+            "layer-26": 0.951277,
+            "layer-27": 0.946471,
+            "layer-28": 0.946471,
+            "layer-29": 0.946204,
+            "layer-30": 0.951397,
+            "layer-31": 0.941818,
+            "layer-32": 0.940274,
+            "layer-33": 0.925836
+          },
+          "class_balance": {
+            "TF": 800,
+            "non-TF": 1600
+          },
+          "n_bootstrap_usable": 60
+        }
+      },
+      "uncertainty": {
+        "ci95": [
+          0.9406642525094786,
+          0.970479085427264
+        ],
+        "n_bootstrap": 60,
+        "std": 0.007049555859503961,
+        "gap_ci95": [
+          0.011060784133499642,
+          0.04773516771023725
+        ],
+        "gap_positive_fraction": 1.0,
+        "rank_reversal_risk": {}
+      },
+      "compute": {
+        "device": "mps",
+        "seconds": 1889.86,
+        "gpu_hours": null,
+        "peak_memory_gb": null
+      },
+      "provenance": {
+        "code_commit": "d0c986c",
+        "run_id": "d1660f219c2c",
+        "run_date": "2026-08-15T00:58:02+00:00",
+        "seed": 0,
+        "env_lock_sha256": null,
+        "harness_version": "1.0"
+      },
+      "caveats": [
+        "Homology clustering merged little: 2302 clusters for 2400 proteins, so the split is close to random and the homology control is weak. Treat the score as an upper estimate.",
+        "Exceeds the empirical ceiling (0.826): the representation adds over the best cheap supervised readout of composition features.",
+        "Fine-tuning (F) not measured: adapter does not support it."
+      ],
+      "disclosure_tier": 0
+    },
     {
       "model": "geneformer-v2-104m",
       "modality": "single-cell",

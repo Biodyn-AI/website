@@ -28,7 +28,7 @@
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="evals.css">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
@@ -153,41 +153,45 @@
         </p>
 
         <div class="ev-note">
-          <strong>What the first cards show</strong>, scGPT whole-human and Geneformer
-          V2-104M against two references, Tabula Sapiens immune, 6,101 cells across 22
-          donors, August 2026.
+          <strong>What the cards show</strong>
           <ul class="ev-caveats" style="margin-top:10px">
-            <li><strong>Both models' documented usage loses to a dumb baseline.</strong>
-              Nearest centroid on raw expression scores 0.566 on cell-type identity.
-              Geneformer's sanctioned surface scores 0.558 and scGPT's 0.545. Only internal
-              probing gets past it, scGPT to 0.585, the one score here that exceeds the
-              empirical ceiling of 0.580.</li>
-            <li><strong>scGPT dominates Geneformer on both axes</strong>, higher cell-type
-              accuracy (0.585 vs 0.571) and far less donor leakage (0.531 vs 0.692). Neither
-              capability gap is distinguishable from zero across 22 donors; both leakage
-              results are.</li>
-            <li><strong>The two models place biology and nuisance differently across
-              depth.</strong> In Geneformer the best cell-type layer and the leakiest donor
-              layer are the same one, layer 3, and donor is more decodable than cell type
-              at <em>every</em> layer. In scGPT they separate: cell type peaks at layer 8,
-              donor at layer 3, and at layer 8 cell type (0.585) is read more easily than
-              donor (0.523).</li>
-            <li>Both surface <em>more</em> donor identity than untransformed expression at
-              equal readout capacity, Geneformer 140%, scGPT 107%. Neither is
-              donor-invariant; one is far from it.</li>
+            <li><strong>The first elicitation gap that clears zero is in protein.</strong>
+              ESM2-650M reads transcription-factor identity at 0.956 from its best
+              internal layer, layer 24 of 33, against 0.926 from the final layer its own
+              documentation tells you to use. Gap +0.030, paired 95% interval
+              [+0.011, +0.048], positive in 100% of cluster resamples. The layer profile
+              is what the architecture predicts: quality climbs to about 0.95 by layer
+              12, holds flat through the middle, then <em>falls</em> at the last layer,
+              which sits directly under a masked-language-model head and is specialised
+              for reconstructing tokens rather than for carrying function.</li>
+            <li><strong>Whether a foundation model earns its parameters depends on the
+              modality.</strong> ESM2 beats amino-acid composition by a wide margin,
+              0.956 against 0.828. Neither single-cell model manages the equivalent:
+              scGPT reaches 0.585 and Geneformer 0.571 on cell-type identity against
+              0.566 for nearest centroid on raw expression. Same measurement, opposite
+              verdicts.</li>
+            <li><strong>Both single-cell models' documented usage loses to that dumb
+              baseline outright.</strong> Geneformer's sanctioned surface scores 0.558
+              and scGPT's 0.545. Only internal probing gets either past 0.566.</li>
+            <li><strong>The two single-cell models place biology and nuisance differently
+              across depth.</strong> In Geneformer the best cell-type layer and the
+              leakiest donor layer are the same one, layer 3, and donor is more decodable
+              than cell type at every layer. In scGPT they separate: cell type peaks at
+              layer 8, donor at layer 3. Both surface more donor identity than
+              untransformed expression at equal readout capacity, Geneformer 140% and
+              scGPT 107%.</li>
           </ul>
           <p style="margin-top:10px">
-            The third point is only visible because two tasks run over the same layers in
-            opposite directions. A capability-only suite would report "internals beat the
-            sanctioned surface" for both models and miss that the claim means something
-            quite different in each.
+            The fourth point is only visible because two tasks run over the same layers
+            in opposite directions. A capability-only suite would report "internals beat
+            the sanctioned surface" for both models and miss that the claim means
+            something quite different in each.
           </p>
           <p style="margin-top:10px">
-            <em>One caveat on reading the layer profiles across models:</em> layer 0 is not
-            comparable between them. Geneformer pools over gene tokens, so its layer 0
-            already encodes which genes are expressed (0.509); scGPT reads a
-            <code>&lt;cls&gt;</code> position that carries no cell-specific information
-            until attention has run (0.016).
+            <em>Reading layer numbers across models:</em> layer 0 is not comparable
+            between them. Geneformer pools gene tokens, so its layer 0 already encodes
+            which genes are expressed; scGPT reads a <code>&lt;cls&gt;</code> position
+            that carries nothing until attention has run.
           </p>
         </div>
 
@@ -220,12 +224,12 @@
           An evaluator that hides its own limits is not one. As of v0.1:
         </p>
         <ul class="ev-caveats">
-          <li><strong>No elicitation gap measured so far is distinguishable from zero on a capability task.</strong> scGPT's best internal layer beats its sanctioned surface by +0.040 and Geneformer's by +0.013, but both paired intervals span zero across 22 donors, positive in 90% and 70% of resamples respectively, which is not enough. More donors will settle it; the honest present answer is "not shown".</li>
-          <li>The gaps that <em>are</em> separated from zero are all on the nuisance task, where Geneformer (+0.108) and PCA (+0.127) leak donor identity well beyond their sanctioned surfaces. Leakage is easier to detect than capability, on this data by roughly a factor of eight.</li>
+          <li><strong>Only one of the three capability gaps clears zero, and it is the protein one.</strong> ESM2's +0.030 is separated from zero; scGPT's +0.040 and Geneformer's +0.013 on cell-type identity are not, being positive in 90% and 70% of donor resamples respectively. Twenty-two donors is not enough to resolve effects that size, so the single-cell answer remains "not shown" rather than "no".</li>
+          <li><strong>The protein result rests on a weak homology control.</strong> Clustering merged only 98 of 2,400 proteins, so that split is close to random and 0.956 should be read as an upper estimate. A real identity clustering, with MMseqs2 or CD-HIT, would lower it by an unknown amount.</li>
+          <li>Fine-tuning (F) is not yet measured for any model, so no Recoverability figure is published anywhere on this site.</li>
           <li>Per-model bootstrap replicates are not retained across models, so pairwise rank-reversal risk is implemented but not populated. The tables above are point estimates and should not be read as rankings.</li>
-          <li>Fine-tuning (F) is not yet measured for any model, so no Recoverability figure is published.</li>
-          <li>Coverage is two tasks on one dataset in one modality, and one dataset cannot show whether any of this generalises. Everything else in the matrix is honest emptiness.</li>
-          <li>The safety battery (S1–S5) is specified but not yet run.</li>
+          <li>Coverage is three tasks across two modalities, and one dataset per modality. One dataset cannot show whether any of this generalises. Everything else in the matrix is honest emptiness.</li>
+          <li>The safety battery (S1 to S5) is specified but not yet run.</li>
         </ul>
         <p class="ev-note">
           Read the <a href="evals-standard.html">PROBE Standard</a> for the six rules every
