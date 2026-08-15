@@ -394,3 +394,8 @@
 @media (max-width: 640px) {
   .ev-brand { gap: 6px; }
 }
+
+@media (max-width: 600px) {
+  .ev-flag,
+  .ev-table th { font-size: 0.72rem; }
+}

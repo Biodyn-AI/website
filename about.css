@@ -440,15 +440,42 @@
 
   .tt-grid,
   .tt-root.is-open .tt-grid {
+    /* The desktop grid takes a flex basis of 0 so the figure absorbs the
+       leftover height. Stacked, there is no leftover to absorb: leaving it
+       collapses the grid to zero and the figure and the text overlap. */
+    flex: 0 0 auto;
     grid-template-columns: minmax(0, 1fr);
     grid-template-areas: "visual" "text" "detail";
     grid-template-rows: auto auto auto;
     row-gap: 26px;
   }
 
+  .tt-visual,
+  .tt-root.is-open .tt-visual { height: auto; }
+
+  /* Stacked, the pinned figure and the detail bar are two sticky elements in a
+     row, so both offsets have to come from the same number. --tt-fig is the
+     pinned figure height; the bar sits directly under it. --tt-stick is a
+     couple of px under the mobile nav, which stays 82px tall, so the bar
+     tucks beneath it instead of leaving a gap. */
+  .tt-root {
+    --tt-stick: 78px;
+    --tt-fig: clamp(170px, 48vw, 220px);
+  }
+
   .tt-chamber { height: min(400px, 78vw); }
-  .tt-root.is-open .tt-chamber { position: sticky; top: 78px; height: min(230px, 46vw); }
-  .tt-detail-bar { top: calc(78px + min(230px, 46vw) + 14px); }
+
+  /* Stacked, the figure sits above the detail rather than beside it, so its
+     sticky containing block is exactly its own height: it has nowhere to
+     travel and only leaves a dead band under the nav with the panel text
+     sliding through it. The bar takes the pin instead. */
+  .tt-root.is-open .tt-chamber {
+    position: static;
+    height: var(--tt-fig);
+    min-height: 0;
+  }
+
+  .tt-detail-bar { top: var(--tt-stick); }
 }
 
 @media (max-width: 720px) {
@@ -487,3 +514,9 @@
 }
 
 
+
+/* Mono labels are set in rem against a base that shrinks on a phone, which
+   pushes them under 11px. Hold them at the legibility floor. */
+@media (max-width: 600px) {
+  .tt-rail-num { font-size: 0.72rem; }
+}

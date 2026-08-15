@@ -371,6 +371,9 @@ a:hover {
 /* --- Hero --- */
 .hero {
   min-height: 100vh;
+  /* svh is the viewport with the mobile browser chrome showing, so the hero
+     is one screen rather than one screen plus the address bar. */
+  min-height: 100svh;
   display: flex;
   align-items: center;
   position: relative;
@@ -1323,17 +1326,23 @@ a:hover {
   gap: 6px;
 }
 
+/* The one button style the global hairline rollout missed. It sat at an 8px
+   radius in Inter sentence case next to mono uppercase buttons everywhere
+   else on the same page. */
 .pub-link {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   margin-top: 18px;
-  padding: 8px 14px;
-  border-radius: 8px;
+  padding: 10px 16px;
+  border-radius: 2px;
   border: 1px solid var(--border-glass-hover);
   color: var(--accent-cyan);
-  font-size: 0.82rem;
-  font-weight: 600;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
 }
 
 .pub-link:hover {
@@ -1565,7 +1574,10 @@ img.team-avatar {
 
 .footer-links {
   display: flex;
-  gap: 24px;
+  /* Six links do not fit 327px. Without wrapping the last ones are simply
+     cut off the side of the page. */
+  flex-wrap: wrap;
+  gap: 14px 24px;
 }
 
 .footer-links a {
@@ -1642,6 +1654,10 @@ img.team-avatar {
     --section-padding: 80px 0;
   }
 
+  /* Eleven items do not fit a 667px screen. Centred flex clips its own
+     overflow at the top with no way to scroll back, so the panel starts
+     below the bar and scrolls instead. dvh, not vh, or the last item sits
+     under the browser chrome. */
   .nav-links {
     display: none;
     position: fixed;
@@ -1649,12 +1665,15 @@ img.team-avatar {
     left: 0;
     width: 100%;
     height: 100vh;
+    height: 100dvh;
     background: var(--mobile-nav-bg);
     backdrop-filter: blur(20px);
     flex-direction: column;
-    justify-content: center;
-    gap: 32px;
-    padding: 40px;
+    justify-content: flex-start;
+    gap: 24px;
+    padding: 96px 40px 48px;
+    overflow-y: auto;
+    overscroll-behavior: contain;
   }
 
   .nav-links.open {
@@ -1706,6 +1725,11 @@ img.team-avatar {
     text-align: center;
   }
 
+  /* The rest of the footer centres here, so the wrapped link rows do too. */
+  .footer-links {
+    justify-content: center;
+  }
+
   .portfolio-page-hero {
     padding-top: 140px;
   }
@@ -1733,5 +1757,33 @@ img.team-avatar {
   .btn-secondary {
     width: 100%;
     justify-content: center;
+  }
+}
+
+/* ---------------------------------------
+   Phone refinements
+   Desktop card padding is generous because
+   there is room for it. At 375px, 36 to 48px
+   of gutter on each side leaves the text
+   about 32 characters wide, which reads as
+   ragged and stretches the page out.
+   --------------------------------------- */
+
+@media (max-width: 600px) {
+  .research-card { padding: 28px 22px; }
+  .pub-card { padding: 26px 22px; }
+  .collab-card { padding: 22px 20px; }
+  .team-card { padding: 32px 22px; }
+  .atlas-card { padding: 26px 22px; }
+
+  .article-prose { padding: 28px 20px; }
+
+  /* Mono labels sit near the legibility floor once the base size scales
+     down. Nothing on a phone goes below 11px. */
+  .pub-type,
+  .pub-meta,
+  .card-tag,
+  .collab-tag {
+    font-size: 0.7rem;
   }
 }
