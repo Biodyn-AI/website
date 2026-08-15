@@ -15,18 +15,9 @@
   const cases = F.build(900).cases;
 
   const PLAN = [
-    {
-      id: 'hero',
-      // The opening screen is the one people actually watch load, so its
-      // figures take their time arriving.
-      enter: { enterMs: 2400, enterStagger: 380, enterDrift: 2.1 },
-      shapes: [
-        // The three arguments, one per margin position.
-        { figure: cases[0], channel: 1, x: 0.135, y: 0.44, reach: 0.135, spin: 0.15, pitch: 0.26, yaw: 0.25 },
-        { figure: cases[1], channel: 2, x: 0.875, y: 0.26, reach: 0.12, spin: -0.12, pitch: -0.1, yaw: 0.7 },
-        { figure: cases[2], channel: 3, x: 0.855, y: 0.76, reach: 0.13, spin: 0.13, pitch: 0.3, yaw: 0.1 }
-      ]
-    },
+    /* The hero had three case figures floating in its margins. They are the
+       About section's own figures, so the opening screen was previewing its
+       next screen; the neural field replaced them. */
     {
       id: 'research',
       shapes: [

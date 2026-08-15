@@ -1,0 +1,174 @@
+/* ========================================
+   BIODYN, Hero with the cell
+   Text takes the left column and the cell takes
+   the right, at roughly equal weight. The old
+   hero centred a single column and floated three
+   small figures in the margins; those figures
+   are the About section's, and showing them here
+   spent them twice.
+   ======================================== */
+
+.hero-split .container {
+  display: grid;
+  grid-template-columns: minmax(0, 1.02fr) minmax(0, 0.98fr);
+  align-items: center;
+  column-gap: clamp(32px, 5vw, 88px);
+}
+
+.hero-split .hero-content {
+  max-width: none;
+  text-align: left;
+}
+
+/* The headline was sized for a full-width column. In half the width it has to
+   come down or it breaks into six lines. */
+.hero-split .hero h1,
+.hero-split h1 {
+  font-size: clamp(2.2rem, 3.1vw + 0.5rem, 3.5rem);
+  max-width: 15ch;
+}
+
+.hero-split .hero-description {
+  max-width: 46ch;
+}
+
+/* ---------------------------------------
+   The chamber
+   --------------------------------------- */
+
+.cl-figure {
+  position: relative;
+  width: 100%;
+  /* Square, so the cell reads as a sphere rather than as an ellipse cropped by
+     its own box. */
+  aspect-ratio: 1 / 1;
+  max-height: 76vh;
+  justify-self: center;
+}
+
+.cl-canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  cursor: grab;
+  touch-action: pan-y;
+}
+
+.cl-canvas.is-dragging { cursor: grabbing; }
+
+.cl-canvas:focus-visible {
+  outline: 2px solid var(--ab-ch, #4aa8c0);
+  outline-offset: 4px;
+}
+
+/* ---------------------------------------
+   Stacked
+   --------------------------------------- */
+
+@media (max-width: 980px) {
+  /* Stacked, the text and the figure together are taller than a phone screen.
+     A centred 100svh hero overflows equally top and bottom, which slides the
+     headline up under the fixed nav, so it sizes to its content instead. */
+  .hero-split {
+    min-height: 0;
+    padding-top: clamp(104px, 15vh, 148px);
+    padding-bottom: clamp(40px, 6vh, 72px);
+  }
+
+  .hero-split .container {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: clamp(24px, 5vh, 48px);
+  }
+
+  .hero-split .hero h1,
+  .hero-split h1 {
+    font-size: clamp(2.4rem, 4.4vw + 0.35rem, 4.5rem);
+    max-width: 19ch;
+  }
+
+  .cl-figure {
+    max-width: 460px;
+    max-height: none;
+    margin-inline: auto;
+  }
+}
+
+@media (max-width: 620px) {
+  .cl-figure { max-width: 90vw; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cl-canvas { transition: none; }
+}
+
+/* ---------------------------------------
+   Full-bleed field
+   The figure spans the whole hero and sits
+   behind the copy, rather than taking a column
+   beside it.
+   --------------------------------------- */
+
+.hero-field .container {
+  position: relative;
+  z-index: 1;
+  max-width: 760px;
+  text-align: center;
+}
+
+.hero-field .hero-content { max-width: none; }
+
+.hero-field h1 {
+  max-width: 22ch;
+  margin-inline: auto;
+  font-size: clamp(2.3rem, 3.6vw + 0.5rem, 4rem);
+}
+
+.hero-field .hero-description {
+  max-width: 56ch;
+  margin-inline: auto;
+}
+
+.hero-field .hero-actions { justify-content: center; }
+
+.cl-figure.is-field {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-height: none;
+  aspect-ratio: auto;
+  z-index: 0;
+  justify-self: stretch;
+}
+
+/* The copy has to win any contest with the figure, so it does not compete for
+   clicks either. The margins stay draggable because nothing covers them. */
+.hero-field .hero-content { pointer-events: auto; }
+
+@media (max-width: 980px) {
+  /* Two margins and a corridor need width. Below that there is only a
+     corridor, so the field goes. */
+  .cl-figure.is-field { display: none; }
+}
+
+/* The artificial half was on the pastel violet channel, which is the one tone
+   in the set that does not appear anywhere else on the site. It borrows the
+   palette's own blue instead, so it reads as a second voice rather than as a
+   different vocabulary.
+
+   It only earns its keep in the dark theme. On near-white both tones are dark
+   and the difference between them reads as noise; on near-black they separate
+   cleanly as two glows. Light gets a single accent and lets the geometry carry
+   the distinction on its own.
+
+   The selectors have to outrank :root[data-theme="light"] .ab-scope, which is
+   where the light channels are declared. A bare class ties the dark rule and
+   wins on order, but loses to the light one outright, which is why an earlier
+   version was correct in dark and silently reverted to violet in light. */
+:root[data-theme="dark"] .hero-field.ab-scope { --ab-ch4: var(--accent-blue); }
+:root[data-theme="light"] .hero-field.ab-scope { --ab-ch4: var(--ab-ch1); }
+
+/* One-colour variant. The network drops onto the same accent as the circuit,
+   leaving the geometry to carry the distinction: nothing on the left repeats
+   and nothing on the right does not. Same specificity requirement as above. */
+:root[data-theme] .hero-field-mono.ab-scope { --ab-ch4: var(--ab-ch1); }

@@ -43,6 +43,7 @@
   <link rel="stylesheet" href="cards.css">
   <link rel="stylesheet" href="hero.css">
   <link rel="stylesheet" href="impact.css">
+  <link rel="stylesheet" href="cell.css">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
 </head>
 <body>
@@ -77,8 +78,12 @@
   </nav>
 
   <!-- Hero -->
-  <section class="hero section ab-scope" id="hero">
+  <section class="hero section hero-field ab-scope" data-channel="1" id="hero">
     <div class="mesh-bg"></div>
+    <div class="cl-figure is-field" data-cell-root data-figure-module="BiodynField">
+      <canvas class="cl-canvas" tabindex="0" role="img"
+              aria-label="Behind the text: three biological neurons wired into a small circuit on one side, a five-layer artificial neural network on the other, and a few axons crossing faintly between them. Drag to rotate."></canvas>
+    </div>
     <div class="container">
       <div class="hero-content">
         <h1>
@@ -428,5 +433,8 @@
   <script src="cards.js"></script>
   <script src="about.js"></script>
   <script src="impact.js"></script>
+  <script src="neuron-figure.js"></script>
+  <script src="network-figure.js"></script>
+  <script src="cell.js"></script>
 </body>
 </html>

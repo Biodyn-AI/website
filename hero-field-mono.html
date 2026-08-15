@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hero prototype: the field, one colour | Biodyn</title>
+  <meta name="robots" content="noindex, nofollow">
+  <script>
+    (() => {
+      const storedTheme = localStorage.getItem('biodyn-theme');
+      const systemPrefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+      const theme = storedTheme === 'light' || storedTheme === 'dark'
+        ? storedTheme
+        : (systemPrefersLight ? 'light' : 'dark');
+
+      document.documentElement.dataset.theme = theme;
+    })();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="about-core.css?v=7fc4a830">
+  <link rel="stylesheet" href="cards.css?v=7fc4a830">
+  <link rel="stylesheet" href="hero.css?v=7fc4a830">
+  <link rel="stylesheet" href="cell.css?v=7fc4a830">
+  <style>
+    /* Inline, not in the shared stylesheet, because this one rule is the
+       entire difference between this page and hero-field.html and it must
+       not be defeated by a cached cell.css. */
+    :root[data-theme] .hero-field-mono.ab-scope { --ab-ch4: var(--ab-ch1); }
+  </style>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+</head>
+<body>
+  <nav class="nav">
+    <div class="container">
+      <a href="index.html" class="nav-logo">Biodyn</a>
+      <ul class="nav-links">
+        <li><a href="hero-field.html">Compare: two tones</a></li>
+        <li>
+          <button type="button" class="theme-toggle" id="themeToggle" aria-label="Toggle color theme">
+            Theme
+          </button>
+        </li>
+      </ul>
+      <button class="hamburger" type="button" aria-label="Menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <section class="hero hero-field hero-field-mono ab-scope" data-channel="1" id="hero">
+    <div class="cl-figure is-field" data-cell-root data-figure-module="BiodynField">
+      <canvas class="cl-canvas" tabindex="0" role="img"
+              aria-label="A field behind the text: three biological neurons wired into a small circuit on the left, a five-layer artificial neural network on the right, and a few axons crossing faintly between them behind the copy. Drag to rotate."></canvas>
+    </div>
+    <div class="container">
+      <div class="hero-content">
+        <h1>
+          Evaluate, audit, learn from, and improve biological AI
+          <em>for safety and science</em>
+        </h1>
+        <p class="hero-description">
+          Biological foundation models are the best model organisms mechanistic interpretability has, they carry capability their outputs never expose, and their internals hold biology nobody has written down yet. Biodyn acts on all three, and publishes what survives the controls.
+        </p>
+        <div class="hero-actions">
+          <a href="index.html#research" class="btn-primary">Explore the research <span class="btn-arrow" aria-hidden="true">↓</span></a>
+          <a href="https://github.com/orgs/Biodyn-AI/repositories" target="_blank" rel="noopener" class="btn-secondary">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+            View on GitHub
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <script src="script.js?v=7fc4a830"></script>
+  <script src="about-core.js?v=7fc4a830"></script>
+  <script src="neuron-figure.js?v=7fc4a830"></script>
+  <script src="network-figure.js?v=7fc4a830"></script>
+  <script src="cell.js?v=7fc4a830"></script>
+  <script src="cards.js?v=7fc4a830"></script>
+</body>
+</html>
