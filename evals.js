@@ -157,7 +157,16 @@
     container.innerHTML = '';
     const pts = (trend.points || []).filter((p) => p.params && p.best != null);
     if (pts.length < 2) {
-      setEmpty(container, 'Not enough dated or sized models yet to draw a trend.');
+      // An empty chart should say what it is waiting for, not just that it is
+      // empty. A reader who knows the ladder is mid-run reads this as progress;
+      // "no data" reads as a broken page.
+      const n = pts.length;
+      setEmpty(
+        container,
+        `The scaling ladder is still being measured: ${n} model${n === 1 ? '' : 's'} `
+        + 'has a result so far, and a curve needs at least three. Each additional '
+        + 'model is one run on the same task and protocol.'
+      );
       return;
     }
 
