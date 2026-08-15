@@ -46,6 +46,9 @@
   /* Typography */
   --font-body: 'Inter', system-ui, -apple-system, sans-serif;
   --font-heading: 'Outfit', 'Inter', system-ui, sans-serif;
+  /* Headings are the display serif now; --font-heading is kept for the
+     two wordmarks, which stay geometric. */
+  --font-display: 'Instrument Serif', 'Outfit', Georgia, serif;
   --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
 
   /* Spacing */
@@ -153,9 +156,9 @@ a:hover {
 }
 
 .section-label {
-  font-family: var(--font-heading);
+  font-family: var(--font-display);
   font-size: 0.8rem;
-  font-weight: 600;
+  font-weight: 400;
   letter-spacing: 3px;
   text-transform: uppercase;
   color: var(--accent-cyan);
@@ -164,9 +167,9 @@ a:hover {
 }
 
 .section-title {
-  font-family: var(--font-heading);
+  font-family: var(--font-display);
   font-size: clamp(2rem, 4vw, 3rem);
-  font-weight: 700;
+  font-weight: 400;
   color: var(--text-heading);
   line-height: 1.2;
   margin-bottom: 20px;
@@ -391,10 +394,10 @@ a:hover {
 }
 
 .hero h1 {
-  font-family: var(--font-heading);
+  font-family: var(--font-display);
   /* Sized for the full sentence, not for two short words. */
   font-size: clamp(2.1rem, 4vw + 0.4rem, 3.7rem);
-  font-weight: 800;
+  font-weight: 400;
   line-height: 1.08;
   margin-bottom: 24px;
   letter-spacing: -1.4px;
@@ -485,9 +488,9 @@ a:hover {
 }
 
 .hero-stat h3 {
-  font-family: var(--font-heading);
+  font-family: var(--font-display);
   font-size: 2rem;
-  font-weight: 700;
+  font-weight: 400;
   background: var(--gradient-accent-2);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -532,9 +535,9 @@ a:hover {
 }
 
 .vision-text h2 {
-  font-family: var(--font-heading);
+  font-family: var(--font-display);
   font-size: clamp(1.8rem, 3.5vw, 2.5rem);
-  font-weight: 700;
+  font-weight: 400;
   color: var(--text-heading);
   line-height: 1.25;
   margin-bottom: 24px;
@@ -607,9 +610,9 @@ a:hover {
 }
 
 .vision-stat-card h4 {
-  font-family: var(--font-heading);
+  font-family: var(--font-display);
   font-size: 1.05rem;
-  font-weight: 600;
+  font-weight: 400;
   color: var(--text-heading);
   margin-bottom: 6px;
 }
@@ -697,9 +700,9 @@ a:hover {
 }
 
 .research-card h3 {
-  font-family: var(--font-heading);
+  font-family: var(--font-display);
   font-size: 1.3rem;
-  font-weight: 600;
+  font-weight: 400;
   color: var(--text-heading);
   margin-bottom: 12px;
 }
@@ -773,9 +776,9 @@ a:hover {
 }
 
 .flywheel-step .step-number {
-  font-family: var(--font-heading);
+  font-family: var(--font-display);
   font-size: 3rem;
-  font-weight: 800;
+  font-weight: 400;
   background: var(--gradient-accent);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -786,9 +789,9 @@ a:hover {
 }
 
 .flywheel-step h3 {
-  font-family: var(--font-heading);
+  font-family: var(--font-display);
   font-size: 1.15rem;
-  font-weight: 600;
+  font-weight: 400;
   color: var(--text-heading);
   margin-bottom: 10px;
 }
@@ -868,9 +871,9 @@ a:hover {
 }
 
 .why-card h3 {
-  font-family: var(--font-heading);
+  font-family: var(--font-display);
   font-size: 1.2rem;
-  font-weight: 600;
+  font-weight: 400;
   color: var(--text-heading);
   margin-bottom: 12px;
 }
@@ -982,9 +985,9 @@ a:hover {
 }
 
 .blog-feature-top h3 {
-  font-family: var(--font-heading);
+  font-family: var(--font-display);
   font-size: clamp(1.5rem, 2.6vw, 2.1rem);
-  font-weight: 700;
+  font-weight: 400;
   line-height: 1.2;
   margin-bottom: 0;
 }
@@ -1018,9 +1021,9 @@ a:hover {
 }
 
 .article-header h1 {
-  font-family: var(--font-heading);
+  font-family: var(--font-display);
   font-size: clamp(2.6rem, 5vw, 4.4rem);
-  font-weight: 800;
+  font-weight: 400;
   line-height: 1.05;
   color: var(--text-heading);
   letter-spacing: -1.5px;
@@ -1058,7 +1061,8 @@ a:hover {
 .article-prose h2,
 .article-prose h3,
 .article-prose h4 {
-  font-family: var(--font-heading);
+  font-family: var(--font-display);
+  font-weight: 400;
   color: var(--text-heading);
   line-height: 1.25;
 }
@@ -1148,9 +1152,9 @@ a:hover {
 }
 
 .portfolio-rank {
-  font-family: var(--font-heading);
+  font-family: var(--font-display);
   font-size: 1.5rem;
-  font-weight: 700;
+  font-weight: 400;
   background: var(--gradient-accent);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -1159,17 +1163,17 @@ a:hover {
 }
 
 .portfolio-info h3 {
-  font-family: var(--font-heading);
+  font-family: var(--font-display);
   font-size: 1.05rem;
-  font-weight: 600;
+  font-weight: 400;
   color: var(--text-heading);
   margin-bottom: 4px;
 }
 
 .portfolio-title-link {
-  font-family: var(--font-heading);
+  font-family: var(--font-display);
   font-size: 1.05rem;
-  font-weight: 600;
+  font-weight: 400;
   color: var(--text-heading);
   margin-bottom: 4px;
   display: inline-block;
@@ -1264,9 +1268,9 @@ a:hover {
 }
 
 .pub-card h3 {
-  font-family: var(--font-heading);
+  font-family: var(--font-display);
   font-size: 1.15rem;
-  font-weight: 600;
+  font-weight: 400;
   color: var(--text-heading);
   margin-bottom: 12px;
   line-height: 1.4;
@@ -1346,9 +1350,9 @@ a:hover {
 }
 
 .collab-group-header h3 {
-  font-family: var(--font-heading);
+  font-family: var(--font-display);
   font-size: 1.35rem;
-  font-weight: 700;
+  font-weight: 400;
   color: var(--text-heading);
   margin-bottom: 10px;
 }
@@ -1378,9 +1382,9 @@ a:hover {
 }
 
 .collab-card h3 {
-  font-family: var(--font-heading);
+  font-family: var(--font-display);
   font-size: 1.15rem;
-  font-weight: 600;
+  font-weight: 400;
   color: var(--text-heading);
   margin-bottom: 12px;
   line-height: 1.35;
@@ -1443,9 +1447,9 @@ a:hover {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: var(--font-heading);
+  font-family: var(--font-display);
   font-size: 2rem;
-  font-weight: 700;
+  font-weight: 400;
   color: var(--text-on-accent);
   margin: 0 auto 24px;
 }
@@ -1459,9 +1463,9 @@ img.team-avatar {
 }
 
 .team-card h3 {
-  font-family: var(--font-heading);
+  font-family: var(--font-display);
   font-size: 1.4rem;
-  font-weight: 700;
+  font-weight: 400;
   color: var(--text-heading);
   margin-bottom: 4px;
 }
