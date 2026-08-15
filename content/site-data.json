@@ -232,6 +232,15 @@
   "articles": [
     {
       "type": "Journal Article",
+      "title": "Ortholog transfer stress test: regulatory edge conservation across species, tissues, and evolutionary distance",
+      "summary": "Measures how far gene regulatory edges inferred in one species carry over to another, comparing transcription factor co-expression between human and mouse tissue. Edges transfer strongly within matched organs, but the rate depends sharply on the kind of factor: identity-defining factors carry over reliably, signal-responsive ones do not.",
+      "metaPrimary": "PLOS One",
+      "metaTag": "Cross-Species Transfer",
+      "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0347366",
+      "linkText": "Read in PLOS One"
+    },
+    {
+      "type": "Journal Article",
       "title": "Residual-stream geometry of single-cell foundation models carries incremental gene-regulatory signal across tissues",
       "summary": "Shows that residual-stream geometry in scGPT and Geneformer carries regulatory-relevant signal across tissues, complementing expression-based gene regulatory network inference as an orthogonal evidence channel for edge prioritization.",
       "metaPrimary": "BMC Bioinformatics",

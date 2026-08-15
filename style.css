@@ -176,14 +176,32 @@ a:hover {
 }
 
 .section-subtitle {
-  font-size: 1.125rem;
+  font-size: clamp(0.92rem, 0.42vw + 0.8rem, 1.02rem);
   color: var(--text-secondary);
-  max-width: 640px;
-  line-height: 1.8;
+  max-width: 46ch;
+  line-height: 1.75;
+  padding-bottom: 0.4em;
 }
 
+@media (max-width: 1000px) {
+  .section-subtitle { max-width: 60ch; padding-bottom: 0; }
+}
+
+/* The heading and the sentence that clarifies it sit side by side, the way
+   they do in the newer sections, rather than stacked. */
 .section-header {
+  display: grid;
+  grid-template-columns: minmax(0, 1.24fr) minmax(0, 0.76fr);
+  column-gap: clamp(30px, 4vw, 66px);
+  align-items: end;
   margin-bottom: 64px;
+}
+
+@media (max-width: 1000px) {
+  .section-header {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 18px;
+  }
 }
 
 /* --- Navigation --- */
