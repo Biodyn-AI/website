@@ -111,6 +111,28 @@
 
     <section class="ev-section">
       <div class="container">
+        <h2 class="ev-h2">Newer is not automatically better</h2>
+        <p class="ev-sub">
+          The obvious way to read a field is that each generation improves on the last.
+          On this task that is not what happened. Comparing two protein models of exactly
+          the same size, one released at the end of 2020 and one in late 2022, the older
+          model reads protein function <em>more</em> accurately, 0.967 against 0.956, and
+          the gap is wider still on the output surface each model's documentation tells
+          you to use, 0.953 against 0.926.
+        </p>
+        <p class="ev-sub">
+          That is one task and it should not be over-read. The newer model was built with
+          a different goal, protein structure prediction, and may well have traded some of
+          this for that. But it is the reason to measure rather than assume: a dashboard
+          that plotted release dates and expected a rising line would have drawn the wrong
+          picture here, and only a like-for-like comparison at matched size makes the
+          difference visible at all.
+        </p>
+      </div>
+    </section>
+
+    <section class="ev-section">
+      <div class="container">
         <h2 class="ev-h2">Two things worth tracking</h2>
         <p class="ev-sub">
           Capability is not one number. A model can be useful and dangerous through the
@@ -169,7 +191,7 @@
           An evaluator that hides its own limits is not one. As of this build:
         </p>
         <ul class="ev-caveats">
-          <li>The trend above is across model size within one family, not across time. A trend against release date needs several families with verified release dates, and those are being added one at a time.</li>
+          <li>The size trend covers one model family, and the like-for-like comparison above covers two. Neither is yet a trend across time: that needs several families with verified release dates, and they are being added one at a time.</li>
           <li>The biorisk track has no published numbers at all. The measurement is specified and the harness supports it; it is gated on process, not on capability.</li>
           <li>The protein task groups related sequences before splitting, but the clustering merged only a small fraction of them, so those scores should be read as upper estimates.</li>
           <li>Genome language models are not covered yet. Neither is any measurement of what light fine-tuning recovers, which is the number the biorisk track needs most.</li>
