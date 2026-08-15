@@ -67,20 +67,17 @@
         <span class="ev-wordmark">PROBE</span>
         <span class="ev-brand-note">An independent evaluation programme from Biodyn</span>
       </div>
-      <p class="ev-acronym">
-        <b>P</b>rofiling <b>R</b>epresentations, <b>O</b>utputs, <b>B</b>iosecurity and <b>E</b>licitation
-      </p>
-      <h1>Existing benchmarks read what a model says. PROBE also reads what it knows.</h1>
+      <h1>How capable are biological AI models becoming?</h1>
       <p class="ev-lede">
-        Biological foundation models are trained to predict sequences, expression levels and
-        cell states. To do that they learn biology, and a benchmark that only scores their
-        outputs cannot see how much of it is in there. PROBE measures both surfaces, on the
-        same held-out data, under one fixed readout budget.
+        Models trained on protein and genome sequence are improving quickly, and the same
+        capability that helps someone design a better enzyme can help someone design a
+        worse pathogen. PROBE measures both, on the same models, with the same yardstick,
+        and publishes the trend rather than one-off scores.
       </p>
       <p class="ev-lede">
-        Independent, open-source, and deliberately hard on itself: every score ships with the
-        baseline it must beat, the ceiling it is measured against, and the null that could
-        kill it.
+        This page is the summary. Everything on it is produced by an open harness, and
+        every number carries the baseline it had to beat and the test that could have
+        killed it.
       </p>
     </div>
   </header>
@@ -88,131 +85,71 @@
   <main>
     <section class="ev-section">
       <div class="container">
-        <h2 class="ev-h2">The measurement</h2>
-        <p class="ev-sub">
-          Every task, capability or safety, reports the same surfaces on one held-out split.
-          B and P use an <em>identical</em> readout budget, same projection dimensionality,
-          same regularisation, so a difference between them is a fact about the
-          representation, not about classifier size.
+        <p class="ev-headline">
+          Bigger protein models read biological function better, and the gain has not
+          flattened yet.
         </p>
-
-        <div class="ev-surfaces">
-          <div class="ev-surface">
-            <div class="ev-surface-key">zero-shot</div>
-            <div class="ev-surface-body">
-              <strong>No task training at all</strong>
-              <span>Nearest class centroid in the model's own embedding space, what a practitioner gets out of the box.</span>
-            </div>
-          </div>
-          <div class="ev-surface">
-            <div class="ev-surface-key">B · behavioural</div>
-            <div class="ev-surface-body">
-              <strong>The sanctioned surface</strong>
-              <span>A fixed-capacity readout of the representation the model's own documentation tells you to use. This is the surface every existing benchmark evaluates.</span>
-            </div>
-          </div>
-          <div class="ev-surface">
-            <div class="ev-surface-key">P · probe</div>
-            <div class="ev-surface-body">
-              <strong>The best internal layer</strong>
-              <span>The same readout, same budget, applied to every layer inside the model. Reported with the layer that won.</span>
-            </div>
-          </div>
-          <div class="ev-surface">
-            <div class="ev-surface-key">F · elicited</div>
-            <div class="ev-surface-body">
-              <strong>Light fine-tuning</strong>
-              <span>What a modest adversary unlocks under a fixed data and step budget. Reported as absent, never as zero, when an adapter cannot fine-tune.</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="ev-formula">
-          Elicitation&nbsp;Gap = P − B &nbsp;&nbsp;·&nbsp;&nbsp; knowledge held internally that the sanctioned interface does not express<br>
-          Recoverability = F − B &nbsp;&nbsp;·&nbsp;&nbsp; how much of it light fine-tuning unlocks
-        </div>
-
-        <p class="ev-note">
-          The gap carries its own <strong>paired</strong> interval. B and P are scored on
-          the same resampled donors and differenced inside each replicate, because they
-          come from the same cells through the same classifier and are strongly
-          correlated, judging a small gap against the much wider marginal interval of P
-          would understate the evidence. Donors are resampled, not cells: cells within a
-          donor are not independent. Where that paired interval spans zero, the table
-          says so rather than reporting the point estimate alone.
+        <div id="evTrend"></div>
+        <p class="ev-caption">
+          Each point is one model from the ESM2 family, which shares training data and
+          release date across sizes, so the only thing changing along the axis is scale.
+          The task is telling a transcription factor from a protein that is not one, using
+          only the amino-acid sequence. The red line is what you get from counting amino
+          acids with no model at all. Bars are 95% intervals over resampled sequence
+          clusters.
         </p>
       </div>
     </section>
 
     <section class="ev-section">
       <div class="container">
-        <h2 class="ev-h2">Results</h2>
+        <h2 class="ev-h2">Two things worth tracking</h2>
         <p class="ev-sub">
-          Rendered directly from result cards emitted by the harness. Reference models, PCA, raw expression, sit in the table on purpose rather than in a footnote: a
-          foundation model that cannot beat PCA on a task has not earned the compute.
+          Capability is not one number. A model can be useful and dangerous through the
+          same understanding, so PROBE follows both and reports them side by side rather
+          than choosing one story.
         </p>
-
-        <div class="ev-note">
-          <strong>What the cards show</strong>
-          <ul class="ev-caveats" style="margin-top:10px">
-            <li><strong>The first elicitation gap that clears zero is in protein.</strong>
-              ESM2-650M reads transcription-factor identity at 0.956 from its best
-              internal layer, layer 24 of 33, against 0.926 from the final layer its own
-              documentation tells you to use. Gap +0.030, paired 95% interval
-              [+0.011, +0.048], positive in 100% of cluster resamples. The layer profile
-              is what the architecture predicts: quality climbs to about 0.95 by layer
-              12, holds flat through the middle, then <em>falls</em> at the last layer,
-              which sits directly under a masked-language-model head and is specialised
-              for reconstructing tokens rather than for carrying function.</li>
-            <li><strong>Whether a foundation model earns its parameters depends on the
-              modality.</strong> ESM2 beats amino-acid composition by a wide margin,
-              0.956 against 0.828. Neither single-cell model manages the equivalent:
-              scGPT reaches 0.585 and Geneformer 0.571 on cell-type identity against
-              0.566 for nearest centroid on raw expression. Same measurement, opposite
-              verdicts.</li>
-            <li><strong>Both single-cell models' documented usage loses to that dumb
-              baseline outright.</strong> Geneformer's sanctioned surface scores 0.558
-              and scGPT's 0.545. Only internal probing gets either past 0.566.</li>
-            <li><strong>The two single-cell models place biology and nuisance differently
-              across depth.</strong> In Geneformer the best cell-type layer and the
-              leakiest donor layer are the same one, layer 3, and donor is more decodable
-              than cell type at every layer. In scGPT they separate: cell type peaks at
-              layer 8, donor at layer 3. Both surface more donor identity than
-              untransformed expression at equal readout capacity, Geneformer 140% and
-              scGPT 107%.</li>
-          </ul>
-          <p style="margin-top:10px">
-            The fourth point is only visible because two tasks run over the same layers
-            in opposite directions. A capability-only suite would report "internals beat
-            the sanctioned surface" for both models and miss that the claim means
-            something quite different in each.
-          </p>
-          <p style="margin-top:10px">
-            <em>Reading layer numbers across models:</em> layer 0 is not comparable
-            between them. Geneformer pools gene tokens, so its layer 0 already encodes
-            which genes are expressed; scGPT reads a <code>&lt;cls&gt;</code> position
-            that carries nothing until attention has run.
-          </p>
+        <div class="ev-tracks">
+          <div class="ev-track">
+            <span class="ev-track-state live">measuring</span>
+            <h3>What these models make possible</h3>
+            <p>
+              Recognising protein function, recovering regulatory structure, reading cell
+              identity. These are the capabilities that make the models worth building,
+              and tracking them shows whether the field is actually progressing or simply
+              getting larger.
+            </p>
+          </div>
+          <div class="ev-track">
+            <span class="ev-track-state pending">in preparation</span>
+            <h3>What they make easier to misuse</h3>
+            <p>
+              The same models learn biology that their outputs never show, and a released
+              checkpoint is a starting point rather than a fixed capability. This track
+              measures how much of that is recoverable, and it is deliberately not live
+              yet: it runs only once the disclosure process and external review described
+              in the Standard are in place.
+            </p>
+          </div>
         </div>
-
-        <div id="evBoards"></div>
       </div>
     </section>
 
     <section class="ev-section">
       <div class="container">
-        <h2 class="ev-h2">Coverage</h2>
+        <h2 class="ev-h2">How the measurement works</h2>
         <p class="ev-sub">
-          Ten capability axes across five modalities. This matrix is published with its gaps
-          visible because partial coverage, clearly marked, is more useful than a delayed
-          launch that implies completeness. Numbers are result cards; a dot means not yet
-          measured.
+          A benchmark normally scores what a model puts out. PROBE also reads what the
+          model holds internally, using a readout of exactly the same size for both, so
+          any difference is a fact about the model rather than about the measuring
+          instrument. Where those two answers diverge, the published score is
+          understating the model.
         </p>
-        <div id="evCoverage"></div>
-        <p class="ev-note">
-          Axis keys: A1 representation quality · A2 native-task performance · A3 transfer ·
-          A4 causal/interventional · A5 structural knowledge · A6 compositionality ·
-          A7 calibration · A8 robustness · A9 efficiency · A10 scaling.
+        <p class="ev-sub">
+          The rules that every result has to satisfy, and the published failures that
+          motivated each one, are set out in
+          <a href="evals-standard.html">the Standard</a>. Which models are covered, queued
+          or untouched is in <a href="evals-registry.html">the registry</a>.
         </p>
       </div>
     </section>
@@ -221,21 +158,38 @@
       <div class="container">
         <h2 class="ev-h2">What is not yet true</h2>
         <p class="ev-sub">
-          An evaluator that hides its own limits is not one. As of v0.1:
+          An evaluator that hides its own limits is not one. As of this build:
         </p>
         <ul class="ev-caveats">
-          <li><strong>Only one of the three capability gaps clears zero, and it is the protein one.</strong> ESM2's +0.030 is separated from zero; scGPT's +0.040 and Geneformer's +0.013 on cell-type identity are not, being positive in 90% and 70% of donor resamples respectively. Twenty-two donors is not enough to resolve effects that size, so the single-cell answer remains "not shown" rather than "no".</li>
-          <li><strong>The protein result rests on a weak homology control.</strong> Clustering merged only 98 of 2,400 proteins, so that split is close to random and 0.956 should be read as an upper estimate. A real identity clustering, with MMseqs2 or CD-HIT, would lower it by an unknown amount.</li>
-          <li>Fine-tuning (F) is not yet measured for any model, so no Recoverability figure is published anywhere on this site.</li>
-          <li>Per-model bootstrap replicates are not retained across models, so pairwise rank-reversal risk is implemented but not populated. The tables above are point estimates and should not be read as rankings.</li>
-          <li>Coverage is three tasks across two modalities, and one dataset per modality. One dataset cannot show whether any of this generalises. Everything else in the matrix is honest emptiness.</li>
-          <li>The safety battery (S1 to S5) is specified but not yet run.</li>
+          <li>The trend above is across model size within one family, not across time. A trend against release date needs several families with verified release dates, and those are being added one at a time.</li>
+          <li>The biorisk track has no published numbers at all. The measurement is specified and the harness supports it; it is gated on process, not on capability.</li>
+          <li>The protein task groups related sequences before splitting, but the clustering merged only a small fraction of them, so those scores should be read as upper estimates.</li>
+          <li>Genome language models are not covered yet. Neither is any measurement of what light fine-tuning recovers, which is the number the biorisk track needs most.</li>
+          <li>Coverage is a handful of tasks on one dataset per modality. One dataset cannot show whether any of this generalises.</li>
         </ul>
-        <p class="ev-note">
-          Read the <a href="evals-standard.html">PROBE Standard</a> for the six rules every
-          card must satisfy, or the <a href="evals-registry.html">model registry</a> for what
-          is evaluated, queued and out of scope.
+      </div>
+    </section>
+
+    <section class="ev-section">
+      <div class="container">
+        <h2 class="ev-h2">The full record</h2>
+        <p class="ev-sub">
+          Every result, with its baselines, ceilings, nulls and intervals, and the caveats
+          the harness attached to each one. This is the technical view of the same cards
+          the summary above is built from.
         </p>
+        <div id="evBoards"></div>
+      </div>
+    </section>
+
+    <section class="ev-section">
+      <div class="container">
+        <h2 class="ev-h2">Coverage</h2>
+        <p class="ev-sub">
+          Result cards per modality and capability axis. A dot is an honest gap, and most
+          of this grid is dots.
+        </p>
+        <div id="evCoverage"></div>
       </div>
     </section>
   </main>

@@ -428,6 +428,197 @@
       "note": "Bootstrap replicates are not retained per model in v0.1, so pairwise reversal risk is not yet computable. The ordering below is a point estimate and should not be read as a ranking."
     }
   },
+  "trends": {
+    "pr1-tf-identity": {
+      "task": "pr1-tf-identity",
+      "metric": "macro_f1",
+      "higher_is_better": true,
+      "modality": "protein",
+      "points": [
+        {
+          "model": "esm2-t33-650m-ur50d",
+          "family": null,
+          "params": 650000000,
+          "release_date": null,
+          "modality": "protein",
+          "behavioural": 0.925836,
+          "probe": 0.956095,
+          "best": 0.956095,
+          "ci95": [
+            0.9406642525094786,
+            0.970479085427264
+          ],
+          "beats_baseline": true
+        }
+      ],
+      "references": [
+        {
+          "model": "composition-reference",
+          "family": null,
+          "params": 0,
+          "release_date": null,
+          "modality": "protein",
+          "behavioural": 0.827962,
+          "probe": 0.827962,
+          "best": 0.827962,
+          "ci95": [
+            0.8059789629494629,
+            0.8500749586034422
+          ],
+          "beats_baseline": true
+        }
+      ],
+      "ceiling": 0.8257080610021786,
+      "families": [],
+      "n_dated": 0
+    },
+    "sc1-celltype-transfer": {
+      "task": "sc1-celltype-transfer",
+      "metric": "macro_f1",
+      "higher_is_better": true,
+      "modality": "single-cell",
+      "points": [
+        {
+          "model": "scgpt-whole-human",
+          "family": null,
+          "params": 51000000,
+          "release_date": null,
+          "modality": "single-cell",
+          "behavioural": 0.544877,
+          "probe": 0.585039,
+          "best": 0.585039,
+          "ci95": [
+            0.3620358590012024,
+            0.6007196009095669
+          ],
+          "beats_baseline": true
+        },
+        {
+          "model": "geneformer-v2-104m",
+          "family": null,
+          "params": 104000000,
+          "release_date": null,
+          "modality": "single-cell",
+          "behavioural": 0.558339,
+          "probe": 0.571124,
+          "best": 0.571124,
+          "ci95": [
+            0.404726941412674,
+            0.5792679846235009
+          ],
+          "beats_baseline": true
+        }
+      ],
+      "references": [
+        {
+          "model": "pca-reference-32",
+          "family": null,
+          "params": 0,
+          "release_date": null,
+          "modality": "single-cell",
+          "behavioural": 0.54718,
+          "probe": 0.54718,
+          "best": 0.54718,
+          "ci95": [
+            0.4517003367138983,
+            0.5539253908769184
+          ],
+          "beats_baseline": false
+        },
+        {
+          "model": "raw-expression",
+          "family": null,
+          "params": 0,
+          "release_date": null,
+          "modality": "single-cell",
+          "behavioural": 0.543594,
+          "probe": 0.543594,
+          "best": 0.565744,
+          "ci95": [
+            0.3845802577189356,
+            0.5521879916866465
+          ],
+          "beats_baseline": false
+        }
+      ],
+      "ceiling": 0.5800860898726297,
+      "families": [],
+      "n_dated": 0
+    },
+    "sc4-donor-invariance": {
+      "task": "sc4-donor-invariance",
+      "metric": "donor_macro_f1_lower_is_better",
+      "higher_is_better": false,
+      "modality": "single-cell",
+      "points": [
+        {
+          "model": "scgpt-whole-human",
+          "family": null,
+          "params": 51000000,
+          "release_date": null,
+          "modality": "single-cell",
+          "behavioural": 0.505606,
+          "probe": 0.53075,
+          "best": 0.53075,
+          "ci95": [
+            0.4972335077615041,
+            0.5579689964298992
+          ],
+          "beats_baseline": true
+        },
+        {
+          "model": "geneformer-v2-104m",
+          "family": null,
+          "params": 104000000,
+          "release_date": null,
+          "modality": "single-cell",
+          "behavioural": 0.58365,
+          "probe": 0.69166,
+          "best": 0.69166,
+          "ci95": [
+            0.6449627222773021,
+            0.7109666768522661
+          ],
+          "beats_baseline": false
+        }
+      ],
+      "references": [
+        {
+          "model": "pca-reference-32",
+          "family": null,
+          "params": 0,
+          "release_date": null,
+          "modality": "single-cell",
+          "behavioural": 0.369609,
+          "probe": 0.49675,
+          "best": 0.49675,
+          "ci95": [
+            0.4589454576074375,
+            0.5327191924712763
+          ],
+          "beats_baseline": true
+        },
+        {
+          "model": "raw-expression",
+          "family": null,
+          "params": 0,
+          "release_date": null,
+          "modality": "single-cell",
+          "behavioural": 0.495562,
+          "probe": 0.495562,
+          "best": 0.495562,
+          "ci95": [
+            0.45897820707748377,
+            0.5320029840160951
+          ],
+          "beats_baseline": true
+        }
+      ],
+      "ceiling": 0.7377050968696789,
+      "families": [],
+      "n_dated": 0
+    }
+  },
   "coverage": {
     "axis_labels": {
       "A1": "Representation quality",
@@ -456,7 +647,10 @@
   "registry": {
     "evaluable": [
       "composition-reference",
+      "esm2-150m",
+      "esm2-35m",
       "esm2-650m",
+      "esm2-8m",
       "geneformer-v2-104m",
       "pca-reference",
       "raw-expression",
