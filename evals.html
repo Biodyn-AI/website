@@ -86,8 +86,8 @@
     <section class="ev-section">
       <div class="container">
         <p class="ev-headline">
-          Bigger protein models read biological function better, and the gain has not
-          flattened yet.
+          Bigger protein models read biological function better, but the returns flatten
+          sharply above a few hundred million parameters.
         </p>
         <div id="evTrend"></div>
         <p class="ev-caption">
@@ -99,11 +99,15 @@
           clusters.
         </p>
         <p class="ev-caption">
-          Two things stand out. Accuracy rises by about two points for every tenfold
-          increase in size, with no sign of levelling off inside the range measured, and
-          even the smallest model at 8 million parameters already beats counting amino
-          acids. Separately, the most informative part of every one of these models sits
-          about two thirds of the way through it, not at the end: the output layer the
+          The curve has a knee. Below about 150 million parameters, accuracy rises by
+          roughly 2.8 points for every tenfold increase in size. Above it, the same
+          tenfold increase buys about 0.6 points, so going from 150 million to 3 billion,
+          a twentyfold jump, gains less than one point. Even the smallest model at 8
+          million parameters already beats counting amino acids.
+        </p>
+        <p class="ev-caption">
+          Separately, the most informative part of every one of these models sits about
+          two thirds of the way through it rather than at the end: the output layer the
           documentation tells you to use is consistently not the best one.
         </p>
       </div>
@@ -214,7 +218,8 @@
           An evaluator that hides its own limits is not one. As of this build:
         </p>
         <ul class="ev-caveats">
-          <li>The size trend covers one model family, and the like-for-like comparison above covers two. Neither is yet a trend across time: that needs several families with verified release dates, and they are being added one at a time.</li>
+          <li>Scores here cluster between 0.95 and 0.97 across a 375-fold range of model size and four years of vintage, which is close enough together that this task is probably running out of room to discriminate. A harder task is needed before differences at the top can be read as real.</li>
+          <li>The size trend covers one model family. The like-for-like comparison across vintages covers four, which is enough to be suggestive and not enough to be a trend line.</li>
           <li>The biorisk track has no published numbers at all. The measurement is specified and the harness supports it; it is gated on process, not on capability.</li>
           <li>The protein task groups related sequences before splitting, but the clustering merged only a small fraction of them, so those scores should be read as upper estimates.</li>
           <li>Genome language models are not covered yet. Neither is any measurement of what light fine-tuning recovers, which is the number the biorisk track needs most.</li>
