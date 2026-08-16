@@ -131,19 +131,25 @@
         <h2 class="ev-h2">Newer is not automatically better</h2>
         <p class="ev-sub">
           The obvious way to read a field is that each generation improves on the last.
-          On this task that is not what happened. Comparing two protein models of exactly
-          the same size, one released at the end of 2020 and one in late 2022, the older
-          model reads protein function <em>more</em> accurately, 0.967 against 0.956, and
-          the gap is wider still on the output surface each model's documentation tells
-          you to use, 0.953 against 0.926.
+          Held at comparable size, that is not what these measurements show. The strongest
+          result on this task belongs to a model released at the end of 2020, and the three
+          later models, from 2022 and 2023, all sit slightly below it. On this measure the
+          field has been broadly flat for about four years while the models themselves have
+          changed a great deal.
         </p>
         <p class="ev-sub">
-          That is one task and it should not be over-read. The newer model was built with
-          a different goal, protein structure prediction, and may well have traded some of
-          this for that. But it is the reason to measure rather than assume: a dashboard
-          that plotted release dates and expected a rising line would have drawn the wrong
-          picture here, and only a like-for-like comparison at matched size makes the
-          difference visible at all.
+          It is one task, and none of these models was built specifically for it, so this
+          is not a verdict on any of them. It is a reason to measure rather than assume: a
+          dashboard that plotted release dates and expected a rising line would have drawn
+          the wrong picture, and only a like-for-like comparison at matched size makes that
+          visible at all.
+        </p>
+        <p class="ev-note">
+          An earlier build of this page showed the 2023 model far below the others, which
+          would have read as a sharp decline. That was a bug in how its sequences were
+          spelled for its tokeniser, not a property of the model, and it is recorded here
+          because it is exactly the kind of plausible artefact this programme exists to
+          catch. The corrected figure is the one shown above.
         </p>
       </div>
     </section>
