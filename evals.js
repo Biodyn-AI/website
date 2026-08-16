@@ -239,15 +239,26 @@
       svg.appendChild(lab);
     }
 
-    // horizontal reference lines: what the model has to clear
+    // Horizontal reference lines: what the model has to clear, and what the data
+    // allows. Their labels go through the same placement pass as the point
+    // labels, because these two values can be almost identical (here the
+    // no-model baseline and the ceiling differ by 0.002) and their labels then
+    // land on top of each other in the right margin.
+    const jobs = [];
     const hline = (value, label, cls) => {
       if (value == null || value < yMin || value > yMax) return;
       svg.appendChild(svgEl('line', {
         x1: M.l, x2: M.l + iw, y1: Y(value), y2: Y(value), class: cls,
       }));
-      const tx = svgEl('text', { x: M.l + iw + 10, y: Y(value) + 4, class: 'ev-chart-note' });
-      tx.textContent = label;
-      svg.appendChild(tx);
+      const node = svgEl('text', {
+        x: M.l + iw + 10, y: Y(value) + 4, class: 'ev-chart-note',
+      });
+      node.textContent = label;
+      svg.appendChild(node);
+      jobs.push({
+        node, x: M.l + iw + 10, y: Y(value) + 4, anchor: 'start',
+        offsets: [0, -13, 13, -26, 26], tether: Y(value),
+      });
     };
     if (refVals.length) {
       const best = Math.max(...refVals);
@@ -290,15 +301,31 @@
     // exactly the sort of nearly-right that survives review.
     const LAB_H = 13;
     const OFFSETS = [-16, 22, -32, 38, -48, 54];
-    const labelJobs = pts.map((p) => {
-      const text = byDate ? `${p.family} ${shortParams(p.params)}` : shortParams(p.params);
+    // On a size axis two models can sit at exactly the same parameter count, and
+    // labelling both "650M" tells the reader nothing about which is which. Add
+    // the family only where the size alone is ambiguous, so the common case
+    // stays short.
+    const sizeCounts = {};
+    pts.forEach((p) => {
+      const k = shortParams(p.params);
+      sizeCounts[k] = (sizeCounts[k] || 0) + 1;
+    });
+
+    pts.forEach((p) => {
+      const size = shortParams(p.params);
+      const text = byDate
+        ? `${p.family} ${size}`
+        : (sizeCounts[size] > 1 && p.family ? `${p.family} ${size}` : size);
       const node = svgEl('text', {
         x: X(xOf(p)), y: Y(p.best) + OFFSETS[0],
         class: 'ev-chart-label', 'text-anchor': 'middle',
       });
       node.textContent = text;
       svg.appendChild(node);
-      return { node, x: X(xOf(p)), y: Y(p.best) };
+      jobs.push({
+        node, x: X(xOf(p)), y: Y(p.best), anchor: 'middle',
+        offsets: OFFSETS, leader: true,
+      });
     });
 
     const wrap = el('div', 'ev-chart-wrap');
@@ -309,21 +336,33 @@
     const overlaps = (a, b) =>
       !(a.x2 < b.x1 - 3 || a.x1 > b.x2 + 3 || a.y2 < b.y1 - 2 || a.y1 > b.y2 + 2);
     const placed = [];
-    labelJobs.forEach((job) => {
+    jobs.forEach((job) => {
       let w = 60;
-      try { w = job.node.getComputedTextLength() || w; } catch (e) { /* jsdom */ }
-      let dy = OFFSETS[0];
-      for (const cand of OFFSETS) {
+      try { w = job.node.getComputedTextLength() || w; } catch (e) { /* no layout */ }
+      const span = (yy) => (job.anchor === 'start'
+        ? { x1: job.x, x2: job.x + w }
+        : { x1: job.x - w / 2, x2: job.x + w / 2 });
+
+      let dy = job.offsets[0];
+      for (const cand of job.offsets) {
         const yy = job.y + cand;
-        if (yy < M.t + 10 || yy > M.t + ih - 4) continue;
-        const box = { x1: job.x - w / 2, x2: job.x + w / 2, y1: yy - LAB_H, y2: yy + 3 };
+        if (yy < M.t + 10 || yy > M.t + ih + 40) continue;
+        const box = { ...span(yy), y1: yy - LAB_H, y2: yy + 3 };
         if (!placed.some((b) => overlaps(box, b))) { dy = cand; break; }
       }
       const yy = job.y + dy;
-      placed.push({ x1: job.x - w / 2, x2: job.x + w / 2, y1: yy - LAB_H, y2: yy + 3 });
+      placed.push({ ...span(yy), y1: yy - LAB_H, y2: yy + 3 });
       job.node.setAttribute('y', String(yy));
 
-      if (Math.abs(dy) > 26) {
+      // A reference label nudged off its line needs a tick back to it, or it
+      // reads as belonging to the wrong line.
+      if (job.tether != null && Math.abs(dy) > 2) {
+        svg.appendChild(svgEl('line', {
+          x1: job.x - 6, y1: job.tether, x2: job.x - 2, y2: yy - 4,
+          class: 'ev-chart-leader',
+        }));
+      }
+      if (job.leader && Math.abs(dy) > 26) {
         const leader = svgEl('line', {
           x1: job.x, y1: job.y + Math.sign(dy) * 8,
           x2: job.x, y2: yy + (dy < 0 ? 4 : -10),
@@ -332,17 +371,6 @@
         svg.insertBefore(leader, svg.firstChild);
       }
     });
-
-    // axis titles
-    const xt = svgEl('text', { x: M.l + iw / 2, y: H - 12, class: 'ev-chart-axis', 'text-anchor': 'middle' });
-    xt.textContent = opts.xLabel || (byDate ? 'Public release' : 'Model size (parameters, log scale)');
-    svg.appendChild(xt);
-    const yt = svgEl('text', {
-      x: -(M.t + ih / 2), y: 18, class: 'ev-chart-axis',
-      'text-anchor': 'middle', transform: 'rotate(-90)',
-    });
-    yt.textContent = opts.yLabel || 'Accuracy';
-    svg.appendChild(yt);
 
     // the same numbers, reachable without the picture
     const tbl = el('table', 'ev-table ev-sr');
