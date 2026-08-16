@@ -86,8 +86,9 @@
     <section class="ev-section">
       <div class="container">
         <p class="ev-headline">
-          Bigger protein models read biological function better, but the returns flatten
-          sharply above a few hundred million parameters.
+          Bigger protein models read biological function better, but only up to a
+          point. Past a few hundred million parameters, a hundredfold more size
+          buys nothing we can measure.
         </p>
         <div id="evTrend"></div>
         <p class="ev-caption">
@@ -99,16 +100,27 @@
           clusters.
         </p>
         <p class="ev-caption">
-          The curve has a knee. Below about 150 million parameters, accuracy rises by
-          roughly 2.8 points for every tenfold increase in size. Above it, the same
-          tenfold increase buys about 0.6 points, so going from 150 million to 3 billion,
-          a twentyfold jump, gains less than one point. Even the smallest model at 8
-          million parameters already beats counting amino acids.
+          The curve has a knee, and past it the line is flat. Below about 150 million
+          parameters, accuracy rises by roughly 2.8 points for every tenfold increase
+          in size. From 150 million to 15 billion, a hundredfold increase, the total
+          gain is a tenth of a point. The largest model in the family is not the best
+          one: at 15 billion parameters it scores fractionally below the 3 billion
+          model and level with the 650 million, and all three sit inside each other's
+          error bars. Even the smallest model, at 8 million parameters, already beats
+          counting amino acids.
         </p>
         <p class="ev-caption">
-          Separately, the most informative part of every one of these models sits about
-          two thirds of the way through it rather than at the end: the output layer the
-          documentation tells you to use is consistently not the best one.
+          The 15 billion model is too large to run at full precision on the hardware
+          we rented, so it was measured in half precision. That is a difference in the
+          instrument rather than in the model, and it would be an easy way to
+          manufacture a flat curve, so we re-measured the 3 billion model in half
+          precision as a control: its score did not move at all. The flattening is not
+          an artefact of how the biggest model was run.
+        </p>
+        <p class="ev-caption">
+          Separately, the most informative part of nearly every one of these models
+          sits partway through it rather than at the end: the output layer the
+          documentation tells you to use is usually not the best one.
         </p>
       </div>
     </section>
@@ -136,10 +148,10 @@
         <p class="ev-sub">
           The obvious way to read a field is that each generation improves on the last.
           Held at comparable size, that is not what these measurements show. The strongest
-          result on this task belongs to a model released at the end of 2020, and the three
-          later models, from 2022 and 2023, all sit slightly below it. On this measure the
-          field has been broadly flat for about four years while the models themselves have
-          changed a great deal.
+          result on this task belongs to a model released at the end of 2020, and every
+          model released since, through to 2023, sits slightly below it. On this measure
+          the field has been broadly flat for about four years while the models themselves
+          have changed a great deal.
         </p>
         <p class="ev-sub">
           It is one task, and none of these models was built specifically for it, so this
@@ -218,8 +230,8 @@
           An evaluator that hides its own limits is not one. As of this build:
         </p>
         <ul class="ev-caveats">
-          <li>Scores here cluster between 0.95 and 0.97 across a 375-fold range of model size and four years of vintage, which is close enough together that this task is probably running out of room to discriminate. A harder task is needed before differences at the top can be read as real.</li>
-          <li>The size trend covers one model family. The like-for-like comparison across vintages covers four, which is enough to be suggestive and not enough to be a trend line.</li>
+          <li>Ten models spanning 150 million to 15 billion parameters all land between 0.94 and 0.97 on this task, close enough together that it is running out of room to tell them apart. The flat scaling curve above should therefore be read as a statement about this task as much as about the models: a harder one is needed before differences at the top mean anything.</li>
+          <li>The size trend covers one model family. The like-for-like comparison across vintages covers five, which is enough to be suggestive and not enough to be a trend line.</li>
           <li>The biorisk track has no published numbers at all. The measurement is specified and the harness supports it; it is gated on process, not on capability.</li>
           <li>The protein task groups related sequences before splitting, but the clustering merged only a small fraction of them, so those scores should be read as upper estimates.</li>
           <li>Genome language models are not covered yet. Neither is any measurement of what light fine-tuning recovers, which is the number the biorisk track needs most.</li>
@@ -230,24 +242,61 @@
 
     <section class="ev-section">
       <div class="container">
-        <h2 class="ev-h2">The full record</h2>
+        <h2 class="ev-h2">Every model we have measured</h2>
         <p class="ev-sub">
-          Every result, with its baselines, ceilings, nulls and intervals, and the caveats
-          the harness attached to each one. This is the technical view of the same cards
-          the summary above is built from.
+          Three questions, put to every model in exactly the same way. The striped
+          rows at the foot of each group are what you get with no model at all,
+          which is the mark anything else has to clear to be worth its cost.
         </p>
-        <div id="evBoards"></div>
+        <div id="evResults"></div>
       </div>
     </section>
 
     <section class="ev-section">
       <div class="container">
-        <h2 class="ev-h2">Coverage</h2>
+        <h2 class="ev-h2">How far this reaches</h2>
         <p class="ev-sub">
-          Result cards per modality and capability axis. A dot is an honest gap, and most
-          of this grid is dots.
+          Biological AI is not one kind of model. These are the kinds this programme
+          has reached so far, and the kinds it has not.
         </p>
-        <div id="evCoverage"></div>
+        <div id="evCoveragePlain"></div>
+      </div>
+    </section>
+
+    <section class="ev-section">
+      <div class="container">
+        <h2 class="ev-h2">Look underneath</h2>
+        <p class="ev-sub">
+          Nothing above is summarised away. Every score keeps the baseline it had to
+          beat, the range of uncertainty around it, and the test that could have
+          killed it.
+        </p>
+        <div class="ev-tracks">
+          <div class="ev-track">
+            <h3>The full record</h3>
+            <p>
+              Every result in technical form, with baselines, ceilings, confidence
+              intervals, null tests, and the caveats the harness attached to each one.
+            </p>
+            <p><a href="evals-record.html">Open the record →</a></p>
+          </div>
+          <div class="ev-track">
+            <h3>The Standard</h3>
+            <p>
+              The six rules every result has to satisfy before it is published, and the
+              failures in the literature that motivated each one.
+            </p>
+            <p><a href="evals-standard.html">Read the Standard →</a></p>
+          </div>
+          <div class="ev-track">
+            <h3>The registry</h3>
+            <p>
+              Which models have been evaluated, which are queued, and which have not
+              been touched at all.
+            </p>
+            <p><a href="evals-registry.html">Open the registry →</a></p>
+          </div>
+        </div>
       </div>
     </section>
   </main>
@@ -262,6 +311,7 @@
           <a href="about.html">About</a>
           <a href="evals-standard.html">Standard</a>
           <a href="evals-registry.html">Registry</a>
+          <a href="evals-record.html">Record</a>
           <a href="blog.html">Blog</a>
           <a href="mailto:kenduhov.ig@gmail.com">Contact</a>
         </div>

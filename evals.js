@@ -454,12 +454,210 @@
   }
 
 
+  // --- plain language ----------------------------------------------------
+  // The harness names things for reproducibility: `esm2-t36-3b-ur50d` pins one
+  // exact checkpoint and nothing else. That is the right name inside a result
+  // card and the wrong one on a page meant to be read, so the translation lives
+  // here in the presentation layer and the data keeps its precise identifiers.
+
+  const MODEL_NAMES = {
+    'esm2-t6-8m-ur50d': ['ESM2', '8M'],
+    'esm2-t12-35m-ur50d': ['ESM2', '35M'],
+    'esm2-t30-150m-ur50d': ['ESM2', '150M'],
+    'esm2-t33-650m-ur50d': ['ESM2', '650M'],
+    'esm2-t36-3b-ur50d': ['ESM2', '3B'],
+    'esm2-t48-15b-ur50d': ['ESM2', '15B'],
+    'esm1b-t33-650m-ur50s': ['ESM-1b', '650M'],
+    'esm1v-t33-650m-ur90s-1': ['ESM-1v', '650M'],
+    protbert: ['ProtBert', '420M'],
+    'ankh-base': ['Ankh base', '450M'],
+    'ankh-large': ['Ankh large', '1.2B'],
+    'prot-t5-xl': ['ProtT5-XL', '1.2B'],
+    'amplify-350m': ['AMPLIFY', '350M'],
+    'scgpt-whole-human': ['scGPT', '51M'],
+    'geneformer-v2-104m': ['Geneformer V2', '104M'],
+    'composition-reference': ['Counting amino acids', 'no model'],
+    'raw-expression': ['The measurements themselves', 'no model'],
+    'pca-reference-32': ['Simple compression', 'no model'],
+  };
+
+  // Rows that are deliberately not models. They are the number everything else
+  // has to beat, so they are shown rather than dropped, but shown apart.
+  const REFERENCE_IDS = new Set([
+    'composition-reference', 'raw-expression', 'pca-reference-32',
+  ]);
+
+  const prettyModel = (id) => MODEL_NAMES[id] || [id, ''];
+
+  const TASK_META = {
+    'pr1-tf-identity': {
+      title: 'Recognising a genetic switch from sequence alone',
+      plain: 'Given nothing but a protein’s string of amino acids, decide whether '
+        + 'it is a transcription factor: one of the proteins that switch genes on and '
+        + 'off. Doing this well means a model has picked up something about what a '
+        + 'protein does, not merely what it is built from.',
+      scale: [0.5, 1],
+      foot: 'Bars start at 0.5, which is what pure guessing scores on a yes-or-no '
+        + 'question, and end at a perfect 1.',
+    },
+    'sc1-celltype-transfer': {
+      title: 'Naming a cell type in a person the model never saw',
+      plain: 'Given the pattern of gene activity inside a single cell, say what kind of '
+        + 'cell it is. Every donor used for testing was held out of the training data, '
+        + 'so no model can score well here by memorising individuals.',
+      scale: [0, 1],
+      foot: 'Bars run from 0 to a perfect 1.',
+    },
+    'sc4-donor-invariance': {
+      title: 'Not giving away whose sample it was',
+      plain: 'The same models, read for the opposite property: how easily the donor can '
+        + 'be identified from a model’s reading of their cells. A model that encodes '
+        + 'the person as sharply as it encodes the biology will not carry over to new '
+        + 'people, so on this one a shorter bar is the better result.',
+      scale: [0, 1],
+      foot: 'Shorter is better here: the bar is how identifiable the donor was.',
+      // On a lower-is-better task "did not beat the baseline" reads backwards,
+      // so this task says what actually went wrong.
+      failBase: 'gave the donor away more readily than using no model at all',
+    },
+  };
+
+  const FAIL_BASE = 'did not beat the no-model comparison';
+
+  const taskMeta = (tid, board) => TASK_META[tid] || {
+    title: tid,
+    plain: '',
+    scale: [0, 1],
+    foot: board && board.higher_is_better === false ? 'Shorter is better here.' : '',
+  };
+
+  // --- results, for reading ----------------------------------------------
+  // The same cards the technical record is built from, reduced to the one
+  // number a reader can act on and the comparison that makes it mean anything.
+
+  function renderResults(container, data) {
+    container.innerHTML = '';
+    const order = ['pr1-tf-identity', 'sc1-celltype-transfer', 'sc4-donor-invariance'];
+    const ids = order.filter((t) => (data.leaderboards || {})[t])
+      .concat(Object.keys(data.leaderboards || {}).filter((t) => !order.includes(t)));
+
+    if (!ids.length) {
+      setEmpty(container, 'No results yet.');
+      return;
+    }
+
+    ids.forEach((tid) => {
+      const board = data.leaderboards[tid];
+      const meta = taskMeta(tid, board);
+      const trend = (data.trends || {})[tid] || {};
+      const info = {};
+      (trend.points || []).concat(trend.references || [])
+        .forEach((p) => { info[p.model] = p; });
+
+      const block = el('section', 'ev-result');
+      block.appendChild(el('h3', 'ev-result-title', meta.title));
+      if (meta.plain) block.appendChild(el('p', 'ev-result-plain', meta.plain));
+
+      const [lo, hi] = meta.scale;
+      const frac = (v) => Math.max(0, Math.min(1, (v - lo) / (hi - lo)));
+
+      const models = board.rows.filter((r) => !REFERENCE_IDS.has(r.model));
+      const refs = board.rows.filter((r) => REFERENCE_IDS.has(r.model));
+      const list = el('div', 'ev-rows');
+
+      const addRow = (r, isRef) => {
+        const row = el('div', `ev-row${isRef ? ' is-ref' : ''}`);
+        const [name, size] = prettyModel(r.model);
+
+        const nameCell = el('div', 'ev-row-name');
+        nameCell.appendChild(el('span', 'ev-row-model', name));
+        const bits = [];
+        if (size) bits.push(size);
+        const rd = (info[r.model] || {}).release_date;
+        if (rd) bits.push(String(rd).split('-')[0]);
+        if (bits.length) nameCell.appendChild(el('span', 'ev-row-sub', bits.join(' · ')));
+        row.appendChild(nameCell);
+
+        const track = el('div', 'ev-bar');
+        const fill = el('div', 'ev-bar-fill');
+        fill.style.width = `${(frac(r.best) * 100).toFixed(2)}%`;
+        track.appendChild(fill);
+        row.appendChild(track);
+
+        row.appendChild(el('div', 'ev-row-val', fmt(r.best, 2)));
+        list.appendChild(row);
+      };
+
+      models.forEach((r) => addRow(r, false));
+      refs.forEach((r) => addRow(r, true));
+      block.appendChild(list);
+
+      // One plain sentence in place of a column of pass/fail flags. A model that
+      // failed a check is named here rather than quietly dropped.
+      const noBase = models.filter((r) => r.beats_baseline === false);
+      const noNull = models.filter((r) => r.survives_null === false);
+      const check = el('p', 'ev-result-check');
+      if (!noBase.length && !noNull.length) {
+        check.appendChild(el('span', 'ev-tick', '✓'));
+        check.appendChild(document.createTextNode(
+          ' Every model above beat the no-model comparison, and every result survived '
+          + 'a test on shuffled labels that a coincidence would have failed.'
+        ));
+      } else {
+        const parts = [];
+        const names = (rows) => rows.map((r) => prettyModel(r.model)[0]).join(', ');
+        if (noBase.length) parts.push(`${names(noBase)} ${meta.failBase || FAIL_BASE}`);
+        if (noNull.length) parts.push(`${names(noNull)} did not survive the shuffled-label test`);
+        check.appendChild(el('span', 'ev-cross', '✗'));
+        check.appendChild(document.createTextNode(` ${parts.join('; ')}.`));
+      }
+      block.appendChild(check);
+      if (meta.foot) block.appendChild(el('p', 'ev-result-foot', meta.foot));
+
+      container.appendChild(block);
+    });
+  }
+
+  // --- coverage, for reading ---------------------------------------------
+
+  const MODALITY_NAMES = {
+    protein: ['Proteins', 'models that read a protein’s amino-acid sequence'],
+    'single-cell': ['Single cells', 'models that read gene activity inside one cell'],
+    dna: ['Genomes', 'models that read raw DNA'],
+    methylation: ['Chemical marks on DNA', 'models that read methylation patterns'],
+    spatial: ['Tissue maps', 'models that read where cells sit in a tissue'],
+    text: ['Biology in language', 'models that describe cells in words'],
+  };
+
+  function renderCoveragePlain(container, data) {
+    container.innerHTML = '';
+    const grid = (data.coverage || {}).grid || {};
+    const list = el('div', 'ev-cov');
+
+    Object.entries(MODALITY_NAMES).forEach(([key, [name, what]]) => {
+      const axes = grid[key] || {};
+      const n = Object.values(axes).reduce((a, b) => Math.max(a, b), 0);
+      const card = el('div', `ev-cov-item${n ? '' : ' is-empty'}`);
+      const head = el('div', 'ev-cov-head');
+      head.appendChild(el('span', 'ev-cov-name', name));
+      head.appendChild(el('span', `ev-flag ${n ? 'ok' : 'warn'}`,
+        n ? `${n} model${n === 1 ? '' : 's'}` : 'not started'));
+      card.appendChild(head);
+      card.appendChild(el('p', 'ev-cov-what', what));
+      list.appendChild(card);
+    });
+
+    container.appendChild(list);
+  }
+
   // --- boot --------------------------------------------------------------
 
   document.addEventListener('DOMContentLoaded', async () => {
     const targets = {
       trend: document.getElementById('evTrend'),
       trendTime: document.getElementById('evTrendTime'),
+      results: document.getElementById('evResults'),
+      coveragePlain: document.getElementById('evCoveragePlain'),
       boards: document.getElementById('evBoards'),
       coverage: document.getElementById('evCoverage'),
       registry: document.getElementById('evRegistry'),
@@ -501,6 +699,8 @@
         });
       }
     }
+    if (targets.results) renderResults(targets.results, data);
+    if (targets.coveragePlain) renderCoveragePlain(targets.coveragePlain, data);
     if (targets.coverage) renderCoverage(targets.coverage, data.coverage);
     if (targets.registry) renderRegistry(targets.registry, data);
 
@@ -515,7 +715,8 @@
       ids.forEach((tid) => {
         const block = el('div');
         block.style.marginBottom = '48px';
-        block.appendChild(el('h3', 'ev-h2', tid));
+        block.appendChild(el('h3', 'ev-h2', taskMeta(tid, data.leaderboards[tid]).title));
+        block.appendChild(el('p', 'ev-task-id', tid));
         const body = el('div');
         block.appendChild(body);
         targets.boards.appendChild(block);

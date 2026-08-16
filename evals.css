@@ -544,3 +544,160 @@
   stroke-width: 1;
   opacity: 0.45;
 }
+
+/* --- results, plain ------------------------------------------------------
+   A reader wants the number and the thing it has to beat. The full grid of
+   baselines, intervals and null tests lives on the technical record. */
+
+.ev-result {
+  border: 1px solid var(--ev-rule);
+  border-radius: var(--radius-md);
+  padding: 28px 30px;
+  background: var(--bg-card);
+  margin-bottom: 22px;
+}
+
+.ev-result-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.15rem, 2vw, 1.45rem);
+  font-weight: 400;
+  color: var(--text-heading);
+  margin-bottom: 10px;
+}
+
+.ev-result-plain {
+  color: var(--text-secondary);
+  line-height: 1.75;
+  font-size: 0.95rem;
+  max-width: 68ch;
+  margin-bottom: 24px;
+}
+
+.ev-rows { display: flex; flex-direction: column; gap: 7px; }
+
+.ev-row {
+  display: grid;
+  grid-template-columns: minmax(150px, 210px) 1fr 52px;
+  align-items: center;
+  gap: 16px;
+}
+
+.ev-row-name { display: flex; flex-direction: column; gap: 1px; min-width: 0; }
+
+.ev-row-model {
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ev-row-sub {
+  font-family: var(--ev-mono);
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  letter-spacing: 0.4px;
+}
+
+.ev-bar {
+  position: relative;
+  height: 22px;
+  border-radius: 3px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--ev-rule);
+  overflow: hidden;
+}
+
+.ev-bar-fill {
+  height: 100%;
+  background: var(--gradient-accent);
+  border-radius: 2px 0 0 2px;
+  transition: width 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.ev-row-val {
+  font-family: var(--ev-mono);
+  font-size: 0.85rem;
+  color: var(--text-primary);
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+/* The no-model comparisons. Present, and visibly not competitors. */
+.ev-row.is-ref { margin-top: 10px; }
+.ev-row.is-ref .ev-row-model { color: var(--text-muted); font-style: italic; }
+.ev-row.is-ref .ev-row-val { color: var(--text-muted); }
+.ev-row.is-ref .ev-bar { border-style: dashed; }
+.ev-row.is-ref .ev-bar-fill {
+  background: repeating-linear-gradient(
+    -45deg, var(--text-muted), var(--text-muted) 2px,
+    transparent 2px, transparent 6px);
+  opacity: 0.65;
+}
+
+.ev-result-check {
+  margin-top: 22px;
+  padding-top: 18px;
+  border-top: 1px solid var(--ev-rule);
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  line-height: 1.7;
+  max-width: 72ch;
+}
+
+.ev-tick { color: var(--ev-good); font-weight: 600; }
+.ev-cross { color: var(--ev-bad); font-weight: 600; }
+
+.ev-result-foot {
+  margin-top: 8px;
+  color: var(--text-muted);
+  font-size: 0.82rem;
+  line-height: 1.6;
+}
+
+.ev-task-id {
+  font-family: var(--ev-mono);
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  letter-spacing: 0.6px;
+  margin: -6px 0 14px;
+}
+
+/* --- coverage, plain ----------------------------------------------------- */
+
+.ev-cov {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 14px;
+}
+
+.ev-cov-item {
+  border: 1px solid var(--ev-rule);
+  border-radius: var(--radius-md);
+  padding: 18px 20px;
+  background: var(--bg-card);
+}
+
+.ev-cov-item.is-empty { opacity: 0.62; }
+
+.ev-cov-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.ev-cov-name { font-size: 0.98rem; color: var(--text-heading); }
+
+.ev-cov-what {
+  color: var(--text-secondary);
+  font-size: 0.86rem;
+  line-height: 1.65;
+}
+
+@media (max-width: 720px) {
+  .ev-result { padding: 20px; }
+  .ev-row { grid-template-columns: minmax(104px, 1fr) 1.4fr 42px; gap: 10px; }
+  .ev-row-model { font-size: 0.82rem; white-space: normal; }
+}
