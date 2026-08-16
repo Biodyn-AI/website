@@ -1807,3 +1807,26 @@ img.team-avatar {
     font-size: 0.7rem;
   }
 }
+
+/* --- Team, two up --- */
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(288px, 1fr));
+  gap: 28px;
+  max-width: 940px;
+  margin: 0 auto;
+  /* Stretch, not start: one card carries an affiliation line and the other
+     does not, and a short card beside a tall one is the same ragged edge the
+     collaboration cards had. */
+  align-items: stretch;
+}
+
+/* The single-card layout centred itself and capped its own width. In a grid
+   the track does both. */
+.team-grid .team-card {
+  max-width: none;
+  margin: 0;
+}
+
+/* A card with no affiliation line would otherwise sit tighter than one with. */
+.team-card .team-bio { margin-top: 12px; }
