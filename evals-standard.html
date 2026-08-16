@@ -67,9 +67,20 @@
       <h1>Six rules, enforced by the schema rather than by review</h1>
       <p class="ev-lede">
         Each rule exists because of a published result about how biological benchmarks
-        mislead. A result card that does not carry its baseline, its ceiling and its null
-        does not validate, so the failure mode is a crash at emission time, not a
+        mislead. A result card that does not carry its baseline, its reference and its
+        null does not validate, so the failure mode is a crash at emission time, not a
         misleading number on a leaderboard.
+      </p>
+      <p class="ev-lede">
+        None of these rules is ours. Splitting by sequence similarity, requiring a
+        no-model baseline and resampling whole groups rather than individual items are
+        long-standing practice in the established protein and single-cell benchmarks, and
+        several of them do it more strictly than we currently manage. The examples given
+        under each rule below are drawn from our own papers because those are the failures
+        we know first-hand, not because we found the problems first. What is unusual here
+        is only that the schema enforces the rules instead of trusting a reviewer to
+        notice. <a href="evals-literature.html">The prior-work page</a> gives the credit
+        properly.
       </p>
     </div>
   </header>
@@ -204,6 +215,7 @@
           <a href="about.html">About</a>
           <a href="evals.html">Evals</a>
           <a href="evals-registry.html">Registry</a>
+          <a href="evals-literature.html">Prior work</a>
           <a href="blog.html">Blog</a>
           <a href="mailto:kenduhov.ig@gmail.com">Contact</a>
         </div>

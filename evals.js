@@ -37,7 +37,7 @@
     ['Gap P−B', 'elicitation_gap'],
     ['Gap 95% CI (paired)', 'gap_ci95'],
     ['Best baseline', 'best_baseline'],
-    ['Ceiling', 'ceiling'],
+    ['Cheap-readout reference', 'ceiling'],
     ['Beats baseline', 'beats'],
     ['Null p', 'null_p'],
     ['CI95', 'ci95'],
@@ -682,7 +682,7 @@
       if (tr) {
         renderTrend(targets.trend, tr, {
           title: 'Protein model capability against model size',
-          yLabel: 'Accuracy identifying transcription factors',
+          yLabel: 'Macro-F1 identifying transcription factors',
         });
       } else {
         setEmpty(targets.trend, 'No trend data in the payload yet.');
@@ -695,7 +695,7 @@
           xMode: 'date',
           sizeBand: [300e6, 700e6],
           title: 'Protein model capability against release date, at comparable size',
-          yLabel: 'Accuracy identifying transcription factors',
+          yLabel: 'Macro-F1 identifying transcription factors',
         });
       }
     }

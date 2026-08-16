@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>What others have already found | PROBE | Biodyn</title>
+  <meta name="description" content="Where PROBE's results sit against the existing literature on biological foundation models, including the findings that were already published and the ones that go against us.">
+  <link rel="canonical" href="https://biodynai.com/evals-literature.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Biodyn">
+  <meta property="og:url" content="https://biodynai.com/evals-literature.html">
+  <meta property="og:title" content="What others have already found">
+  <meta property="og:description" content="An evaluator that does not check whether it is repeating other people's work is not an evaluator. This is that check.">
+  <meta property="og:image" content="https://biodynai.com/content/social-preview.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <script>
+    (() => {
+      const storedTheme = localStorage.getItem('biodyn-theme');
+      const systemPrefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+      const theme = storedTheme === 'light' || storedTheme === 'dark'
+        ? storedTheme
+        : (systemPrefersLight ? 'light' : 'dark');
+      document.documentElement.dataset.theme = theme;
+    })();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="evals.css?v=2">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+</head>
+<body class="ev-page">
+
+  <nav class="nav" id="nav">
+    <div class="container">
+      <a href="index.html" class="nav-logo">Biodyn</a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html#about">About</a></li>
+        <li><a href="evals.html" class="nav-current">Evals</a></li>
+        <li><a href="index.html#research">Research</a></li>
+        <li><a href="index.html#methodology">Methodology</a></li>
+        <li><a href="index.html#impact">Impact</a></li>
+        <li><a href="index.html#atlases">Atlases</a></li>
+        <li><a href="index.html#publications">Research Outputs</a></li>
+        <li><a href="index.html#team">Team</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li>
+          <button type="button" class="theme-toggle" id="themeToggle" aria-label="Toggle color theme">
+            Theme
+          </button>
+        </li>
+        <li><a href="https://github.com/orgs/Biodyn-AI/repositories" target="_blank" rel="noopener" class="nav-cta">GitHub →</a></li>
+      </ul>
+      <div class="hamburger" id="hamburger">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </nav>
+
+  <header class="ev-hero">
+    <div class="container">
+      <div class="ev-brand">
+        <span class="ev-wordmark">PROBE</span>
+        <span class="ev-brand-note">Where this sits in the literature</span>
+      </div>
+      <h1>What others have already found</h1>
+      <p class="ev-lede">
+        An evaluation programme that never checks whether it is repeating other people's
+        work is not much of an evaluation programme. This page is that check, run against
+        the published literature, and it did not come out flattering.
+      </p>
+      <p class="ev-lede">
+        Most of what <a href="evals.html">the summary page</a> reports has been found
+        before, sometimes on far more evidence than we have. One of our claims has
+        published evidence pointing the other way. The measurement we treat as our
+        centrepiece has already been made on a biological model by someone else. All of
+        that is below, with sources.
+      </p>
+    </div>
+  </header>
+
+  <main>
+    <section class="ev-section">
+      <div class="container">
+        <h2 class="ev-h2">Things we measured that were already known</h2>
+        <p class="ev-sub">
+          We measured these independently, on our own task and protocol, and we still
+          think that is worth doing — a replication on different data is evidence. But
+          they are replications, and presenting them as discoveries would be wrong.
+        </p>
+
+        <div class="ev-result">
+          <h3 class="ev-result-title">That protein models stop improving with size</h3>
+          <p class="ev-result-plain">
+            Reported before us, more than once. In 2023 the team behind the Ankh model
+            wrote that ESM-2 at 15 billion parameters "did not outperform the smaller
+            models from the ESM family in all of the tasks", and added that it gave
+            inconsistent results between runs. In 2025 a study in <em>Scientific
+            Reports</em> found that on one of its two benchmark sets every model of 150
+            million parameters or more performed comparably, and that ESM-2 150M edged out
+            ESM-2 3B on mutational-scanning data while being twenty times smaller. The
+            PFMBench preprint reports the same flatness across a much larger set of tasks
+            than ours.
+          </p>
+          <p class="ev-result-check">
+            <span class="ev-tick">✓</span> What we add is not the finding but the
+            apparatus around it: a no-model reference, resampled intervals and a
+            shuffled-label test attached to every point, on a function task rather than a
+            mutational one.
+          </p>
+        </div>
+
+        <div class="ev-result">
+          <h3 class="ev-result-title">That the biggest model is not the best one</h3>
+          <p class="ev-result-plain">
+            Same source, and it is the cleanest prior claim of the three: the Ankh authors
+            said it explicitly in 2023, including the run-to-run instability of that
+            particular checkpoint. That last part matters for us, because our own 15
+            billion result is a single run. Until we measure seed variance for it, our
+            number should be read as one draw rather than a settled value.
+          </p>
+        </div>
+
+        <div class="ev-result">
+          <h3 class="ev-result-title">That the best layer is not the final one</h3>
+          <p class="ev-result-plain">
+            Here the literature disagrees with itself, and we should not pretend
+            otherwise. A 2026 preprint that swept layers across 13 protein language
+            models, 15 tasks and 11 datasets found the deepest layer best in only 17.9% of
+            cases, which supports us. The <em>Scientific Reports</em> study above swept
+            layers on a different model and found the last layer most commonly best, which
+            contradicts us. Both sets of authors conclude that the answer depends on the
+            dataset and on whether the task concerns a whole protein or its individual
+            residues.
+          </p>
+          <p class="ev-result-check">
+            <span class="ev-cross">✗</span> This is the claim of ours most exposed to
+            being wrong. Ours is one task on one dataset, which makes it a data point in
+            an unsettled argument rather than a resolution of it.
+          </p>
+        </div>
+
+        <div class="ev-result">
+          <h3 class="ev-result-title">Our headline task itself</h3>
+          <p class="ev-result-plain">
+            Telling transcription factors from other proteins with this family of models
+            was published in 2025, with a stricter control than ours: sequences clustered
+            at 25% identity so that near-duplicates cannot straddle the training and test
+            sets. Ours merged almost nothing, so on the one dimension where a direct
+            comparison is possible, their protocol is the more rigorous. They also reach a
+            different conclusion from the one we might have drawn from their table: their
+            own text names ESM2-650M the best pre-trained model, and the smaller-beats-larger
+            difference visible in their numbers sits inside their error bars.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="ev-section">
+      <div class="container">
+        <h2 class="ev-h2">The single-cell results are established negatives</h2>
+        <p class="ev-sub">
+          Our record shows Geneformer failing to clear a cheap reference on cell-type
+          transfer, and both single-cell models making donor identity easier to read off
+          rather than harder. Anyone who follows this field already expects that.
+        </p>
+        <ul class="ev-caveats">
+          <li>A 2025 <em>Genome Biology</em> study evaluated these models without fine-tuning and found simple highly-variable-gene selection outperforming both Geneformer and scGPT across its metrics, with Geneformer ranking last on batch mixing and showing more batch-driven variance in its embeddings than the untransformed data.</li>
+          <li>A 2024 <em>Nature Machine Intelligence</em> Matters Arising found L1 logistic regression scoring 0.811 accuracy against scBERT's 0.766 on cell-type annotation, and a version with no pre-training at all performing no worse than the pre-trained model to within noise.</li>
+          <li>A 2025 <em>Nature Methods</em> Brief Communication benchmarked five single-cell foundation models plus two other deep-learning methods on predicting gene-perturbation effects against deliberately simple baselines, and reported that none outperformed them.</li>
+        </ul>
+        <p class="ev-note">
+          One honest qualification, since it would be easy to overclaim the agreement.
+          These are not the same experiments as ours. The <em>Genome Biology</em> work
+          scores unsupervised embedding quality and variance explained by batch; we
+          decode donor identity with a classifier. The direction is the same and the
+          conclusion is compatible, but "consistent with" is the accurate phrase, not
+          "reproduces". The Matters Arising concerns scBERT, not the models we ran.
+        </p>
+      </div>
+    </section>
+
+    <section class="ev-section">
+      <div class="container">
+        <h2 class="ev-h2">The measurement we call our centrepiece has been made before</h2>
+        <p class="ev-sub">
+          This is the finding that cost us the most, and it is the reason this page exists.
+        </p>
+        <p class="ev-sub">
+          PROBE's organising idea is to score a model's sanctioned output against what a
+          probe of its internal layers can read, under a readout of identical size, and to
+          treat the difference as the interesting quantity. In October 2025 a collaboration
+          between Scale, Princeton, the University of Maryland, SecureBio and the Center
+          for AI Safety published BioRiskEval, which does exactly that on a biological
+          model — and goes further than we currently do.
+        </p>
+        <ul class="ev-caveats">
+          <li>It measures all three surfaces, not two. Behavioural scoring by log-likelihood, linear probes, <em>and</em> fine-tuning from 25 to 2000 steps. We have not measured the fine-tuning surface on a single model yet.</li>
+          <li>Its layer sweep is more thorough than ours: probes trained on every layer with the layer chosen afterwards, rather than a fixed choice.</li>
+          <li>It reports the gap head-to-head. On mutational-effect prediction, Evo 2 scored by log-likelihood reaches a correlation of about 0.03, while a linear probe on the same frozen model reaches about 0.16.</li>
+          <li>It answers a sharper question than ours. Evo 2 had eukaryotic viral data deliberately excluded from its training, and the paper shows that around 50 fine-tuning steps — under an hour on a single GPU — restores what the filtering removed.</li>
+        </ul>
+        <p class="ev-note">
+          We had previously described that work, in our own internal scan, as behavioural
+          only. That was our error and it flattered us. The corrected position: measuring
+          an elicitation gap on a biological model is not new, and neither is finding one.
+          What remains open is doing it as standing instrumentation across many models and
+          keeping the record current, rather than once, to make a point.
+        </p>
+        <p class="ev-sub">
+          The idea has a longer history outside biology, too. Work on large language models
+          has shown that a model's internal states can encode a correct answer while its
+          output gives a wrong one, and separate work on deliberately capability-hidden
+          models has shown that fine-tuning recovers what prompting cannot. We should be
+          careful with that second strand, though: it establishes that behaviour understates
+          capability, not that reading internals is the way to find it out.
+        </p>
+      </div>
+    </section>
+
+    <section class="ev-section">
+      <div class="container">
+        <h2 class="ev-h2">What that leaves</h2>
+        <p class="ev-sub">
+          Narrower than we would like, and worth stating plainly rather than dressing up.
+        </p>
+        <div class="ev-tracks">
+          <div class="ev-track">
+            <h3>Rules the schema enforces</h3>
+            <p>
+              Homology-aware splits, mandatory no-model baselines and group-level intervals
+              are established practice in the protein benchmarks, not our inventions. What
+              is unusual is that here a result which lacks its baseline, its reference and
+              its null cannot be emitted at all — the failure is a crash, not a footnote a
+              reviewer might miss.
+            </p>
+          </div>
+          <div class="ev-track">
+            <h3>Standing rather than one-off</h3>
+            <p>
+              The studies above are papers, published once. Re-running the same protocol as
+              each new model ships, and keeping a public record that includes the models
+              nobody got round to, is a role rather than a result — and it is currently
+              vacant.
+            </p>
+          </div>
+          <div class="ev-track">
+            <h3>Caveats that cut against us</h3>
+            <p>
+              Every card carries the objections the harness could find to its own number,
+              including the ones that undermine our headline. This page is the same
+              instinct applied to the programme as a whole.
+            </p>
+          </div>
+        </div>
+        <p class="ev-note">
+          What we should stop claiming: that flat scaling above a few hundred million
+          parameters is our finding, that the 15 billion reversal is news, that the
+          best-layer effect is settled, or that measuring an elicitation gap on a
+          biological model had not been done. None of those survive contact with the
+          literature.
+        </p>
+      </div>
+    </section>
+
+    <section class="ev-section">
+      <div class="container">
+        <h2 class="ev-h2">Sources</h2>
+        <p class="ev-sub">
+          Every source below was retrieved and checked directly rather than taken from a
+          search summary, and each licence was read from the publisher's own statement.
+          Where a work is openly licensed we say so; where it is not, we describe it in our
+          own words and link out rather than reproducing anything.
+        </p>
+        <div class="ev-scroll">
+          <table class="ev-table">
+            <thead>
+              <tr><th>Source</th><th>What it is</th><th>Licence</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="ev-model"><a href="https://arxiv.org/abs/2301.06568" rel="noopener">Elnaggar et al., Ankh (2023)</a></td>
+                <td>Protein language model; reports ESM-2 15B not beating smaller ESM models, and its run-to-run inconsistency</td>
+                <td class="ev-dim">CC BY-NC-SA 4.0 · preprint</td>
+              </tr>
+              <tr>
+                <td class="ev-model"><a href="https://doi.org/10.1038/s41598-025-05674-x" rel="noopener">Vieira, Handojo &amp; Wilke (2025)</a></td>
+                <td><em>Scientific Reports</em>. Medium-sized protein models transfer well; finds the last layer most commonly best, against us</td>
+                <td class="ev-dim">CC BY 4.0 · open</td>
+              </tr>
+              <tr>
+                <td class="ev-model"><a href="https://arxiv.org/abs/2608.12090" rel="noopener">Joeres et al. (2026)</a></td>
+                <td>Layer sweep over 13 protein models, 15 tasks, 11 datasets; deepest layer best in 17.9% of cases</td>
+                <td class="ev-dim">CC BY 4.0 · preprint</td>
+              </tr>
+              <tr>
+                <td class="ev-model"><a href="https://arxiv.org/abs/2506.14796" rel="noopener">Gao et al., PFMBench (2025)</a></td>
+                <td>Protein foundation model benchmark across many tasks with identity-clustered splits</td>
+                <td class="ev-dim">arXiv licence · preprint, not peer reviewed</td>
+              </tr>
+              <tr>
+                <td class="ev-model"><a href="https://proceedings.neurips.cc/paper_files/paper/2024/hash/8066ae1446b2bbccb5159587cc3b3bcc-Abstract-Conference.html" rel="noopener">Cheng et al. (2024)</a></td>
+                <td>NeurIPS. Compute-optimal protein language models; the token budget confound in the ESM-2 ladder</td>
+                <td class="ev-dim">Author copyright · prose and numbers only</td>
+              </tr>
+              <tr>
+                <td class="ev-model"><a href="https://doi.org/10.1101/2025.11.27.691010" rel="noopener">Hassan et al. (2025)</a></td>
+                <td>Transcription-factor identification with protein language models, clustered at 25% identity — our task, done first</td>
+                <td class="ev-dim">All rights reserved · description only</td>
+              </tr>
+              <tr>
+                <td class="ev-model"><a href="https://doi.org/10.1186/s13059-025-03574-x" rel="noopener">Kedzierska et al. (2025)</a></td>
+                <td><em>Genome Biology</em>. Single-cell foundation models underperform simple gene selection without fine-tuning</td>
+                <td class="ev-dim">CC BY 4.0 · open</td>
+              </tr>
+              <tr>
+                <td class="ev-model"><a href="https://doi.org/10.1038/s42256-024-00949-w" rel="noopener">Boiarsky et al. (2024)</a></td>
+                <td><em>Nature Machine Intelligence</em>. Logistic regression matches a single-cell foundation model on annotation</td>
+                <td class="ev-dim">Not open access · description only</td>
+              </tr>
+              <tr>
+                <td class="ev-model"><a href="https://doi.org/10.1038/s41592-025-02772-6" rel="noopener">Ahlmann-Eltze, Huber &amp; Anders (2025)</a></td>
+                <td><em>Nature Methods</em>. Deep perturbation-effect prediction does not yet beat simple baselines</td>
+                <td class="ev-dim">CC BY 4.0 · open</td>
+              </tr>
+              <tr>
+                <td class="ev-model"><a href="https://arxiv.org/abs/2510.27629" rel="noopener">Wei et al., BioRiskEval (2025)</a></td>
+                <td>Behavioural, probe and fine-tuned surfaces measured on Evo 2; data filtering is not tamper-resistant</td>
+                <td class="ev-dim">CC BY 4.0 · preprint</td>
+              </tr>
+              <tr>
+                <td class="ev-model"><a href="https://arxiv.org/abs/2410.02707" rel="noopener">Orgad et al. (2025)</a></td>
+                <td>ICLR. Language model internals can encode a correct answer the output does not give</td>
+                <td class="ev-dim">Open preprint</td>
+              </tr>
+              <tr>
+                <td class="ev-model"><a href="https://arxiv.org/abs/2405.19550" rel="noopener">Greenblatt et al. (2024)</a></td>
+                <td>NeurIPS. Password-locked models; fine-tuning elicits capability that prompting does not reveal</td>
+                <td class="ev-dim">CC BY 4.0 · preprint</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="ev-note">
+          A note on names, since it will otherwise cause confusion. PROBE is also the name
+          of an established protein representation benchmark — Ünsal et al., <em>Nature
+          Machine Intelligence</em> 4:227–245 (2022), "Protein RepresentatiOn BEnchmark" —
+          which is well cited and still maintained by its group. Our programme is unrelated
+          to it and does not build on it. We picked the name without knowing theirs existed,
+          which was our failure of homework, and we are deciding what to do about it.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <span class="footer-logo">Biodyn</span>
+        <span class="footer-text">© 2026 Biodyn Research Project. All rights reserved.</span>
+        <div class="footer-links">
+          <a href="index.html">Home</a>
+          <a href="evals.html">Evals</a>
+          <a href="evals-standard.html">Standard</a>
+          <a href="evals-registry.html">Registry</a>
+          <a href="evals-record.html">Record</a>
+          <a href="mailto:kenduhov.ig@gmail.com">Contact</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script src="evals.js?v=2"></script>
+</body>
+</html>

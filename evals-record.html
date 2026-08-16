@@ -113,7 +113,7 @@
         </div>
         <ul class="ev-caveats">
           <li><strong>Best baseline</strong> is the strongest result obtainable without the model at all. A score that does not clear it is not evidence of capability.</li>
-          <li><strong>Ceiling</strong> is the best a cheap supervised readout achieves on the same features, which bounds what the task can show. Exceeding it means the representation adds over those features.</li>
+          <li><strong>Cheap-readout reference</strong> is the best a conventional supervised readout achieves on the cheap features alone — amino-acid composition for proteins, raw expression for cells. Scoring above it means the representation adds something those features do not already carry. This column was previously labelled "ceiling", which was a misnomer we are correcting: it is a second and harder baseline, not an upper bound on the task, which is why most models sit above it. A genuine task ceiling, from label noise or from fully fine-tuning the same architecture, is not yet measured for any task here.</li>
           <li><strong>Null p</strong> is the fraction of covariate-matched label shuffles that scored at least as well. A real effect should be rare under shuffling.</li>
           <li><strong>CI95</strong> is a 95% interval from resampling whole groups, donors or sequence clusters, rather than individual items, because items within a group are not independent.</li>
           <li><strong>Gap P−B</strong> is differenced within each bootstrap replicate, so its interval accounts for the two surfaces moving together.</li>
@@ -150,6 +150,7 @@
           <a href="about.html">About</a>
           <a href="evals.html">Evals</a>
           <a href="evals-standard.html">Standard</a>
+          <a href="evals-literature.html">Prior work</a>
           <a href="evals-registry.html">Registry</a>
           <a href="mailto:kenduhov.ig@gmail.com">Contact</a>
         </div>

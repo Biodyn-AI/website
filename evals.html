@@ -79,6 +79,12 @@
         every number carries the baseline it had to beat and the test that could have
         killed it.
       </p>
+      <p class="ev-lede">
+        Much of what follows has been found before, by other groups, sometimes on far more
+        evidence than we have, and on one point the published work disagrees with us.
+        <a href="evals-literature.html">We keep an account of that</a> rather than leaving
+        it for a reader to discover.
+      </p>
     </div>
   </header>
 
@@ -100,14 +106,46 @@
           clusters.
         </p>
         <p class="ev-caption">
+          The score is macro-F1 rather than plain accuracy, because it counts the rarer
+          class as heavily as the common one. On a set where most proteins are not
+          transcription factors, accuracy would flatter a model that simply said "not one"
+          nearly every time.
+        </p>
+        <p class="ev-caption">
           The curve has a knee, and past it the line is flat. Below about 150 million
-          parameters, accuracy rises by roughly 2.8 points for every tenfold increase
+          parameters, the score rises by roughly 2.8 points for every tenfold increase
           in size. From 150 million to 15 billion, a hundredfold increase, the total
           gain is a tenth of a point. The largest model in the family is not the best
           one: at 15 billion parameters it scores fractionally below the 3 billion
           model and level with the 650 million, and all three sit inside each other's
           error bars. Even the smallest model, at 8 million parameters, already beats
           counting amino acids.
+        </p>
+        <p class="ev-caption">
+          None of that is new, and we are not presenting it as new. The
+          <a href="https://arxiv.org/abs/2301.06568" rel="noopener">Ankh</a> team reported in
+          2023 that ESM-2 at 15 billion parameters "did not outperform the smaller models
+          from the ESM family in all of the tasks", and that it gave inconsistent results
+          between runs. A 2025 study in
+          <a href="https://doi.org/10.1038/s41598-025-05674-x" rel="noopener">Scientific
+          Reports</a> found that on one of its benchmark sets every model of 150 million
+          parameters or more performed comparably, and that ESM-2 150M slightly outperformed
+          ESM-2 3B on mutational-scanning data despite being twenty times smaller. The
+          <a href="https://arxiv.org/abs/2506.14796" rel="noopener">PFMBench</a> preprint
+          reports similar flatness across a far larger suite of tasks. What this page adds is
+          the same curve measured on a function task with a no-model reference, resampled
+          intervals and a shuffled-label test attached to every point.
+        </p>
+        <p class="ev-caption">
+          There is also a confound in the horizontal axis that we should not hide. Every
+          ESM-2 model here was trained on roughly the same number of tokens regardless of its
+          size, so this ladder does not test scale under a budget that grows with the model.
+          A <a href="https://proceedings.neurips.cc/paper_files/paper/2024/hash/8066ae1446b2bbccb5159587cc3b3bcc-Abstract-Conference.html" rel="noopener">NeurIPS
+          2024 study</a> that re-allocated that compute trained a 10.7 billion parameter model
+          on fewer repeated tokens and beat ESM-2 3B on most of its downstream tasks. So the
+          defensible reading is that this particular ladder stops paying, not that protein
+          models have stopped scaling. The ESM-2 authors themselves report continued
+          improvement with size and claim no plateau.
         </p>
         <p class="ev-caption">
           The 15 billion model is too large to run at full precision on the hardware
@@ -118,9 +156,23 @@
           an artefact of how the biggest model was run.
         </p>
         <p class="ev-caption">
-          Separately, the most informative part of nearly every one of these models
-          sits partway through it rather than at the end: the output layer the
-          documentation tells you to use is usually not the best one.
+          Separately, for most of these models the most informative layer sits partway
+          through rather than at the end: the final layer was the best one for only one
+          model in twelve. The honest version is narrower than that sounds, though. For
+          six of the twelve, the advantage of the best inner layer survives resampling;
+          for the other six it points the same way but is not distinguishable from noise,
+          and those six include the four highest-scoring models.
+        </p>
+        <p class="ev-caption">
+          On this point the published evidence is genuinely mixed, and one dataset cannot
+          settle it. A <a href="https://arxiv.org/abs/2608.12090" rel="noopener">2026
+          preprint</a> that swept layers across 13 protein language models, 15 tasks and 11
+          datasets found the deepest layer best in only 17.9% of cases, which agrees with us.
+          The Scientific Reports study cited above swept layers on a different model and
+          found the last layer most commonly best, which does not. Both observe that the
+          answer depends on the dataset, and on whether a task is about a whole protein or
+          about individual residues. Ours is one task on one dataset, so it is a data point
+          in that argument rather than a resolution of it.
         </p>
       </div>
     </section>
@@ -152,6 +204,14 @@
           model released since, through to 2023, sits slightly below it. On this measure
           the field has been broadly flat for about four years while the models themselves
           have changed a great deal.
+        </p>
+        <p class="ev-sub">
+          How firmly to hold that: not very. These models' intervals overlap almost
+          entirely, so this is an ordering of best estimates rather than a demonstrated
+          ranking. Our own Standard says to report how likely a ranking is to flip rather
+          than publish a bare order, and we have not computed that for this chart yet, so
+          by our own rule this claim is currently underpowered. Read it as "nothing here
+          has clearly moved" rather than as "2020 beat 2023".
         </p>
         <p class="ev-sub">
           It is one task, and none of these models was built specifically for it, so this
@@ -215,6 +275,32 @@
           understating the model.
         </p>
         <p class="ev-sub">
+          A limit worth stating plainly: fine-tuning is not yet measured on any model
+          here. What we report today is therefore the difference between the best internal
+          layer and the sanctioned output layer, which is a lower bound on what elicitation
+          might recover rather than a measurement of it. It is also, arithmetically, the
+          same quantity as the layer effect described further up this page.
+        </p>
+        <p class="ev-note">
+          And one about the protein task specifically, which belongs here rather than in a
+          footnote. Proteins that resemble each other should not be split across training
+          and testing, or a model can score well by recognising a near-copy it has already
+          seen. We group sequences before splitting to prevent that, but on this dataset
+          the grouping merged almost nothing — 2302 groups for 2400 proteins — so in
+          practice the split is close to random and the protection is weak. Established
+          protein benchmarks cluster at 25 to 30 percent sequence identity, which is
+          stricter than what we actually achieved. Every protein score on this page should
+          be read as an upper estimate until that is fixed.
+        </p>
+        <p class="ev-note">
+          The task itself is not one we invented either. A 2025 study did transcription-factor
+          identification with the same family of models and a stricter homology control than
+          ours, clustering at 25% sequence identity over a smaller, balanced set of 1044
+          proteins. Their own conclusion names ESM2-650M as the best pre-trained model; the
+          150M-over-650M difference visible in their table sits inside their error bars, and
+          reading it as a scaling result is our inference rather than a claim they make.
+        </p>
+        <p class="ev-sub">
           The rules that every result has to satisfy, and the published failures that
           motivated each one, are set out in
           <a href="evals-standard.html">the Standard</a>. Which models are covered, queued
@@ -233,9 +319,12 @@
           <li>Ten models spanning 150 million to 15 billion parameters all land between 0.94 and 0.97 on this task, close enough together that it is running out of room to tell them apart. The flat scaling curve above should therefore be read as a statement about this task as much as about the models: a harder one is needed before differences at the top mean anything.</li>
           <li>The size trend covers one model family. The like-for-like comparison across vintages covers five, which is enough to be suggestive and not enough to be a trend line.</li>
           <li>The biorisk track has no published numbers at all. The measurement is specified and the harness supports it; it is gated on process, not on capability.</li>
-          <li>The protein task groups related sequences before splitting, but the clustering merged only a small fraction of them, so those scores should be read as upper estimates.</li>
-          <li>Genome language models are not covered yet. Neither is any measurement of what light fine-tuning recovers, which is the number the biorisk track needs most.</li>
-          <li>Coverage is a handful of tasks on one dataset per modality. One dataset cannot show whether any of this generalises.</li>
+          <li>The protein split is weaker than the field standard. See the note above: our grouping merged almost nothing, so every protein score here is an upper estimate.</li>
+          <li>Our shuffled-label test runs 100 shuffles, so the strongest result it can report is 1 in 101 — and every single result reports exactly that. It is enough to say these scores are not coincidence, and not enough to tell them apart. We are raising the count.</li>
+          <li>The intervals come from 60 resamples, which is few. Treat their endpoints as coarse.</li>
+          <li>Nothing here has a real task ceiling. We compare against the best cheap-feature readout, which most models beat; we do not yet know how much of the remaining gap to a perfect score is even reachable.</li>
+          <li>Genome language models are not covered yet. Neither is any measurement of what light fine-tuning recovers, which is the number the biorisk track needs most, and without it the gap we report is a lower bound rather than a measurement.</li>
+          <li>Coverage is a handful of tasks on one dataset per modality. One dataset cannot show whether any of this generalises, and the layer result in particular is known to vary by dataset.</li>
         </ul>
       </div>
     </section>
@@ -296,6 +385,14 @@
             </p>
             <p><a href="evals-registry.html">Open the registry →</a></p>
           </div>
+          <div class="ev-track">
+            <h3>The prior work</h3>
+            <p>
+              Which of these findings were already published, by whom, and where the
+              existing evidence points the other way from ours.
+            </p>
+            <p><a href="evals-literature.html">See what others found →</a></p>
+          </div>
         </div>
       </div>
     </section>
@@ -310,6 +407,7 @@
           <a href="index.html">Home</a>
           <a href="about.html">About</a>
           <a href="evals-standard.html">Standard</a>
+          <a href="evals-literature.html">Prior work</a>
           <a href="evals-registry.html">Registry</a>
           <a href="evals-record.html">Record</a>
           <a href="blog.html">Blog</a>
