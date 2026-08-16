@@ -537,3 +537,10 @@
 @media (max-width: 720px) {
   .ev-track { padding: 18px; }
 }
+
+/* Leader line from a point to a label that had to be pushed clear of others. */
+.ev-chart-leader {
+  stroke: var(--text-muted);
+  stroke-width: 1;
+  opacity: 0.45;
+}

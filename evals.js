@@ -270,7 +270,7 @@
       container.dataset.slope = slope.toFixed(4);
     }
 
-    // error bars, points, labels
+    // error bars and points
     pts.forEach((p) => {
       const x = X(xOf(p));
       if (p.ci95) {
@@ -279,9 +279,58 @@
         }));
       }
       svg.appendChild(svgEl('circle', { cx: x, cy: Y(p.best), r: 6, class: 'ev-chart-pt' }));
-      const lab = svgEl('text', { x: x, y: Y(p.best) - 15, class: 'ev-chart-label', 'text-anchor': 'middle' });
-      lab.textContent = byDate ? `${p.family} ${shortParams(p.params)}` : shortParams(p.params);
-      svg.appendChild(lab);
+    });
+
+    // Labels, placed so they do not collide. Two models released weeks apart sit
+    // almost on top of each other on a date axis, and overlapping text is worse
+    // than no text: it is unreadable and looks like a rendering fault.
+    //
+    // Widths are measured rather than estimated. A guess at characters times a
+    // constant was wrong for this font and left one pair overlapping, which is
+    // exactly the sort of nearly-right that survives review.
+    const LAB_H = 13;
+    const OFFSETS = [-16, 22, -32, 38, -48, 54];
+    const labelJobs = pts.map((p) => {
+      const text = byDate ? `${p.family} ${shortParams(p.params)}` : shortParams(p.params);
+      const node = svgEl('text', {
+        x: X(xOf(p)), y: Y(p.best) + OFFSETS[0],
+        class: 'ev-chart-label', 'text-anchor': 'middle',
+      });
+      node.textContent = text;
+      svg.appendChild(node);
+      return { node, x: X(xOf(p)), y: Y(p.best) };
+    });
+
+    const wrap = el('div', 'ev-chart-wrap');
+    wrap.appendChild(svg);
+    container.appendChild(wrap);
+
+    // Now the SVG is laid out, so text can be measured.
+    const overlaps = (a, b) =>
+      !(a.x2 < b.x1 - 3 || a.x1 > b.x2 + 3 || a.y2 < b.y1 - 2 || a.y1 > b.y2 + 2);
+    const placed = [];
+    labelJobs.forEach((job) => {
+      let w = 60;
+      try { w = job.node.getComputedTextLength() || w; } catch (e) { /* jsdom */ }
+      let dy = OFFSETS[0];
+      for (const cand of OFFSETS) {
+        const yy = job.y + cand;
+        if (yy < M.t + 10 || yy > M.t + ih - 4) continue;
+        const box = { x1: job.x - w / 2, x2: job.x + w / 2, y1: yy - LAB_H, y2: yy + 3 };
+        if (!placed.some((b) => overlaps(box, b))) { dy = cand; break; }
+      }
+      const yy = job.y + dy;
+      placed.push({ x1: job.x - w / 2, x2: job.x + w / 2, y1: yy - LAB_H, y2: yy + 3 });
+      job.node.setAttribute('y', String(yy));
+
+      if (Math.abs(dy) > 26) {
+        const leader = svgEl('line', {
+          x1: job.x, y1: job.y + Math.sign(dy) * 8,
+          x2: job.x, y2: yy + (dy < 0 ? 4 : -10),
+          class: 'ev-chart-leader',
+        });
+        svg.insertBefore(leader, svg.firstChild);
+      }
     });
 
     // axis titles
@@ -294,10 +343,6 @@
     });
     yt.textContent = opts.yLabel || 'Accuracy';
     svg.appendChild(yt);
-
-    const wrap = el('div', 'ev-chart-wrap');
-    wrap.appendChild(svg);
-    container.appendChild(wrap);
 
     // the same numbers, reachable without the picture
     const tbl = el('table', 'ev-table ev-sr');
