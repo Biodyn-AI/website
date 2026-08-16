@@ -701,3 +701,101 @@
   .ev-row { grid-template-columns: minmax(104px, 1fr) 1.4fr 42px; gap: 10px; }
   .ev-row-model { font-size: 0.82rem; white-space: normal; }
 }
+
+/* --- sub-navigation ------------------------------------------------------
+   The programme is several pages deep. Without a way across them the summary
+   page has to carry everything, which is how it grew too long to read. */
+
+.ev-subnav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 30px;
+  padding-top: 22px;
+  border-top: 1px solid var(--ev-rule);
+}
+
+.ev-subnav a {
+  font-family: var(--ev-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.7px;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  text-decoration: none;
+  padding: 6px 12px;
+  border: 1px solid var(--ev-rule);
+  border-radius: 2px;
+  transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+}
+
+.ev-subnav a:hover {
+  color: var(--text-heading);
+  border-color: var(--border-glass-hover);
+  background: var(--button-secondary-hover);
+}
+
+/* --- collapsible detail --------------------------------------------------
+   Everything a careful reader wants and a first-time reader does not. The page
+   is a visual summary; this is where the prose that used to crowd it lives. */
+
+.ev-more {
+  margin-top: 18px;
+  border-top: 1px solid var(--ev-rule);
+}
+
+.ev-more > summary {
+  cursor: pointer;
+  list-style: none;
+  padding: 14px 0 4px;
+  font-family: var(--ev-mono);
+  font-size: 0.74rem;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  transition: color 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.ev-more > summary::-webkit-details-marker { display: none; }
+
+.ev-more > summary::before {
+  content: "+";
+  font-size: 0.95rem;
+  line-height: 1;
+  color: var(--accent-cyan);
+  transition: transform 0.2s ease;
+}
+
+.ev-more[open] > summary::before { content: "−"; }
+.ev-more > summary:hover { color: var(--text-primary); }
+
+.ev-more-body {
+  padding: 10px 0 6px;
+  max-width: 74ch;
+}
+
+.ev-more-body p {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  line-height: 1.75;
+  margin-bottom: 14px;
+}
+
+.ev-more-body p:last-child { margin-bottom: 0; }
+.ev-more-body strong { color: var(--text-primary); }
+.ev-more-body .ev-caveats { margin-top: 0; }
+
+.ev-h3 {
+  font-family: var(--font-display);
+  font-size: clamp(1.05rem, 1.8vw, 1.3rem);
+  font-weight: 400;
+  color: var(--text-heading);
+  margin: 40px 0 10px;
+}
+
+@media (max-width: 720px) {
+  .ev-subnav { gap: 5px; }
+  .ev-subnav a { font-size: 0.66rem; padding: 5px 9px; }
+}

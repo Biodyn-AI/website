@@ -476,6 +476,12 @@
     'amplify-350m': ['AMPLIFY', '350M'],
     'scgpt-whole-human': ['scGPT', '51M'],
     'geneformer-v2-104m': ['Geneformer V2', '104M'],
+    // Control arm: same architecture and size, never pretrained. Named so it
+    // cannot be mistaken for a real model at a glance.
+    'esm2-t6-8m-ur50d-random': ['ESM2 8M, untrained', 'control'],
+    'esm2-t12-35m-ur50d-random': ['ESM2 35M, untrained', 'control'],
+    'esm2-t30-150m-ur50d-random': ['ESM2 150M, untrained', 'control'],
+    'esm2-t33-650m-ur50d-random': ['ESM2 650M, untrained', 'control'],
     'composition-reference': ['Counting amino acids', 'no model'],
     'raw-expression': ['The measurements themselves', 'no model'],
     'pca-reference-32': ['Simple compression', 'no model'],
@@ -485,6 +491,8 @@
   // has to beat, so they are shown rather than dropped, but shown apart.
   const REFERENCE_IDS = new Set([
     'composition-reference', 'raw-expression', 'pca-reference-32',
+    'esm2-t6-8m-ur50d-random', 'esm2-t12-35m-ur50d-random',
+    'esm2-t30-150m-ur50d-random', 'esm2-t33-650m-ur50d-random',
   ]);
 
   const prettyModel = (id) => MODEL_NAMES[id] || [id, ''];
@@ -492,30 +500,35 @@
   const TASK_META = {
     'pr1-tf-identity': {
       title: 'Recognising a genetic switch from sequence alone',
-      plain: 'Given nothing but a protein’s string of amino acids, decide whether '
-        + 'it is a transcription factor: one of the proteins that switch genes on and '
-        + 'off. Doing this well means a model has picked up something about what a '
-        + 'protein does, not merely what it is built from.',
+      plain: 'Given only a protein\'s string of amino acids, decide whether it is a '
+        + 'transcription factor: one of the proteins that switch genes on and off.',
       scale: [0.5, 1],
-      foot: 'Bars start at 0.5, which is what pure guessing scores on a yes-or-no '
-        + 'question, and end at a perfect 1.',
+      foot: 'Bars start at 0.5, what guessing scores on a yes-or-no question.',
+    },
+    'pr2-tf-family': {
+      title: 'Telling apart the kinds of genetic switch',
+      plain: 'Given a protein already known to be a transcription factor, say which of '
+        + 'fourteen families of DNA-binding machinery it uses. Over half of all human '
+        + 'transcription factors use zinc fingers, so the rare families are the hard '
+        + 'part.',
+      scale: [0, 1],
+      foot: 'One striped row is a similarity lookup: copy the answer of the most '
+        + 'similar protein already labelled. Here that is the hard bar.',
     },
     'sc1-celltype-transfer': {
       title: 'Naming a cell type in a person the model never saw',
-      plain: 'Given the pattern of gene activity inside a single cell, say what kind of '
-        + 'cell it is. Every donor used for testing was held out of the training data, '
-        + 'so no model can score well here by memorising individuals.',
+      plain: 'Given the gene activity inside a single cell, say what kind of cell it is, '
+        + 'tested only on donors held out of training.',
       scale: [0, 1],
-      foot: 'Bars run from 0 to a perfect 1.',
+      foot: '',
     },
     'sc4-donor-invariance': {
       title: 'Not giving away whose sample it was',
-      plain: 'The same models, read for the opposite property: how easily the donor can '
-        + 'be identified from a model’s reading of their cells. A model that encodes '
-        + 'the person as sharply as it encodes the biology will not carry over to new '
-        + 'people, so on this one a shorter bar is the better result.',
+      plain: 'The same models read for the opposite property: how easily the donor can be '
+        + 'identified from a model\'s reading of their cells. A shorter bar is better '
+        + 'here.',
       scale: [0, 1],
-      foot: 'Shorter is better here: the bar is how identifiable the donor was.',
+      foot: 'Shorter is better: the bar is how identifiable the donor was.',
       // On a lower-is-better task "did not beat the baseline" reads backwards,
       // so this task says what actually went wrong.
       failBase: 'gave the donor away more readily than using no model at all',
@@ -600,8 +613,7 @@
       if (!noBase.length && !noNull.length) {
         check.appendChild(el('span', 'ev-tick', '✓'));
         check.appendChild(document.createTextNode(
-          ' Every model above beat the no-model comparison, and every result survived '
-          + 'a test on shuffled labels that a coincidence would have failed.'
+          ' All beat the no-model comparison and survived a shuffled-label test.'
         ));
       } else {
         const parts = [];
