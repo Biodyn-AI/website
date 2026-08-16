@@ -257,10 +257,66 @@
               checkpoint is a starting point rather than a fixed capability. This track
               measures how much of that is recoverable, and it is deliberately not live
               yet: it runs only once the disclosure process and external review described
-              in the Standard are in place.
+              in the Standard are in place. Other groups have already published on this,
+              and their findings are summarised further down rather than left as a blank.
             </p>
           </div>
         </div>
+      </div>
+    </section>
+
+    <section class="ev-section">
+      <div class="container">
+        <h2 class="ev-h2">What is already known about the risk side</h2>
+        <p class="ev-sub">
+          Our own biorisk track has no numbers yet, and leaving it at that would imply the
+          question is open. It is not. Other groups have published directly on it, and
+          their results tell you more than an empty panel of ours would, so they belong on
+          this page with their names on them.
+        </p>
+        <div class="ev-tracks">
+          <div class="ev-track">
+            <h3>Leaving data out of training does not leave the capability out</h3>
+            <p>
+              Evo 2, a model trained on raw DNA, deliberately excluded eukaryotic viral
+              sequences from its training data. A 2025 study by Scale, Princeton, the
+              University of Maryland, SecureBio and the Center for AI Safety found that
+              about fifty fine-tuning steps — under an hour on a single GPU — restored what
+              the filtering had removed. They also found that reading the model's internal
+              layers recovered several times more of the capability than its own outputs
+              expressed.
+            </p>
+            <p>
+              <a href="https://arxiv.org/abs/2510.27629" rel="noopener">Wei et al.,
+              BioRiskEval, 2025 →</a>
+            </p>
+          </div>
+          <div class="ev-track">
+            <h3>Design tools can route around the screening at the door</h3>
+            <p>
+              The main physical checkpoint between a worrying sequence and a physical sample
+              is the screening that DNA synthesis companies run on incoming orders. A 2025
+              paper in <em>Science</em> found that open-source protein design software could
+              produce variants of proteins of concern that existing screening tools did not
+              reliably detect. The authors developed and deployed fixes with synthesis
+              providers before publishing, which is also a model of how this kind of result
+              should be handled.
+            </p>
+            <p>
+              <a href="https://doi.org/10.1126/science.adu8578" rel="noopener">Wittmann et
+              al., Science 2025 →</a>
+            </p>
+          </div>
+        </div>
+        <p class="ev-note">
+          Neither of those is our work and we claim no part of it. They are here because
+          this page is meant to tell you how capable these models are getting on both sides
+          of the ledger, and on the risk side other people currently hold the evidence. The
+          first of them also measures, on a biological model, the same thing our own method
+          section describes — so it is fair to say that idea was demonstrated before we
+          started rather than by us. What we intend to add is that measurement run routinely
+          across many models instead of once.
+        </p>
       </div>
     </section>
 
@@ -311,6 +367,36 @@
 
     <section class="ev-section">
       <div class="container">
+        <h2 class="ev-h2">The question we are chasing</h2>
+        <p class="ev-sub">
+          Two bodies of work exist here and they do not meet. One measures how these models
+          improve as they get bigger, and never looks inside them. The other looks inside,
+          usually one model at a time, to answer a particular safety question. That leaves
+          the question in between unasked: as models get bigger, does the gap between what
+          a model says and what it internally knows widen, or close?
+        </p>
+        <p class="ev-sub">
+          It matters which. If the gap closes with scale, then judging a model by its
+          outputs becomes a safer approximation as the field advances, and existing
+          practice improves on its own. If the gap widens, then every assessment built on
+          outputs alone becomes steadily more misleading exactly as the models become more
+          capable. Nobody knows which is true, and it is the kind of thing a standing
+          evaluation programme is for.
+        </p>
+        <p class="ev-sub">
+          We are unusually well placed to answer it, because it needs a ladder of model
+          sizes and an internal read of each one under a fixed budget, which is what this
+          harness already does. Our current numbers hint that the gap shrinks as models
+          grow, but weakly, not consistently, and on a task too easy for the answer to
+          mean much: when scores crowd toward the top, any gap is squeezed shut whether or
+          not anything real is happening. So this is the question we are building
+          for, not a result we are reporting, and what it needs first is the list below.
+        </p>
+      </div>
+    </section>
+
+    <section class="ev-section">
+      <div class="container">
         <h2 class="ev-h2">What is not yet true</h2>
         <p class="ev-sub">
           An evaluator that hides its own limits is not one. As of this build:
@@ -318,7 +404,8 @@
         <ul class="ev-caveats">
           <li>Ten models spanning 150 million to 15 billion parameters all land between 0.94 and 0.97 on this task, close enough together that it is running out of room to tell them apart. The flat scaling curve above should therefore be read as a statement about this task as much as about the models: a harder one is needed before differences at the top mean anything.</li>
           <li>The size trend covers one model family. The like-for-like comparison across vintages covers five, which is enough to be suggestive and not enough to be a trend line.</li>
-          <li>The biorisk track has no published numbers at all. The measurement is specified and the harness supports it; it is gated on process, not on capability.</li>
+          <li>The biorisk track has no numbers of ours at all. The measurement is specified and the harness supports it; it is gated on process, not on capability. What is known so far on that side is other people's work, credited above.</li>
+          <li>The gap between output and internals is measured here as a difference between two layers, which is a weaker thing than it sounds. The stronger version, how much light fine-tuning recovers, is the number that would make it a capability claim, and it has been measured on a genome model by another group but not by us on any model.</li>
           <li>The protein split is weaker than the field standard. See the note above: our grouping merged almost nothing, so every protein score here is an upper estimate.</li>
           <li>Our shuffled-label test runs 100 shuffles, so the strongest result it can report is 1 in 101 — and every single result reports exactly that. It is enough to say these scores are not coincidence, and not enough to tell them apart. We are raising the count.</li>
           <li>The intervals come from 60 resamples, which is few. Treat their endpoints as coarse.</li>
