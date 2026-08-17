@@ -799,3 +799,6 @@
   .ev-subnav { gap: 5px; }
   .ev-subnav a { font-size: 0.66rem; padding: 5px 9px; }
 }
+
+/* A separated gap on a lower-is-better task is an adverse finding, not a win. */
+.ev-num.is-adverse { color: var(--ev-warn); font-weight: 600; }

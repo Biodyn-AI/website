@@ -45,6 +45,12 @@
 
   function renderLeaderboard(container, board, task) {
     container.innerHTML = '';
+    // On a nuisance task (donor invariance) a gap separated from zero means the
+    // internals leak MORE of the thing we want hidden, and a surviving null means
+    // the leak is real. Both are adverse findings. Styling them as wins, which is
+    // what a direction-blind renderer does, turned the SC4 board into a clean
+    // sweep for models that concentrate donor identity in their internals.
+    const higherIsBetter = board.higher_is_better !== false;
 
     const caption = el('p', 'ev-sub');
     caption.textContent = task
@@ -73,7 +79,9 @@
       });
 
       const gapTd = el('td', 'ev-num', signed(r.elicitation_gap));
-      if (r.gap_separated_from_zero === true) gapTd.classList.add('is-best');
+      if (r.gap_separated_from_zero === true) {
+        gapTd.classList.add(higherIsBetter ? 'is-best' : 'is-adverse');
+      }
       tr.appendChild(gapTd);
 
       // A gap whose paired interval spans zero is shown, but marked. Reporting
@@ -105,7 +113,9 @@
       tr.appendChild(beats);
 
       const nullTd = el('td');
-      const nf = el('span', `ev-flag ${r.survives_null ? 'ok' : 'bad'}`, fmt(r.null_p));
+      // Surviving the null is good news only when the measured thing is desirable.
+      const nullOk = higherIsBetter ? r.survives_null : !r.survives_null;
+      const nf = el('span', `ev-flag ${nullOk ? 'ok' : 'warn'}`, fmt(r.null_p));
       nullTd.appendChild(nf);
       tr.appendChild(nullTd);
 
@@ -162,7 +172,11 @@
   function renderTrend(container, trend, opts = {}) {
     container.innerHTML = '';
     const byDate = opts.xMode === 'date';
-    let pts = (trend.points || []).filter((p) => p.params && p.best != null);
+    let pts = (trend.points || []).filter((p) => p.params && p.best != null)
+      // Untrained control models share the architecture but not the training, so
+      // they are a separate arm rather than rungs on this ladder. Plotting them
+      // here would imply one trend through two different populations.
+      .filter((p) => !/-random$/.test(p.model));
 
     if (byDate) {
       // A trend against time is only about time if size is held roughly fixed.
@@ -343,16 +357,46 @@
         ? { x1: job.x, x2: job.x + w }
         : { x1: job.x - w / 2, x2: job.x + w / 2 });
 
-      let dy = job.offsets[0];
+      // Search vertically first, then sideways. Vertical-only placement runs out
+      // when several models share an x -- three at 650M, two at 1.2B -- and the
+      // old code then fell back to offsets[0], the candidate most likely to
+      // collide, which guaranteed an overlap on exactly the crowded charts that
+      // needed placement most. Now every candidate is scored and the least-bad
+      // one wins if none is clean.
+      const areaOf = (box) => placed.reduce((acc, b) => {
+        const ox = Math.min(box.x2, b.x2) - Math.max(box.x1, b.x1);
+        const oy = Math.min(box.y2, b.y2) - Math.max(box.y1, b.y1);
+        return acc + (ox > 0 && oy > 0 ? ox * oy : 0);
+      }, 0);
+
+      const candidates = [];
       for (const cand of job.offsets) {
-        const yy = job.y + cand;
-        if (yy < M.t + 10 || yy > M.t + ih + 40) continue;
-        const box = { ...span(yy), y1: yy - LAB_H, y2: yy + 3 };
-        if (!placed.some((b) => overlaps(box, b))) { dy = cand; break; }
+        for (const dx of [0, w / 2 + 10, -(w / 2 + 10)]) {
+          const yy = job.y + cand;
+          if (yy < M.t + 10 || yy > M.t + ih + 40) continue;
+          const base = span(yy);
+          const box = { x1: base.x1 + dx, x2: base.x2 + dx, y1: yy - LAB_H, y2: yy + 3 };
+          if (box.x1 < 2 || box.x2 > W - 4) continue;
+          candidates.push({ dy: cand, dx, yy, box, cost: areaOf(box) + Math.abs(cand) * 0.4 + Math.abs(dx) * 0.8 });
+        }
       }
-      const yy = job.y + dy;
-      placed.push({ ...span(yy), y1: yy - LAB_H, y2: yy + 3 });
+      candidates.sort((a, b) => a.cost - b.cost);
+      const pick = candidates[0] || {
+        dy: job.offsets[0], dx: 0, yy: job.y + job.offsets[0],
+        box: { ...span(job.y + job.offsets[0]), y1: job.y + job.offsets[0] - LAB_H, y2: job.y + job.offsets[0] + 3 },
+      };
+      const dy = pick.dy;
+      const yy = pick.yy;
+      placed.push(pick.box);
       job.node.setAttribute('y', String(yy));
+      if (pick.dx) {
+        job.node.setAttribute('x', String(job.x + pick.dx));
+        // Displaced sideways, so it needs a line back to its point.
+        svg.appendChild(svgEl('line', {
+          x1: job.x, y1: job.y, x2: job.x + pick.dx - Math.sign(pick.dx) * (w / 2 + 2), y2: yy - 4,
+          class: 'ev-chart-leader',
+        }));
+      }
 
       // A reference label nudged off its line needs a tick back to it, or it
       // reads as belonging to the wrong line.
@@ -515,6 +559,17 @@
       foot: 'One striped row is a similarity lookup: copy the answer of the most '
         + 'similar protein already labelled. Here that is the hard bar.',
     },
+    'pr3-fold-recognition': {
+      title: 'Recognising a protein’s shape from a sequence unlike any it has seen',
+      plain: 'The hardest of the three, and the one built to have room left in it. '
+        + 'Given a protein domain, name its fold — the shape it folds into. Whole '
+        + 'families of related proteins are held out of training, so a model cannot '
+        + 'answer by spotting something it has seen before; it has to have learned '
+        + 'what makes a shape.',
+      scale: [0, 1],
+      foot: 'Bars run from 0 to a perfect 1. Nothing is near the top, which is the '
+        + 'point: this task still has room to tell models apart.',
+    },
     'sc1-celltype-transfer': {
       title: 'Naming a cell type in a person the model never saw',
       plain: 'Given the gene activity inside a single cell, say what kind of cell it is, '
@@ -532,6 +587,7 @@
       // On a lower-is-better task "did not beat the baseline" reads backwards,
       // so this task says what actually went wrong.
       failBase: 'gave the donor away more readily than using no model at all',
+      higherBetter: false,
     },
   };
 
@@ -611,9 +667,13 @@
       const noNull = models.filter((r) => r.survives_null === false);
       const check = el('p', 'ev-result-check');
       if (!noBase.length && !noNull.length) {
-        check.appendChild(el('span', 'ev-tick', '✓'));
+        const good = (meta.higherBetter !== false);
+        check.appendChild(el('span', good ? 'ev-tick' : 'ev-cross', good ? '✓' : '!'));
         check.appendChild(document.createTextNode(
-          ' All beat the no-model comparison and survived a shuffled-label test.'
+          good
+            ? ' All beat the no-model comparison and survived a shuffled-label test.'
+            : ' Every model here makes the donor easier to identify than no model does,'
+              + ' and a shuffled-label test confirms the leak is real rather than chance.'
         ));
       } else {
         const parts = [];

@@ -30,7 +30,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="evals.css?v=3">
+  <link rel="stylesheet" href="evals.css?v=4">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
 </head>
 <body class="ev-page">
@@ -90,61 +90,69 @@
     <section class="ev-section" id="scale">
       <div class="container">
         <p class="ev-headline">
-          Bigger protein models read biological function better, but only up to a
-          point. Past a few hundred million parameters, a hundredfold more size
-          buys nothing we can measure.
+          Bigger protein models do read biological function better. The effect is
+          real but modest, and the largest model in a family is never the best one.
         </p>
         <div id="evTrend"></div>
         <p class="ev-caption">
-          One family, ESM2, so the only thing changing along the axis is size. The task
-          is spotting a transcription factor from its amino-acid sequence alone. The red
-          line is what you get with no model at all.
+          One family, ESM2, so the only thing changing along the axis is size. The
+          task is spotting a transcription factor from its amino-acid sequence
+          alone. The red line is what you get with no model at all.
         </p>
 
         <details class="ev-more">
           <summary>How to read this, and what it does not show</summary>
           <div class="ev-more-body">
             <p>
-              The curve has a knee. Below about 150 million parameters the score rises by
-              roughly 2.8 points for every tenfold increase in size. From 150 million to
-              15 billion, a hundredfold increase, the total gain is a tenth of a point.
-              The largest model is not the best one: at 15 billion it sits fractionally
-              below the 3 billion model and level with the 650 million, all three inside
-              each other's error bars.
+              Across a nearly two-thousandfold range of size the score rises about
+              4 points in total, roughly 1.3 points for every tenfold increase, and
+              most of that arrives below 150 million parameters. Above it the line
+              is flat and noisy: the 3 billion model is the best of the family and
+              the 15 billion model sits below it, back at roughly the 150 million
+              level. The intervals overlap heavily, so read the ordering at the top
+              as unresolved rather than as a ranking.
             </p>
             <p>
-              The score is macro-F1 rather than plain accuracy, because it counts the
-              rarer class as heavily as the common one. Bars are 95% intervals over
-              resampled sequence clusters.
+              <strong>Every number on this page moved when we fixed our own
+              measurement.</strong> Scores on this task fell by 1.5 to 3.6 points
+              once the probe layer stopped being chosen on the test set and the
+              homology split started clustering at the identity threshold the field
+              uses. The earlier, higher numbers were our error, not the models'
+              achievement. <a href="evals-literature.html">What we got wrong, and
+              who found what first →</a>
             </p>
             <p>
-              <strong>This is not our discovery.</strong> The
-              <a href="https://arxiv.org/abs/2301.06568" rel="noopener">Ankh</a> team
-              reported in 2023 that ESM-2 15B did not beat smaller ESM models and gave
-              inconsistent results between runs; a 2025 study in
+              The flattening at the top is not our discovery either. The
+              <a href="https://arxiv.org/abs/2301.06568" rel="noopener">Ankh</a>
+              team reported in 2023 that ESM-2 15B did not beat smaller ESM models
+              and behaved inconsistently between runs; a 2025 study in
               <a href="https://doi.org/10.1038/s41598-025-05674-x" rel="noopener">Scientific
-              Reports</a> found every model above 150 million performing comparably; and
-              <a href="https://arxiv.org/abs/2506.14796" rel="noopener">PFMBench</a> reports
-              the same flatness across far more tasks.
-              <a href="evals-literature.html">Who found what, in full →</a>
+              Reports</a> found every model above 150 million performing comparably.
             </p>
             <p>
-              There is also a confound in the axis. Every ESM2 model here saw roughly the
-              same number of training tokens regardless of size, so this ladder does not
-              test scale under a budget that grows with the model. A
+              There is also a confound in the axis: every ESM2 model here saw
+              roughly the same number of training tokens regardless of size, so this
+              ladder does not test scale under a budget that grows with the model. A
               <a href="https://proceedings.neurips.cc/paper_files/paper/2024/hash/8066ae1446b2bbccb5159587cc3b3bcc-Abstract-Conference.html" rel="noopener">NeurIPS
-              2024 study</a> that re-allocated that compute beat ESM-2 3B with a larger
-              model on fewer repeated tokens. So this ladder stops paying; protein models
-              in general have not stopped scaling.
-            </p>
-            <p>
-              And a limit of our own: proteins that resemble each other should not straddle
-              the train and test split, or a model can score well by recognising a near-copy.
-              Our grouping merged less than the field standard of 25 to 30 percent sequence
-              identity, so every protein score here should be read as an upper estimate.
+              2024 study</a> that re-allocated that compute beat ESM-2 3B. So this
+              ladder stops paying; protein models in general have not stopped scaling.
             </p>
           </div>
         </details>
+
+        <h2 class="ev-h2" style="margin-top:52px">It is learned biology, not just more parameters</h2>
+        <p class="ev-sub">
+          The obvious sceptical reading of any scaling curve is that bigger models
+          are better at everything simply for having more parameters, with nothing
+          biological about it. That is testable, so we tested it: the same
+          architectures at the same sizes, with the training thrown away.
+        </p>
+        <p class="ev-caption">
+          Untrained models score 0.79 here against 0.88 to 0.92 for trained ones, and
+          they do not improve with size at all: 0.07 points per tenfold increase
+          against 2.1 for trained models. Whatever scale buys, it is bought with
+          what the models learned, not with their parameter count.
+        </p>
       </div>
     </section>
 
@@ -251,33 +259,49 @@
         <h2 class="ev-h2">The question we are built to answer</h2>
         <p class="ev-sub">
           As models get bigger, does the gap between what a model says and what it
-          internally knows widen, or close? If it closes, judging models by their outputs
-          gets safer as the field advances. If it widens, output-only assessment becomes
-          steadily more misleading exactly as models become more capable.
+          internally knows widen, or close? If it closes, judging models by their
+          outputs gets safer as the field advances. If it widens, output-only
+          assessment becomes steadily more misleading exactly as models become more
+          capable.
+        </p>
+        <p class="ev-sub">
+          First answer: <strong>no measurable change</strong>. Across three tasks and
+          up to thirteen models, the gap neither grows nor shrinks with size by an
+          amount distinguishable from zero. That is a result, not a failure to find
+          one.
         </p>
         <details class="ev-more">
-          <summary>Why nobody has answered this, and what it needs from us</summary>
+          <summary>Why that answer is worth more than it sounds</summary>
           <div class="ev-more-body">
             <p>
-              Two bodies of work exist and do not meet. One measures how models improve as
-              they get bigger and never looks inside them. The other looks inside, usually
-              one model at a time, to settle a particular safety question. The composite
-              needs a ladder of model sizes and an internal read of each one under a fixed
-              budget, which is what this harness does.
+              An earlier build of this page said the gap shrank with scale. It did
+              not. That apparent trend was an artefact of two things: choosing the
+              best internal layer by its score on the very data used to report it,
+              which inflated the gap by about 92% on the one model where we isolated
+              it, and a confidence interval that covered 90% while claiming 95%. Both
+              are fixed, and the trend disappeared with them.
             </p>
             <p>
-              Our current numbers hint the gap shrinks with size, but weakly and on a task
-              too easy for the answer to mean much: when scores crowd toward the top, any
-              gap is squeezed shut whether or not anything real is happening. So this is
-              what we are building for, not a result we are reporting.
+              The gap is also much larger where there is room for it. On the easy
+              task it is a fraction of a point; on the hard fold-recognition task it
+              reaches 10 points. That is consistent with the small gaps on the easy
+              task having been squeezed shut by the ceiling rather than reflecting
+              anything about the models, which is why we now report every gap twice,
+              raw and relative to the room remaining.
             </p>
             <p>
-              A benchmark normally scores what a model puts out. PROBE also reads what the
-              model holds internally, using a readout of the same size for both, so a
-              difference is a fact about the model rather than the instrument. Fine-tuning,
-              the strongest version of the measurement, is not yet run on any model here,
-              so what we report today is a lower bound.
-              <a href="evals-standard.html">How the measurement works →</a>
+              A benchmark normally scores what a model puts out. PROBE also reads
+              what the model holds internally, through a readout of the same size for
+              both, so a difference is a fact about the model rather than the
+              instrument. <a href="evals-standard.html">How the measurement works →</a>
+            </p>
+            <p>
+              We have now measured the third surface, what light fine-tuning
+              recovers, on four models. Under a small fixed budget it lands well
+              below both the output and the probe, which says more about the budget
+              than about the models: 200 adaptation steps is not enough to learn a
+              15-way classification from scratch. It is a lower bound, and we are not
+              yet treating it as a measure of what elicitation could recover.
             </p>
           </div>
         </details>
@@ -296,15 +320,14 @@
           <summary>What this page still cannot tell you</summary>
           <div class="ev-more-body">
             <ul class="ev-caveats">
-              <li>Ten models from 150 million to 15 billion parameters land between 0.94 and 0.97 on the protein task, so it is running out of room to tell them apart. A harder task is needed before differences at the top mean anything.</li>
+              <li>Every score on this page dropped by 1.5 to 3.6 points when we fixed our own measurement. The corrections are described on the prior-work page; the earlier numbers should not be cited.</li>
+              <li>Confidence intervals on the scaling curves overlap heavily, so the ordering of the larger models is unresolved rather than measured.</li>
               <li>The size trend covers one model family. The vintage comparison covers five, enough to be suggestive and not enough to be a trend line.</li>
-              <li>The biorisk track has no numbers of ours. It is gated on process, not capability.</li>
-              <li>The gap we report is a difference between two layers. The stronger version, what light fine-tuning recovers, has been measured on a genome model by another group but not by us on any model.</li>
-              <li>The protein split is weaker than the field standard, so those scores are upper estimates.</li>
-              <li>Our shuffled-label test runs 100 shuffles, so the best it can report is 1 in 101, and every result reports exactly that. It shows these scores are not coincidence; it cannot rank them.</li>
-              <li>Intervals come from 60 resamples. Treat their endpoints as coarse.</li>
-              <li>Nothing here has a real task ceiling, so we do not know how much of the remaining distance is even reachable.</li>
-              <li>Genome language models are not covered yet.</li>
+              <li>The biorisk track has no numbers of ours. It is gated on process, not capability. What is known so far on that side is other people's work, credited above.</li>
+              <li>Fine-tuning is measured on four models but under a budget too small to be informative; it currently reads as a lower bound, not a capability.</li>
+              <li>Our second task turned out to score seven of its fourteen classes, because a protein family and a homology group are nearly the same thing, so holding homologues out removes whole classes. It is reported as seven.</li>
+              <li>The fold task has no genuine ceiling, so we do not know how much of the remaining distance is even reachable.</li>
+              <li>Genome language models are not covered yet, and the single-cell track is mid-rerun.</li>
               <li>Coverage is a handful of tasks on one dataset per modality, and the layer result in particular is known to vary by dataset.</li>
             </ul>
           </div>
@@ -364,6 +387,6 @@
   </footer>
 
   <script src="script.js"></script>
-  <script src="evals.js?v=3"></script>
+  <script src="evals.js?v=4"></script>
 </body>
 </html>
