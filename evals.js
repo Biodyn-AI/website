@@ -527,6 +527,7 @@
     'esm2-t30-150m-ur50d-random': ['ESM2 150M, untrained', 'control'],
     'esm2-t33-650m-ur50d-random': ['ESM2 650M, untrained', 'control'],
     'composition-reference': ['Counting amino acids', 'no model'],
+    'kmer-reference': ['Counting DNA words', 'no model'],
     'raw-expression': ['The measurements themselves', 'no model'],
     'pca-reference-32': ['Simple compression', 'no model'],
   };
@@ -544,44 +545,42 @@
   const TASK_META = {
     'pr1-tf-identity': {
       title: 'Recognising a genetic switch from sequence alone',
-      plain: 'Given only a protein\'s string of amino acids, decide whether it is a '
-        + 'transcription factor: one of the proteins that switch genes on and off.',
+      plain: 'Is this protein a transcription factor, one of the switches that turn '
+        + 'genes on and off?',
       scale: [0.5, 1],
-      foot: 'Bars start at 0.5, what guessing scores on a yes-or-no question.',
+      foot: '',
     },
     'pr2-tf-family': {
       title: 'Telling apart the kinds of genetic switch',
-      plain: 'Given a protein already known to be a transcription factor, say which of '
-        + 'fourteen families of DNA-binding machinery it uses. Over half of all human '
-        + 'transcription factors use zinc fingers, so the rare families are the hard '
-        + 'part.',
+      plain: 'Which of seven families of DNA-binding machinery does this transcription '
+        + 'factor use?',
       scale: [0, 1],
       foot: 'One striped row is a similarity lookup: copy the answer of the most '
         + 'similar protein already labelled. Here that is the hard bar.',
     },
     'pr3-fold-recognition': {
       title: 'Recognising a protein’s shape from a sequence unlike any it has seen',
-      plain: 'The hardest of the three, and the one built to have room left in it. '
-        + 'Given a protein domain, name its fold — the shape it folds into. Whole '
-        + 'families of related proteins are held out of training, so a model cannot '
-        + 'answer by spotting something it has seen before; it has to have learned '
-        + 'what makes a shape.',
+      plain: 'What shape does this protein fold into, when nothing like it was in '
+        + 'training?',
       scale: [0, 1],
-      foot: 'Bars run from 0 to a perfect 1. Nothing is near the top, which is the '
-        + 'point: this task still has room to tell models apart.',
+      foot: '',
+    },
+    'dn1-enhancer-class': {
+      title: 'Reading regulatory DNA',
+      plain: 'Is this 400-letter window of human DNA a regulatory switch, and of which '
+        + 'kind?',
+      scale: [0, 1],
+      foot: '',
     },
     'sc1-celltype-transfer': {
       title: 'Naming a cell type in a person the model never saw',
-      plain: 'Given the gene activity inside a single cell, say what kind of cell it is, '
-        + 'tested only on donors held out of training.',
+      plain: 'What kind of cell is this, in a person the model never saw?',
       scale: [0, 1],
       foot: '',
     },
     'sc4-donor-invariance': {
       title: 'Not giving away whose sample it was',
-      plain: 'The same models read for the opposite property: how easily the donor can be '
-        + 'identified from a model\'s reading of their cells. A shorter bar is better '
-        + 'here.',
+      plain: 'How easily can you tell whose sample a cell came from? Shorter is better.',
       scale: [0, 1],
       foot: 'Shorter is better: the bar is how identifiable the donor was.',
       // On a lower-is-better task "did not beat the baseline" reads backwards,

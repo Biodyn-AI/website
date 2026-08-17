@@ -30,7 +30,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="evals.css?v=4">
+  <link rel="stylesheet" href="evals.css?v=5">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
 </head>
 <body class="ev-page">
@@ -265,10 +265,10 @@
           capable.
         </p>
         <p class="ev-sub">
-          First answer: <strong>no measurable change</strong>. Across three tasks and
-          up to thirteen models, the gap neither grows nor shrinks with size by an
-          amount distinguishable from zero. That is a result, not a failure to find
-          one.
+          First answer: <strong>no measurable change</strong>. Across four tasks and
+          up to seventeen models, in protein models and now independently in genome
+          models, the gap neither grows nor shrinks with size by an amount
+          distinguishable from zero. That is a result, not a failure to find one.
         </p>
         <details class="ev-more">
           <summary>Why that answer is worth more than it sounds</summary>
@@ -302,6 +302,42 @@
               than about the models: 200 adaptation steps is not enough to learn a
               15-way classification from scratch. It is a lower bound, and we are not
               yet treating it as a measure of what elicitation could recover.
+            </p>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <section class="ev-section" id="dna">
+      <div class="container">
+        <h2 class="ev-h2">Genome models barely beat counting DNA words</h2>
+        <p class="ev-sub">
+          The first measurements here on raw DNA rather than protein. Four sizes of
+          one genome model family, asked to pick out regulatory switches in the human
+          genome, with whole chromosomes held out.
+        </p>
+        <p class="ev-caption">
+          They score between 0.48 and 0.50 against 0.45 for counting short DNA words
+          with no model at all — and they do not improve with size. The largest, at
+          half a billion parameters, is the weakest of the four. On this task the
+          models are close to the cheap alternative, which is a different picture from
+          the protein side, where the gap over a no-model reference is wide.
+        </p>
+        <details class="ev-more">
+          <summary>How much weight this carries</summary>
+          <div class="ev-more-body">
+            <p>
+              One task, one family, four sizes. It was chosen by measuring five
+              candidate tasks and taking the one least solvable by cheap tricks: two
+              of the others turned out to be nearly answerable by counting four-letter
+              DNA words, and one was essentially a detector for how GC-rich a sequence
+              is wearing a biological label. So this is the hardest of the five, and
+              the models still barely clear the cheap alternative.
+            </p>
+            <p>
+              It matters beyond capability. Genome models are where the biosecurity
+              question actually lives, and until now this programme could not measure
+              one at all.
             </p>
           </div>
         </details>
@@ -387,6 +423,6 @@
   </footer>
 
   <script src="script.js"></script>
-  <script src="evals.js?v=4"></script>
+  <script src="evals.js?v=5"></script>
 </body>
 </html>

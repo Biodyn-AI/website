@@ -1,5 +1,5 @@
 {
-  "generated_from_n_cards": 42,
+  "generated_from_n_cards": 49,
   "models": [
     {
       "id": "ankh-base",
@@ -122,12 +122,52 @@
       "n_cards": 2
     },
     {
+      "id": "geneformer-v2-104m",
+      "modality": "single-cell",
+      "params": 104000000,
+      "source": "ctheodoris/Geneformer/Geneformer-V2-104M",
+      "notes": "Rank-value encoding, max_len=2048, 12 layers, hidden 768. Cell embedding = mean over gene tokens, excluding special tokens.",
+      "n_cards": 1
+    },
+    {
+      "id": "nt-v2-100m",
+      "modality": "dna",
+      "params": 95518561,
+      "source": "InstaDeepAI/nucleotide-transformer-v2-100m-multi-species",
+      "notes": "22 layers, hidden 512, 6-mer tokenisation, truncated at 2048 tokens (12282 bp), float32 weights, pretrained on 850 multi-species genomes. Licence CC BY-NC-SA 4.0 (non-commercial). Sequences are upper-cased and non-ACGTN characters mapped to N before tokenisation. Sanctioned embedding = mean over all non-padding positions of the final hidden layer, including <cls>, which is the recipe on the model card. Layer embeddings = the same mean excluding <cls>.",
+      "n_cards": 1
+    },
+    {
+      "id": "nt-v2-250m",
+      "modality": "dna",
+      "params": 231370369,
+      "source": "InstaDeepAI/nucleotide-transformer-v2-250m-multi-species",
+      "notes": "24 layers, hidden 768, 6-mer tokenisation, truncated at 2048 tokens (12282 bp), float32 weights, pretrained on 850 multi-species genomes. Licence CC BY-NC-SA 4.0 (non-commercial). Sequences are upper-cased and non-ACGTN characters mapped to N before tokenisation. Sanctioned embedding = mean over all non-padding positions of the final hidden layer, including <cls>, which is the recipe on the model card. Layer embeddings = the same mean excluding <cls>.",
+      "n_cards": 1
+    },
+    {
+      "id": "nt-v2-500m",
+      "modality": "dna",
+      "params": 493084113,
+      "source": "InstaDeepAI/nucleotide-transformer-v2-500m-multi-species",
+      "notes": "29 layers, hidden 1024, 6-mer tokenisation, truncated at 2048 tokens (12282 bp), float32 weights, pretrained on 850 multi-species genomes. Licence CC BY-NC-SA 4.0 (non-commercial). Sequences are upper-cased and non-ACGTN characters mapped to N before tokenisation. Sanctioned embedding = mean over all non-padding positions of the final hidden layer, including <cls>, which is the recipe on the model card. Layer embeddings = the same mean excluding <cls>.",
+      "n_cards": 1
+    },
+    {
+      "id": "nt-v2-50m",
+      "modality": "dna",
+      "params": 53534401,
+      "source": "InstaDeepAI/nucleotide-transformer-v2-50m-multi-species",
+      "notes": "12 layers, hidden 512, 6-mer tokenisation, truncated at 2048 tokens (12282 bp), float32 weights, pretrained on 850 multi-species genomes. Licence CC BY-NC-SA 4.0 (non-commercial). Sequences are upper-cased and non-ACGTN characters mapped to N before tokenisation. Sanctioned embedding = mean over all non-padding positions of the final hidden layer, including <cls>, which is the recipe on the model card. Layer embeddings = the same mean excluding <cls>.",
+      "n_cards": 1
+    },
+    {
       "id": "pca-reference-32",
       "modality": "single-cell",
       "params": 0,
       "source": "probe.adapters.reference.PCAReference",
       "notes": "Not a foundation model. Included as the reference every model must beat before its score means anything.",
-      "n_cards": 1
+      "n_cards": 2
     },
     {
       "id": "prot-t5-xl",
@@ -151,10 +191,25 @@
       "params": 0,
       "source": "probe.adapters.reference.RawExpressionReference",
       "notes": "Log-normalised HVG expression. The floor for every single-cell task.",
-      "n_cards": 1
+      "n_cards": 2
     }
   ],
   "tasks": [
+    {
+      "id": "dn1-enhancer-class",
+      "version": "1.0",
+      "axis": [
+        "A1",
+        "A3"
+      ],
+      "axis_labels": [
+        "Representation quality",
+        "Transfer / generalisation"
+      ],
+      "metric": "macro_f1",
+      "dataset_id": "nt-enhancers",
+      "n_models": 4
+    },
     {
       "id": "pr1-tf-identity",
       "version": "1.0",
@@ -213,10 +268,167 @@
       ],
       "metric": "macro_f1",
       "dataset_id": "ts-immune-20k",
+      "n_models": 3
+    },
+    {
+      "id": "sc4-donor-invariance",
+      "version": "1.0",
+      "axis": [
+        "A8"
+      ],
+      "axis_labels": [
+        "Robustness"
+      ],
+      "metric": "donor_macro_f1_lower_is_better",
+      "dataset_id": "ts-immune-20k",
       "n_models": 2
     }
   ],
   "leaderboards": {
+    "dn1-enhancer-class": {
+      "rows": [
+        {
+          "model": "nt-v2-250m",
+          "best": 0.499299,
+          "zero_shot": 0.418768,
+          "behavioural": 0.490835,
+          "probe": 0.499299,
+          "elicited": null,
+          "elicitation_gap": 0.008464,
+          "gap_ci95": [
+            -0.004396836830809185,
+            0.025102730678837327
+          ],
+          "gap_positive_fraction": 0.8685,
+          "gap_structural_zero": false,
+          "gap_separated_from_zero": false,
+          "best_baseline": 0.446667,
+          "beats_baseline": true,
+          "ceiling": 0.4961695309934837,
+          "headroom": -0.006307,
+          "null_p": 0.000999000999000999,
+          "survives_null": true,
+          "ci95": [
+            0.4701977768212595,
+            0.5300139122637315
+          ],
+          "caveats": [
+            "3 test window(s) had a near-duplicate in training (segmental duplication reaching across chromosomes) and were removed before scoring. A chromosome split does not catch these on its own.",
+            "Exceeds the empirical ceiling (0.496): the representation adds over the best cheap supervised readout of k-mer composition. On this task that is a good outcome rather than saturation, because k-mer composition cannot nearly solve enhancer identification, so the ceiling is a comparator and not an attainable maximum. `derived.headroom` is therefore negative and must not be read as headroom on DN1.",
+            "Elicitation gap +0.0085 has a paired 95% interval [-0.0044, +0.0251] spanning zero (positive in 87% of block resamples); not distinguishable from no gap on this dataset.",
+            "The 95% intervals resample megabase blocks, not chromosomes. The split leaves 7 test chromosome(s), too few to resample honestly, so the interval covers variation across loci within them and not the variance of the chromosome holdout itself; the chromosome-level gap interval, in controls.extra, is [-0.0006, +0.0240].",
+            "Class names are inferred, not documented: the source repository labels the classes 0/1/2 without saying which is which. The no-enhancer class is pinned by joining to the sibling binary task; which of the two enhancer classes is tissue-invariant is inferred from their sizes. If that is backwards the two names swap and no score changes.",
+            "Data licence: No licence declared on the source repository (https://huggingface.co/datasets/InstaDeepAI/nucleotide_transformer_downstream_tasks_revised; its dataset-card metadata block is empty). Underlying measurements are ENCODE/SCREEN data, reusable under the ENCODE Consortium data-use policy with citation; the Nucleotide Transformer codebase that publishes the benchmark is CC BY-NC-SA 4.0 (non-commercial). Treat as non-commercial and unlicensed-in-writing.",
+            "Fine-tuning (F) not measured: adapter does not support it."
+          ]
+        },
+        {
+          "model": "nt-v2-50m",
+          "best": 0.495437,
+          "zero_shot": 0.422892,
+          "behavioural": 0.493749,
+          "probe": 0.495437,
+          "elicited": null,
+          "elicitation_gap": 0.001688,
+          "gap_ci95": [
+            -0.006288789660536874,
+            0.009476129742809297
+          ],
+          "gap_positive_fraction": 0.676,
+          "gap_structural_zero": false,
+          "gap_separated_from_zero": false,
+          "best_baseline": 0.446667,
+          "beats_baseline": true,
+          "ceiling": 0.4961695309934837,
+          "headroom": 0.001476,
+          "null_p": 0.000999000999000999,
+          "survives_null": true,
+          "ci95": [
+            0.46966155836825974,
+            0.5245786883407214
+          ],
+          "caveats": [
+            "3 test window(s) had a near-duplicate in training (segmental duplication reaching across chromosomes) and were removed before scoring. A chromosome split does not catch these on its own.",
+            "Elicitation gap +0.0017 has a paired 95% interval [-0.0063, +0.0095] spanning zero (positive in 68% of block resamples); not distinguishable from no gap on this dataset.",
+            "The 95% intervals resample megabase blocks, not chromosomes. The split leaves 7 test chromosome(s), too few to resample honestly, so the interval covers variation across loci within them and not the variance of the chromosome holdout itself; the chromosome-level gap interval, in controls.extra, is [-0.0066, +0.0101].",
+            "Class names are inferred, not documented: the source repository labels the classes 0/1/2 without saying which is which. The no-enhancer class is pinned by joining to the sibling binary task; which of the two enhancer classes is tissue-invariant is inferred from their sizes. If that is backwards the two names swap and no score changes.",
+            "Data licence: No licence declared on the source repository (https://huggingface.co/datasets/InstaDeepAI/nucleotide_transformer_downstream_tasks_revised; its dataset-card metadata block is empty). Underlying measurements are ENCODE/SCREEN data, reusable under the ENCODE Consortium data-use policy with citation; the Nucleotide Transformer codebase that publishes the benchmark is CC BY-NC-SA 4.0 (non-commercial). Treat as non-commercial and unlicensed-in-writing.",
+            "Fine-tuning (F) not measured: adapter does not support it."
+          ]
+        },
+        {
+          "model": "nt-v2-100m",
+          "best": 0.486888,
+          "zero_shot": 0.392848,
+          "behavioural": 0.475587,
+          "probe": 0.486888,
+          "elicited": null,
+          "elicitation_gap": 0.011301,
+          "gap_ci95": [
+            -0.009967302498318484,
+            0.033030285376735385
+          ],
+          "gap_positive_fraction": 0.8515,
+          "gap_structural_zero": false,
+          "gap_separated_from_zero": false,
+          "best_baseline": 0.446667,
+          "beats_baseline": true,
+          "ceiling": 0.4961695309934837,
+          "headroom": 0.018706,
+          "null_p": 0.000999000999000999,
+          "survives_null": true,
+          "ci95": [
+            0.46674928651167613,
+            0.510557527346053
+          ],
+          "caveats": [
+            "3 test window(s) had a near-duplicate in training (segmental duplication reaching across chromosomes) and were removed before scoring. A chromosome split does not catch these on its own.",
+            "Elicitation gap +0.0113 has a paired 95% interval [-0.0100, +0.0330] spanning zero (positive in 85% of block resamples); not distinguishable from no gap on this dataset.",
+            "The 95% intervals resample megabase blocks, not chromosomes. The split leaves 7 test chromosome(s), too few to resample honestly, so the interval covers variation across loci within them and not the variance of the chromosome holdout itself; the chromosome-level gap interval, in controls.extra, is [+0.0044, +0.0171].",
+            "Class names are inferred, not documented: the source repository labels the classes 0/1/2 without saying which is which. The no-enhancer class is pinned by joining to the sibling binary task; which of the two enhancer classes is tissue-invariant is inferred from their sizes. If that is backwards the two names swap and no score changes.",
+            "Data licence: No licence declared on the source repository (https://huggingface.co/datasets/InstaDeepAI/nucleotide_transformer_downstream_tasks_revised; its dataset-card metadata block is empty). Underlying measurements are ENCODE/SCREEN data, reusable under the ENCODE Consortium data-use policy with citation; the Nucleotide Transformer codebase that publishes the benchmark is CC BY-NC-SA 4.0 (non-commercial). Treat as non-commercial and unlicensed-in-writing.",
+            "Fine-tuning (F) not measured: adapter does not support it."
+          ]
+        },
+        {
+          "model": "nt-v2-500m",
+          "best": 0.47956,
+          "zero_shot": 0.430569,
+          "behavioural": 0.47956,
+          "probe": 0.475993,
+          "elicited": null,
+          "elicitation_gap": -0.003567,
+          "gap_ci95": [
+            -0.025730848648009987,
+            0.015280976821345103
+          ],
+          "gap_positive_fraction": 0.403,
+          "gap_structural_zero": false,
+          "gap_separated_from_zero": false,
+          "best_baseline": 0.446667,
+          "beats_baseline": true,
+          "ceiling": 0.4961695309934837,
+          "headroom": 0.033476,
+          "null_p": 0.000999000999000999,
+          "survives_null": true,
+          "ci95": [
+            0.45977697238097087,
+            0.49611637284019694
+          ],
+          "caveats": [
+            "3 test window(s) had a near-duplicate in training (segmental duplication reaching across chromosomes) and were removed before scoring. A chromosome split does not catch these on its own.",
+            "Elicitation gap -0.0036 has a paired 95% interval [-0.0257, +0.0153] spanning zero (positive in 40% of block resamples); not distinguishable from no gap on this dataset.",
+            "The 95% intervals resample megabase blocks, not chromosomes. The split leaves 7 test chromosome(s), too few to resample honestly, so the interval covers variation across loci within them and not the variance of the chromosome holdout itself; the chromosome-level gap interval, in controls.extra, is [-0.0305, +0.0151].",
+            "Class names are inferred, not documented: the source repository labels the classes 0/1/2 without saying which is which. The no-enhancer class is pinned by joining to the sibling binary task; which of the two enhancer classes is tissue-invariant is inferred from their sizes. If that is backwards the two names swap and no score changes.",
+            "Data licence: No licence declared on the source repository (https://huggingface.co/datasets/InstaDeepAI/nucleotide_transformer_downstream_tasks_revised; its dataset-card metadata block is empty). Underlying measurements are ENCODE/SCREEN data, reusable under the ENCODE Consortium data-use policy with citation; the Nucleotide Transformer codebase that publishes the benchmark is CC BY-NC-SA 4.0 (non-commercial). Treat as non-commercial and unlicensed-in-writing.",
+            "Fine-tuning (F) not measured: adapter does not support it."
+          ]
+        }
+      ],
+      "rank_reversal_risk": {},
+      "higher_is_better": true,
+      "note": "Bootstrap replicates are not retained per model in v0.1, so pairwise reversal risk is not yet computable. The ordering below is a point estimate and should not be read as a ranking."
+    },
     "pr1-tf-identity": {
       "rows": [
         {
@@ -1489,6 +1701,37 @@
     "sc1-celltype-transfer": {
       "rows": [
         {
+          "model": "geneformer-v2-104m",
+          "best": 0.568825,
+          "zero_shot": 0.559177,
+          "behavioural": 0.568825,
+          "probe": 0.568825,
+          "elicited": null,
+          "elicitation_gap": 0.0,
+          "gap_ci95": [
+            0.0,
+            0.0
+          ],
+          "gap_positive_fraction": 0.0,
+          "gap_structural_zero": true,
+          "gap_separated_from_zero": false,
+          "best_baseline": 0.555965,
+          "beats_baseline": true,
+          "ceiling": 0.555964542195901,
+          "headroom": -0.023132,
+          "null_p": 0.000999000999000999,
+          "survives_null": true,
+          "ci95": [
+            0.39767264794374685,
+            0.5786947924440644
+          ],
+          "caveats": [
+            "Exceeds the empirical ceiling (0.556): the representation adds over the best cheap supervised readout of raw features. Either genuine added value or too narrow a ceiling sweep \u2014 worth rechecking with a wider sweep before the claim is leaned on.",
+            "No elicitation gap by construction: the best internal layer is the sanctioned surface. This model exposes no separate internals to probe.",
+            "Fine-tuning (F) not measured: adapter does not support it."
+          ]
+        },
+        {
           "model": "raw-expression",
           "best": 0.549885,
           "zero_shot": 0.549885,
@@ -1554,9 +1797,152 @@
       "rank_reversal_risk": {},
       "higher_is_better": true,
       "note": "Bootstrap replicates are not retained per model in v0.1, so pairwise reversal risk is not yet computable. The ordering below is a point estimate and should not be read as a ranking."
+    },
+    "sc4-donor-invariance": {
+      "rows": [
+        {
+          "model": "raw-expression",
+          "best": 0.53858,
+          "zero_shot": 0.454147,
+          "behavioural": 0.53858,
+          "probe": 0.53858,
+          "elicited": null,
+          "elicitation_gap": 0.0,
+          "gap_ci95": [
+            0.0,
+            0.0
+          ],
+          "gap_positive_fraction": 0.0,
+          "gap_structural_zero": true,
+          "gap_separated_from_zero": false,
+          "best_baseline": 0.655611,
+          "beats_baseline": true,
+          "ceiling": 0.7804737548304228,
+          "headroom": null,
+          "null_p": 0.000999000999000999,
+          "survives_null": true,
+          "ci95": [
+            0.503598222213553,
+            0.5678159068907352
+          ],
+          "caveats": [
+            "Lower is better on this task: the score is how well donor identity can be read out of the representation.",
+            "Retains 100% of the donor signal decodable from raw expression at equal capacity; this representation is not donor-invariant.",
+            "No elicitation gap by construction: the best internal layer is the sanctioned surface."
+          ]
+        },
+        {
+          "model": "pca-reference-32",
+          "best": 0.539205,
+          "zero_shot": 0.347274,
+          "behavioural": 0.407332,
+          "probe": 0.539205,
+          "elicited": null,
+          "elicitation_gap": 0.131873,
+          "gap_ci95": [
+            0.10007778361183829,
+            0.1636912510363917
+          ],
+          "gap_positive_fraction": 1.0,
+          "gap_structural_zero": false,
+          "gap_separated_from_zero": true,
+          "best_baseline": 0.655611,
+          "beats_baseline": true,
+          "ceiling": 0.7804737548304228,
+          "headroom": null,
+          "null_p": 0.000999000999000999,
+          "survives_null": true,
+          "ci95": [
+            0.5040401982035899,
+            0.5684443129012834
+          ],
+          "caveats": [
+            "Lower is better on this task: the score is how well donor identity can be read out of the representation.",
+            "Surfaces 100% of the donor identity that raw expression yields at the same readout capacity -- it makes donor *more* decodable than the untransformed data does, not less.",
+            "Internals leak more donor identity than the sanctioned surface does, so the sanctioned surface is hiding nuisance structure rather than removing it."
+          ]
+        }
+      ],
+      "rank_reversal_risk": {},
+      "higher_is_better": false,
+      "note": "Bootstrap replicates are not retained per model in v0.1, so pairwise reversal risk is not yet computable. The ordering below is a point estimate and should not be read as a ranking."
     }
   },
   "trends": {
+    "dn1-enhancer-class": {
+      "task": "dn1-enhancer-class",
+      "metric": "macro_f1",
+      "higher_is_better": true,
+      "modality": "dna",
+      "points": [
+        {
+          "model": "nt-v2-50m",
+          "family": "Nucleotide Transformer v2",
+          "params": 53534401,
+          "release_date": "2023-07",
+          "modality": "dna",
+          "behavioural": 0.493749,
+          "probe": 0.495437,
+          "best": 0.495437,
+          "ci95": [
+            0.46966155836825974,
+            0.5245786883407214
+          ],
+          "beats_baseline": true
+        },
+        {
+          "model": "nt-v2-100m",
+          "family": "Nucleotide Transformer v2",
+          "params": 95518561,
+          "release_date": "2023-07",
+          "modality": "dna",
+          "behavioural": 0.475587,
+          "probe": 0.486888,
+          "best": 0.486888,
+          "ci95": [
+            0.46674928651167613,
+            0.510557527346053
+          ],
+          "beats_baseline": true
+        },
+        {
+          "model": "nt-v2-250m",
+          "family": "Nucleotide Transformer v2",
+          "params": 231370369,
+          "release_date": "2023-07",
+          "modality": "dna",
+          "behavioural": 0.490835,
+          "probe": 0.499299,
+          "best": 0.499299,
+          "ci95": [
+            0.4701977768212595,
+            0.5300139122637315
+          ],
+          "beats_baseline": true
+        },
+        {
+          "model": "nt-v2-500m",
+          "family": "Nucleotide Transformer v2",
+          "params": 493084113,
+          "release_date": "2023-07",
+          "modality": "dna",
+          "behavioural": 0.47956,
+          "probe": 0.475993,
+          "best": 0.47956,
+          "ci95": [
+            0.45977697238097087,
+            0.49611637284019694
+          ],
+          "beats_baseline": true
+        }
+      ],
+      "references": [],
+      "ceiling": 0.4961695309934837,
+      "families": [
+        "Nucleotide Transformer v2"
+      ],
+      "n_dated": 4
+    },
     "pr1-tf-identity": {
       "task": "pr1-tf-identity",
       "metric": "macro_f1",
@@ -2217,7 +2603,23 @@
       "metric": "macro_f1",
       "higher_is_better": true,
       "modality": "single-cell",
-      "points": [],
+      "points": [
+        {
+          "model": "geneformer-v2-104m",
+          "family": null,
+          "params": 104000000,
+          "release_date": null,
+          "modality": "single-cell",
+          "behavioural": 0.568825,
+          "probe": 0.568825,
+          "best": 0.568825,
+          "ci95": [
+            0.39767264794374685,
+            0.5786947924440644
+          ],
+          "beats_baseline": true
+        }
+      ],
       "references": [
         {
           "model": "pca-reference-32",
@@ -2253,9 +2655,173 @@
       "ceiling": 0.555964542195901,
       "families": [],
       "n_dated": 0
+    },
+    "sc4-donor-invariance": {
+      "task": "sc4-donor-invariance",
+      "metric": "donor_macro_f1_lower_is_better",
+      "higher_is_better": false,
+      "modality": "single-cell",
+      "points": [],
+      "references": [
+        {
+          "model": "pca-reference-32",
+          "family": null,
+          "params": 0,
+          "release_date": null,
+          "modality": "single-cell",
+          "behavioural": 0.407332,
+          "probe": 0.539205,
+          "best": 0.539205,
+          "ci95": [
+            0.5040401982035899,
+            0.5684443129012834
+          ],
+          "beats_baseline": true
+        },
+        {
+          "model": "raw-expression",
+          "family": null,
+          "params": 0,
+          "release_date": null,
+          "modality": "single-cell",
+          "behavioural": 0.53858,
+          "probe": 0.53858,
+          "best": 0.53858,
+          "ci95": [
+            0.503598222213553,
+            0.5678159068907352
+          ],
+          "beats_baseline": true
+        }
+      ],
+      "ceiling": 0.7804737548304228,
+      "families": [],
+      "n_dated": 0
     }
   },
   "gap_scaling": {
+    "dn1-enhancer-class": {
+      "all": {
+        "family": "all",
+        "raw": {
+          "slope_per_decade": -0.00647,
+          "r2": 0.1677,
+          "n": 4,
+          "ci95": [
+            -0.05034,
+            0.0374
+          ]
+        },
+        "normalised": {
+          "slope_per_decade": -0.01233,
+          "r2": 0.1648,
+          "n": 4,
+          "ci95": [
+            -0.09681,
+            0.07214
+          ]
+        },
+        "verdict": "No trend distinguishable from zero in either the raw or the normalised gap. On this evidence the gap does not measurably change with scale, which is a legitimate answer and should be published as one.",
+        "points": [
+          {
+            "model": "nt-v2-50m",
+            "params": 53534401,
+            "behavioural": 0.493749,
+            "probe": 0.495437,
+            "gap": 0.001688,
+            "headroom": 0.506251,
+            "gap_fraction": 0.003334
+          },
+          {
+            "model": "nt-v2-100m",
+            "params": 95518561,
+            "behavioural": 0.475587,
+            "probe": 0.486888,
+            "gap": 0.011301,
+            "headroom": 0.524413,
+            "gap_fraction": 0.02155
+          },
+          {
+            "model": "nt-v2-250m",
+            "params": 231370369,
+            "behavioural": 0.490835,
+            "probe": 0.499299,
+            "gap": 0.008464,
+            "headroom": 0.509165,
+            "gap_fraction": 0.016623
+          },
+          {
+            "model": "nt-v2-500m",
+            "params": 493084113,
+            "behavioural": 0.47956,
+            "probe": 0.475993,
+            "gap": -0.003567,
+            "headroom": 0.52044,
+            "gap_fraction": -0.006854
+          }
+        ]
+      },
+      "Nucleotide Transformer v2": {
+        "family": "Nucleotide Transformer v2",
+        "raw": {
+          "slope_per_decade": -0.00647,
+          "r2": 0.1677,
+          "n": 4,
+          "ci95": [
+            -0.05034,
+            0.0374
+          ]
+        },
+        "normalised": {
+          "slope_per_decade": -0.01233,
+          "r2": 0.1648,
+          "n": 4,
+          "ci95": [
+            -0.09681,
+            0.07214
+          ]
+        },
+        "verdict": "No trend distinguishable from zero in either the raw or the normalised gap. On this evidence the gap does not measurably change with scale, which is a legitimate answer and should be published as one.",
+        "points": [
+          {
+            "model": "nt-v2-50m",
+            "params": 53534401,
+            "behavioural": 0.493749,
+            "probe": 0.495437,
+            "gap": 0.001688,
+            "headroom": 0.506251,
+            "gap_fraction": 0.003334
+          },
+          {
+            "model": "nt-v2-100m",
+            "params": 95518561,
+            "behavioural": 0.475587,
+            "probe": 0.486888,
+            "gap": 0.011301,
+            "headroom": 0.524413,
+            "gap_fraction": 0.02155
+          },
+          {
+            "model": "nt-v2-250m",
+            "params": 231370369,
+            "behavioural": 0.490835,
+            "probe": 0.499299,
+            "gap": 0.008464,
+            "headroom": 0.509165,
+            "gap_fraction": 0.016623
+          },
+          {
+            "model": "nt-v2-500m",
+            "params": 493084113,
+            "behavioural": 0.47956,
+            "probe": 0.475993,
+            "gap": -0.003567,
+            "headroom": 0.52044,
+            "gap_fraction": -0.006854
+          }
+        ]
+      }
+    },
     "pr1-tf-identity": {
       "all": {
         "family": "all",
@@ -2970,6 +3536,25 @@
         "raw": null,
         "normalised": null,
         "verdict": "Not enough models to fit a trend; at least three are needed.",
+        "points": [
+          {
+            "model": "geneformer-v2-104m",
+            "params": 104000000,
+            "behavioural": 0.568825,
+            "probe": 0.568825,
+            "gap": 0.0,
+            "headroom": 0.431175,
+            "gap_fraction": 0.0
+          }
+        ]
+      }
+    },
+    "sc4-donor-invariance": {
+      "all": {
+        "family": "all",
+        "raw": null,
+        "normalised": null,
+        "verdict": "Not enough models to fit a trend; at least three are needed.",
         "points": []
       }
     }
@@ -2988,14 +3573,19 @@
       "A10": "Scaling"
     },
     "grid": {
+      "dna": {
+        "A1": 4,
+        "A3": 4
+      },
       "protein": {
         "A1": 34,
         "A5": 40,
         "A3": 6
       },
       "single-cell": {
-        "A1": 2,
-        "A3": 2
+        "A1": 3,
+        "A3": 3,
+        "A8": 2
       }
     }
   },
@@ -3018,6 +3608,10 @@
       "esm2-8m",
       "esm2-8m-random",
       "geneformer-v2-104m",
+      "nt-v2-100m",
+      "nt-v2-250m",
+      "nt-v2-500m",
+      "nt-v2-50m",
       "pca-reference",
       "prot-t5-xl",
       "protbert",
@@ -3120,6 +3714,16 @@
         "note": "Human transcription factors, labelled by DNA-binding domain family."
       },
       {
+        "id": "nt-enhancers",
+        "modality": "dna",
+        "note": "ENCODE enhancer classes on 400bp windows; whole chromosomes held out."
+      },
+      {
+        "id": "swissprot-ec",
+        "modality": "protein",
+        "note": "Swiss-Prot enzymes by EC subclass; whole family branches held out."
+      },
+      {
         "id": "ts-immune-20k",
         "modality": "single-cell",
         "note": "Tabula Sapiens immune compartment, 20k-cell subset."
@@ -3137,6 +3741,778 @@
     ]
   },
   "cards": [
+    {
+      "model": "nt-v2-100m",
+      "modality": "dna",
+      "task": "dn1-enhancer-class",
+      "task_version": "1.0",
+      "axis": [
+        "A1",
+        "A3"
+      ],
+      "metric": "macro_f1",
+      "dataset_id": "nt-enhancers",
+      "dataset_sha256": "67dfa25392c5",
+      "scores": {
+        "zero_shot": 0.392848,
+        "behavioural": 0.475587,
+        "probe": 0.486888,
+        "elicited": null,
+        "readout_budget": {
+          "n_components": 64,
+          "C": 1.0,
+          "max_iter": 2000,
+          "metric": "macro_f1"
+        },
+        "probe_best_layer": "layer-15",
+        "layer_selection": "validation",
+        "effective_width": {
+          "behavioural": 64,
+          "probe": 64,
+          "budget": 64
+        }
+      },
+      "derived": {
+        "elicitation_gap": 0.011301,
+        "recoverability": null,
+        "headroom": 0.018706
+      },
+      "baselines": {
+        "majority_class": 0.228516,
+        "gc_only": 0.413669,
+        "kmer_pca50_logreg": 0.436083,
+        "kmer_centroid": 0.446667,
+        "kmer_nearest_neighbour": 0.252235
+      },
+      "controls": {
+        "group_stratified": true,
+        "group_key": "chromosome",
+        "n_groups_train": 16,
+        "n_groups_test": 7,
+        "null": {
+          "method": "covariate-matched label permutation (10 quantile bins)",
+          "n_permutations": 1000,
+          "matched_covariate": "gc_content",
+          "p_value": 0.000999000999000999,
+          "null_mean": 0.41015872225209093,
+          "null_std": 0.005966878813914954,
+          "observed": 0.48688751905302136
+        },
+        "ceiling": {
+          "method": "empirical: best of {scaled, unscaled} x {raw, pca50, pca128} x {C=1, C=0.1} logistic regression; configuration chosen on a validation carve of the training set (validation), then refit on the full training set and scored once on test",
+          "value": 0.4961695309934837,
+          "note": "Won by scaled/pca128/C=1. Interpret model scores relative to this: at or above it, the representation adds nothing over standard supervised practice on the raw features."
+        },
+        "extra": {
+          "grouping": "whole chromosomes held out, then test windows with a near-duplicate in training removed (>=0.50 containment over exact 24-mers)",
+          "why_not_sequence_identity": "k-mer containment at the protein track's k=5 saturates on a four-letter alphabet and merges the whole genome into one cluster; the genomic confound is locus, not homology",
+          "n_near_duplicate_pairs_total": 38,
+          "n_test_units_removed_as_near_duplicates": 3,
+          "chromosome_label_collision": {
+            "majority_class_accuracy": 0.503375,
+            "group_majority_accuracy": 0.53175,
+            "excess_over_majority": 0.028375,
+            "n_groups": 23,
+            "n_single_class_groups": 0
+          },
+          "bootstrap_unit": "1000 kb genomic blocks within the held-out chromosomes; NOT the split unit, see task docstring",
+          "n_bootstrap_blocks_test": 897,
+          "n_bootstrap_usable": 2000,
+          "gap_ci95_chromosome_bootstrap": [
+            0.004396,
+            0.017122
+          ],
+          "n_bootstrap_usable_chromosome": 500,
+          "test_chromosomes": [
+            "chr11",
+            "chr13",
+            "chr19",
+            "chr2",
+            "chr7",
+            "chr9",
+            "chrX"
+          ],
+          "per_layer_scores": {
+            "layer-0": 0.420389,
+            "layer-1": 0.46059,
+            "layer-2": 0.468696,
+            "layer-3": 0.473998,
+            "layer-4": 0.466557,
+            "layer-5": 0.486752,
+            "layer-6": 0.488252,
+            "layer-7": 0.495157,
+            "layer-8": 0.488391,
+            "layer-9": 0.488535,
+            "layer-10": 0.489784,
+            "layer-11": 0.489894,
+            "layer-12": 0.495193,
+            "layer-13": 0.486799,
+            "layer-14": 0.487575,
+            "layer-15": 0.486888,
+            "layer-16": 0.485232,
+            "layer-17": 0.489222,
+            "layer-18": 0.482834,
+            "layer-19": 0.481769,
+            "layer-20": 0.491542,
+            "layer-21": 0.489082,
+            "layer-22": 0.477275,
+            "sanctioned": 0.475587
+          },
+          "per_class_f1_probe": {
+            "0": 0.742639,
+            "1": 0.67762,
+            "2": 0.040404
+          },
+          "class_balance": {
+            "0": 4024,
+            "1": 3673,
+            "2": 300
+          },
+          "test_class_balance": {
+            "0": 1295,
+            "1": 1097,
+            "2": 91
+          },
+          "class_names": {
+            "0": "no-enhancer",
+            "1": "tissue-specific-enhancer",
+            "2": "tissue-invariant-enhancer"
+          },
+          "class_names_inferred": true,
+          "split_report": {
+            "n_units_dropped": 0,
+            "labels_dropped": [],
+            "n_classes_scored": 3,
+            "n_classes_total": 3,
+            "min_label_count": 5
+          },
+          "licence": "No licence declared on the source repository (https://huggingface.co/datasets/InstaDeepAI/nucleotide_transformer_downstream_tasks_revised; its dataset-card metadata block is empty). Underlying measurements are ENCODE/SCREEN data, reusable under the ENCODE Consortium data-use policy with citation; the Nucleotide Transformer codebase that publishes the benchmark is CC BY-NC-SA 4.0 (non-commercial). Treat as non-commercial and unlicensed-in-writing.",
+          "citation": "Dalla-Torre et al., The Nucleotide Transformer: Building and Evaluating Robust Foundation Models for Human Genomics (Nature Methods 2025); benchmark revised post-review. Underlying data: ENCODE Project Consortium and ENCODE SCREEN.",
+          "window_bp": 400,
+          "n_duplicate_loci_dropped_by_loader": 253,
+          "gc_mean": 0.421791,
+          "adapter_unk_fraction": 0.0,
+          "adapter_unk_fraction_note": null,
+          "ceiling_interpretation": "comparator, not a bound: k-mer composition is a strong but far-from-perfect method for enhancer identification, so a model above this value is doing well rather than saturating"
+        }
+      },
+      "uncertainty": {
+        "ci95": [
+          0.46674928651167613,
+          0.510557527346053
+        ],
+        "n_bootstrap": 2000,
+        "std": 0.011553414505359988,
+        "gap_ci95": [
+          -0.009967302498318484,
+          0.033030285376735385
+        ],
+        "gap_positive_fraction": 0.8515,
+        "rank_reversal_risk": {}
+      },
+      "compute": {
+        "device": "cuda",
+        "seconds": 161.78,
+        "gpu_hours": null,
+        "peak_memory_gb": null
+      },
+      "provenance": {
+        "code_commit": null,
+        "run_id": "07a8b6cf79bd",
+        "run_date": "2026-08-17T12:25:30+00:00",
+        "seed": 0,
+        "env_lock_sha256": null,
+        "harness_version": "1.0"
+      },
+      "caveats": [
+        "3 test window(s) had a near-duplicate in training (segmental duplication reaching across chromosomes) and were removed before scoring. A chromosome split does not catch these on its own.",
+        "Elicitation gap +0.0113 has a paired 95% interval [-0.0100, +0.0330] spanning zero (positive in 85% of block resamples); not distinguishable from no gap on this dataset.",
+        "The 95% intervals resample megabase blocks, not chromosomes. The split leaves 7 test chromosome(s), too few to resample honestly, so the interval covers variation across loci within them and not the variance of the chromosome holdout itself; the chromosome-level gap interval, in controls.extra, is [+0.0044, +0.0171].",
+        "Class names are inferred, not documented: the source repository labels the classes 0/1/2 without saying which is which. The no-enhancer class is pinned by joining to the sibling binary task; which of the two enhancer classes is tissue-invariant is inferred from their sizes. If that is backwards the two names swap and no score changes.",
+        "Data licence: No licence declared on the source repository (https://huggingface.co/datasets/InstaDeepAI/nucleotide_transformer_downstream_tasks_revised; its dataset-card metadata block is empty). Underlying measurements are ENCODE/SCREEN data, reusable under the ENCODE Consortium data-use policy with citation; the Nucleotide Transformer codebase that publishes the benchmark is CC BY-NC-SA 4.0 (non-commercial). Treat as non-commercial and unlicensed-in-writing.",
+        "Fine-tuning (F) not measured: adapter does not support it."
+      ],
+      "disclosure_tier": 0
+    },
+    {
+      "model": "nt-v2-250m",
+      "modality": "dna",
+      "task": "dn1-enhancer-class",
+      "task_version": "1.0",
+      "axis": [
+        "A1",
+        "A3"
+      ],
+      "metric": "macro_f1",
+      "dataset_id": "nt-enhancers",
+      "dataset_sha256": "67dfa25392c5",
+      "scores": {
+        "zero_shot": 0.418768,
+        "behavioural": 0.490835,
+        "probe": 0.499299,
+        "elicited": null,
+        "readout_budget": {
+          "n_components": 64,
+          "C": 1.0,
+          "max_iter": 2000,
+          "metric": "macro_f1"
+        },
+        "probe_best_layer": "layer-23",
+        "layer_selection": "validation",
+        "effective_width": {
+          "behavioural": 64,
+          "probe": 64,
+          "budget": 64
+        }
+      },
+      "derived": {
+        "elicitation_gap": 0.008464,
+        "recoverability": null,
+        "headroom": -0.006307
+      },
+      "baselines": {
+        "majority_class": 0.228516,
+        "gc_only": 0.413669,
+        "kmer_pca50_logreg": 0.436083,
+        "kmer_centroid": 0.446667,
+        "kmer_nearest_neighbour": 0.252235
+      },
+      "controls": {
+        "group_stratified": true,
+        "group_key": "chromosome",
+        "n_groups_train": 16,
+        "n_groups_test": 7,
+        "null": {
+          "method": "covariate-matched label permutation (10 quantile bins)",
+          "n_permutations": 1000,
+          "matched_covariate": "gc_content",
+          "p_value": 0.000999000999000999,
+          "null_mean": 0.4113446452945226,
+          "null_std": 0.0061919998536490205,
+          "observed": 0.49929867168692876
+        },
+        "ceiling": {
+          "method": "empirical: best of {scaled, unscaled} x {raw, pca50, pca128} x {C=1, C=0.1} logistic regression; configuration chosen on a validation carve of the training set (validation), then refit on the full training set and scored once on test",
+          "value": 0.4961695309934837,
+          "note": "Won by scaled/pca128/C=1. Interpret model scores relative to this: at or above it, the representation adds nothing over standard supervised practice on the raw features."
+        },
+        "extra": {
+          "grouping": "whole chromosomes held out, then test windows with a near-duplicate in training removed (>=0.50 containment over exact 24-mers)",
+          "why_not_sequence_identity": "k-mer containment at the protein track's k=5 saturates on a four-letter alphabet and merges the whole genome into one cluster; the genomic confound is locus, not homology",
+          "n_near_duplicate_pairs_total": 38,
+          "n_test_units_removed_as_near_duplicates": 3,
+          "chromosome_label_collision": {
+            "majority_class_accuracy": 0.503375,
+            "group_majority_accuracy": 0.53175,
+            "excess_over_majority": 0.028375,
+            "n_groups": 23,
+            "n_single_class_groups": 0
+          },
+          "bootstrap_unit": "1000 kb genomic blocks within the held-out chromosomes; NOT the split unit, see task docstring",
+          "n_bootstrap_blocks_test": 897,
+          "n_bootstrap_usable": 2000,
+          "gap_ci95_chromosome_bootstrap": [
+            -0.000587,
+            0.023984
+          ],
+          "n_bootstrap_usable_chromosome": 500,
+          "test_chromosomes": [
+            "chr11",
+            "chr13",
+            "chr19",
+            "chr2",
+            "chr7",
+            "chr9",
+            "chrX"
+          ],
+          "per_layer_scores": {
+            "layer-0": 0.409853,
+            "layer-1": 0.445733,
+            "layer-2": 0.455928,
+            "layer-3": 0.463355,
+            "layer-4": 0.465223,
+            "layer-5": 0.483231,
+            "layer-6": 0.490243,
+            "layer-7": 0.492576,
+            "layer-8": 0.496256,
+            "layer-9": 0.49324,
+            "layer-10": 0.499545,
+            "layer-11": 0.489231,
+            "layer-12": 0.472797,
+            "layer-13": 0.485156,
+            "layer-14": 0.496746,
+            "layer-15": 0.49021,
+            "layer-16": 0.491991,
+            "layer-17": 0.500046,
+            "layer-18": 0.491216,
+            "layer-19": 0.496783,
+            "layer-20": 0.497944,
+            "layer-21": 0.490383,
+            "layer-22": 0.511139,
+            "layer-23": 0.499299,
+            "layer-24": 0.491853,
+            "sanctioned": 0.490835
+          },
+          "per_class_f1_probe": {
+            "0": 0.72671,
+            "1": 0.670175,
+            "2": 0.10101
+          },
+          "class_balance": {
+            "0": 4024,
+            "1": 3673,
+            "2": 300
+          },
+          "test_class_balance": {
+            "0": 1295,
+            "1": 1097,
+            "2": 91
+          },
+          "class_names": {
+            "0": "no-enhancer",
+            "1": "tissue-specific-enhancer",
+            "2": "tissue-invariant-enhancer"
+          },
+          "class_names_inferred": true,
+          "split_report": {
+            "n_units_dropped": 0,
+            "labels_dropped": [],
+            "n_classes_scored": 3,
+            "n_classes_total": 3,
+            "min_label_count": 5
+          },
+          "licence": "No licence declared on the source repository (https://huggingface.co/datasets/InstaDeepAI/nucleotide_transformer_downstream_tasks_revised; its dataset-card metadata block is empty). Underlying measurements are ENCODE/SCREEN data, reusable under the ENCODE Consortium data-use policy with citation; the Nucleotide Transformer codebase that publishes the benchmark is CC BY-NC-SA 4.0 (non-commercial). Treat as non-commercial and unlicensed-in-writing.",
+          "citation": "Dalla-Torre et al., The Nucleotide Transformer: Building and Evaluating Robust Foundation Models for Human Genomics (Nature Methods 2025); benchmark revised post-review. Underlying data: ENCODE Project Consortium and ENCODE SCREEN.",
+          "window_bp": 400,
+          "n_duplicate_loci_dropped_by_loader": 253,
+          "gc_mean": 0.421791,
+          "adapter_unk_fraction": 0.0,
+          "adapter_unk_fraction_note": null,
+          "ceiling_interpretation": "comparator, not a bound: k-mer composition is a strong but far-from-perfect method for enhancer identification, so a model above this value is doing well rather than saturating"
+        }
+      },
+      "uncertainty": {
+        "ci95": [
+          0.4701977768212595,
+          0.5300139122637315
+        ],
+        "n_bootstrap": 2000,
+        "std": 0.015462691116748733,
+        "gap_ci95": [
+          -0.004396836830809185,
+          0.025102730678837327
+        ],
+        "gap_positive_fraction": 0.8685,
+        "rank_reversal_risk": {}
+      },
+      "compute": {
+        "device": "cuda",
+        "seconds": 218.06,
+        "gpu_hours": null,
+        "peak_memory_gb": null
+      },
+      "provenance": {
+        "code_commit": null,
+        "run_id": "779cdae51443",
+        "run_date": "2026-08-17T12:29:10+00:00",
+        "seed": 0,
+        "env_lock_sha256": null,
+        "harness_version": "1.0"
+      },
+      "caveats": [
+        "3 test window(s) had a near-duplicate in training (segmental duplication reaching across chromosomes) and were removed before scoring. A chromosome split does not catch these on its own.",
+        "Exceeds the empirical ceiling (0.496): the representation adds over the best cheap supervised readout of k-mer composition. On this task that is a good outcome rather than saturation, because k-mer composition cannot nearly solve enhancer identification, so the ceiling is a comparator and not an attainable maximum. `derived.headroom` is therefore negative and must not be read as headroom on DN1.",
+        "Elicitation gap +0.0085 has a paired 95% interval [-0.0044, +0.0251] spanning zero (positive in 87% of block resamples); not distinguishable from no gap on this dataset.",
+        "The 95% intervals resample megabase blocks, not chromosomes. The split leaves 7 test chromosome(s), too few to resample honestly, so the interval covers variation across loci within them and not the variance of the chromosome holdout itself; the chromosome-level gap interval, in controls.extra, is [-0.0006, +0.0240].",
+        "Class names are inferred, not documented: the source repository labels the classes 0/1/2 without saying which is which. The no-enhancer class is pinned by joining to the sibling binary task; which of the two enhancer classes is tissue-invariant is inferred from their sizes. If that is backwards the two names swap and no score changes.",
+        "Data licence: No licence declared on the source repository (https://huggingface.co/datasets/InstaDeepAI/nucleotide_transformer_downstream_tasks_revised; its dataset-card metadata block is empty). Underlying measurements are ENCODE/SCREEN data, reusable under the ENCODE Consortium data-use policy with citation; the Nucleotide Transformer codebase that publishes the benchmark is CC BY-NC-SA 4.0 (non-commercial). Treat as non-commercial and unlicensed-in-writing.",
+        "Fine-tuning (F) not measured: adapter does not support it."
+      ],
+      "disclosure_tier": 0
+    },
+    {
+      "model": "nt-v2-500m",
+      "modality": "dna",
+      "task": "dn1-enhancer-class",
+      "task_version": "1.0",
+      "axis": [
+        "A1",
+        "A3"
+      ],
+      "metric": "macro_f1",
+      "dataset_id": "nt-enhancers",
+      "dataset_sha256": "67dfa25392c5",
+      "scores": {
+        "zero_shot": 0.430569,
+        "behavioural": 0.47956,
+        "probe": 0.475993,
+        "elicited": null,
+        "readout_budget": {
+          "n_components": 64,
+          "C": 1.0,
+          "max_iter": 2000,
+          "metric": "macro_f1"
+        },
+        "probe_best_layer": "layer-20",
+        "layer_selection": "validation",
+        "effective_width": {
+          "behavioural": 64,
+          "probe": 64,
+          "budget": 64
+        }
+      },
+      "derived": {
+        "elicitation_gap": -0.003567,
+        "recoverability": null,
+        "headroom": 0.033476
+      },
+      "baselines": {
+        "majority_class": 0.228516,
+        "gc_only": 0.413669,
+        "kmer_pca50_logreg": 0.436083,
+        "kmer_centroid": 0.446667,
+        "kmer_nearest_neighbour": 0.252235
+      },
+      "controls": {
+        "group_stratified": true,
+        "group_key": "chromosome",
+        "n_groups_train": 16,
+        "n_groups_test": 7,
+        "null": {
+          "method": "covariate-matched label permutation (10 quantile bins)",
+          "n_permutations": 1000,
+          "matched_covariate": "gc_content",
+          "p_value": 0.000999000999000999,
+          "null_mean": 0.40957540129888137,
+          "null_std": 0.005708149579873562,
+          "observed": 0.4759929855877337
+        },
+        "ceiling": {
+          "method": "empirical: best of {scaled, unscaled} x {raw, pca50, pca128} x {C=1, C=0.1} logistic regression; configuration chosen on a validation carve of the training set (validation), then refit on the full training set and scored once on test",
+          "value": 0.4961695309934837,
+          "note": "Won by scaled/pca128/C=1. Interpret model scores relative to this: at or above it, the representation adds nothing over standard supervised practice on the raw features."
+        },
+        "extra": {
+          "grouping": "whole chromosomes held out, then test windows with a near-duplicate in training removed (>=0.50 containment over exact 24-mers)",
+          "why_not_sequence_identity": "k-mer containment at the protein track's k=5 saturates on a four-letter alphabet and merges the whole genome into one cluster; the genomic confound is locus, not homology",
+          "n_near_duplicate_pairs_total": 38,
+          "n_test_units_removed_as_near_duplicates": 3,
+          "chromosome_label_collision": {
+            "majority_class_accuracy": 0.503375,
+            "group_majority_accuracy": 0.53175,
+            "excess_over_majority": 0.028375,
+            "n_groups": 23,
+            "n_single_class_groups": 0
+          },
+          "bootstrap_unit": "1000 kb genomic blocks within the held-out chromosomes; NOT the split unit, see task docstring",
+          "n_bootstrap_blocks_test": 897,
+          "n_bootstrap_usable": 2000,
+          "gap_ci95_chromosome_bootstrap": [
+            -0.030458,
+            0.015111
+          ],
+          "n_bootstrap_usable_chromosome": 500,
+          "test_chromosomes": [
+            "chr11",
+            "chr13",
+            "chr19",
+            "chr2",
+            "chr7",
+            "chr9",
+            "chrX"
+          ],
+          "per_layer_scores": {
+            "layer-0": 0.414234,
+            "layer-1": 0.43999,
+            "layer-2": 0.451304,
+            "layer-3": 0.47569,
+            "layer-4": 0.479446,
+            "layer-5": 0.485097,
+            "layer-6": 0.496702,
+            "layer-7": 0.48436,
+            "layer-8": 0.484406,
+            "layer-9": 0.488407,
+            "layer-10": 0.490489,
+            "layer-11": 0.500354,
+            "layer-12": 0.490767,
+            "layer-13": 0.489054,
+            "layer-14": 0.482372,
+            "layer-15": 0.490562,
+            "layer-16": 0.47958,
+            "layer-17": 0.49212,
+            "layer-18": 0.484486,
+            "layer-19": 0.476206,
+            "layer-20": 0.475993,
+            "layer-21": 0.474357,
+            "layer-22": 0.474887,
+            "layer-23": 0.475584,
+            "layer-24": 0.476217,
+            "layer-25": 0.487998,
+            "layer-26": 0.492989,
+            "layer-27": 0.486761,
+            "layer-28": 0.491523,
+            "layer-29": 0.48242,
+            "sanctioned": 0.47956
+          },
+          "per_class_f1_probe": {
+            "0": 0.735957,
+            "1": 0.671403,
+            "2": 0.020619
+          },
+          "class_balance": {
+            "0": 4024,
+            "1": 3673,
+            "2": 300
+          },
+          "test_class_balance": {
+            "0": 1295,
+            "1": 1097,
+            "2": 91
+          },
+          "class_names": {
+            "0": "no-enhancer",
+            "1": "tissue-specific-enhancer",
+            "2": "tissue-invariant-enhancer"
+          },
+          "class_names_inferred": true,
+          "split_report": {
+            "n_units_dropped": 0,
+            "labels_dropped": [],
+            "n_classes_scored": 3,
+            "n_classes_total": 3,
+            "min_label_count": 5
+          },
+          "licence": "No licence declared on the source repository (https://huggingface.co/datasets/InstaDeepAI/nucleotide_transformer_downstream_tasks_revised; its dataset-card metadata block is empty). Underlying measurements are ENCODE/SCREEN data, reusable under the ENCODE Consortium data-use policy with citation; the Nucleotide Transformer codebase that publishes the benchmark is CC BY-NC-SA 4.0 (non-commercial). Treat as non-commercial and unlicensed-in-writing.",
+          "citation": "Dalla-Torre et al., The Nucleotide Transformer: Building and Evaluating Robust Foundation Models for Human Genomics (Nature Methods 2025); benchmark revised post-review. Underlying data: ENCODE Project Consortium and ENCODE SCREEN.",
+          "window_bp": 400,
+          "n_duplicate_loci_dropped_by_loader": 253,
+          "gc_mean": 0.421791,
+          "adapter_unk_fraction": 0.0,
+          "adapter_unk_fraction_note": null,
+          "ceiling_interpretation": "comparator, not a bound: k-mer composition is a strong but far-from-perfect method for enhancer identification, so a model above this value is doing well rather than saturating"
+        }
+      },
+      "uncertainty": {
+        "ci95": [
+          0.45977697238097087,
+          0.49611637284019694
+        ],
+        "n_bootstrap": 2000,
+        "std": 0.009462883335832279,
+        "gap_ci95": [
+          -0.025730848648009987,
+          0.015280976821345103
+        ],
+        "gap_positive_fraction": 0.403,
+        "rank_reversal_risk": {}
+      },
+      "compute": {
+        "device": "cuda",
+        "seconds": 267.74,
+        "gpu_hours": null,
+        "peak_memory_gb": null
+      },
+      "provenance": {
+        "code_commit": null,
+        "run_id": "3da94e0ef4ce",
+        "run_date": "2026-08-17T12:33:41+00:00",
+        "seed": 0,
+        "env_lock_sha256": null,
+        "harness_version": "1.0"
+      },
+      "caveats": [
+        "3 test window(s) had a near-duplicate in training (segmental duplication reaching across chromosomes) and were removed before scoring. A chromosome split does not catch these on its own.",
+        "Elicitation gap -0.0036 has a paired 95% interval [-0.0257, +0.0153] spanning zero (positive in 40% of block resamples); not distinguishable from no gap on this dataset.",
+        "The 95% intervals resample megabase blocks, not chromosomes. The split leaves 7 test chromosome(s), too few to resample honestly, so the interval covers variation across loci within them and not the variance of the chromosome holdout itself; the chromosome-level gap interval, in controls.extra, is [-0.0305, +0.0151].",
+        "Class names are inferred, not documented: the source repository labels the classes 0/1/2 without saying which is which. The no-enhancer class is pinned by joining to the sibling binary task; which of the two enhancer classes is tissue-invariant is inferred from their sizes. If that is backwards the two names swap and no score changes.",
+        "Data licence: No licence declared on the source repository (https://huggingface.co/datasets/InstaDeepAI/nucleotide_transformer_downstream_tasks_revised; its dataset-card metadata block is empty). Underlying measurements are ENCODE/SCREEN data, reusable under the ENCODE Consortium data-use policy with citation; the Nucleotide Transformer codebase that publishes the benchmark is CC BY-NC-SA 4.0 (non-commercial). Treat as non-commercial and unlicensed-in-writing.",
+        "Fine-tuning (F) not measured: adapter does not support it."
+      ],
+      "disclosure_tier": 0
+    },
+    {
+      "model": "nt-v2-50m",
+      "modality": "dna",
+      "task": "dn1-enhancer-class",
+      "task_version": "1.0",
+      "axis": [
+        "A1",
+        "A3"
+      ],
+      "metric": "macro_f1",
+      "dataset_id": "nt-enhancers",
+      "dataset_sha256": "67dfa25392c5",
+      "scores": {
+        "zero_shot": 0.422892,
+        "behavioural": 0.493749,
+        "probe": 0.495437,
+        "elicited": null,
+        "readout_budget": {
+          "n_components": 64,
+          "C": 1.0,
+          "max_iter": 2000,
+          "metric": "macro_f1"
+        },
+        "probe_best_layer": "layer-11",
+        "layer_selection": "validation",
+        "effective_width": {
+          "behavioural": 64,
+          "probe": 64,
+          "budget": 64
+        }
+      },
+      "derived": {
+        "elicitation_gap": 0.001688,
+        "recoverability": null,
+        "headroom": 0.001476
+      },
+      "baselines": {
+        "majority_class": 0.228516,
+        "gc_only": 0.413669,
+        "kmer_pca50_logreg": 0.436083,
+        "kmer_centroid": 0.446667,
+        "kmer_nearest_neighbour": 0.252235
+      },
+      "controls": {
+        "group_stratified": true,
+        "group_key": "chromosome",
+        "n_groups_train": 16,
+        "n_groups_test": 7,
+        "null": {
+          "method": "covariate-matched label permutation (10 quantile bins)",
+          "n_permutations": 1000,
+          "matched_covariate": "gc_content",
+          "p_value": 0.000999000999000999,
+          "null_mean": 0.4096211420520438,
+          "null_std": 0.005869387090225441,
+          "observed": 0.4954374047688242
+        },
+        "ceiling": {
+          "method": "empirical: best of {scaled, unscaled} x {raw, pca50, pca128} x {C=1, C=0.1} logistic regression; configuration chosen on a validation carve of the training set (validation), then refit on the full training set and scored once on test",
+          "value": 0.4961695309934837,
+          "note": "Won by scaled/pca128/C=1. Interpret model scores relative to this: at or above it, the representation adds nothing over standard supervised practice on the raw features."
+        },
+        "extra": {
+          "grouping": "whole chromosomes held out, then test windows with a near-duplicate in training removed (>=0.50 containment over exact 24-mers)",
+          "why_not_sequence_identity": "k-mer containment at the protein track's k=5 saturates on a four-letter alphabet and merges the whole genome into one cluster; the genomic confound is locus, not homology",
+          "n_near_duplicate_pairs_total": 38,
+          "n_test_units_removed_as_near_duplicates": 3,
+          "chromosome_label_collision": {
+            "majority_class_accuracy": 0.503375,
+            "group_majority_accuracy": 0.53175,
+            "excess_over_majority": 0.028375,
+            "n_groups": 23,
+            "n_single_class_groups": 0
+          },
+          "bootstrap_unit": "1000 kb genomic blocks within the held-out chromosomes; NOT the split unit, see task docstring",
+          "n_bootstrap_blocks_test": 897,
+          "n_bootstrap_usable": 2000,
+          "gap_ci95_chromosome_bootstrap": [
+            -0.006645,
+            0.01008
+          ],
+          "n_bootstrap_usable_chromosome": 500,
+          "test_chromosomes": [
+            "chr11",
+            "chr13",
+            "chr19",
+            "chr2",
+            "chr7",
+            "chr9",
+            "chrX"
+          ],
+          "per_layer_scores": {
+            "layer-0": 0.420507,
+            "layer-1": 0.477369,
+            "layer-2": 0.49451,
+            "layer-3": 0.489424,
+            "layer-4": 0.498401,
+            "layer-5": 0.502163,
+            "layer-6": 0.485247,
+            "layer-7": 0.502063,
+            "layer-8": 0.49765,
+            "layer-9": 0.50511,
+            "layer-10": 0.497373,
+            "layer-11": 0.495437,
+            "layer-12": 0.494885,
+            "sanctioned": 0.493749
+          },
+          "per_class_f1_probe": {
+            "0": 0.734051,
+            "1": 0.672261,
+            "2": 0.08
+          },
+          "class_balance": {
+            "0": 4024,
+            "1": 3673,
+            "2": 300
+          },
+          "test_class_balance": {
+            "0": 1295,
+            "1": 1097,
+            "2": 91
+          },
+          "class_names": {
+            "0": "no-enhancer",
+            "1": "tissue-specific-enhancer",
+            "2": "tissue-invariant-enhancer"
+          },
+          "class_names_inferred": true,
+          "split_report": {
+            "n_units_dropped": 0,
+            "labels_dropped": [],
+            "n_classes_scored": 3,
+            "n_classes_total": 3,
+            "min_label_count": 5
+          },
+          "licence": "No licence declared on the source repository (https://huggingface.co/datasets/InstaDeepAI/nucleotide_transformer_downstream_tasks_revised; its dataset-card metadata block is empty). Underlying measurements are ENCODE/SCREEN data, reusable under the ENCODE Consortium data-use policy with citation; the Nucleotide Transformer codebase that publishes the benchmark is CC BY-NC-SA 4.0 (non-commercial). Treat as non-commercial and unlicensed-in-writing.",
+          "citation": "Dalla-Torre et al., The Nucleotide Transformer: Building and Evaluating Robust Foundation Models for Human Genomics (Nature Methods 2025); benchmark revised post-review. Underlying data: ENCODE Project Consortium and ENCODE SCREEN.",
+          "window_bp": 400,
+          "n_duplicate_loci_dropped_by_loader": 253,
+          "gc_mean": 0.421791,
+          "adapter_unk_fraction": 0.0,
+          "adapter_unk_fraction_note": null,
+          "ceiling_interpretation": "comparator, not a bound: k-mer composition is a strong but far-from-perfect method for enhancer identification, so a model above this value is doing well rather than saturating"
+        }
+      },
+      "uncertainty": {
+        "ci95": [
+          0.46966155836825974,
+          0.5245786883407214
+        ],
+        "n_bootstrap": 2000,
+        "std": 0.014379317856780314,
+        "gap_ci95": [
+          -0.006288789660536874,
+          0.009476129742809297
+        ],
+        "gap_positive_fraction": 0.676,
+        "rank_reversal_risk": {}
+      },
+      "compute": {
+        "device": "cuda",
+        "seconds": 143.66,
+        "gpu_hours": null,
+        "peak_memory_gb": null
+      },
+      "provenance": {
+        "code_commit": null,
+        "run_id": "8db8e773f2e9",
+        "run_date": "2026-08-17T12:22:45+00:00",
+        "seed": 0,
+        "env_lock_sha256": null,
+        "harness_version": "1.0"
+      },
+      "caveats": [
+        "3 test window(s) had a near-duplicate in training (segmental duplication reaching across chromosomes) and were removed before scoring. A chromosome split does not catch these on its own.",
+        "Elicitation gap +0.0017 has a paired 95% interval [-0.0063, +0.0095] spanning zero (positive in 68% of block resamples); not distinguishable from no gap on this dataset.",
+        "The 95% intervals resample megabase blocks, not chromosomes. The split leaves 7 test chromosome(s), too few to resample honestly, so the interval covers variation across loci within them and not the variance of the chromosome holdout itself; the chromosome-level gap interval, in controls.extra, is [-0.0066, +0.0101].",
+        "Class names are inferred, not documented: the source repository labels the classes 0/1/2 without saying which is which. The no-enhancer class is pinned by joining to the sibling binary task; which of the two enhancer classes is tissue-invariant is inferred from their sizes. If that is backwards the two names swap and no score changes.",
+        "Data licence: No licence declared on the source repository (https://huggingface.co/datasets/InstaDeepAI/nucleotide_transformer_downstream_tasks_revised; its dataset-card metadata block is empty). Underlying measurements are ENCODE/SCREEN data, reusable under the ENCODE Consortium data-use policy with citation; the Nucleotide Transformer codebase that publishes the benchmark is CC BY-NC-SA 4.0 (non-commercial). Treat as non-commercial and unlicensed-in-writing.",
+        "Fine-tuning (F) not measured: adapter does not support it."
+      ],
+      "disclosure_tier": 0
+    },
     {
       "model": "ankh-base",
       "modality": "protein",
@@ -9502,6 +10878,122 @@
       "disclosure_tier": 0
     },
     {
+      "model": "geneformer-v2-104m",
+      "modality": "single-cell",
+      "task": "sc1-celltype-transfer",
+      "task_version": "1.0",
+      "axis": [
+        "A1",
+        "A3"
+      ],
+      "metric": "macro_f1",
+      "dataset_id": "ts-immune-20k",
+      "dataset_sha256": "4322da8dd164",
+      "scores": {
+        "zero_shot": 0.559177,
+        "behavioural": 0.568825,
+        "probe": 0.568825,
+        "elicited": null,
+        "readout_budget": {
+          "n_components": 64,
+          "C": 1.0,
+          "max_iter": 2000,
+          "metric": "macro_f1"
+        },
+        "probe_best_layer": "layer-12",
+        "layer_selection": "validation",
+        "effective_width": {
+          "behavioural": 64,
+          "probe": 64,
+          "budget": 64
+        }
+      },
+      "derived": {
+        "elicitation_gap": 0.0,
+        "recoverability": null,
+        "headroom": -0.023132
+      },
+      "baselines": {
+        "majority_class": 0.015011,
+        "library_size_only": 0.018342,
+        "pca50_logreg": 0.555965,
+        "nearest_centroid_raw": 0.549885
+      },
+      "controls": {
+        "group_stratified": true,
+        "group_key": "donor_id",
+        "n_groups_train": 14,
+        "n_groups_test": 8,
+        "null": {
+          "method": "covariate-matched label permutation (10 quantile bins)",
+          "n_permutations": 1000,
+          "matched_covariate": "total_counts",
+          "p_value": 0.000999000999000999,
+          "null_mean": 0.06637713335980275,
+          "null_std": 0.003823664714551485,
+          "observed": 0.5688252472612587
+        },
+        "ceiling": {
+          "method": "empirical: best of {scaled, unscaled} x {raw, pca50, pca128} x {C=1, C=0.1} logistic regression; configuration chosen on a validation carve of the training set (validation), then refit on the full training set and scored once on test",
+          "value": 0.555964542195901,
+          "note": "Won by unscaled/pca50/C=1. Interpret model scores relative to this: at or above it, the representation adds nothing over standard supervised practice on the raw features."
+        },
+        "extra": {
+          "per_layer_scores": {
+            "layer-0": 0.512484,
+            "layer-1": 0.534866,
+            "layer-2": 0.53987,
+            "layer-3": 0.551451,
+            "layer-4": 0.573356,
+            "layer-5": 0.56392,
+            "layer-6": 0.55705,
+            "layer-7": 0.568129,
+            "layer-8": 0.552538,
+            "layer-9": 0.579329,
+            "layer-10": 0.550896,
+            "layer-11": 0.563775,
+            "layer-12": 0.568825
+          },
+          "n_labels": 21,
+          "n_bootstrap_usable": 2000
+        }
+      },
+      "uncertainty": {
+        "ci95": [
+          0.39767264794374685,
+          0.5786947924440644
+        ],
+        "n_bootstrap": 2000,
+        "std": 0.04561431452462086,
+        "gap_ci95": [
+          0.0,
+          0.0
+        ],
+        "gap_positive_fraction": 0.0,
+        "rank_reversal_risk": {}
+      },
+      "compute": {
+        "device": "unloaded",
+        "seconds": 2500.64,
+        "gpu_hours": null,
+        "peak_memory_gb": null
+      },
+      "provenance": {
+        "code_commit": "08626c8",
+        "run_id": "e7103f43b651",
+        "run_date": "2026-08-17T06:52:03+00:00",
+        "seed": 0,
+        "env_lock_sha256": null,
+        "harness_version": "1.0"
+      },
+      "caveats": [
+        "Exceeds the empirical ceiling (0.556): the representation adds over the best cheap supervised readout of raw features. Either genuine added value or too narrow a ceiling sweep \u2014 worth rechecking with a wider sweep before the claim is leaned on.",
+        "No elicitation gap by construction: the best internal layer is the sanctioned surface. This model exposes no separate internals to probe.",
+        "Fine-tuning (F) not measured: adapter does not support it."
+      ],
+      "disclosure_tier": 0
+    },
+    {
       "model": "pca-reference-32",
       "modality": "single-cell",
       "task": "sc1-celltype-transfer",
@@ -9708,6 +11200,220 @@
         "Does not beat the pca50_logreg baseline (0.556); the representation adds nothing on this task.",
         "No elicitation gap by construction: the best internal layer is the sanctioned surface. This model exposes no separate internals to probe.",
         "Fine-tuning (F) not measured: adapter does not support it."
+      ],
+      "disclosure_tier": 0
+    },
+    {
+      "model": "pca-reference-32",
+      "modality": "single-cell",
+      "task": "sc4-donor-invariance",
+      "task_version": "1.0",
+      "axis": [
+        "A8"
+      ],
+      "metric": "donor_macro_f1_lower_is_better",
+      "dataset_id": "ts-immune-20k",
+      "dataset_sha256": "4322da8dd164",
+      "scores": {
+        "zero_shot": 0.347274,
+        "behavioural": 0.407332,
+        "probe": 0.539205,
+        "elicited": null,
+        "readout_budget": {
+          "n_components": 64,
+          "C": 1.0,
+          "max_iter": 2000,
+          "metric": "macro_f1"
+        },
+        "probe_best_layer": "hvg-scaled",
+        "layer_selection": "validation",
+        "effective_width": {
+          "behavioural": 32,
+          "probe": 64,
+          "budget": 64
+        }
+      },
+      "derived": {
+        "elicitation_gap": 0.131873,
+        "recoverability": null,
+        "headroom": null
+      },
+      "baselines": {
+        "raw_expression_same_budget": 0.53858,
+        "library_size_only": 0.024946,
+        "pca50_logreg": 0.655611
+      },
+      "controls": {
+        "group_stratified": false,
+        "group_key": null,
+        "n_groups_train": null,
+        "n_groups_test": 15,
+        "null": {
+          "method": "covariate-matched label permutation (10 quantile bins)",
+          "n_permutations": 1000,
+          "matched_covariate": "total_counts",
+          "p_value": 0.000999000999000999,
+          "null_mean": 0.03499784714921627,
+          "null_std": 0.003752950344844056,
+          "observed": 0.5392052118807664
+        },
+        "ceiling": {
+          "method": "empirical: best of {scaled, unscaled} x {raw, pca50, pca128} x {C=1, C=0.1} logistic regression; configuration chosen on a validation carve of the training set (validation), then refit on the full training set and scored once on test",
+          "value": 0.7804737548304228,
+          "note": "Won by unscaled/raw/C=0.1. Interpret model scores relative to this: at or above it, the representation adds nothing over standard supervised practice on the raw features."
+        },
+        "extra": {
+          "why_not_group_stratified": "predicting donor identity requires donors on both sides of the split, so a donor-disjoint split is impossible by construction. Cells are split within each donor instead.",
+          "donor_retention": 1.0012,
+          "donor_retention_denominator": 0.53858,
+          "donor_retention_note": "model donor decodability divided by raw-expression donor decodability under the identical readout budget. >1 means the representation surfaces more donor identity than raw expression does at the same capacity.",
+          "retention_vs_unbudgeted_ceiling": 0.6909,
+          "per_layer_scores": {
+            "hvg-scaled": 0.539205,
+            "pca-32": 0.407332,
+            "pca-128": 0.478447
+          },
+          "n_donors": 15
+        }
+      },
+      "uncertainty": {
+        "ci95": [
+          0.5040401982035899,
+          0.5684443129012834
+        ],
+        "n_bootstrap": 2000,
+        "std": 0.016622602251641982,
+        "gap_ci95": [
+          0.10007778361183829,
+          0.1636912510363917
+        ],
+        "gap_positive_fraction": 1.0,
+        "rank_reversal_risk": {}
+      },
+      "compute": {
+        "device": "cpu",
+        "seconds": 7461.24,
+        "gpu_hours": null,
+        "peak_memory_gb": null
+      },
+      "provenance": {
+        "code_commit": "dc64557",
+        "run_id": "71ce30ebc282",
+        "run_date": "2026-08-17T12:23:14+00:00",
+        "seed": 0,
+        "env_lock_sha256": null,
+        "harness_version": "1.0"
+      },
+      "caveats": [
+        "Lower is better on this task: the score is how well donor identity can be read out of the representation.",
+        "Surfaces 100% of the donor identity that raw expression yields at the same readout capacity -- it makes donor *more* decodable than the untransformed data does, not less.",
+        "Internals leak more donor identity than the sanctioned surface does, so the sanctioned surface is hiding nuisance structure rather than removing it."
+      ],
+      "disclosure_tier": 0
+    },
+    {
+      "model": "raw-expression",
+      "modality": "single-cell",
+      "task": "sc4-donor-invariance",
+      "task_version": "1.0",
+      "axis": [
+        "A8"
+      ],
+      "metric": "donor_macro_f1_lower_is_better",
+      "dataset_id": "ts-immune-20k",
+      "dataset_sha256": "4322da8dd164",
+      "scores": {
+        "zero_shot": 0.454147,
+        "behavioural": 0.53858,
+        "probe": 0.53858,
+        "elicited": null,
+        "readout_budget": {
+          "n_components": 64,
+          "C": 1.0,
+          "max_iter": 2000,
+          "metric": "macro_f1"
+        },
+        "probe_best_layer": "expression",
+        "layer_selection": "validation",
+        "effective_width": {
+          "behavioural": 64,
+          "probe": 64,
+          "budget": 64
+        }
+      },
+      "derived": {
+        "elicitation_gap": 0.0,
+        "recoverability": null,
+        "headroom": null
+      },
+      "baselines": {
+        "raw_expression_same_budget": 0.53858,
+        "library_size_only": 0.024946,
+        "pca50_logreg": 0.655611
+      },
+      "controls": {
+        "group_stratified": false,
+        "group_key": null,
+        "n_groups_train": null,
+        "n_groups_test": 15,
+        "null": {
+          "method": "covariate-matched label permutation (10 quantile bins)",
+          "n_permutations": 1000,
+          "matched_covariate": "total_counts",
+          "p_value": 0.000999000999000999,
+          "null_mean": 0.03499083757413581,
+          "null_std": 0.0037737491169975088,
+          "observed": 0.5385800064406406
+        },
+        "ceiling": {
+          "method": "empirical: best of {scaled, unscaled} x {raw, pca50, pca128} x {C=1, C=0.1} logistic regression; configuration chosen on a validation carve of the training set (validation), then refit on the full training set and scored once on test",
+          "value": 0.7804737548304228,
+          "note": "Won by unscaled/raw/C=0.1. Interpret model scores relative to this: at or above it, the representation adds nothing over standard supervised practice on the raw features."
+        },
+        "extra": {
+          "why_not_group_stratified": "predicting donor identity requires donors on both sides of the split, so a donor-disjoint split is impossible by construction. Cells are split within each donor instead.",
+          "donor_retention": 1.0,
+          "donor_retention_denominator": 0.53858,
+          "donor_retention_note": "model donor decodability divided by raw-expression donor decodability under the identical readout budget. >1 means the representation surfaces more donor identity than raw expression does at the same capacity.",
+          "retention_vs_unbudgeted_ceiling": 0.6901,
+          "per_layer_scores": {
+            "expression": 0.53858
+          },
+          "n_donors": 15
+        }
+      },
+      "uncertainty": {
+        "ci95": [
+          0.503598222213553,
+          0.5678159068907352
+        ],
+        "n_bootstrap": 2000,
+        "std": 0.0166318050303702,
+        "gap_ci95": [
+          0.0,
+          0.0
+        ],
+        "gap_positive_fraction": 0.0,
+        "rank_reversal_risk": {}
+      },
+      "compute": {
+        "device": "cpu",
+        "seconds": 4684.62,
+        "gpu_hours": null,
+        "peak_memory_gb": null
+      },
+      "provenance": {
+        "code_commit": "351c731",
+        "run_id": "36d5a27d5499",
+        "run_date": "2026-08-17T10:18:49+00:00",
+        "seed": 0,
+        "env_lock_sha256": null,
+        "harness_version": "1.0"
+      },
+      "caveats": [
+        "Lower is better on this task: the score is how well donor identity can be read out of the representation.",
+        "Retains 100% of the donor signal decodable from raw expression at equal capacity; this representation is not donor-invariant.",
+        "No elicitation gap by construction: the best internal layer is the sanctioned surface."
       ],
       "disclosure_tier": 0
     }
