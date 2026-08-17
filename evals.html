@@ -30,7 +30,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="evals.css?v=5">
+  <link rel="stylesheet" href="evals.css?v=6">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
 </head>
 <body class="ev-page">
@@ -296,12 +296,29 @@
               instrument. <a href="evals-standard.html">How the measurement works →</a>
             </p>
             <p>
-              We have now measured the third surface, what light fine-tuning
-              recovers, on four models. Under a small fixed budget it lands well
-              below both the output and the probe, which says more about the budget
-              than about the models: 200 adaptation steps is not enough to learn a
-              15-way classification from scratch. It is a lower bound, and we are not
-              yet treating it as a measure of what elicitation could recover.
+              The third surface, what light fine-tuning recovers, is now measured
+              properly on four models, and it lands where an elicitation measurement
+              should: above both the output and the best internal layer, on every one.
+              An earlier build reported it far below both. That was our error — the
+              budget was too small to move a freshly initialised classifier at all, so
+              the number measured our optimiser rather than the models — and those
+              figures are withdrawn.
+            </p>
+            <p>
+              The interesting part is how fast. At 25 adaptation steps the models sit
+              near the floor; by 200 the mid-sized one has already matched what the
+              best reading of its frozen internals achieves, and by 400 it has passed
+              it. That speed is the quantity that matters for deciding whether
+              releasing a model's weights is releasing a fixed capability or a
+              starting point.
+            </p>
+            <p>
+              Whether that recovery gets easier or harder as models grow is the
+              question we most want to answer, and four models is not enough to
+              answer it. The trend across them points upward and is not
+              distinguishable from zero on a properly calibrated interval, so we are
+              not reporting it as a trend. More rungs on the ladder, not a better
+              story, is what settles it.
             </p>
           </div>
         </details>
@@ -423,6 +440,6 @@
   </footer>
 
   <script src="script.js"></script>
-  <script src="evals.js?v=5"></script>
+  <script src="evals.js?v=6"></script>
 </body>
 </html>

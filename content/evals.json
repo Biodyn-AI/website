@@ -1,5 +1,5 @@
 {
-  "generated_from_n_cards": 49,
+  "generated_from_n_cards": 50,
   "models": [
     {
       "id": "ankh-base",
@@ -127,7 +127,7 @@
       "params": 104000000,
       "source": "ctheodoris/Geneformer/Geneformer-V2-104M",
       "notes": "Rank-value encoding, max_len=2048, 12 layers, hidden 768. Cell embedding = mean over gene tokens, excluding special tokens.",
-      "n_cards": 1
+      "n_cards": 2
     },
     {
       "id": "nt-v2-100m",
@@ -281,7 +281,7 @@
       ],
       "metric": "donor_macro_f1_lower_is_better",
       "dataset_id": "ts-immune-20k",
-      "n_models": 2
+      "n_models": 3
     }
   ],
   "leaderboards": {
@@ -1514,15 +1514,15 @@
       "rows": [
         {
           "model": "esm2-t33-650m-ur50d",
-          "best": 0.568097,
+          "best": 0.597173,
           "zero_shot": 0.328327,
           "behavioural": 0.468424,
-          "probe": 0.568097,
-          "elicited": 0.07087,
-          "elicitation_gap": 0.099673,
+          "probe": 0.569953,
+          "elicited": 0.597173,
+          "elicitation_gap": 0.101529,
           "gap_ci95": [
-            0.054883025245311925,
-            0.1408453482131793
+            0.057328745809798146,
+            0.1438949199633301
           ],
           "gap_positive_fraction": 1.0,
           "gap_structural_zero": false,
@@ -1530,12 +1530,41 @@
           "best_baseline": 0.226178,
           "beats_baseline": true,
           "ceiling": 0.18878155020824935,
-          "headroom": -2.009282,
+          "headroom": -2.163302,
           "null_p": 0.000999000999000999,
           "survives_null": true,
           "ci95": [
-            0.5196361176882767,
-            0.6013408146124678
+            0.5205992964713437,
+            0.6033714761727546
+          ],
+          "caveats": [
+            "Exceeds the empirical ceiling (0.189): the representation adds over the best cheap supervised readout of composition features. On this task that is the expected outcome rather than evidence of saturation, because composition cannot nearly solve fold recognition, so the ceiling is a comparator and not an attainable maximum. `derived.headroom` is therefore negative and must not be read as headroom on PR3."
+          ]
+        },
+        {
+          "model": "esm2-t30-150m-ur50d",
+          "best": 0.553791,
+          "zero_shot": 0.364568,
+          "behavioural": 0.489894,
+          "probe": 0.533761,
+          "elicited": 0.553791,
+          "elicitation_gap": 0.043867,
+          "gap_ci95": [
+            0.005991597926505938,
+            0.07760406040975494
+          ],
+          "gap_positive_fraction": 0.9905,
+          "gap_structural_zero": false,
+          "gap_separated_from_zero": true,
+          "best_baseline": 0.226178,
+          "beats_baseline": true,
+          "ceiling": 0.18878155020824935,
+          "headroom": -1.933502,
+          "null_p": 0.000999000999000999,
+          "survives_null": true,
+          "ci95": [
+            0.4833390843627734,
+            0.5683580939699152
           ],
           "caveats": [
             "Exceeds the empirical ceiling (0.189): the representation adds over the best cheap supervised readout of composition features. On this task that is the expected outcome rather than evidence of saturation, because composition cannot nearly solve fold recognition, so the ceiling is a comparator and not an attainable maximum. `derived.headroom` is therefore negative and must not be read as headroom on PR3."
@@ -1573,75 +1602,46 @@
           ]
         },
         {
-          "model": "esm2-t30-150m-ur50d",
-          "best": 0.534556,
-          "zero_shot": 0.364568,
-          "behavioural": 0.48986,
-          "probe": 0.534556,
-          "elicited": 0.084815,
-          "elicitation_gap": 0.044696,
-          "gap_ci95": [
-            0.005961191948032102,
-            0.07843329773203772
-          ],
-          "gap_positive_fraction": 0.9915,
-          "gap_structural_zero": false,
-          "gap_separated_from_zero": true,
-          "best_baseline": 0.226178,
-          "beats_baseline": true,
-          "ceiling": 0.18878155020824935,
-          "headroom": -1.831611,
-          "null_p": 0.000999000999000999,
-          "survives_null": true,
-          "ci95": [
-            0.484366326578547,
-            0.5697163206956659
-          ],
-          "caveats": [
-            "Exceeds the empirical ceiling (0.189): the representation adds over the best cheap supervised readout of composition features. On this task that is the expected outcome rather than evidence of saturation, because composition cannot nearly solve fold recognition, so the ceiling is a comparator and not an attainable maximum. `derived.headroom` is therefore negative and must not be read as headroom on PR3."
-          ]
-        },
-        {
           "model": "esm2-t12-35m-ur50d",
-          "best": 0.499039,
+          "best": 0.539932,
           "zero_shot": 0.405156,
-          "behavioural": 0.474587,
-          "probe": 0.499039,
-          "elicited": 0.173997,
-          "elicitation_gap": 0.024452,
+          "behavioural": 0.474805,
+          "probe": 0.498952,
+          "elicited": 0.539932,
+          "elicitation_gap": 0.024147,
           "gap_ci95": [
-            -0.005693172569381259,
-            0.05446399474194759
+            -0.006487801787517465,
+            0.05456001099390891
           ],
-          "gap_positive_fraction": 0.9435,
+          "gap_positive_fraction": 0.9395,
           "gap_structural_zero": false,
           "gap_separated_from_zero": false,
           "best_baseline": 0.226178,
           "beats_baseline": true,
           "ceiling": 0.18878155020824935,
-          "headroom": -1.643473,
+          "headroom": -1.860089,
           "null_p": 0.000999000999000999,
           "survives_null": true,
           "ci95": [
-            0.45102767310715525,
-            0.5324940536467171
+            0.4515789039819544,
+            0.532121914956952
           ],
           "caveats": [
             "Exceeds the empirical ceiling (0.189): the representation adds over the best cheap supervised readout of composition features. On this task that is the expected outcome rather than evidence of saturation, because composition cannot nearly solve fold recognition, so the ceiling is a comparator and not an attainable maximum. `derived.headroom` is therefore negative and must not be read as headroom on PR3.",
-            "Elicitation gap +0.0245 has a paired 95% interval [-0.0057, +0.0545] spanning zero (positive in 94% of group resamples); not distinguishable from no gap on this dataset."
+            "Elicitation gap +0.0241 has a paired 95% interval [-0.0065, +0.0546] spanning zero (positive in 94% of group resamples); not distinguishable from no gap on this dataset."
           ]
         },
         {
           "model": "esm2-t6-8m-ur50d",
-          "best": 0.460003,
+          "best": 0.493412,
           "zero_shot": 0.385972,
-          "behavioural": 0.444827,
-          "probe": 0.460003,
-          "elicited": 0.126463,
-          "elicitation_gap": 0.015176,
+          "behavioural": 0.443122,
+          "probe": 0.458402,
+          "elicited": 0.493412,
+          "elicitation_gap": 0.01528,
           "gap_ci95": [
-            -0.014554414221989626,
-            0.04358695789375782
+            -0.013544230470210266,
+            0.043651801921163504
           ],
           "gap_positive_fraction": 0.847,
           "gap_structural_zero": false,
@@ -1649,16 +1649,16 @@
           "best_baseline": 0.226178,
           "beats_baseline": true,
           "ceiling": 0.18878155020824935,
-          "headroom": -1.436695,
+          "headroom": -1.613666,
           "null_p": 0.000999000999000999,
           "survives_null": true,
           "ci95": [
-            0.4174480451613943,
-            0.49334013413050587
+            0.4160499589817256,
+            0.4912608761340468
           ],
           "caveats": [
             "Exceeds the empirical ceiling (0.189): the representation adds over the best cheap supervised readout of composition features. On this task that is the expected outcome rather than evidence of saturation, because composition cannot nearly solve fold recognition, so the ceiling is a comparator and not an attainable maximum. `derived.headroom` is therefore negative and must not be read as headroom on PR3.",
-            "Elicitation gap +0.0152 has a paired 95% interval [-0.0146, +0.0436] spanning zero (positive in 85% of group resamples); not distinguishable from no gap on this dataset."
+            "Elicitation gap +0.0153 has a paired 95% interval [-0.0135, +0.0437] spanning zero (positive in 85% of group resamples); not distinguishable from no gap on this dataset."
           ]
         },
         {
@@ -1859,6 +1859,37 @@
           "caveats": [
             "Lower is better on this task: the score is how well donor identity can be read out of the representation.",
             "Surfaces 100% of the donor identity that raw expression yields at the same readout capacity -- it makes donor *more* decodable than the untransformed data does, not less.",
+            "Internals leak more donor identity than the sanctioned surface does, so the sanctioned surface is hiding nuisance structure rather than removing it."
+          ]
+        },
+        {
+          "model": "geneformer-v2-104m",
+          "best": 0.688594,
+          "zero_shot": 0.203319,
+          "behavioural": 0.616947,
+          "probe": 0.688594,
+          "elicited": null,
+          "elicitation_gap": 0.071647,
+          "gap_ci95": [
+            0.03597226619917784,
+            0.10640801825978866
+          ],
+          "gap_positive_fraction": 1.0,
+          "gap_structural_zero": false,
+          "gap_separated_from_zero": true,
+          "best_baseline": 0.655611,
+          "beats_baseline": false,
+          "ceiling": 0.7804737548304228,
+          "headroom": null,
+          "null_p": 0.000999000999000999,
+          "survives_null": true,
+          "ci95": [
+            0.654789363668379,
+            0.7159523709987659
+          ],
+          "caveats": [
+            "Lower is better on this task: the score is how well donor identity can be read out of the representation.",
+            "Surfaces 128% of the donor identity that raw expression yields at the same readout capacity -- it makes donor *more* decodable than the untransformed data does, not less.",
             "Internals leak more donor identity than the sanctioned surface does, so the sanctioned surface is hiding nuisance structure rather than removing it."
           ]
         }
@@ -2505,12 +2536,12 @@
           "params": 8000000,
           "release_date": "2022-08",
           "modality": "protein",
-          "behavioural": 0.444827,
-          "probe": 0.460003,
-          "best": 0.460003,
+          "behavioural": 0.443122,
+          "probe": 0.458402,
+          "best": 0.493412,
           "ci95": [
-            0.4174480451613943,
-            0.49334013413050587
+            0.4160499589817256,
+            0.4912608761340468
           ],
           "beats_baseline": true
         },
@@ -2520,12 +2551,12 @@
           "params": 35000000,
           "release_date": "2022-08",
           "modality": "protein",
-          "behavioural": 0.474587,
-          "probe": 0.499039,
-          "best": 0.499039,
+          "behavioural": 0.474805,
+          "probe": 0.498952,
+          "best": 0.539932,
           "ci95": [
-            0.45102767310715525,
-            0.5324940536467171
+            0.4515789039819544,
+            0.532121914956952
           ],
           "beats_baseline": true
         },
@@ -2535,12 +2566,12 @@
           "params": 150000000,
           "release_date": "2022-08",
           "modality": "protein",
-          "behavioural": 0.48986,
-          "probe": 0.534556,
-          "best": 0.534556,
+          "behavioural": 0.489894,
+          "probe": 0.533761,
+          "best": 0.553791,
           "ci95": [
-            0.484366326578547,
-            0.5697163206956659
+            0.4833390843627734,
+            0.5683580939699152
           ],
           "beats_baseline": true
         },
@@ -2551,11 +2582,11 @@
           "release_date": "2022-08",
           "modality": "protein",
           "behavioural": 0.468424,
-          "probe": 0.568097,
-          "best": 0.568097,
+          "probe": 0.569953,
+          "best": 0.597173,
           "ci95": [
-            0.5196361176882767,
-            0.6013408146124678
+            0.5205992964713437,
+            0.6033714761727546
           ],
           "beats_baseline": true
         },
@@ -2661,7 +2692,23 @@
       "metric": "donor_macro_f1_lower_is_better",
       "higher_is_better": false,
       "modality": "single-cell",
-      "points": [],
+      "points": [
+        {
+          "model": "geneformer-v2-104m",
+          "family": null,
+          "params": 104000000,
+          "release_date": null,
+          "modality": "single-cell",
+          "behavioural": 0.616947,
+          "probe": 0.688594,
+          "best": 0.688594,
+          "ci95": [
+            0.654789363668379,
+            0.7159523709987659
+          ],
+          "beats_baseline": false
+        }
+      ],
       "references": [
         {
           "model": "pca-reference-32",
@@ -3394,21 +3441,21 @@
       "all": {
         "family": "all",
         "raw": {
-          "slope_per_decade": 0.01884,
-          "r2": 0.3367,
+          "slope_per_decade": 0.01914,
+          "r2": 0.3312,
           "n": 5,
           "ci95": [
-            -0.02973,
-            0.06741
+            -0.03083,
+            0.0691
           ]
         },
         "normalised": {
-          "slope_per_decade": 0.03733,
-          "r2": 0.3734,
+          "slope_per_decade": 0.03792,
+          "r2": 0.3674,
           "n": 5,
           "ci95": [
-            -0.05151,
-            0.12617
+            -0.0535,
+            0.12935
           ]
         },
         "verdict": "No trend distinguishable from zero in either the raw or the normalised gap. On this evidence the gap does not measurably change with scale, which is a legitimate answer and should be published as one.",
@@ -3416,38 +3463,38 @@
           {
             "model": "esm2-t6-8m-ur50d",
             "params": 8000000,
-            "behavioural": 0.444827,
-            "probe": 0.460003,
-            "gap": 0.015176,
-            "headroom": 0.555173,
-            "gap_fraction": 0.027336
+            "behavioural": 0.443122,
+            "probe": 0.458402,
+            "gap": 0.01528,
+            "headroom": 0.556878,
+            "gap_fraction": 0.027439
           },
           {
             "model": "esm2-t12-35m-ur50d",
             "params": 35000000,
-            "behavioural": 0.474587,
-            "probe": 0.499039,
-            "gap": 0.024452,
-            "headroom": 0.525413,
-            "gap_fraction": 0.046539
+            "behavioural": 0.474805,
+            "probe": 0.498952,
+            "gap": 0.024147,
+            "headroom": 0.525195,
+            "gap_fraction": 0.045977
           },
           {
             "model": "esm2-t30-150m-ur50d",
             "params": 150000000,
-            "behavioural": 0.48986,
-            "probe": 0.534556,
-            "gap": 0.044696,
-            "headroom": 0.51014,
-            "gap_fraction": 0.087615
+            "behavioural": 0.489894,
+            "probe": 0.533761,
+            "gap": 0.043867,
+            "headroom": 0.510106,
+            "gap_fraction": 0.085996
           },
           {
             "model": "esm2-t33-650m-ur50d",
             "params": 650000000,
             "behavioural": 0.468424,
-            "probe": 0.568097,
-            "gap": 0.099673,
+            "probe": 0.569953,
+            "gap": 0.101529,
             "headroom": 0.531576,
-            "gap_fraction": 0.187505
+            "gap_fraction": 0.190996
           },
           {
             "model": "esm2-t36-3b-ur50d",
@@ -3463,21 +3510,21 @@
       "ESM2": {
         "family": "ESM2",
         "raw": {
-          "slope_per_decade": 0.01884,
-          "r2": 0.3367,
+          "slope_per_decade": 0.01914,
+          "r2": 0.3312,
           "n": 5,
           "ci95": [
-            -0.02973,
-            0.06741
+            -0.03083,
+            0.0691
           ]
         },
         "normalised": {
-          "slope_per_decade": 0.03733,
-          "r2": 0.3734,
+          "slope_per_decade": 0.03792,
+          "r2": 0.3674,
           "n": 5,
           "ci95": [
-            -0.05151,
-            0.12617
+            -0.0535,
+            0.12935
           ]
         },
         "verdict": "No trend distinguishable from zero in either the raw or the normalised gap. On this evidence the gap does not measurably change with scale, which is a legitimate answer and should be published as one.",
@@ -3485,38 +3532,38 @@
           {
             "model": "esm2-t6-8m-ur50d",
             "params": 8000000,
-            "behavioural": 0.444827,
-            "probe": 0.460003,
-            "gap": 0.015176,
-            "headroom": 0.555173,
-            "gap_fraction": 0.027336
+            "behavioural": 0.443122,
+            "probe": 0.458402,
+            "gap": 0.01528,
+            "headroom": 0.556878,
+            "gap_fraction": 0.027439
           },
           {
             "model": "esm2-t12-35m-ur50d",
             "params": 35000000,
-            "behavioural": 0.474587,
-            "probe": 0.499039,
-            "gap": 0.024452,
-            "headroom": 0.525413,
-            "gap_fraction": 0.046539
+            "behavioural": 0.474805,
+            "probe": 0.498952,
+            "gap": 0.024147,
+            "headroom": 0.525195,
+            "gap_fraction": 0.045977
           },
           {
             "model": "esm2-t30-150m-ur50d",
             "params": 150000000,
-            "behavioural": 0.48986,
-            "probe": 0.534556,
-            "gap": 0.044696,
-            "headroom": 0.51014,
-            "gap_fraction": 0.087615
+            "behavioural": 0.489894,
+            "probe": 0.533761,
+            "gap": 0.043867,
+            "headroom": 0.510106,
+            "gap_fraction": 0.085996
           },
           {
             "model": "esm2-t33-650m-ur50d",
             "params": 650000000,
             "behavioural": 0.468424,
-            "probe": 0.568097,
-            "gap": 0.099673,
+            "probe": 0.569953,
+            "gap": 0.101529,
             "headroom": 0.531576,
-            "gap_fraction": 0.187505
+            "gap_fraction": 0.190996
           },
           {
             "model": "esm2-t36-3b-ur50d",
@@ -3585,7 +3632,7 @@
       "single-cell": {
         "A1": 3,
         "A3": 3,
-        "A8": 2
+        "A8": 3
       }
     }
   },
@@ -9850,9 +9897,9 @@
       "dataset_sha256": "37e9e4e59a03",
       "scores": {
         "zero_shot": 0.405156,
-        "behavioural": 0.474587,
-        "probe": 0.499039,
-        "elicited": 0.173997,
+        "behavioural": 0.474805,
+        "probe": 0.498952,
+        "elicited": 0.539932,
         "readout_budget": {
           "n_components": 64,
           "C": 1.0,
@@ -9868,9 +9915,9 @@
         }
       },
       "derived": {
-        "elicitation_gap": 0.024452,
-        "recoverability": -0.30059,
-        "headroom": -1.643473
+        "elicitation_gap": 0.024147,
+        "recoverability": 0.065127,
+        "headroom": -1.860089
       },
       "baselines": {
         "majority_class": 0.012975,
@@ -9889,9 +9936,9 @@
           "n_permutations": 1000,
           "matched_covariate": "domain_length",
           "p_value": 0.000999000999000999,
-          "null_mean": 0.10510379832623806,
-          "null_std": 0.008957720300752484,
-          "observed": 0.4990387198629037
+          "null_mean": 0.10510935478698752,
+          "null_std": 0.00894780554528073,
+          "observed": 0.49895249598076785
         },
         "ceiling": {
           "method": "empirical: best of {scaled, unscaled} x {raw, pca50, pca128} x {C=1, C=0.1} logistic regression; configuration chosen on a validation carve of the training set (validation), then refit on the full training set and scored once on test",
@@ -9921,26 +9968,52 @@
             "3.30.70": 181,
             "3.40.50": 188
           },
+          "elicited_curve": {
+            "25": 0.16014981975525608,
+            "50": 0.3743132860831896,
+            "100": 0.42710889795162627,
+            "200": 0.501687296330678,
+            "400": 0.5399316283341988
+          },
+          "elicited_budget": {
+            "method": "LoRA + linear head",
+            "steps": 400,
+            "lr": 0.001,
+            "head_lr": 0.01,
+            "batch_size": 8,
+            "lora_r": 8,
+            "lora_alpha": 16,
+            "warmup_fraction": 0.1,
+            "normalise_pooled": true,
+            "examples_seen": 3200,
+            "checkpoints": [
+              25,
+              50,
+              100,
+              200,
+              400
+            ]
+          },
           "per_layer_scores": {
-            "layer-0": 0.171051,
-            "layer-1": 0.270078,
-            "layer-2": 0.331717,
-            "layer-3": 0.382946,
-            "layer-4": 0.439064,
-            "layer-5": 0.480398,
+            "layer-0": 0.170668,
+            "layer-1": 0.270793,
+            "layer-2": 0.332273,
+            "layer-3": 0.380211,
+            "layer-4": 0.436903,
+            "layer-5": 0.478212,
             "layer-6": 0.504408,
-            "layer-7": 0.523227,
-            "layer-8": 0.499039,
-            "layer-9": 0.513276,
-            "layer-10": 0.531328,
-            "layer-11": 0.51014,
-            "layer-12": 0.474587
+            "layer-7": 0.522262,
+            "layer-8": 0.498952,
+            "layer-9": 0.513478,
+            "layer-10": 0.531335,
+            "layer-11": 0.510823,
+            "layer-12": 0.474805
           },
           "per_class_f1_probe": {
             "1.10.10": 0.437158,
             "1.10.150": 0.229508,
             "1.10.287": 0.432161,
-            "1.10.8": 0.129032,
+            "1.10.8": 0.131148,
             "1.20.120": 0.438202,
             "1.20.5": 0.540984,
             "1.20.58": 0.392638,
@@ -9948,10 +10021,10 @@
             "2.30.30": 0.520548,
             "2.40.128": 0.530612,
             "2.40.50": 0.4,
-            "2.60.120": 0.548148,
-            "2.60.40": 0.703125,
-            "3.30.70": 0.707224,
-            "3.40.50": 0.822034
+            "2.60.120": 0.544118,
+            "2.60.40": 0.698039,
+            "3.30.70": 0.709434,
+            "3.40.50": 0.825532
           },
           "class_balance": {
             "1.10.10": 281,
@@ -9977,6 +10050,13 @@
             "n_classes_total": 15,
             "min_label_count": 5
           },
+          "hit_coverage": 0.009294,
+          "hit_conditional_accuracy": 0.6,
+          "hit_n_test_with_hit": 10,
+          "hit_n_test": 1076,
+          "hit_conditional_chance_accuracy": 0.066667,
+          "homology_nearest_neighbour_max_attainable_macro_f1": 0.030501,
+          "homology_transfer_interpretation": "DIAMOND reaches 10 of 1076 test domains (0.9%); on those it transfers the topology 60% of the time against 6.7% chance. Remoteness here is a matter of how rarely similarity transfer applies, not of it failing where it does \u2014 so read these two numbers and not the nearest-neighbour macro-F1, whose floor is set by the class count",
           "class_names": {
             "1.10.10": "Arc Repressor Mutant, subunit A",
             "1.10.150": "DNA polymerase; domain 1",
@@ -10001,35 +10081,35 @@
       },
       "uncertainty": {
         "ci95": [
-          0.45102767310715525,
-          0.5324940536467171
+          0.4515789039819544,
+          0.532121914956952
         ],
         "n_bootstrap": 2000,
-        "std": 0.02043997063884571,
+        "std": 0.020426133456485546,
         "gap_ci95": [
-          -0.005693172569381259,
-          0.05446399474194759
+          -0.006487801787517465,
+          0.05456001099390891
         ],
-        "gap_positive_fraction": 0.9435,
+        "gap_positive_fraction": 0.9395,
         "rank_reversal_risk": {}
       },
       "compute": {
-        "device": "unloaded",
-        "seconds": 136.53,
+        "device": "mps",
+        "seconds": 2036.4,
         "gpu_hours": null,
         "peak_memory_gb": null
       },
       "provenance": {
-        "code_commit": null,
-        "run_id": "2d6c4c928b38",
-        "run_date": "2026-08-17T05:59:50+00:00",
+        "code_commit": "4b807a2",
+        "run_id": "9b932e6495ad",
+        "run_date": "2026-08-17T14:56:58+00:00",
         "seed": 0,
         "env_lock_sha256": null,
         "harness_version": "1.0"
       },
       "caveats": [
         "Exceeds the empirical ceiling (0.189): the representation adds over the best cheap supervised readout of composition features. On this task that is the expected outcome rather than evidence of saturation, because composition cannot nearly solve fold recognition, so the ceiling is a comparator and not an attainable maximum. `derived.headroom` is therefore negative and must not be read as headroom on PR3.",
-        "Elicitation gap +0.0245 has a paired 95% interval [-0.0057, +0.0545] spanning zero (positive in 94% of group resamples); not distinguishable from no gap on this dataset."
+        "Elicitation gap +0.0241 has a paired 95% interval [-0.0065, +0.0546] spanning zero (positive in 94% of group resamples); not distinguishable from no gap on this dataset."
       ],
       "disclosure_tier": 0
     },
@@ -10047,9 +10127,9 @@
       "dataset_sha256": "37e9e4e59a03",
       "scores": {
         "zero_shot": 0.364568,
-        "behavioural": 0.48986,
-        "probe": 0.534556,
-        "elicited": 0.084815,
+        "behavioural": 0.489894,
+        "probe": 0.533761,
+        "elicited": 0.553791,
         "readout_budget": {
           "n_components": 64,
           "C": 1.0,
@@ -10065,9 +10145,9 @@
         }
       },
       "derived": {
-        "elicitation_gap": 0.044696,
-        "recoverability": -0.405045,
-        "headroom": -1.831611
+        "elicitation_gap": 0.043867,
+        "recoverability": 0.063897,
+        "headroom": -1.933502
       },
       "baselines": {
         "majority_class": 0.012975,
@@ -10086,9 +10166,9 @@
           "n_permutations": 1000,
           "matched_covariate": "domain_length",
           "p_value": 0.000999000999000999,
-          "null_mean": 0.09923635925806652,
-          "null_std": 0.008775666995950808,
-          "observed": 0.5345555289643166
+          "null_mean": 0.09923494021942145,
+          "null_std": 0.008756796431133149,
+          "observed": 0.5337611194031469
         },
         "ceiling": {
           "method": "empirical: best of {scaled, unscaled} x {raw, pca50, pca128} x {C=1, C=0.1} logistic regression; configuration chosen on a validation carve of the training set (validation), then refit on the full training set and scored once on test",
@@ -10118,53 +10198,79 @@
             "3.30.70": 181,
             "3.40.50": 188
           },
+          "elicited_curve": {
+            "25": 0.13989842381261103,
+            "50": 0.310476169558389,
+            "100": 0.4156349096602881,
+            "200": 0.537477711272253,
+            "400": 0.5537907932790913
+          },
+          "elicited_budget": {
+            "method": "LoRA + linear head",
+            "steps": 400,
+            "lr": 0.001,
+            "head_lr": 0.01,
+            "batch_size": 8,
+            "lora_r": 8,
+            "lora_alpha": 16,
+            "warmup_fraction": 0.1,
+            "normalise_pooled": true,
+            "examples_seen": 3200,
+            "checkpoints": [
+              25,
+              50,
+              100,
+              200,
+              400
+            ]
+          },
           "per_layer_scores": {
-            "layer-0": 0.170449,
-            "layer-1": 0.277629,
-            "layer-2": 0.265453,
-            "layer-3": 0.333782,
-            "layer-4": 0.354342,
+            "layer-0": 0.170668,
+            "layer-1": 0.279608,
+            "layer-2": 0.265353,
+            "layer-3": 0.33281,
+            "layer-4": 0.354489,
             "layer-5": 0.405296,
             "layer-6": 0.426098,
-            "layer-7": 0.438764,
-            "layer-8": 0.470933,
-            "layer-9": 0.475848,
-            "layer-10": 0.513967,
-            "layer-11": 0.503234,
-            "layer-12": 0.53924,
-            "layer-13": 0.502056,
-            "layer-14": 0.506958,
-            "layer-15": 0.538594,
+            "layer-7": 0.438851,
+            "layer-8": 0.474885,
+            "layer-9": 0.474839,
+            "layer-10": 0.516303,
+            "layer-11": 0.503265,
+            "layer-12": 0.539274,
+            "layer-13": 0.503111,
+            "layer-14": 0.506934,
+            "layer-15": 0.539905,
             "layer-16": 0.526064,
             "layer-17": 0.538127,
-            "layer-18": 0.534556,
-            "layer-19": 0.545797,
-            "layer-20": 0.541969,
-            "layer-21": 0.533353,
-            "layer-22": 0.530089,
+            "layer-18": 0.533761,
+            "layer-19": 0.544999,
+            "layer-20": 0.540875,
+            "layer-21": 0.532493,
+            "layer-22": 0.530822,
             "layer-23": 0.546711,
-            "layer-24": 0.547113,
-            "layer-25": 0.551898,
-            "layer-26": 0.559266,
+            "layer-24": 0.546052,
+            "layer-25": 0.550991,
+            "layer-26": 0.560864,
             "layer-27": 0.552666,
-            "layer-28": 0.541916,
-            "layer-29": 0.545003,
-            "layer-30": 0.48986
+            "layer-28": 0.540999,
+            "layer-29": 0.544312,
+            "layer-30": 0.489894
           },
           "per_class_f1_probe": {
-            "1.10.10": 0.469945,
-            "1.10.150": 0.357143,
+            "1.10.10": 0.461538,
+            "1.10.150": 0.350877,
             "1.10.287": 0.33526,
             "1.10.8": 0.189189,
             "1.20.120": 0.5,
             "1.20.5": 0.550336,
             "1.20.58": 0.380952,
-            "1.25.40": 0.615385,
+            "1.25.40": 0.621359,
             "2.30.30": 0.564103,
             "2.40.128": 0.615385,
             "2.40.50": 0.451613,
             "2.60.120": 0.70073,
-            "2.60.40": 0.762712,
+            "2.60.40": 0.759494,
             "3.30.70": 0.681319,
             "3.40.50": 0.844262
           },
@@ -10192,6 +10298,13 @@
             "n_classes_total": 15,
             "min_label_count": 5
           },
+          "hit_coverage": 0.009294,
+          "hit_conditional_accuracy": 0.6,
+          "hit_n_test_with_hit": 10,
+          "hit_n_test": 1076,
+          "hit_conditional_chance_accuracy": 0.066667,
+          "homology_nearest_neighbour_max_attainable_macro_f1": 0.030501,
+          "homology_transfer_interpretation": "DIAMOND reaches 10 of 1076 test domains (0.9%); on those it transfers the topology 60% of the time against 6.7% chance. Remoteness here is a matter of how rarely similarity transfer applies, not of it failing where it does \u2014 so read these two numbers and not the nearest-neighbour macro-F1, whose floor is set by the class count",
           "class_names": {
             "1.10.10": "Arc Repressor Mutant, subunit A",
             "1.10.150": "DNA polymerase; domain 1",
@@ -10216,28 +10329,28 @@
       },
       "uncertainty": {
         "ci95": [
-          0.484366326578547,
-          0.5697163206956659
+          0.4833390843627734,
+          0.5683580939699152
         ],
         "n_bootstrap": 2000,
-        "std": 0.021912971979789773,
+        "std": 0.021887591802125322,
         "gap_ci95": [
-          0.005961191948032102,
-          0.07843329773203772
+          0.005991597926505938,
+          0.07760406040975494
         ],
-        "gap_positive_fraction": 0.9915,
+        "gap_positive_fraction": 0.9905,
         "rank_reversal_risk": {}
       },
       "compute": {
         "device": "unloaded",
-        "seconds": 195.41,
+        "seconds": 3181.7,
         "gpu_hours": null,
         "peak_memory_gb": null
       },
       "provenance": {
-        "code_commit": null,
-        "run_id": "f0b28229afdb",
-        "run_date": "2026-08-17T06:03:08+00:00",
+        "code_commit": "4b807a2",
+        "run_id": "3f07eeb8d057",
+        "run_date": "2026-08-17T15:50:04+00:00",
         "seed": 0,
         "env_lock_sha256": null,
         "harness_version": "1.0"
@@ -10262,8 +10375,8 @@
       "scores": {
         "zero_shot": 0.328327,
         "behavioural": 0.468424,
-        "probe": 0.568097,
-        "elicited": 0.07087,
+        "probe": 0.569953,
+        "elicited": 0.597173,
         "readout_budget": {
           "n_components": 64,
           "C": 1.0,
@@ -10279,9 +10392,9 @@
         }
       },
       "derived": {
-        "elicitation_gap": 0.099673,
-        "recoverability": -0.397554,
-        "headroom": -2.009282
+        "elicitation_gap": 0.101529,
+        "recoverability": 0.128749,
+        "headroom": -2.163302
       },
       "baselines": {
         "majority_class": 0.012975,
@@ -10300,9 +10413,9 @@
           "n_permutations": 1000,
           "matched_covariate": "domain_length",
           "p_value": 0.000999000999000999,
-          "null_mean": 0.09787250744613195,
-          "null_std": 0.008150699779968665,
-          "observed": 0.5680974152675949
+          "null_mean": 0.09789408008103632,
+          "null_std": 0.008154084765383623,
+          "observed": 0.5699528326043936
         },
         "ceiling": {
           "method": "empirical: best of {scaled, unscaled} x {raw, pca50, pca128} x {C=1, C=0.1} logistic regression; configuration chosen on a validation carve of the training set (validation), then refit on the full training set and scored once on test",
@@ -10332,40 +10445,66 @@
             "3.30.70": 181,
             "3.40.50": 188
           },
+          "elicited_curve": {
+            "25": 0.1719099393263984,
+            "50": 0.3500866751969493,
+            "100": 0.47056032865551967,
+            "200": 0.5438977486313995,
+            "400": 0.5971734166945504
+          },
+          "elicited_budget": {
+            "method": "LoRA + linear head",
+            "steps": 400,
+            "lr": 0.001,
+            "head_lr": 0.01,
+            "batch_size": 8,
+            "lora_r": 8,
+            "lora_alpha": 16,
+            "warmup_fraction": 0.1,
+            "normalise_pooled": true,
+            "examples_seen": 3200,
+            "checkpoints": [
+              25,
+              50,
+              100,
+              200,
+              400
+            ]
+          },
           "per_layer_scores": {
-            "layer-0": 0.17078,
-            "layer-1": 0.267838,
-            "layer-2": 0.262517,
-            "layer-3": 0.313695,
-            "layer-4": 0.379726,
-            "layer-5": 0.409184,
-            "layer-6": 0.432211,
-            "layer-7": 0.436561,
-            "layer-8": 0.456013,
-            "layer-9": 0.522725,
-            "layer-10": 0.511693,
-            "layer-11": 0.531426,
-            "layer-12": 0.556908,
-            "layer-13": 0.538953,
-            "layer-14": 0.532389,
-            "layer-15": 0.538517,
-            "layer-16": 0.550629,
+            "layer-0": 0.170668,
+            "layer-1": 0.266757,
+            "layer-2": 0.262454,
+            "layer-3": 0.313589,
+            "layer-4": 0.381137,
+            "layer-5": 0.408156,
+            "layer-6": 0.433089,
+            "layer-7": 0.435693,
+            "layer-8": 0.457982,
+            "layer-9": 0.522404,
+            "layer-10": 0.511465,
+            "layer-11": 0.530615,
+            "layer-12": 0.556969,
+            "layer-13": 0.536794,
+            "layer-14": 0.53217,
+            "layer-15": 0.540227,
+            "layer-16": 0.549758,
             "layer-17": 0.531973,
-            "layer-18": 0.54939,
-            "layer-19": 0.552669,
+            "layer-18": 0.547831,
+            "layer-19": 0.552511,
             "layer-20": 0.549989,
-            "layer-21": 0.549731,
-            "layer-22": 0.542994,
-            "layer-23": 0.568922,
-            "layer-24": 0.582113,
-            "layer-25": 0.57444,
-            "layer-26": 0.568097,
+            "layer-21": 0.54868,
+            "layer-22": 0.543586,
+            "layer-23": 0.566802,
+            "layer-24": 0.581392,
+            "layer-25": 0.571967,
+            "layer-26": 0.569953,
             "layer-27": 0.558749,
-            "layer-28": 0.5644,
-            "layer-29": 0.557867,
-            "layer-30": 0.575811,
+            "layer-28": 0.565731,
+            "layer-29": 0.55871,
+            "layer-30": 0.576005,
             "layer-31": 0.546113,
-            "layer-32": 0.510736,
+            "layer-32": 0.509931,
             "layer-33": 0.468424
           },
           "per_class_f1_probe": {
@@ -10377,9 +10516,9 @@
             "1.20.5": 0.571429,
             "1.20.58": 0.366013,
             "1.25.40": 0.745455,
-            "2.30.30": 0.628571,
+            "2.30.30": 0.647887,
             "2.40.128": 0.595745,
-            "2.40.50": 0.621622,
+            "2.40.50": 0.630137,
             "2.60.120": 0.782609,
             "2.60.40": 0.771784,
             "3.30.70": 0.719368,
@@ -10409,6 +10548,13 @@
             "n_classes_total": 15,
             "min_label_count": 5
           },
+          "hit_coverage": 0.009294,
+          "hit_conditional_accuracy": 0.6,
+          "hit_n_test_with_hit": 10,
+          "hit_n_test": 1076,
+          "hit_conditional_chance_accuracy": 0.066667,
+          "homology_nearest_neighbour_max_attainable_macro_f1": 0.030501,
+          "homology_transfer_interpretation": "DIAMOND reaches 10 of 1076 test domains (0.9%); on those it transfers the topology 60% of the time against 6.7% chance. Remoteness here is a matter of how rarely similarity transfer applies, not of it failing where it does \u2014 so read these two numbers and not the nearest-neighbour macro-F1, whose floor is set by the class count",
           "class_names": {
             "1.10.10": "Arc Repressor Mutant, subunit A",
             "1.10.150": "DNA polymerase; domain 1",
@@ -10433,28 +10579,28 @@
       },
       "uncertainty": {
         "ci95": [
-          0.5196361176882767,
-          0.6013408146124678
+          0.5205992964713437,
+          0.6033714761727546
         ],
         "n_bootstrap": 2000,
-        "std": 0.021404010301163054,
+        "std": 0.021306365878315057,
         "gap_ci95": [
-          0.054883025245311925,
-          0.1408453482131793
+          0.057328745809798146,
+          0.1438949199633301
         ],
         "gap_positive_fraction": 1.0,
         "rank_reversal_risk": {}
       },
       "compute": {
-        "device": "unloaded",
-        "seconds": 355.75,
+        "device": "mps",
+        "seconds": 5031.79,
         "gpu_hours": null,
         "peak_memory_gb": null
       },
       "provenance": {
-        "code_commit": null,
-        "run_id": "1ed5f119719d",
-        "run_date": "2026-08-17T06:09:06+00:00",
+        "code_commit": "4b807a2",
+        "run_id": "2bf73efeb2a1",
+        "run_date": "2026-08-17T17:14:05+00:00",
         "seed": 0,
         "env_lock_sha256": null,
         "harness_version": "1.0"
@@ -10700,9 +10846,9 @@
       "dataset_sha256": "37e9e4e59a03",
       "scores": {
         "zero_shot": 0.385972,
-        "behavioural": 0.444827,
-        "probe": 0.460003,
-        "elicited": 0.126463,
+        "behavioural": 0.443122,
+        "probe": 0.458402,
+        "elicited": 0.493412,
         "readout_budget": {
           "n_components": 64,
           "C": 1.0,
@@ -10718,9 +10864,9 @@
         }
       },
       "derived": {
-        "elicitation_gap": 0.015176,
-        "recoverability": -0.318364,
-        "headroom": -1.436695
+        "elicitation_gap": 0.01528,
+        "recoverability": 0.05029,
+        "headroom": -1.613666
       },
       "baselines": {
         "majority_class": 0.012975,
@@ -10739,9 +10885,9 @@
           "n_permutations": 1000,
           "matched_covariate": "domain_length",
           "p_value": 0.000999000999000999,
-          "null_mean": 0.11500530470828556,
-          "null_std": 0.009297099029149115,
-          "observed": 0.46000339120007144
+          "null_mean": 0.11498084673217937,
+          "null_std": 0.009297941412098604,
+          "observed": 0.4584023933842232
         },
         "ceiling": {
           "method": "empirical: best of {scaled, unscaled} x {raw, pca50, pca128} x {C=1, C=0.1} logistic regression; configuration chosen on a validation carve of the training set (validation), then refit on the full training set and scored once on test",
@@ -10771,22 +10917,48 @@
             "3.30.70": 181,
             "3.40.50": 188
           },
+          "elicited_curve": {
+            "25": 0.15035013752562915,
+            "50": 0.3838028237463845,
+            "100": 0.3964723501255658,
+            "200": 0.459620855324842,
+            "400": 0.4934118618110189
+          },
+          "elicited_budget": {
+            "method": "LoRA + linear head",
+            "steps": 400,
+            "lr": 0.001,
+            "head_lr": 0.01,
+            "batch_size": 8,
+            "lora_r": 8,
+            "lora_alpha": 16,
+            "warmup_fraction": 0.1,
+            "normalise_pooled": true,
+            "examples_seen": 3200,
+            "checkpoints": [
+              25,
+              50,
+              100,
+              200,
+              400
+            ]
+          },
           "per_layer_scores": {
-            "layer-0": 0.171095,
+            "layer-0": 0.170668,
             "layer-1": 0.316154,
             "layer-2": 0.375776,
-            "layer-3": 0.433127,
-            "layer-4": 0.460003,
-            "layer-5": 0.46765,
-            "layer-6": 0.444827
+            "layer-3": 0.431855,
+            "layer-4": 0.458402,
+            "layer-5": 0.468605,
+            "layer-6": 0.443122
           },
           "per_class_f1_probe": {
-            "1.10.10": 0.325843,
+            "1.10.10": 0.324022,
             "1.10.150": 0.34375,
-            "1.10.287": 0.333333,
+            "1.10.287": 0.331429,
             "1.10.8": 0.088235,
             "1.20.120": 0.485876,
-            "1.20.5": 0.6,
+            "1.20.5": 0.57971,
             "1.20.58": 0.352201,
             "1.25.40": 0.666667,
             "2.30.30": 0.375,
@@ -10821,6 +10993,13 @@
             "n_classes_total": 15,
             "min_label_count": 5
           },
+          "hit_coverage": 0.009294,
+          "hit_conditional_accuracy": 0.6,
+          "hit_n_test_with_hit": 10,
+          "hit_n_test": 1076,
+          "hit_conditional_chance_accuracy": 0.066667,
+          "homology_nearest_neighbour_max_attainable_macro_f1": 0.030501,
+          "homology_transfer_interpretation": "DIAMOND reaches 10 of 1076 test domains (0.9%); on those it transfers the topology 60% of the time against 6.7% chance. Remoteness here is a matter of how rarely similarity transfer applies, not of it failing where it does \u2014 so read these two numbers and not the nearest-neighbour macro-F1, whose floor is set by the class count",
           "class_names": {
             "1.10.10": "Arc Repressor Mutant, subunit A",
             "1.10.150": "DNA polymerase; domain 1",
@@ -10845,35 +11024,35 @@
       },
       "uncertainty": {
         "ci95": [
-          0.4174480451613943,
-          0.49334013413050587
+          0.4160499589817256,
+          0.4912608761340468
         ],
         "n_bootstrap": 2000,
-        "std": 0.019362190346826732,
+        "std": 0.019328434718772762,
         "gap_ci95": [
-          -0.014554414221989626,
-          0.04358695789375782
+          -0.013544230470210266,
+          0.043651801921163504
         ],
         "gap_positive_fraction": 0.847,
         "rank_reversal_risk": {}
       },
       "compute": {
         "device": "unloaded",
-        "seconds": 142.04,
+        "seconds": 1364.03,
         "gpu_hours": null,
         "peak_memory_gb": null
       },
       "provenance": {
-        "code_commit": null,
-        "run_id": "85259cdeac13",
-        "run_date": "2026-08-17T05:57:31+00:00",
+        "code_commit": "4b807a2",
+        "run_id": "6f24ff1fdd7f",
+        "run_date": "2026-08-17T14:22:58+00:00",
         "seed": 0,
         "env_lock_sha256": null,
         "harness_version": "1.0"
       },
       "caveats": [
         "Exceeds the empirical ceiling (0.189): the representation adds over the best cheap supervised readout of composition features. On this task that is the expected outcome rather than evidence of saturation, because composition cannot nearly solve fold recognition, so the ceiling is a comparator and not an attainable maximum. `derived.headroom` is therefore negative and must not be read as headroom on PR3.",
-        "Elicitation gap +0.0152 has a paired 95% interval [-0.0146, +0.0436] spanning zero (positive in 85% of group resamples); not distinguishable from no gap on this dataset."
+        "Elicitation gap +0.0153 has a paired 95% interval [-0.0135, +0.0437] spanning zero (positive in 85% of group resamples); not distinguishable from no gap on this dataset."
       ],
       "disclosure_tier": 0
     },
@@ -11200,6 +11379,124 @@
         "Does not beat the pca50_logreg baseline (0.556); the representation adds nothing on this task.",
         "No elicitation gap by construction: the best internal layer is the sanctioned surface. This model exposes no separate internals to probe.",
         "Fine-tuning (F) not measured: adapter does not support it."
+      ],
+      "disclosure_tier": 0
+    },
+    {
+      "model": "geneformer-v2-104m",
+      "modality": "single-cell",
+      "task": "sc4-donor-invariance",
+      "task_version": "1.0",
+      "axis": [
+        "A8"
+      ],
+      "metric": "donor_macro_f1_lower_is_better",
+      "dataset_id": "ts-immune-20k",
+      "dataset_sha256": "4322da8dd164",
+      "scores": {
+        "zero_shot": 0.203319,
+        "behavioural": 0.616947,
+        "probe": 0.688594,
+        "elicited": null,
+        "readout_budget": {
+          "n_components": 64,
+          "C": 1.0,
+          "max_iter": 2000,
+          "metric": "macro_f1"
+        },
+        "probe_best_layer": "layer-2",
+        "layer_selection": "validation",
+        "effective_width": {
+          "behavioural": 64,
+          "probe": 64,
+          "budget": 64
+        }
+      },
+      "derived": {
+        "elicitation_gap": 0.071647,
+        "recoverability": null,
+        "headroom": null
+      },
+      "baselines": {
+        "raw_expression_same_budget": 0.53858,
+        "library_size_only": 0.024946,
+        "pca50_logreg": 0.655611
+      },
+      "controls": {
+        "group_stratified": false,
+        "group_key": null,
+        "n_groups_train": null,
+        "n_groups_test": 15,
+        "null": {
+          "method": "covariate-matched label permutation (10 quantile bins)",
+          "n_permutations": 1000,
+          "matched_covariate": "total_counts",
+          "p_value": 0.000999000999000999,
+          "null_mean": 0.04586433101982292,
+          "null_std": 0.004349899949569188,
+          "observed": 0.6885940556112138
+        },
+        "ceiling": {
+          "method": "empirical: best of {scaled, unscaled} x {raw, pca50, pca128} x {C=1, C=0.1} logistic regression; configuration chosen on a validation carve of the training set (validation), then refit on the full training set and scored once on test",
+          "value": 0.7804737548304228,
+          "note": "Won by unscaled/raw/C=0.1. Interpret model scores relative to this: at or above it, the representation adds nothing over standard supervised practice on the raw features."
+        },
+        "extra": {
+          "why_not_group_stratified": "predicting donor identity requires donors on both sides of the split, so a donor-disjoint split is impossible by construction. Cells are split within each donor instead.",
+          "donor_retention": 1.2785,
+          "donor_retention_denominator": 0.53858,
+          "donor_retention_note": "model donor decodability divided by raw-expression donor decodability under the identical readout budget. >1 means the representation surfaces more donor identity than raw expression does at the same capacity.",
+          "retention_vs_unbudgeted_ceiling": 0.8823,
+          "per_layer_scores": {
+            "layer-0": 0.550218,
+            "layer-1": 0.673994,
+            "layer-2": 0.688594,
+            "layer-3": 0.690676,
+            "layer-4": 0.677561,
+            "layer-5": 0.668093,
+            "layer-6": 0.652906,
+            "layer-7": 0.649389,
+            "layer-8": 0.64876,
+            "layer-9": 0.65307,
+            "layer-10": 0.634903,
+            "layer-11": 0.609833,
+            "layer-12": 0.616947
+          },
+          "n_donors": 15
+        }
+      },
+      "uncertainty": {
+        "ci95": [
+          0.654789363668379,
+          0.7159523709987659
+        ],
+        "n_bootstrap": 2000,
+        "std": 0.015885029499577173,
+        "gap_ci95": [
+          0.03597226619917784,
+          0.10640801825978866
+        ],
+        "gap_positive_fraction": 1.0,
+        "rank_reversal_risk": {}
+      },
+      "compute": {
+        "device": "unloaded",
+        "seconds": 5214.8,
+        "gpu_hours": null,
+        "peak_memory_gb": null
+      },
+      "provenance": {
+        "code_commit": "6918949",
+        "run_id": "2b2eb557c3bc",
+        "run_date": "2026-08-17T13:50:12+00:00",
+        "seed": 0,
+        "env_lock_sha256": null,
+        "harness_version": "1.0"
+      },
+      "caveats": [
+        "Lower is better on this task: the score is how well donor identity can be read out of the representation.",
+        "Surfaces 128% of the donor identity that raw expression yields at the same readout capacity -- it makes donor *more* decodable than the untransformed data does, not less.",
+        "Internals leak more donor identity than the sanctioned surface does, so the sanctioned surface is hiding nuisance structure rather than removing it."
       ],
       "disclosure_tier": 0
     },
