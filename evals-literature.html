@@ -275,9 +275,9 @@
 
     <section class="ev-section">
       <div class="container">
-        <h2 class="ev-h2">Two more defects, both found in our own favour</h2>
+        <h2 class="ev-h2">Three more defects, all found in our own favour</h2>
         <p class="ev-sub">
-          The count is now twenty-one. Every one of them, without exception, was
+          The count is now twenty-two. Every one of them, without exception, was
           biasing a number in the direction that flattered us. We keep finding them
           the same way: by checking the thing we were about to publish.
         </p>
@@ -288,7 +288,7 @@
             <p>
               We measured how much light fine-tuning adds, on a third task — viral
               fitness — and got a flat line so tight it appeared to contradict the
-              two tasks that showed a rise. It was ready to publish.
+              two tasks that then showed a rise. It was ready to publish.
             </p>
             <p>
               Three of the five models in that line had failed the null test printed
@@ -320,8 +320,46 @@
           </div>
         </div>
 
+        <div class="ev-track-grid">
+          <div class="ev-track">
+            <h3>A missing model was holding up the answer</h3>
+            <p>
+              Two runs had died of out-of-memory errors on the largest models. We
+              treated that as an inconvenience and read the trends off the ladders we
+              had. On enzyme function, four models gave a clear rise in how much
+              fine-tuning adds with size — the strongest such result we had.
+            </p>
+            <p>
+              Recovering the missing 3-billion model changed it into a flat line. The
+              recovered point sits <em>below</em> the model a fifth its size, and the
+              interval that had excluded zero now spans it comfortably. The rung that
+              crashed was the rung that would have contradicted us — which is not a
+              coincidence so much as a warning: an out-of-memory error removes the
+              biggest model, and the biggest model is exactly where a trend that is
+              not a trend gets caught.
+            </p>
+          </div>
+          <div class="ev-track">
+            <h3>What that leaves us claiming</h3>
+            <p>
+              One task of three now shows fine-tuning recovering more as models grow,
+              and it clears zero by a whisker. Repeating it under three different
+              random seeds gives the same answer three times, so it is not noise. But
+              two tasks say nothing, and every model in these comparisons received the
+              same fixed training budget — which a larger model can simply do more
+              with.
+            </p>
+            <p>
+              So this is not on the site as a result, and that is the point of saying
+              it here. The measurement designed to remove that budget objection turned
+              out to have a flaw of its own, larger than the effect it was meant to
+              settle.
+            </p>
+          </div>
+        </div>
+
         <p class="ev-note">
-          Neither defect changed a published number. Both would have, had they been
+          None of these defects changed a published number. All three would have, had they been
           found a day later, and that is the only reason this section exists rather
           than a correction notice.
         </p>
