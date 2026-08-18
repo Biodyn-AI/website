@@ -5,7 +5,7 @@
    ======================================== */
 
 (() => {
-  const DATA_URL = 'content/evals.json';
+  const DATA_URL = 'content/evals.json?v=8';
 
   const fmt = (v, digits = 3) =>
     v === null || v === undefined || Number.isNaN(v) ? 'n/a' : Number(v).toFixed(digits);
