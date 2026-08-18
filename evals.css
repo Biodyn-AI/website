@@ -425,7 +425,18 @@
   fill: var(--text-muted);
 }
 
-.ev-chart-label { fill: var(--text-primary); font-size: 11.5px; }
+/* The label is knocked out of whatever runs behind it -- a gridline, the fit,
+   or a leader on its way to some other point. Same trick the dots already use,
+   and the same colour, so it follows the light-mode toggle without a second
+   rule. paint-order puts the halo under the glyph rather than over it. */
+.ev-chart-label {
+  fill: var(--text-primary);
+  font-size: 11.5px;
+  paint-order: stroke fill;
+  stroke: var(--bg-primary);
+  stroke-width: 2px;
+  stroke-linejoin: round;
+}
 
 .ev-chart-axis {
   font-family: var(--ev-mono);
@@ -473,6 +484,14 @@
 /* Numbers behind a picture must stay reachable without seeing the picture. */
 .ev-sr {
   position: absolute;
+  /* `.ev-table` sets a min-width so the visible results table keeps its columns
+     legible, and min-width beats width -- so this screen-reader-only copy was
+     computing to 860px on a 375px phone and dragging the whole document to
+     883px. The page scrolled sideways to reveal nothing at all, because the
+     thing causing it is invisible. Pre-dates the chart work; found while
+     measuring it. */
+  min-width: 0;
+  max-width: 1px;
   width: 1px;
   height: 1px;
   padding: 0;
@@ -538,11 +557,25 @@
   .ev-track { padding: 18px; }
 }
 
-/* Leader line from a point to a label that had to be pushed clear of others. */
+/* Leader line from a point to a label that proximity alone does not tie to it.
+   In the crowded middle of the size chart this line is the only thing saying
+   which model a label names, so it is drawn to be followed, not merely to be
+   faint -- but still one hairline, because seven of them share a small space. */
 .ev-chart-leader {
-  stroke: var(--text-muted);
+  /* Measured, not chosen by eye. This line is the only thing tying seven of
+     the twelve labels to their dots, so it has to clear WCAG 1.4.11's 3:1 for
+     a graphical object you need in order to read the content. --text-muted at
+     0.6 composites to 2.19:1 on the dark background and 2.23:1 on light --
+     visibly a hairline, but below the bar and genuinely hard to follow.
+     --text-secondary at 0.7 measures 4.1:1 dark, and stays lighter than the
+     label text so the line still reads as connective tissue, not as data.
+     non-scaling-stroke because the SVG scales down on narrow viewports: at
+     390px a 1px stroke renders about 0.66px and the load-bearing element
+     thins out exactly where the chart is already hardest to read. */
+  stroke: var(--text-secondary);
   stroke-width: 1;
-  opacity: 0.45;
+  vector-effect: non-scaling-stroke;
+  opacity: 0.7;
 }
 
 /* --- results, plain ------------------------------------------------------

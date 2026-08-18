@@ -5,7 +5,7 @@
    ======================================== */
 
 (() => {
-  const DATA_URL = 'content/evals.json?v=8';
+  const DATA_URL = 'content/evals.json?v=14';
 
   const fmt = (v, digits = 3) =>
     v === null || v === undefined || Number.isNaN(v) ? 'n/a' : Number(v).toFixed(digits);
@@ -169,6 +169,49 @@
     return Number(y) + (Number(m || 6) - 0.5) / 12;
   };
 
+  // --- small geometry, used to place labels and to route leader lines ------
+
+  // How far along a ray before it enters a box, or null if it never does.
+  // Used to stop a leader line just short of the text it points at.
+  const rayEnter = (ox, oy, ux, uy, b) => {
+    let tmin = -Infinity, tmax = Infinity;
+    const slab = (o, u, lo, hi) => {
+      if (Math.abs(u) < 1e-9) return o >= lo && o <= hi;
+      let t1 = (lo - o) / u, t2 = (hi - o) / u;
+      if (t1 > t2) { const s = t1; t1 = t2; t2 = s; }
+      tmin = Math.max(tmin, t1); tmax = Math.min(tmax, t2);
+      return true;
+    };
+    if (!slab(ox, ux, b.x1, b.x2)) return null;
+    if (!slab(oy, uy, b.y1, b.y2)) return null;
+    return tmax >= Math.max(tmin, 0) ? Math.max(tmin, 0) : null;
+  };
+
+  const segHitsBox = (x1, y1, x2, y2, b) => {
+    const dx = x2 - x1, dy = y2 - y1;
+    const len = Math.hypot(dx, dy);
+    if (!len) return false;
+    const t = rayEnter(x1, y1, dx / len, dy / len, b);
+    return t != null && t <= len;
+  };
+
+  const segHitsSeg = (ax, ay, bx, by, cx, cy, dx2, dy2) => {
+    const d = (bx - ax) * (dy2 - cy) - (by - ay) * (dx2 - cx);
+    if (Math.abs(d) < 1e-9) return false;
+    const t = ((cx - ax) * (dy2 - cy) - (cy - ay) * (dx2 - cx)) / d;
+    const u = ((cx - ax) * (by - ay) - (cy - ay) * (bx - ax)) / d;
+    return t > 0 && t < 1 && u > 0 && u < 1;
+  };
+
+  const distToSeg = (px, py, x1, y1, x2, y2) => {
+    const dx = x2 - x1, dy = y2 - y1;
+    const l2 = dx * dx + dy * dy;
+    if (!l2) return Math.hypot(px - x1, py - y1);
+    let t = ((px - x1) * dx + (py - y1) * dy) / l2;
+    t = Math.max(0, Math.min(1, t));
+    return Math.hypot(px - (x1 + t * dx), py - (y1 + t * dy));
+  };
+
   function renderTrend(container, trend, opts = {}) {
     container.innerHTML = '';
     const byDate = opts.xMode === 'date';
@@ -202,7 +245,15 @@
       return;
     }
 
-    const W = 940, H = 460;
+    // Taller than it looks like it needs to be, on purpose. The y-axis has to
+    // reach down to the no-model baseline and the ceiling (0.765 and 0.785) to
+    // show them, while every real model scores above 0.88 -- so the data lives
+    // in the top third and the bottom half is empty. That squeeze is the real
+    // source of the label crowding: seven models between 420M and 1.2B are
+    // pressed into a band about 50px tall, and no placement algorithm can undo
+    // that. More height is the one change that gives every label more room
+    // without moving a single point or hiding a name.
+    const W = 940, H = 560;
     const M = { t: 28, r: 168, b: 62, l: 62 };
     const iw = W - M.l - M.r, ih = H - M.t - M.b;
 
@@ -295,26 +346,74 @@
       container.dataset.slope = slope.toFixed(4);
     }
 
+    // Leaders live in their own layer, drawn before the points, so a line that
+    // runs to the centre of a dot disappears under the dot instead of crossing it.
+    const leaderLayer = svgEl('g', { class: 'ev-chart-leaders' });
+    svg.appendChild(leaderLayer);
+
     // error bars and points
-    pts.forEach((p) => {
-      const x = X(xOf(p));
+    const ptXY = pts.map((p) => ({ x: X(xOf(p)), y: Y(p.best) }));
+    // Kept, because a leader drawn straight up or down from a point runs along
+    // its own interval bar and vanishes into it. The bar is the reason the
+    // obvious placement is the wrong one here.
+    const bars = [];
+    pts.forEach((p, i) => {
+      const x = ptXY[i].x;
       if (p.ci95) {
+        const a = Y(p.ci95[0]), b = Y(p.ci95[1]);
+        bars.push({ x, y1: Math.min(a, b), y2: Math.max(a, b) });
         svg.appendChild(svgEl('line', {
-          x1: x, x2: x, y1: Y(p.ci95[0]), y2: Y(p.ci95[1]), class: 'ev-chart-err',
+          x1: x, x2: x, y1: a, y2: b, class: 'ev-chart-err',
         }));
       }
-      svg.appendChild(svgEl('circle', { cx: x, cy: Y(p.best), r: 6, class: 'ev-chart-pt' }));
+      svg.appendChild(svgEl('circle', { cx: x, cy: ptXY[i].y, r: 6, class: 'ev-chart-pt' }));
     });
 
-    // Labels, placed so they do not collide. Two models released weeks apart sit
-    // almost on top of each other on a date axis, and overlapping text is worse
-    // than no text: it is unreadable and looks like a rendering fault.
+    // Labels. There are two separate failures here and overlap is only one of
+    // them. The other is association: a label can sit in perfectly clear space
+    // and still be useless, because it is nearly equidistant between two points
+    // and so names neither. That is the failure this chart had. Seven models
+    // fall between 400M and 1.2B, three of them at exactly 650M and two at
+    // 1.2B, and on a log axis those collapse into one column. It cannot be
+    // nudged away: inside a cluster that tight, a label is unambiguous by
+    // proximity only if its own point is at least twice as near as the
+    // runner-up, which would mean sitting on the dot.
     //
-    // Widths are measured rather than estimated. A guess at characters times a
-    // constant was wrong for this font and left one pair overlapping, which is
-    // exactly the sort of nearly-right that survives review.
-    const LAB_H = 13;
-    const OFFSETS = [-16, 22, -32, 38, -48, 54];
+    // So the rule is: place by cost, then measure whether proximity actually
+    // settled it, and draw a leader wherever it did not. The threshold is the
+    // measured ratio, not a guess at how far the label moved -- a label nudged
+    // 20px in open country needs no line, and one nudged 20px inside the
+    // cluster needs one.
+    const CLEAR_RATIO = 2.2;
+
+    // Eight directions, edge-anchored: the offset is the gap between the point
+    // and the near edge of the text, not the text's centre, so a wide label
+    // never lands on top of the point it names.
+    const DIRS = [
+      { ux: 0, uy: -1, anchor: 'middle', pen: 0 },
+      { ux: 0, uy: 1, anchor: 'middle', pen: 1 },
+      // Mostly vertical but stepped sideways: this is what lets a label leave a
+      // column of points without its leader running down the column.
+      { ux: 0.34, uy: -0.94, anchor: 'start', pen: 3 },
+      { ux: -0.34, uy: -0.94, anchor: 'end', pen: 3 },
+      { ux: 0.34, uy: 0.94, anchor: 'start', pen: 3 },
+      { ux: -0.34, uy: 0.94, anchor: 'end', pen: 3 },
+      { ux: 0.72, uy: -0.72, anchor: 'start', pen: 4 },
+      { ux: -0.72, uy: -0.72, anchor: 'end', pen: 4 },
+      { ux: 0.72, uy: 0.72, anchor: 'start', pen: 4 },
+      { ux: -0.72, uy: 0.72, anchor: 'end', pen: 4 },
+      { ux: 1, uy: 0, anchor: 'start', pen: 6 },
+      { ux: -1, uy: 0, anchor: 'end', pen: 6 },
+    ];
+    // Rings run further than the label needs in the sparse case because the
+    // crowded case needs somewhere to go. Seven of these twelve models sit
+    // between 420M and 1.2B, and no amount of nudging inside 82px separates
+    // seven labels -- they just form a tidier knot. The chart has a large
+    // empty band below the data (the y-axis runs down to the baseline and
+    // ceiling references), so the long rings let a crowded label walk out into
+    // it on a leader instead of fighting its neighbours for the same 40px.
+    const RINGS = [11, 22, 34, 48, 64, 82, 104, 130, 158];
+
     // On a size axis two models can sit at exactly the same parameter count, and
     // labelling both "650M" tells the reader nothing about which is which. Add
     // the family only where the size alone is ambiguous, so the common case
@@ -325,96 +424,346 @@
       sizeCounts[k] = (sizeCounts[k] || 0) + 1;
     });
 
-    pts.forEach((p) => {
+    const labelJobs = [];
+    pts.forEach((p, i) => {
       const size = shortParams(p.params);
       const text = byDate
         ? `${p.family} ${size}`
         : (sizeCounts[size] > 1 && p.family ? `${p.family} ${size}` : size);
       const node = svgEl('text', {
-        x: X(xOf(p)), y: Y(p.best) + OFFSETS[0],
+        x: ptXY[i].x, y: ptXY[i].y - 20,
         class: 'ev-chart-label', 'text-anchor': 'middle',
       });
       node.textContent = text;
       svg.appendChild(node);
-      jobs.push({
-        node, x: X(xOf(p)), y: Y(p.best), anchor: 'middle',
-        offsets: OFFSETS, leader: true,
-      });
+      labelJobs.push({ node, idx: i, x: ptXY[i].x, y: ptXY[i].y });
     });
 
     const wrap = el('div', 'ev-chart-wrap');
     wrap.appendChild(svg);
     container.appendChild(wrap);
 
-    // Now the SVG is laid out, so text can be measured.
-    const overlaps = (a, b) =>
-      !(a.x2 < b.x1 - 3 || a.x1 > b.x2 + 3 || a.y2 < b.y1 - 2 || a.y1 > b.y2 + 2);
+    // Now the SVG is in the document, so text can be measured rather than
+    // guessed. A guess at characters times a constant was wrong for this font
+    // and left a pair overlapping, exactly the sort of nearly-right that
+    // survives review.
+    const LAB_H = 13;
     const placed = [];
+    const areaOf = (box) => placed.reduce((acc, b) => {
+      const ox = Math.min(box.x2, b.x2) - Math.max(box.x1, b.x1);
+      const oy = Math.min(box.y2, b.y2) - Math.max(box.y1, b.y1);
+      return acc + (ox > 0 && oy > 0 ? ox * oy : 0);
+    }, 0);
+
+    // Tick labels are furniture, but they are still text: a data label that
+    // lands on one is as unreadable as one that lands on another data label.
+    svg.querySelectorAll('.ev-chart-tick').forEach((t) => {
+      try {
+        const b = t.getBBox();
+        if (b.width) placed.push({ x1: b.x, y1: b.y, x2: b.x + b.width, y2: b.y + b.height });
+      } catch (e) { /* no layout */ }
+    });
+
+    // The two reference-line captions sit in the right margin and only need to
+    // dodge each other; the no-model baseline and the ceiling differ by 0.02
+    // here, so their captions would otherwise land on top of one another.
     jobs.forEach((job) => {
       let w = 60;
       try { w = job.node.getComputedTextLength() || w; } catch (e) { /* no layout */ }
-      const span = (yy) => (job.anchor === 'start'
-        ? { x1: job.x, x2: job.x + w }
-        : { x1: job.x - w / 2, x2: job.x + w / 2 });
+      let best = null;
+      for (const cand of job.offsets) {
+        const yy = job.y + cand;
+        const box = { x1: job.x, x2: job.x + w, y1: yy - LAB_H, y2: yy + 3 };
+        if (box.x2 > W - 4) continue;
+        const cost = areaOf(box) + Math.abs(cand) * 0.4;
+        if (!best || cost < best.cost) best = { yy, box, cost, dy: cand };
+      }
+      if (!best) return;
+      placed.push(best.box);
+      job.node.setAttribute('y', String(best.yy));
+      // A caption nudged off its line needs a tick back to it, or it reads as
+      // belonging to the wrong line.
+      if (job.tether != null && Math.abs(best.dy) > 2) {
+        leaderLayer.appendChild(svgEl('line', {
+          x1: job.x - 6, y1: job.tether, x2: job.x - 2, y2: best.yy - 4,
+          class: 'ev-chart-leader',
+        }));
+      }
+    });
 
-      // Search vertically first, then sideways. Vertical-only placement runs out
-      // when several models share an x -- three at 650M, two at 1.2B -- and the
-      // old code then fell back to offsets[0], the candidate most likely to
-      // collide, which guaranteed an overlap on exactly the crowded charts that
-      // needed placement most. Now every candidate is scored and the least-bad
-      // one wins if none is clean.
-      const areaOf = (box) => placed.reduce((acc, b) => {
-        const ox = Math.min(box.x2, b.x2) - Math.max(box.x1, b.x1);
-        const oy = Math.min(box.y2, b.y2) - Math.max(box.y1, b.y1);
+    // Measure each label once, then hand out positions crowded-points-first.
+    // Placing in data order let the isolated models take the easy slots and
+    // left the cluster with whatever was over, which is backwards: the tight
+    // group is the one with no choices.
+    labelJobs.forEach((job) => {
+      let w = 60, asc = 12, desc = 3;
+      try {
+        const b = job.node.getBBox();
+        const base = parseFloat(job.node.getAttribute('y'));
+        if (b.width) { w = b.width; asc = base - b.y; desc = (b.y + b.height) - base; }
+      } catch (e) { /* no layout */ }
+      job.w = w; job.asc = asc; job.desc = desc; job.h = asc + desc;
+      job.crowd = ptXY.reduce((n, q, j) => (
+        n + (j !== job.idx && Math.hypot(q.x - job.x, q.y - job.y) < 70 ? 1 : 0)
+      ), 0);
+    });
+
+    const order = labelJobs.slice().sort((a, b) => (b.crowd - a.crowd) || (a.idx - b.idx));
+    const fixed = placed.slice();          // ticks and reference captions, immovable
+    let slot = new Array(labelJobs.length).fill(null);
+
+    const boxFor = (job, d, g) => {
+      const gx = d.ux * g, gy = d.uy * g;
+      let y1;
+      if (d.uy < 0) y1 = job.y + gy - job.h;
+      else if (d.uy > 0) y1 = job.y + gy;
+      else y1 = job.y - job.h / 2;
+      let x1;
+      if (d.anchor === 'middle') x1 = job.x - job.w / 2;
+      else if (d.anchor === 'start') x1 = job.x + gx;
+      else x1 = job.x + gx - job.w;
+      return { x1, y1, x2: x1 + job.w, y2: y1 + job.h };
+    };
+
+    // Everything except this label. On the first pass the later slots are still
+    // empty; on the passes after that they are all filled, which is what turns
+    // one greedy sweep into something able to back out of a bad early choice.
+    const context = (job) => {
+      const boxes = fixed.slice();
+      const segs = [];
+      slot.forEach((s, j) => {
+        if (!s || j === job.idx) return;
+        boxes.push(s.box);
+        if (s.seg) segs.push(s.seg);
+      });
+      return { boxes, segs };
+    };
+
+    const score = (job, d, g, ring, ctx) => {
+      const box = boxFor(job, d, g);
+      if (box.x1 < 4 || box.x2 > W - 4) return null;
+      if (box.y1 < M.t - 6 || box.y2 > M.t + ih + 36) return null;
+
+      // A label sitting on any dot, its own included, reads as a rendering
+      // fault and hides the mark it is meant to explain.
+      let onDot = 0;
+      ptXY.forEach((q) => {
+        if (q.x >= box.x1 - 5 && q.x <= box.x2 + 5 && q.y >= box.y1 - 5 && q.y <= box.y2 + 5) onDot++;
+      });
+
+      const cx = (box.x1 + box.x2) / 2, cy = (box.y1 + box.y2) / 2;
+      let own = Infinity, near = Infinity;
+      ptXY.forEach((q, j) => {
+        const dd = Math.hypot(q.x - cx, q.y - cy);
+        if (j === job.idx) { own = dd; return; }
+        if (dd < near) near = dd;
+      });
+      const ownNearest = own <= near;
+      // The ratio the reader actually experiences: how much nearer this label's
+      // own point is than the next one along.
+      const ratio = own > 0 ? near / own : 1;
+      const needsLeader = !(ownNearest && ratio >= CLEAR_RATIO);
+      // A leader shorter than the dot it starts from is not a leader, so a
+      // label that needs one has to stand at least one ring out.
+      if (needsLeader && ring === 0) return null;
+
+      // Compared with a margin, not edge to edge: the label carries a halo of
+      // background colour so that whatever passes behind it stays legible, and
+      // two labels touching would knock chunks out of each other.
+      const overlap = ctx.boxes.reduce((acc, b) => {
+        const ox = Math.min(box.x2 + 2.5, b.x2) - Math.max(box.x1 - 2.5, b.x1);
+        const oy = Math.min(box.y2 + 2, b.y2) - Math.max(box.y1 - 2, b.y1);
         return acc + (ox > 0 && oy > 0 ? ox * oy : 0);
       }, 0);
 
-      const candidates = [];
-      for (const cand of job.offsets) {
-        for (const dx of [0, w / 2 + 10, -(w / 2 + 10)]) {
-          const yy = job.y + cand;
-          if (yy < M.t + 10 || yy > M.t + ih + 40) continue;
-          const base = span(yy);
-          const box = { x1: base.x1 + dx, x2: base.x2 + dx, y1: yy - LAB_H, y2: yy + 3 };
-          if (box.x1 < 2 || box.x2 > W - 4) continue;
-          candidates.push({ dy: cand, dx, yy, box, cost: areaOf(box) + Math.abs(cand) * 0.4 + Math.abs(dx) * 0.8 });
+      // Distance is charged twice over -- once for how far the text sits from
+      // the mark it names, once for the length of line needed to say so -- so
+      // the cheapest way to satisfy the association rule is to stay close, not
+      // to run off into the empty half of the chart trailing a long wire.
+      // Distance is charged less to a label whose own neighbourhood is full.
+      // With a flat charge the cheapest seat is always the nearest one, so
+      // every label in a knot picks a seat inside the knot and the knot
+      // survives -- which is exactly what the first version of this shipped:
+      // association was guaranteed by leaders, and the middle of the chart
+      // still read as a pile. `crowd` counts the other marks within 70px, so
+      // an isolated label still hugs its dot and only a crowded one is allowed
+      // to travel.
+      const relief = 1 / (1 + Math.min(job.crowd || 0, 6) * 0.45);
+      let cost = overlap * 8 + onDot * 900 + ring * 3 * relief + d.pen + own * 0.55 * relief;
+      if (!ownNearest) cost += 400;
+      // Charged from both sides, or the pass order decides who wins: a label
+      // pays for landing on somebody's leader exactly as a leader pays for
+      // crossing somebody's label.
+      ctx.segs.forEach((s) => {
+        if (segHitsBox(s[0], s[1], s[2], s[3], box)) cost += 120;
+      });
+      let seg = null;
+      if (needsLeader) {
+        // The leader does not have to aim at the middle of the label, and it
+        // must not: every point wears a tall vertical interval bar, so a line
+        // drawn straight up or down from a dot is swallowed whole by the bar
+        // and the reader sees no leader at all. Aiming at a corner of the text
+        // instead slants the line clear of the bar while leaving the label
+        // itself square above or below its point, where it reads best.
+        const lat = Math.min(job.w / 2 - 5, 26);
+        const aims = [];
+        if (d.uy !== 0) {
+          const ey = d.uy < 0 ? box.y2 + 3 : box.y1 - 3;
+          [-1, 1].forEach((s) => aims.push([
+            Math.max(box.x1 + 5, Math.min(box.x2 - 5, job.x + s * lat)), ey,
+          ]));
+        } else {
+          const ex = d.ux > 0 ? box.x1 - 3 : box.x2 + 3;
+          aims.push([ex, (box.y1 + box.y2) / 2]);
         }
-      }
-      candidates.sort((a, b) => a.cost - b.cost);
-      const pick = candidates[0] || {
-        dy: job.offsets[0], dx: 0, yy: job.y + job.offsets[0],
-        box: { ...span(job.y + job.offsets[0]), y1: job.y + job.offsets[0] - LAB_H, y2: job.y + job.offsets[0] + 3 },
-      };
-      const dy = pick.dy;
-      const yy = pick.yy;
-      placed.push(pick.box);
-      job.node.setAttribute('y', String(yy));
-      if (pick.dx) {
-        job.node.setAttribute('x', String(job.x + pick.dx));
-        // Displaced sideways, so it needs a line back to its point.
-        svg.appendChild(svgEl('line', {
-          x1: job.x, y1: job.y, x2: job.x + pick.dx - Math.sign(pick.dx) * (w / 2 + 2), y2: yy - 4,
-          class: 'ev-chart-leader',
-        }));
-      }
 
-      // A reference label nudged off its line needs a tick back to it, or it
-      // reads as belonging to the wrong line.
-      if (job.tether != null && Math.abs(dy) > 2) {
-        svg.appendChild(svgEl('line', {
-          x1: job.x - 6, y1: job.tether, x2: job.x - 2, y2: yy - 4,
-          class: 'ev-chart-leader',
-        }));
-      }
-      if (job.leader && Math.abs(dy) > 26) {
-        const leader = svgEl('line', {
-          x1: job.x, y1: job.y + Math.sign(dy) * 8,
-          x2: job.x, y2: yy + (dy < 0 ? 4 : -10),
-          class: 'ev-chart-leader',
+        const routeCost = (aim) => {
+          const vx = aim[0] - job.x, vy = aim[1] - job.y;
+          const len = Math.hypot(vx, vy) || 1;
+          const ux = vx / len, uy = vy / len;
+          const s = [job.x + ux * 8.5, job.y + uy * 8.5, aim[0], aim[1]];
+          const sl = Math.hypot(s[2] - s[0], s[3] - s[1]);
+          if (sl < 6) return null;
+          // Relieved for the same reason the ring is: in a knot the leader is
+          // what buys the space, so charging it at the full rate re-creates
+          // the knot the ring relief was meant to open. An uncrowded label
+          // still pays full price and therefore still stays put.
+          let c = 24 + sl * 1.6 * relief;
+          const SAMPLES = 16;
+          let buried = 0;
+          for (let k = 0; k <= SAMPLES; k++) {
+            const f = k / SAMPLES;
+            const sx = s[0] + (s[2] - s[0]) * f;
+            const sy = s[1] + (s[3] - s[1]) * f;
+            if (bars.some((b) => Math.abs(sx - b.x) <= 2.5 && sy >= b.y1 - 1 && sy <= b.y2 + 1)) buried++;
+          }
+          c += (buried / (SAMPLES + 1)) * sl * 6;
+          ctx.boxes.forEach((b) => {
+            if (segHitsBox(s[0], s[1], s[2], s[3], b)) c += 260;
+            // A leader that STOPS inside somebody else's label is a different
+            // and worse fault than one that merely crosses it. Crossing is
+            // clutter; stopping is a false statement -- the reader follows the
+            // line from the dot and arrives at the wrong model's name, with no
+            // cue that anything went wrong. It shipped exactly once, from
+            // ESM-1b's dot into "Ankh 1.2B", because this was charged the same
+            // 120 as a crossing and the endpoint landed 3px short of its own
+            // label. Priced with `onDot` instead, since it is the same class of
+            // error: the picture asserting something untrue.
+            const ex = s[2], ey = s[3];
+            if (ex >= b.x1 - 1 && ex <= b.x2 + 1 && ey >= b.y1 - 1 && ey <= b.y2 + 1) c += 1500;
+          });
+          ptXY.forEach((q, j) => {
+            // Two models can score so nearly the same that their dots overlap --
+            // ESM-1b and ESM2 at 650M land three pixels apart. Charging a leader
+            // for grazing a dot that close to its own buys nothing and distorts
+            // the rest of the layout, so only strangers further out count.
+            if (j === job.idx) return;
+            if (Math.hypot(q.x - job.x, q.y - job.y) < 16) return;
+            if (distToSeg(q.x, q.y, s[0], s[1], s[2], s[3]) < 8) c += 150;
+          });
+          ctx.segs.forEach((o) => {
+            if (segHitsSeg(s[0], s[1], s[2], s[3], o[0], o[1], o[2], o[3])) c += 90;
+          });
+          return { seg: s, c };
+        };
+
+        let route = null;
+        aims.forEach((aim) => {
+          const r = routeCost(aim);
+          if (r && (!route || r.c < route.c)) route = r;
         });
-        svg.insertBefore(leader, svg.firstChild);
+        if (!route) return null;
+        seg = route.seg;
+        cost += route.c;
       }
+      return { d, g, ring, box, cost, needsLeader, seg };
+    };
+
+    const solve = (job) => {
+      const ctx = context(job);
+      let best = null;
+      DIRS.forEach((d) => RINGS.forEach((g, ring) => {
+        const cand = score(job, d, g, ring, ctx);
+        if (cand && (!best || cand.cost < best.cost)) best = cand;
+      }));
+      return best || {
+        d: DIRS[0], g: RINGS[0], ring: 0, box: boxFor(job, DIRS[0], RINGS[0]),
+        cost: 0, needsLeader: false, seg: null,
+      };
+    };
+
+    // Sweep, then re-sweep with everyone else's choice visible. Keep whichever
+    // sweep scored best overall, so a refinement pass can never leave the chart
+    // worse than the sweep before it.
+    let bestSlot = null, bestTotal = Infinity;
+    for (let pass = 0; pass < 4; pass++) {
+      order.forEach((job) => { slot[job.idx] = solve(job); });
+      const total = labelJobs.reduce((acc, job) => {
+        const s = slot[job.idx];
+        const re = score(job, s.d, s.g, s.ring, context(job));
+        return acc + (re ? re.cost : s.cost);
+      }, 0);
+      if (total < bestTotal - 1e-6) { bestTotal = total; bestSlot = slot.slice(); }
+    }
+    slot = bestSlot || slot;
+
+    labelJobs.forEach((job) => {
+      const s = slot[job.idx];
+      const bx = s.d.anchor === 'start' ? s.box.x1
+        : s.d.anchor === 'end' ? s.box.x2
+          : job.x;
+      job.node.setAttribute('x', String(bx));
+      job.node.setAttribute('y', String(s.box.y1 + job.asc));
+      job.node.setAttribute('text-anchor', s.d.anchor);
+      if (!s.needsLeader || !s.seg) return;
+      const line = svgEl('line', {
+        x1: s.seg[0], y1: s.seg[1], x2: s.seg[2], y2: s.seg[3],
+        class: 'ev-chart-leader',
+      });
+      // Recorded so the connection can be checked mechanically rather than by
+      // eye, which is how the ambiguity got shipped in the first place.
+      line.setAttribute('data-leader-for', String(job.idx));
+      leaderLayer.appendChild(line);
     });
+
+    // Verify the invariant rather than trust the cost function to have bought
+    // it. The costs are soft -- a big number that can still be outweighed --
+    // and the one fault this chart must never have is a leader ending inside
+    // the wrong label, because that does not look like a bug to a reader, it
+    // looks like an answer. So: check every leader against every foreign box
+    // and, if one still lands wrong, shorten it to stop at the boundary of the
+    // stranger it entered. A leader that stops short is merely unhelpful; a
+    // leader that ends inside the wrong name is false.
+    const finalBoxes = labelJobs.map((job) => slot[job.idx].box);
+    let repaired = 0;
+    labelJobs.forEach((job) => {
+      const s = slot[job.idx];
+      if (!s.needsLeader || !s.seg) return;
+      const line = leaderLayer.querySelector(`[data-leader-for="${job.idx}"]`);
+      if (!line) return;
+      let [x1, y1, x2, y2] = s.seg;
+      finalBoxes.forEach((b, j) => {
+        if (j === job.idx) return;
+        const inside = x2 >= b.x1 - 1 && x2 <= b.x2 + 1 && y2 >= b.y1 - 1 && y2 <= b.y2 + 1;
+        if (!inside) return;
+        // Walk back along the leader until it is clear of the box it ended in.
+        const dx = x2 - x1, dy = y2 - y1;
+        const len = Math.hypot(dx, dy) || 1;
+        for (let back = 2; back <= len; back += 2) {
+          const f = (len - back) / len;
+          const nx = x1 + dx * f, ny = y1 + dy * f;
+          if (!(nx >= b.x1 - 1 && nx <= b.x2 + 1 && ny >= b.y1 - 1 && ny <= b.y2 + 1)) {
+            x2 = nx; y2 = ny; repaired += 1;
+            break;
+          }
+        }
+      });
+      line.setAttribute('x2', String(x2));
+      line.setAttribute('y2', String(y2));
+    });
+    // Readable from the DOM so the check can be run from outside, which is how
+    // the original defect was found in the first place.
+    svg.setAttribute('data-leader-repairs', String(repaired));
 
     // the same numbers, reachable without the picture
     const tbl = el('table', 'ev-table ev-sr');
