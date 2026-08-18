@@ -120,6 +120,15 @@
             billion result is a single run. Until we measure seed variance for it, our
             number should be read as one draw rather than a settled value.
           </p>
+          <p class="ev-result-plain">
+            We have since seen that instability from a second direction, which we did
+            not go looking for. Fine-tuning the same checkpoint on fold recognition ran
+            the full budget and fell apart: accuracy climbed to 0.381 and then collapsed
+            to 0.013, under settings that every smaller model in the ladder handled
+            without trouble. We report it as corroboration of their claim rather than
+            as a finding of ours — they described the checkpoint as unstable first, and
+            this is what that looks like on our instrument.
+          </p>
         </div>
 
         <div class="ev-result">
@@ -260,6 +269,61 @@
           best-layer effect is settled, or that measuring an elicitation gap on a
           biological model had not been done. None of those survive contact with the
           literature.
+        </p>
+      </div>
+    </section>
+
+    <section class="ev-section">
+      <div class="container">
+        <h2 class="ev-h2">Two more defects, both found in our own favour</h2>
+        <p class="ev-sub">
+          The count is now twenty-one. Every one of them, without exception, was
+          biasing a number in the direction that flattered us. We keep finding them
+          the same way: by checking the thing we were about to publish.
+        </p>
+
+        <div class="ev-track-grid">
+          <div class="ev-track">
+            <h3>A trend fitted on models that failed their own test</h3>
+            <p>
+              We measured how much light fine-tuning adds, on a third task — viral
+              fitness — and got a flat line so tight it appeared to contradict the
+              two tasks that showed a rise. It was ready to publish.
+            </p>
+            <p>
+              Three of the five models in that line had failed the null test printed
+              on their own result cards. At those sizes the model was not doing the
+              task at all, so the quantity being fitted was the difference between
+              two scores that a shuffle could have produced. Two usable points cannot
+              make a line. The analysis had every one of those p-values in front of
+              it — our own pipeline computed them, wrote them to the card, and loaded
+              them back — and never looked. It now refuses to report a slope unless
+              at least three models beat their own null, and prints the count
+              alongside any slope it does report.
+            </p>
+          </div>
+          <div class="ev-track">
+            <h3>A finding filed as a limitation of our tooling</h3>
+            <p>
+              ESM2-15B, the largest model we run, produced no fine-tuning number. The
+              card explained why: <em>"adapter does not support it."</em> That was
+              false. Fine-tuning ran the full budget; the card carries the curve. It
+              diverged — accuracy climbed to 0.381 and then collapsed to 0.013.
+            </p>
+            <p>
+              The detector correctly withheld the number, and then the card blamed our
+              software. That swaps the most interesting thing we saw — the largest
+              model in the ladder falls apart under a budget every smaller model
+              handled — for a note about our harness that any reader would skip. Cards
+              now say which of the two happened, and name the peak and the fall.
+            </p>
+          </div>
+        </div>
+
+        <p class="ev-note">
+          Neither defect changed a published number. Both would have, had they been
+          found a day later, and that is the only reason this section exists rather
+          than a correction notice.
         </p>
       </div>
     </section>

@@ -1,5 +1,5 @@
 {
-  "generated_from_n_cards": 74,
+  "generated_from_n_cards": 75,
   "models": [
     {
       "id": "ankh-base",
@@ -103,7 +103,7 @@
       "params": 15000000000,
       "source": "facebook/esm2_t48_15B_UR50D",
       "notes": "48 layers, hidden 5120, truncated at 1022 residues, float16 weights. Protein embedding = mean over residue positions, excluding <cls>, <eos> and padding.",
-      "n_cards": 2
+      "n_cards": 3
     },
     {
       "id": "esm2-t6-8m-ur50d",
@@ -268,7 +268,7 @@
       ],
       "metric": "macro_f1",
       "dataset_id": "cath-fold",
-      "n_models": 6
+      "n_models": 7
     },
     {
       "id": "pr4-ec-number",
@@ -319,11 +319,11 @@
       "rows": [
         {
           "model": "esm2-t36-3b-ur50d",
-          "best": 0.673907,
+          "best": 0.683388,
           "zero_shot": 0.647587,
           "behavioural": 0.673907,
           "probe": 0.631082,
-          "elicited": null,
+          "elicited": 0.683388,
           "elicitation_gap": -0.042825,
           "gap_ci95": [
             -0.09628677316977688,
@@ -335,7 +335,7 @@
           "best_baseline": 0.512271,
           "beats_baseline": true,
           "ceiling": 0.5199905183312263,
-          "headroom": -0.295999,
+          "headroom": -0.314232,
           "null_p": 0.000999000999000999,
           "survives_null": true,
           "ci95": [
@@ -344,8 +344,7 @@
           ],
           "caveats": [
             "Exceeds the empirical ceiling (0.520): the representation adds over the best cheap supervised readout of composition features.",
-            "Elicitation gap -0.0428 has a paired 95% interval [-0.0963, +0.0099] spanning zero (positive in 5% of cluster resamples); not distinguishable from no gap on this dataset.",
-            "Fine-tuning (F) not measured: adapter does not support it."
+            "Elicitation gap -0.0428 has a paired 95% interval [-0.0963, +0.0099] spanning zero (positive in 5% of cluster resamples); not distinguishable from no gap on this dataset."
           ]
         },
         {
@@ -381,11 +380,11 @@
         },
         {
           "model": "esm2-t33-650m-ur50d",
-          "best": 0.653211,
+          "best": 0.66555,
           "zero_shot": 0.621888,
           "behavioural": 0.653211,
           "probe": 0.591103,
-          "elicited": null,
+          "elicited": 0.66555,
           "elicitation_gap": -0.062108,
           "gap_ci95": [
             -0.12237351203641743,
@@ -397,7 +396,7 @@
           "best_baseline": 0.512271,
           "beats_baseline": true,
           "ceiling": 0.5199905183312263,
-          "headroom": -0.256198,
+          "headroom": -0.279927,
           "null_p": 0.007992007992007992,
           "survives_null": true,
           "ci95": [
@@ -405,8 +404,7 @@
             0.6438391558083718
           ],
           "caveats": [
-            "Exceeds the empirical ceiling (0.520): the representation adds over the best cheap supervised readout of composition features.",
-            "Fine-tuning collapsed: the score was identical at every checkpoint from step 100 onward, which is what a head answering a single class produces. F is withheld rather than reported, because that constant is a property of the label distribution and not of this model."
+            "Exceeds the empirical ceiling (0.520): the representation adds over the best cheap supervised readout of composition features."
           ]
         },
         {
@@ -437,6 +435,68 @@
           "caveats": [
             "Exceeds the empirical ceiling (0.507): the representation adds over the best cheap supervised readout of composition features.",
             "Fine-tuning (F) not measured: adapter does not support it."
+          ]
+        },
+        {
+          "model": "esm2-t30-150m-ur50d",
+          "best": 0.613303,
+          "zero_shot": 0.538996,
+          "behavioural": 0.599929,
+          "probe": 0.546093,
+          "elicited": 0.613303,
+          "elicitation_gap": -0.053836,
+          "gap_ci95": [
+            -0.11384021593231443,
+            0.003966074475205364
+          ],
+          "gap_positive_fraction": 0.034,
+          "gap_structural_zero": false,
+          "gap_separated_from_zero": false,
+          "best_baseline": 0.512271,
+          "beats_baseline": true,
+          "ceiling": 0.5199905183312263,
+          "headroom": -0.17945,
+          "null_p": 0.14485514485514486,
+          "survives_null": false,
+          "ci95": [
+            0.4884227328825961,
+            0.6028446385487369
+          ],
+          "caveats": [
+            "Does not survive the position-matched null (p=0.145); treat the score as unsupported.",
+            "Exceeds the empirical ceiling (0.520): the representation adds over the best cheap supervised readout of composition features.",
+            "Elicitation gap -0.0538 has a paired 95% interval [-0.1138, +0.0040] spanning zero (positive in 3% of cluster resamples); not distinguishable from no gap on this dataset."
+          ]
+        },
+        {
+          "model": "esm2-t12-35m-ur50d",
+          "best": 0.612407,
+          "zero_shot": 0.540689,
+          "behavioural": 0.588546,
+          "probe": 0.530274,
+          "elicited": 0.612407,
+          "elicitation_gap": -0.058272,
+          "gap_ci95": [
+            -0.12488481121363428,
+            0.009002471813557168
+          ],
+          "gap_positive_fraction": 0.044,
+          "gap_structural_zero": false,
+          "gap_separated_from_zero": false,
+          "best_baseline": 0.512271,
+          "beats_baseline": true,
+          "ceiling": 0.5199905183312263,
+          "headroom": -0.177727,
+          "null_p": 0.14485514485514486,
+          "survives_null": false,
+          "ci95": [
+            0.48140019464268763,
+            0.5838517524493285
+          ],
+          "caveats": [
+            "Does not survive the position-matched null (p=0.145); treat the score as unsupported.",
+            "Exceeds the empirical ceiling (0.520): the representation adds over the best cheap supervised readout of composition features.",
+            "Elicitation gap -0.0583 has a paired 95% interval [-0.1249, +0.0090] spanning zero (positive in 4% of cluster resamples); not distinguishable from no gap on this dataset."
           ]
         },
         {
@@ -502,38 +562,6 @@
           ]
         },
         {
-          "model": "esm2-t30-150m-ur50d",
-          "best": 0.599929,
-          "zero_shot": 0.538996,
-          "behavioural": 0.599929,
-          "probe": 0.546093,
-          "elicited": null,
-          "elicitation_gap": -0.053836,
-          "gap_ci95": [
-            -0.11384021593231443,
-            0.003966074475205364
-          ],
-          "gap_positive_fraction": 0.034,
-          "gap_structural_zero": false,
-          "gap_separated_from_zero": false,
-          "best_baseline": 0.512271,
-          "beats_baseline": true,
-          "ceiling": 0.5199905183312263,
-          "headroom": -0.153731,
-          "null_p": 0.14485514485514486,
-          "survives_null": false,
-          "ci95": [
-            0.4884227328825961,
-            0.6028446385487369
-          ],
-          "caveats": [
-            "Does not survive the position-matched null (p=0.145); treat the score as unsupported.",
-            "Exceeds the empirical ceiling (0.520): the representation adds over the best cheap supervised readout of composition features.",
-            "Elicitation gap -0.0538 has a paired 95% interval [-0.1138, +0.0040] spanning zero (positive in 3% of cluster resamples); not distinguishable from no gap on this dataset.",
-            "Fine-tuning collapsed: the score was identical at every checkpoint from step 100 onward, which is what a head answering a single class produces. F is withheld rather than reported, because that constant is a property of the label distribution and not of this model."
-          ]
-        },
-        {
           "model": "esm2-t12-35m-ur50d",
           "best": 0.596403,
           "zero_shot": 0.544288,
@@ -566,35 +594,34 @@
           ]
         },
         {
-          "model": "esm2-t12-35m-ur50d",
-          "best": 0.588546,
-          "zero_shot": 0.540689,
-          "behavioural": 0.588546,
-          "probe": 0.530274,
-          "elicited": null,
-          "elicitation_gap": -0.058272,
+          "model": "esm2-t6-8m-ur50d",
+          "best": 0.576821,
+          "zero_shot": 0.564134,
+          "behavioural": 0.566185,
+          "probe": 0.525427,
+          "elicited": 0.576821,
+          "elicitation_gap": -0.040758,
           "gap_ci95": [
-            -0.12488481121363428,
-            0.009002471813557168
+            -0.10822863839721548,
+            0.02732297184953469
           ],
-          "gap_positive_fraction": 0.044,
+          "gap_positive_fraction": 0.1105,
           "gap_structural_zero": false,
           "gap_separated_from_zero": false,
           "best_baseline": 0.512271,
           "beats_baseline": true,
           "ceiling": 0.5199905183312263,
-          "headroom": -0.13184,
-          "null_p": 0.14485514485514486,
+          "headroom": -0.109291,
+          "null_p": 0.28771228771228774,
           "survives_null": false,
           "ci95": [
-            0.48140019464268763,
-            0.5838517524493285
+            0.46739580821970955,
+            0.5802629371239975
           ],
           "caveats": [
-            "Does not survive the position-matched null (p=0.145); treat the score as unsupported.",
+            "Does not survive the position-matched null (p=0.288); treat the score as unsupported.",
             "Exceeds the empirical ceiling (0.520): the representation adds over the best cheap supervised readout of composition features.",
-            "Elicitation gap -0.0583 has a paired 95% interval [-0.1249, +0.0090] spanning zero (positive in 4% of cluster resamples); not distinguishable from no gap on this dataset.",
-            "Fine-tuning collapsed: the score was identical at every checkpoint from step 100 onward, which is what a head answering a single class produces. F is withheld rather than reported, because that constant is a property of the label distribution and not of this model."
+            "Elicitation gap -0.0408 has a paired 95% interval [-0.1082, +0.0273] spanning zero (positive in 11% of cluster resamples); not distinguishable from no gap on this dataset."
           ]
         },
         {
@@ -690,38 +717,6 @@
             "Exceeds the empirical ceiling (0.507): the representation adds over the best cheap supervised readout of composition features.",
             "Elicitation gap +0.0437 has a paired 95% interval [-0.0218, +0.1142] spanning zero (positive in 90% of cluster resamples); not distinguishable from no gap on this dataset.",
             "Fine-tuning (F) not measured: adapter does not support it."
-          ]
-        },
-        {
-          "model": "esm2-t6-8m-ur50d",
-          "best": 0.566185,
-          "zero_shot": 0.564134,
-          "behavioural": 0.566185,
-          "probe": 0.525427,
-          "elicited": null,
-          "elicitation_gap": -0.040758,
-          "gap_ci95": [
-            -0.10822863839721548,
-            0.02732297184953469
-          ],
-          "gap_positive_fraction": 0.1105,
-          "gap_structural_zero": false,
-          "gap_separated_from_zero": false,
-          "best_baseline": 0.512271,
-          "beats_baseline": true,
-          "ceiling": 0.5199905183312263,
-          "headroom": -0.088837,
-          "null_p": 0.28771228771228774,
-          "survives_null": false,
-          "ci95": [
-            0.46739580821970955,
-            0.5802629371239975
-          ],
-          "caveats": [
-            "Does not survive the position-matched null (p=0.288); treat the score as unsupported.",
-            "Exceeds the empirical ceiling (0.520): the representation adds over the best cheap supervised readout of composition features.",
-            "Elicitation gap -0.0408 has a paired 95% interval [-0.1082, +0.0273] spanning zero (positive in 11% of cluster resamples); not distinguishable from no gap on this dataset.",
-            "Fine-tuning collapsed: the score was identical at every checkpoint from step 100 onward, which is what a head answering a single class produces. F is withheld rather than reported, because that constant is a property of the label distribution and not of this model."
           ]
         },
         {
@@ -2120,6 +2115,36 @@
     "pr3-fold-recognition": {
       "rows": [
         {
+          "model": "esm2-t36-3b-ur50d",
+          "best": 0.62231,
+          "zero_shot": 0.366498,
+          "behavioural": 0.504138,
+          "probe": 0.540906,
+          "elicited": 0.62231,
+          "elicitation_gap": 0.036768,
+          "gap_ci95": [
+            -0.00246886068244095,
+            0.07423719274698852
+          ],
+          "gap_positive_fraction": 0.966,
+          "gap_structural_zero": false,
+          "gap_separated_from_zero": false,
+          "best_baseline": 0.226178,
+          "beats_baseline": true,
+          "ceiling": 0.18878155020824935,
+          "headroom": -2.296456,
+          "null_p": 0.000999000999000999,
+          "survives_null": true,
+          "ci95": [
+            0.4880085673017357,
+            0.5783143260363646
+          ],
+          "caveats": [
+            "Exceeds the empirical ceiling (0.189): the representation adds over the best cheap supervised readout of composition features. On this task that is the expected outcome rather than evidence of saturation, because composition cannot nearly solve fold recognition, so the ceiling is a comparator and not an attainable maximum. `derived.headroom` is therefore negative and must not be read as headroom on PR3.",
+            "Elicitation gap +0.0368 has a paired 95% interval [-0.0025, +0.0742] spanning zero (positive in 97% of group resamples); not distinguishable from no gap on this dataset."
+          ]
+        },
+        {
           "model": "esm2-t33-650m-ur50d",
           "best": 0.597173,
           "zero_shot": 0.328327,
@@ -2149,6 +2174,36 @@
           ]
         },
         {
+          "model": "esm2-t48-15b-ur50d",
+          "best": 0.5649,
+          "zero_shot": 0.382285,
+          "behavioural": 0.488245,
+          "probe": 0.5649,
+          "elicited": null,
+          "elicitation_gap": 0.076655,
+          "gap_ci95": [
+            0.03927553290166895,
+            0.11373244331802075
+          ],
+          "gap_positive_fraction": 1.0,
+          "gap_structural_zero": false,
+          "gap_separated_from_zero": true,
+          "best_baseline": 0.226178,
+          "beats_baseline": true,
+          "ceiling": 0.18878155020824935,
+          "headroom": -1.992348,
+          "null_p": 0.000999000999000999,
+          "survives_null": true,
+          "ci95": [
+            0.5146065019442451,
+            0.5985661345379499
+          ],
+          "caveats": [
+            "Exceeds the empirical ceiling (0.189): the representation adds over the best cheap supervised readout of composition features. On this task that is the expected outcome rather than evidence of saturation, because composition cannot nearly solve fold recognition, so the ceiling is a comparator and not an attainable maximum. `derived.headroom` is therefore negative and must not be read as headroom on PR3.",
+            "Fine-tuning (F) withheld: it ran the full budget and diverged \u2014 macro-F1 peaked at 0.381 by step 100 and fell to 0.013 by step 400. This is a property of this model under the pinned budget, not a limitation of the harness, and it means the budget does not transfer unchanged to this scale."
+          ]
+        },
+        {
           "model": "esm2-t30-150m-ur50d",
           "best": 0.553791,
           "zero_shot": 0.364568,
@@ -2175,37 +2230,6 @@
           ],
           "caveats": [
             "Exceeds the empirical ceiling (0.189): the representation adds over the best cheap supervised readout of composition features. On this task that is the expected outcome rather than evidence of saturation, because composition cannot nearly solve fold recognition, so the ceiling is a comparator and not an attainable maximum. `derived.headroom` is therefore negative and must not be read as headroom on PR3."
-          ]
-        },
-        {
-          "model": "esm2-t36-3b-ur50d",
-          "best": 0.541947,
-          "zero_shot": 0.366498,
-          "behavioural": 0.503257,
-          "probe": 0.541947,
-          "elicited": null,
-          "elicitation_gap": 0.03869,
-          "gap_ci95": [
-            -0.00011989258628873454,
-            0.07691602928188979
-          ],
-          "gap_positive_fraction": 0.974,
-          "gap_structural_zero": false,
-          "gap_separated_from_zero": false,
-          "best_baseline": 0.226178,
-          "beats_baseline": true,
-          "ceiling": 0.18878155020824935,
-          "headroom": -1.870763,
-          "null_p": 0.000999000999000999,
-          "survives_null": true,
-          "ci95": [
-            0.4892083235280529,
-            0.5795732386368732
-          ],
-          "caveats": [
-            "Exceeds the empirical ceiling (0.189): the representation adds over the best cheap supervised readout of composition features. On this task that is the expected outcome rather than evidence of saturation, because composition cannot nearly solve fold recognition, so the ceiling is a comparator and not an attainable maximum. `derived.headroom` is therefore negative and must not be read as headroom on PR3.",
-            "Elicitation gap +0.0387 has a paired 95% interval [-0.0001, +0.0769] spanning zero (positive in 97% of group resamples); not distinguishable from no gap on this dataset.",
-            "Fine-tuning (F) not measured: adapter does not support it."
           ]
         },
         {
@@ -2309,11 +2333,11 @@
       "rows": [
         {
           "model": "esm2-t33-650m-ur50d",
-          "best": 0.453976,
+          "best": 0.500546,
           "zero_shot": 0.256695,
           "behavioural": 0.315504,
           "probe": 0.453976,
-          "elicited": null,
+          "elicited": 0.500546,
           "elicitation_gap": 0.138472,
           "gap_ci95": [
             0.09590747220451676,
@@ -2325,7 +2349,7 @@
           "best_baseline": 0.146232,
           "beats_baseline": true,
           "ceiling": 0.10707402767790235,
-          "headroom": -3.239833,
+          "headroom": -3.674766,
           "null_p": 0.000999000999000999,
           "survives_null": true,
           "ci95": [
@@ -2334,8 +2358,67 @@
           ],
           "caveats": [
             "Exceeds the empirical ceiling (0.107): the representation adds over the best cheap supervised readout of composition features. On this task that is the expected outcome rather than evidence of saturation, because composition cannot nearly solve cross-family enzyme-class transfer, so the ceiling is a comparator and not an attainable maximum. `derived.headroom` is therefore negative and must not be read as headroom on PR4.",
-            "The empirical ceiling (0.107) is below a cheap composition baseline (0.146). The ceiling sweeps only logistic regressions, which overfit training lineages on a family-disjoint split where a nearest-centroid readout does not, so the ceiling understates what composition features yield here and `derived.headroom` is not interpretable on this card.",
-            "Fine-tuning (F) not measured: adapter does not support it."
+            "The empirical ceiling (0.107) is below a cheap composition baseline (0.146). The ceiling sweeps only logistic regressions, which overfit training lineages on a family-disjoint split where a nearest-centroid readout does not, so the ceiling understates what composition features yield here and `derived.headroom` is not interpretable on this card."
+          ]
+        },
+        {
+          "model": "esm2-t30-150m-ur50d",
+          "best": 0.46006,
+          "zero_shot": 0.242583,
+          "behavioural": 0.303158,
+          "probe": 0.37912,
+          "elicited": 0.46006,
+          "elicitation_gap": 0.075962,
+          "gap_ci95": [
+            0.03525008197970285,
+            0.11550593016055834
+          ],
+          "gap_positive_fraction": 1.0,
+          "gap_structural_zero": false,
+          "gap_separated_from_zero": true,
+          "best_baseline": 0.146232,
+          "beats_baseline": true,
+          "ceiling": 0.10707402767790235,
+          "headroom": -3.296654,
+          "null_p": 0.000999000999000999,
+          "survives_null": true,
+          "ci95": [
+            0.3334512724543534,
+            0.41653132276834215
+          ],
+          "caveats": [
+            "Exceeds the empirical ceiling (0.107): the representation adds over the best cheap supervised readout of composition features. On this task that is the expected outcome rather than evidence of saturation, because composition cannot nearly solve cross-family enzyme-class transfer, so the ceiling is a comparator and not an attainable maximum. `derived.headroom` is therefore negative and must not be read as headroom on PR4.",
+            "The empirical ceiling (0.107) is below a cheap composition baseline (0.146). The ceiling sweeps only logistic regressions, which overfit training lineages on a family-disjoint split where a nearest-centroid readout does not, so the ceiling understates what composition features yield here and `derived.headroom` is not interpretable on this card."
+          ]
+        },
+        {
+          "model": "esm2-t12-35m-ur50d",
+          "best": 0.452655,
+          "zero_shot": 0.260456,
+          "behavioural": 0.382172,
+          "probe": 0.421776,
+          "elicited": 0.452655,
+          "elicitation_gap": 0.039604,
+          "gap_ci95": [
+            1.1658696703989453e-05,
+            0.08112536803700704
+          ],
+          "gap_positive_fraction": 0.9755,
+          "gap_structural_zero": false,
+          "gap_separated_from_zero": true,
+          "best_baseline": 0.146232,
+          "beats_baseline": true,
+          "ceiling": 0.10707402767790235,
+          "headroom": -3.227496,
+          "null_p": 0.000999000999000999,
+          "survives_null": true,
+          "ci95": [
+            0.37250778506085297,
+            0.4660610521306141
+          ],
+          "caveats": [
+            "Exceeds the empirical ceiling (0.107): the representation adds over the best cheap supervised readout of composition features. On this task that is the expected outcome rather than evidence of saturation, because composition cannot nearly solve cross-family enzyme-class transfer, so the ceiling is a comparator and not an attainable maximum. `derived.headroom` is therefore negative and must not be read as headroom on PR4.",
+            "The empirical ceiling (0.107) is below a cheap composition baseline (0.146). The ceiling sweeps only logistic regressions, which overfit training lineages on a family-disjoint split where a nearest-centroid readout does not, so the ceiling understates what composition features yield here and `derived.headroom` is not interpretable on this card."
           ]
         },
         {
@@ -2370,74 +2453,12 @@
           ]
         },
         {
-          "model": "esm2-t12-35m-ur50d",
-          "best": 0.421776,
-          "zero_shot": 0.260456,
-          "behavioural": 0.382172,
-          "probe": 0.421776,
-          "elicited": null,
-          "elicitation_gap": 0.039604,
-          "gap_ci95": [
-            1.1658696703989453e-05,
-            0.08112536803700704
-          ],
-          "gap_positive_fraction": 0.9755,
-          "gap_structural_zero": false,
-          "gap_separated_from_zero": true,
-          "best_baseline": 0.146232,
-          "beats_baseline": true,
-          "ceiling": 0.10707402767790235,
-          "headroom": -2.939107,
-          "null_p": 0.000999000999000999,
-          "survives_null": true,
-          "ci95": [
-            0.37250778506085297,
-            0.4660610521306141
-          ],
-          "caveats": [
-            "Exceeds the empirical ceiling (0.107): the representation adds over the best cheap supervised readout of composition features. On this task that is the expected outcome rather than evidence of saturation, because composition cannot nearly solve cross-family enzyme-class transfer, so the ceiling is a comparator and not an attainable maximum. `derived.headroom` is therefore negative and must not be read as headroom on PR4.",
-            "The empirical ceiling (0.107) is below a cheap composition baseline (0.146). The ceiling sweeps only logistic regressions, which overfit training lineages on a family-disjoint split where a nearest-centroid readout does not, so the ceiling understates what composition features yield here and `derived.headroom` is not interpretable on this card.",
-            "Fine-tuning (F) not measured: adapter does not support it."
-          ]
-        },
-        {
-          "model": "esm2-t30-150m-ur50d",
-          "best": 0.37912,
-          "zero_shot": 0.242583,
-          "behavioural": 0.303158,
-          "probe": 0.37912,
-          "elicited": null,
-          "elicitation_gap": 0.075962,
-          "gap_ci95": [
-            0.03525008197970285,
-            0.11550593016055834
-          ],
-          "gap_positive_fraction": 1.0,
-          "gap_structural_zero": false,
-          "gap_separated_from_zero": true,
-          "best_baseline": 0.146232,
-          "beats_baseline": true,
-          "ceiling": 0.10707402767790235,
-          "headroom": -2.540728,
-          "null_p": 0.000999000999000999,
-          "survives_null": true,
-          "ci95": [
-            0.3334512724543534,
-            0.41653132276834215
-          ],
-          "caveats": [
-            "Exceeds the empirical ceiling (0.107): the representation adds over the best cheap supervised readout of composition features. On this task that is the expected outcome rather than evidence of saturation, because composition cannot nearly solve cross-family enzyme-class transfer, so the ceiling is a comparator and not an attainable maximum. `derived.headroom` is therefore negative and must not be read as headroom on PR4.",
-            "The empirical ceiling (0.107) is below a cheap composition baseline (0.146). The ceiling sweeps only logistic regressions, which overfit training lineages on a family-disjoint split where a nearest-centroid readout does not, so the ceiling understates what composition features yield here and `derived.headroom` is not interpretable on this card.",
-            "Fine-tuning (F) not measured: adapter does not support it."
-          ]
-        },
-        {
           "model": "esm2-t6-8m-ur50d",
-          "best": 0.358728,
+          "best": 0.379006,
           "zero_shot": 0.288128,
           "behavioural": 0.343176,
           "probe": 0.358728,
-          "elicited": null,
+          "elicited": 0.379006,
           "elicitation_gap": 0.015552,
           "gap_ci95": [
             -0.016898103314535003,
@@ -2449,7 +2470,7 @@
           "best_baseline": 0.146232,
           "beats_baseline": true,
           "ceiling": 0.10707402767790235,
-          "headroom": -2.35028,
+          "headroom": -2.539663,
           "null_p": 0.000999000999000999,
           "survives_null": true,
           "ci95": [
@@ -2459,8 +2480,7 @@
           "caveats": [
             "Exceeds the empirical ceiling (0.107): the representation adds over the best cheap supervised readout of composition features. On this task that is the expected outcome rather than evidence of saturation, because composition cannot nearly solve cross-family enzyme-class transfer, so the ceiling is a comparator and not an attainable maximum. `derived.headroom` is therefore negative and must not be read as headroom on PR4.",
             "The empirical ceiling (0.107) is below a cheap composition baseline (0.146). The ceiling sweeps only logistic regressions, which overfit training lineages on a family-disjoint split where a nearest-centroid readout does not, so the ceiling understates what composition features yield here and `derived.headroom` is not interpretable on this card.",
-            "Elicitation gap +0.0156 has a paired 95% interval [-0.0169, +0.0493] spanning zero (positive in 83% of group resamples); not distinguishable from no gap on this dataset.",
-            "Fine-tuning (F) not measured: adapter does not support it."
+            "Elicitation gap +0.0156 has a paired 95% interval [-0.0169, +0.0493] spanning zero (positive in 83% of group resamples); not distinguishable from no gap on this dataset."
           ]
         },
         {
@@ -2716,7 +2736,7 @@
           "modality": "protein",
           "behavioural": 0.566185,
           "probe": 0.525427,
-          "best": 0.566185,
+          "best": 0.576821,
           "ci95": [
             0.46739580821970955,
             0.5802629371239975
@@ -2761,7 +2781,7 @@
           "modality": "protein",
           "behavioural": 0.588546,
           "probe": 0.530274,
-          "best": 0.588546,
+          "best": 0.612407,
           "ci95": [
             0.48140019464268763,
             0.5838517524493285
@@ -2806,7 +2826,7 @@
           "modality": "protein",
           "behavioural": 0.599929,
           "probe": 0.546093,
-          "best": 0.599929,
+          "best": 0.613303,
           "ci95": [
             0.4884227328825961,
             0.6028446385487369
@@ -2851,7 +2871,7 @@
           "modality": "protein",
           "behavioural": 0.653211,
           "probe": 0.591103,
-          "best": 0.653211,
+          "best": 0.66555,
           "ci95": [
             0.5368659716469733,
             0.6438391558083718
@@ -2896,7 +2916,7 @@
           "modality": "protein",
           "behavioural": 0.673907,
           "probe": 0.631082,
-          "best": 0.673907,
+          "best": 0.683388,
           "ci95": [
             0.5764042887481368,
             0.6887061384262848
@@ -3683,12 +3703,27 @@
           "params": 3000000000,
           "release_date": "2022-08",
           "modality": "protein",
-          "behavioural": 0.503257,
-          "probe": 0.541947,
-          "best": 0.541947,
+          "behavioural": 0.504138,
+          "probe": 0.540906,
+          "best": 0.62231,
           "ci95": [
-            0.4892083235280529,
-            0.5795732386368732
+            0.4880085673017357,
+            0.5783143260363646
+          ],
+          "beats_baseline": true
+        },
+        {
+          "model": "esm2-t48-15b-ur50d",
+          "family": "ESM2",
+          "params": 15000000000,
+          "release_date": "2022-08",
+          "modality": "protein",
+          "behavioural": 0.488245,
+          "probe": 0.5649,
+          "best": 0.5649,
+          "ci95": [
+            0.5146065019442451,
+            0.5985661345379499
           ],
           "beats_baseline": true
         }
@@ -3714,7 +3749,7 @@
       "families": [
         "ESM2"
       ],
-      "n_dated": 5
+      "n_dated": 6
     },
     "pr4-ec-number": {
       "task": "pr4-ec-number",
@@ -3730,7 +3765,7 @@
           "modality": "protein",
           "behavioural": 0.343176,
           "probe": 0.358728,
-          "best": 0.358728,
+          "best": 0.379006,
           "ci95": [
             0.3126956879889296,
             0.39919583418636795
@@ -3745,7 +3780,7 @@
           "modality": "protein",
           "behavioural": 0.382172,
           "probe": 0.421776,
-          "best": 0.421776,
+          "best": 0.452655,
           "ci95": [
             0.37250778506085297,
             0.4660610521306141
@@ -3760,7 +3795,7 @@
           "modality": "protein",
           "behavioural": 0.303158,
           "probe": 0.37912,
-          "best": 0.37912,
+          "best": 0.46006,
           "ci95": [
             0.3334512724543534,
             0.41653132276834215
@@ -3775,7 +3810,7 @@
           "modality": "protein",
           "behavioural": 0.315504,
           "probe": 0.453976,
-          "best": 0.453976,
+          "best": 0.500546,
           "ci95": [
             0.4030769519870644,
             0.4940345487434931
@@ -3960,7 +3995,7 @@
             0.05641
           ]
         },
-        "verdict": "No trend distinguishable from zero in either the raw or the normalised gap. On this evidence the gap does not measurably change with scale, which is a legitimate answer and should be published as one.",
+        "verdict": "No trend distinguishable from zero in either the raw or the normalised gap. On this evidence the gap does not measurably change with scale, which is a legitimate answer and should be published as one. Fitted on 15 rungs, of which 12 survive their own matched null.",
         "points": [
           {
             "model": "esm2-t6-8m-ur50d",
@@ -3969,7 +4004,9 @@
             "probe": 0.525427,
             "gap": -0.040758,
             "headroom": 0.433815,
-            "gap_fraction": -0.093952
+            "gap_fraction": -0.093952,
+            "null_p": 0.28771228771228774,
+            "null_supported": false
           },
           {
             "model": "esm2-t6-8m-ur50d",
@@ -3978,7 +4015,9 @@
             "probe": 0.55875,
             "gap": 0.0,
             "headroom": 0.44125,
-            "gap_fraction": 0.0
+            "gap_fraction": 0.0,
+            "null_p": 0.01098901098901099,
+            "null_supported": true
           },
           {
             "model": "esm2-t6-8m-ur50d",
@@ -3987,7 +4026,9 @@
             "probe": 0.600142,
             "gap": 0.030036,
             "headroom": 0.429894,
-            "gap_fraction": 0.069868
+            "gap_fraction": 0.069868,
+            "null_p": 0.000999000999000999,
+            "null_supported": true
           },
           {
             "model": "esm2-t12-35m-ur50d",
@@ -3996,7 +4037,9 @@
             "probe": 0.530274,
             "gap": -0.058272,
             "headroom": 0.411454,
-            "gap_fraction": -0.141625
+            "gap_fraction": -0.141625,
+            "null_p": 0.14485514485514486,
+            "null_supported": false
           },
           {
             "model": "esm2-t12-35m-ur50d",
@@ -4005,7 +4048,9 @@
             "probe": 0.596403,
             "gap": 0.0,
             "headroom": 0.403597,
-            "gap_fraction": 0.0
+            "gap_fraction": 0.0,
+            "null_p": 0.000999000999000999,
+            "null_supported": true
           },
           {
             "model": "esm2-t12-35m-ur50d",
@@ -4014,7 +4059,9 @@
             "probe": 0.567022,
             "gap": 0.043717,
             "headroom": 0.476695,
-            "gap_fraction": 0.091709
+            "gap_fraction": 0.091709,
+            "null_p": 0.004995004995004995,
+            "null_supported": true
           },
           {
             "model": "esm2-t30-150m-ur50d",
@@ -4023,7 +4070,9 @@
             "probe": 0.546093,
             "gap": -0.053836,
             "headroom": 0.400071,
-            "gap_fraction": -0.134566
+            "gap_fraction": -0.134566,
+            "null_p": 0.14485514485514486,
+            "null_supported": false
           },
           {
             "model": "esm2-t30-150m-ur50d",
@@ -4032,7 +4081,9 @@
             "probe": 0.545311,
             "gap": -0.017572,
             "headroom": 0.437117,
-            "gap_fraction": -0.0402
+            "gap_fraction": -0.0402,
+            "null_p": 0.017982017982017984,
+            "null_supported": true
           },
           {
             "model": "esm2-t30-150m-ur50d",
@@ -4041,7 +4092,9 @@
             "probe": 0.601231,
             "gap": 0.004776,
             "headroom": 0.403545,
-            "gap_fraction": 0.011835
+            "gap_fraction": 0.011835,
+            "null_p": 0.000999000999000999,
+            "null_supported": true
           },
           {
             "model": "esm2-t33-650m-ur50d",
@@ -4050,7 +4103,9 @@
             "probe": 0.591103,
             "gap": -0.062108,
             "headroom": 0.346789,
-            "gap_fraction": -0.179094
+            "gap_fraction": -0.179094,
+            "null_p": 0.007992007992007992,
+            "null_supported": true
           },
           {
             "model": "esm2-t33-650m-ur50d",
@@ -4059,7 +4114,9 @@
             "probe": 0.562978,
             "gap": -0.003798,
             "headroom": 0.433224,
-            "gap_fraction": -0.008767
+            "gap_fraction": -0.008767,
+            "null_p": 0.004995004995004995,
+            "null_supported": true
           },
           {
             "model": "esm2-t33-650m-ur50d",
@@ -4068,7 +4125,9 @@
             "probe": 0.634503,
             "gap": 0.080932,
             "headroom": 0.446429,
-            "gap_fraction": 0.181288
+            "gap_fraction": 0.181288,
+            "null_p": 0.000999000999000999,
+            "null_supported": true
           },
           {
             "model": "esm2-t36-3b-ur50d",
@@ -4077,7 +4136,9 @@
             "probe": 0.631082,
             "gap": -0.042825,
             "headroom": 0.326093,
-            "gap_fraction": -0.131328
+            "gap_fraction": -0.131328,
+            "null_p": 0.000999000999000999,
+            "null_supported": true
           },
           {
             "model": "esm2-t36-3b-ur50d",
@@ -4086,7 +4147,9 @@
             "probe": 0.545446,
             "gap": -0.006658,
             "headroom": 0.447896,
-            "gap_fraction": -0.014865
+            "gap_fraction": -0.014865,
+            "null_p": 0.030969030969030968,
+            "null_supported": true
           },
           {
             "model": "esm2-t36-3b-ur50d",
@@ -4095,9 +4158,13 @@
             "probe": 0.672025,
             "gap": 0.012416,
             "headroom": 0.340391,
-            "gap_fraction": 0.036476
+            "gap_fraction": 0.036476,
+            "null_p": 0.000999000999000999,
+            "null_supported": true
           }
-        ]
+        ],
+        "n_supported": 12,
+        "null_alpha": 0.05
       },
       "ESM2": {
         "family": "ESM2",
@@ -4119,7 +4186,7 @@
             0.05641
           ]
         },
-        "verdict": "No trend distinguishable from zero in either the raw or the normalised gap. On this evidence the gap does not measurably change with scale, which is a legitimate answer and should be published as one.",
+        "verdict": "No trend distinguishable from zero in either the raw or the normalised gap. On this evidence the gap does not measurably change with scale, which is a legitimate answer and should be published as one. Fitted on 15 rungs, of which 12 survive their own matched null.",
         "points": [
           {
             "model": "esm2-t6-8m-ur50d",
@@ -4128,7 +4195,9 @@
             "probe": 0.525427,
             "gap": -0.040758,
             "headroom": 0.433815,
-            "gap_fraction": -0.093952
+            "gap_fraction": -0.093952,
+            "null_p": 0.28771228771228774,
+            "null_supported": false
           },
           {
             "model": "esm2-t6-8m-ur50d",
@@ -4137,7 +4206,9 @@
             "probe": 0.55875,
             "gap": 0.0,
             "headroom": 0.44125,
-            "gap_fraction": 0.0
+            "gap_fraction": 0.0,
+            "null_p": 0.01098901098901099,
+            "null_supported": true
           },
           {
             "model": "esm2-t6-8m-ur50d",
@@ -4146,7 +4217,9 @@
             "probe": 0.600142,
             "gap": 0.030036,
             "headroom": 0.429894,
-            "gap_fraction": 0.069868
+            "gap_fraction": 0.069868,
+            "null_p": 0.000999000999000999,
+            "null_supported": true
           },
           {
             "model": "esm2-t12-35m-ur50d",
@@ -4155,7 +4228,9 @@
             "probe": 0.530274,
             "gap": -0.058272,
             "headroom": 0.411454,
-            "gap_fraction": -0.141625
+            "gap_fraction": -0.141625,
+            "null_p": 0.14485514485514486,
+            "null_supported": false
           },
           {
             "model": "esm2-t12-35m-ur50d",
@@ -4164,7 +4239,9 @@
             "probe": 0.596403,
             "gap": 0.0,
             "headroom": 0.403597,
-            "gap_fraction": 0.0
+            "gap_fraction": 0.0,
+            "null_p": 0.000999000999000999,
+            "null_supported": true
           },
           {
             "model": "esm2-t12-35m-ur50d",
@@ -4173,7 +4250,9 @@
             "probe": 0.567022,
             "gap": 0.043717,
             "headroom": 0.476695,
-            "gap_fraction": 0.091709
+            "gap_fraction": 0.091709,
+            "null_p": 0.004995004995004995,
+            "null_supported": true
           },
           {
             "model": "esm2-t30-150m-ur50d",
@@ -4182,7 +4261,9 @@
             "probe": 0.546093,
             "gap": -0.053836,
             "headroom": 0.400071,
-            "gap_fraction": -0.134566
+            "gap_fraction": -0.134566,
+            "null_p": 0.14485514485514486,
+            "null_supported": false
           },
           {
             "model": "esm2-t30-150m-ur50d",
@@ -4191,7 +4272,9 @@
             "probe": 0.545311,
             "gap": -0.017572,
             "headroom": 0.437117,
-            "gap_fraction": -0.0402
+            "gap_fraction": -0.0402,
+            "null_p": 0.017982017982017984,
+            "null_supported": true
           },
           {
             "model": "esm2-t30-150m-ur50d",
@@ -4200,7 +4283,9 @@
             "probe": 0.601231,
             "gap": 0.004776,
             "headroom": 0.403545,
-            "gap_fraction": 0.011835
+            "gap_fraction": 0.011835,
+            "null_p": 0.000999000999000999,
+            "null_supported": true
           },
           {
             "model": "esm2-t33-650m-ur50d",
@@ -4209,7 +4294,9 @@
             "probe": 0.591103,
             "gap": -0.062108,
             "headroom": 0.346789,
-            "gap_fraction": -0.179094
+            "gap_fraction": -0.179094,
+            "null_p": 0.007992007992007992,
+            "null_supported": true
           },
           {
             "model": "esm2-t33-650m-ur50d",
@@ -4218,7 +4305,9 @@
             "probe": 0.562978,
             "gap": -0.003798,
             "headroom": 0.433224,
-            "gap_fraction": -0.008767
+            "gap_fraction": -0.008767,
+            "null_p": 0.004995004995004995,
+            "null_supported": true
           },
           {
             "model": "esm2-t33-650m-ur50d",
@@ -4227,7 +4316,9 @@
             "probe": 0.634503,
             "gap": 0.080932,
             "headroom": 0.446429,
-            "gap_fraction": 0.181288
+            "gap_fraction": 0.181288,
+            "null_p": 0.000999000999000999,
+            "null_supported": true
           },
           {
             "model": "esm2-t36-3b-ur50d",
@@ -4236,7 +4327,9 @@
             "probe": 0.631082,
             "gap": -0.042825,
             "headroom": 0.326093,
-            "gap_fraction": -0.131328
+            "gap_fraction": -0.131328,
+            "null_p": 0.000999000999000999,
+            "null_supported": true
           },
           {
             "model": "esm2-t36-3b-ur50d",
@@ -4245,7 +4338,9 @@
             "probe": 0.545446,
             "gap": -0.006658,
             "headroom": 0.447896,
-            "gap_fraction": -0.014865
+            "gap_fraction": -0.014865,
+            "null_p": 0.030969030969030968,
+            "null_supported": true
           },
           {
             "model": "esm2-t36-3b-ur50d",
@@ -4254,9 +4349,13 @@
             "probe": 0.672025,
             "gap": 0.012416,
             "headroom": 0.340391,
-            "gap_fraction": 0.036476
+            "gap_fraction": 0.036476,
+            "null_p": 0.000999000999000999,
+            "null_supported": true
           }
-        ]
+        ],
+        "n_supported": 12,
+        "null_alpha": 0.05
       }
     },
     "dn1-enhancer-class": {
@@ -4289,7 +4388,9 @@
             "probe": 0.495437,
             "gap": 0.001688,
             "headroom": 0.506251,
-            "gap_fraction": 0.003334
+            "gap_fraction": 0.003334,
+            "null_p": 0.000999000999000999,
+            "null_supported": true
           },
           {
             "model": "nt-v2-100m",
@@ -4298,7 +4399,9 @@
             "probe": 0.486888,
             "gap": 0.011301,
             "headroom": 0.524413,
-            "gap_fraction": 0.02155
+            "gap_fraction": 0.02155,
+            "null_p": 0.000999000999000999,
+            "null_supported": true
           },
           {
             "model": "nt-v2-250m",
@@ -4307,7 +4410,9 @@
             "probe": 0.499299,
             "gap": 0.008464,
             "headroom": 0.509165,
-            "gap_fraction": 0.016623
+            "gap_fraction": 0.016623,
+            "null_p": 0.000999000999000999,
+            "null_supported": true
           },
           {
             "model": "nt-v2-500m",
@@ -4316,9 +4421,13 @@
             "probe": 0.475993,
             "gap": -0.003567,
             "headroom": 0.52044,
-            "gap_fraction": -0.006854
+            "gap_fraction": -0.006854,
+            "null_p": 0.000999000999000999,
+            "null_supported": true
           }
-        ]
+        ],
+        "n_supported": 4,
+        "null_alpha": 0.05
       },
       "Nucleotide Transformer v2": {
         "family": "Nucleotide Transformer v2",
@@ -4349,7 +4458,9 @@
             "probe": 0.495437,
             "gap": 0.001688,
             "headroom": 0.506251,
-            "gap_fraction": 0.003334
+            "gap_fraction": 0.003334,
+            "null_p": 0.000999000999000999,
+            "null_supported": true
           },
           {
             "model": "nt-v2-100m",
@@ -4358,7 +4469,9 @@
             "probe": 0.486888,
             "gap": 0.011301,
             "headroom": 0.524413,
-            "gap_fraction": 0.02155
+            "gap_fraction": 0.02155,
+            "null_p": 0.000999000999000999,
+            "null_supported": true
           },
           {
             "model": "nt-v2-250m",
@@ -4367,7 +4480,9 @@
             "probe": 0.499299,
             "gap": 0.008464,
             "headroom": 0.509165,
-            "gap_fraction": 0.016623
+            "gap_fraction": 0.016623,
+            "null_p": 0.000999000999000999,
+            "null_supported": true
           },
           {
             "model": "nt-v2-500m",
@@ -4376,9 +4491,13 @@
             "probe": 0.475993,
             "gap": -0.003567,
             "headroom": 0.52044,
-            "gap_fraction": -0.006854
+            "gap_fraction": -0.006854,
+            "null_p": 0.000999000999000999,
+            "null_supported": true
           }
-        ]
+        ],
+        "n_supported": 4,
+        "null_alpha": 0.05
       }
     },
     "pr1-tf-identity": {
@@ -4411,7 +4530,9 @@
             "probe": 0.786568,
             "gap": 0.0,
             "headroom": 0.213432,
-            "gap_fraction": 0.0
+            "gap_fraction": 0.0,
+            "null_p": 0.000999000999000999,
+            "null_supported": true
           },
           {
             "model": "esm2-t6-8m-ur50d",
@@ -4420,7 +4541,9 @@
             "probe": 0.882872,
             "gap": -0.000132,
             "headroom": 0.116996,
-            "gap_fraction": -0.001128
+            "gap_fraction": -0.001128,
+            "null_p": 0.000999000999000999,
+            "null_supported": true
           },
           {
             "model": "esm2-t12-35m-ur50d-random",
@@ -4429,7 +4552,9 @@
             "probe": 0.793203,
             "gap": 0.010929,
             "headroom": 0.217726,
-            "gap_fraction": 0.050196
+            "gap_fraction": 0.050196,
+            "null_p": 0.000999000999000999,
+            "null_supported": true
           },
           {
             "model": "esm2-t12-35m-ur50d",
@@ -4438,7 +4563,9 @@
             "probe": 0.905377,
             "gap": 0.001024,
             "headroom": 0.095647,
-            "gap_fraction": 0.010706
+            "gap_fraction": 0.010706,
+            "null_p": 0.000999000999000999,
+            "null_supported": true
           },
           {
             "model": "esm2-t30-150m-ur50d-random",
@@ -4447,7 +4574,9 @@
             "probe": 0.778422,
             "gap": 0.00067,
             "headroom": 0.222248,
-            "gap_fraction": 0.003015
+            "gap_fraction": 0.003015,
+            "null_p": 0.000999000999000999,
+            "null_supported": true
           },
           {
             "model": "esm2-t30-150m-ur50d",
@@ -4456,7 +4585,9 @@
             "probe": 0.924891,
             "gap": 0.029093,
             "headroom": 0.104202,
-            "gap_fraction": 0.279198
+            "gap_fraction": 0.279198,
+            "null_p": 0.000999000999000999,
+            "null_supported": true
           },
           {
             "model": "protbert",
@@ -4465,7 +4596,9 @@
             "probe": 0.916006,
             "gap": 0.033134,
             "headroom": 0.117128,
-            "gap_fraction": 0.282887
+            "gap_fraction": 0.282887,
+            "null_p": 0.000999000999000999,
+            "null_supported": true
           },
           {
             "model": "ankh-base",
@@ -4474,7 +4607,9 @@
             "probe": 0.929802,
             "gap": 0.008347,
             "headroom": 0.078545,
-            "gap_fraction": 0.10627
+            "gap_fraction": 0.10627,
+            "null_p": 0.000999000999000999,
+            "null_supported": true
           },
           {
             "model": "esm1b-t33-650m-ur50s",
@@ -4483,7 +4618,9 @@
             "probe": 0.921977,
             "gap": -0.001855,
             "headroom": 0.076168,
-            "gap_fraction": -0.024354
+            "gap_fraction": -0.024354,
+            "null_p": 0.000999000999000999,
+            "null_supported": true
           },
           {
             "model": "esm1v-t33-650m-ur90s-1",
@@ -4492,7 +4629,9 @@
             "probe": 0.933988,
             "gap": 0.01466,
             "headroom": 0.080672,
-            "gap_fraction": 0.181724
+            "gap_fraction": 0.181724,
+            "null_p": 0.000999000999000999,
+            "null_supported": true
           },
           {
             "model": "esm2-t33-650m-ur50d-random",
@@ -4501,7 +4640,9 @@
             "probe": 0.792987,
             "gap": 0.004752,
             "headroom": 0.211765,
-            "gap_fraction": 0.02244
+            "gap_fraction": 0.02244,
+            "null_p": 0.000999000999000999,
+            "null_supported": true
           },
           {
             "model": "esm2-t33-650m-ur50d",
@@ -4510,7 +4651,9 @@
             "probe": 0.921337,
             "gap": 0.001563,
             "headroom": 0.080226,
-            "gap_fraction": 0.019482
+            "gap_fraction": 0.019482,
+            "null_p": 0.000999000999000999,
+            "null_supported": true
           },
           {
             "model": "ankh-large",
@@ -4519,7 +4662,9 @@
             "probe": 0.929182,
             "gap": 0.014074,
             "headroom": 0.084892,
-            "gap_fraction": 0.165787
+            "gap_fraction": 0.165787,
+            "null_p": 0.000999000999000999,
+            "null_supported": true
           },
           {
             "model": "prot-t5-xl",
@@ -4528,7 +4673,9 @@
             "probe": 0.924475,
             "gap": -0.010783,
             "headroom": 0.064742,
-            "gap_fraction": -0.166553
+            "gap_fraction": -0.166553,
+            "null_p": 0.000999000999000999,
+            "null_supported": true
           },
           {
             "model": "esm2-t36-3b-ur50d",
@@ -4537,7 +4684,9 @@
             "probe": 0.939831,
             "gap": 0.011799,
             "headroom": 0.071968,
-            "gap_fraction": 0.163948
+            "gap_fraction": 0.163948,
+            "null_p": 0.000999000999000999,
+            "null_supported": true
           },
           {
             "model": "esm2-t48-15b-ur50d",
@@ -4546,9 +4695,13 @@
             "probe": 0.920447,
             "gap": -0.003816,
             "headroom": 0.075737,
-            "gap_fraction": -0.050385
+            "gap_fraction": -0.050385,
+            "null_p": 0.000999000999000999,
+            "null_supported": true
           }
-        ]
+        ],
+        "n_supported": 16,
+        "null_alpha": 0.05
       },
       "ESM2": {
         "family": "ESM2",
@@ -4579,7 +4732,9 @@
             "probe": 0.786568,
             "gap": 0.0,
             "headroom": 0.213432,
-            "gap_fraction": 0.0
+            "gap_fraction": 0.0,
+            "null_p": 0.000999000999000999,
+            "null_supported": true
           },
           {
             "model": "esm2-t6-8m-ur50d",
@@ -4588,7 +4743,9 @@
             "probe": 0.882872,
             "gap": -0.000132,
             "headroom": 0.116996,
-            "gap_fraction": -0.001128
+            "gap_fraction": -0.001128,
+            "null_p": 0.000999000999000999,
+            "null_supported": true
           },
           {
             "model": "esm2-t12-35m-ur50d-random",
@@ -4597,7 +4754,9 @@
             "probe": 0.793203,
             "gap": 0.010929,
             "headroom": 0.217726,
-            "gap_fraction": 0.050196
+            "gap_fraction": 0.050196,
+            "null_p": 0.000999000999000999,
+            "null_supported": true
           },
           {
             "model": "esm2-t12-35m-ur50d",
@@ -4606,7 +4765,9 @@
             "probe": 0.905377,
             "gap": 0.001024,
             "headroom": 0.095647,
-            "gap_fraction": 0.010706
+            "gap_fraction": 0.010706,
+            "null_p": 0.000999000999000999,
+            "null_supported": true
           },
           {
             "model": "esm2-t30-150m-ur50d-random",
@@ -4615,7 +4776,9 @@
             "probe": 0.778422,
             "gap": 0.00067,
             "headroom": 0.222248,
-            "gap_fraction": 0.003015
+            "gap_fraction": 0.003015,
+            "null_p": 0.000999000999000999,
+            "null_supported": true
           },
           {
             "model": "esm2-t30-150m-ur50d",
@@ -4624,7 +4787,9 @@
             "probe": 0.924891,
             "gap": 0.029093,
             "headroom": 0.104202,
-            "gap_fraction": 0.279198
+            "gap_fraction": 0.279198,
+            "null_p": 0.000999000999000999,
+            "null_supported": true
           },
           {
             "model": "esm2-t33-650m-ur50d-random",
@@ -4633,7 +4798,9 @@
             "probe": 0.792987,
             "gap": 0.004752,
             "headroom": 0.211765,
-            "gap_fraction": 0.02244
+            "gap_fraction": 0.02244,
+            "null_p": 0.000999000999000999,
+            "null_supported": true
           },
           {
             "model": "esm2-t33-650m-ur50d",
@@ -4642,7 +4809,9 @@
             "probe": 0.921337,
             "gap": 0.001563,
             "headroom": 0.080226,
-            "gap_fraction": 0.019482
+            "gap_fraction": 0.019482,
+            "null_p": 0.000999000999000999,
+            "null_supported": true
           },
           {
             "model": "esm2-t36-3b-ur50d",
@@ -4651,7 +4820,9 @@
             "probe": 0.939831,
             "gap": 0.011799,
             "headroom": 0.071968,
-            "gap_fraction": 0.163948
+            "gap_fraction": 0.163948,
+            "null_p": 0.000999000999000999,
+            "null_supported": true
           },
           {
             "model": "esm2-t48-15b-ur50d",
@@ -4660,9 +4831,13 @@
             "probe": 0.920447,
             "gap": -0.003816,
             "headroom": 0.075737,
-            "gap_fraction": -0.050385
+            "gap_fraction": -0.050385,
+            "null_p": 0.000999000999000999,
+            "null_supported": true
           }
-        ]
+        ],
+        "n_supported": 10,
+        "null_alpha": 0.05
       }
     },
     "pr2-tf-family": {
@@ -4695,7 +4870,9 @@
             "probe": 0.284298,
             "gap": -0.005041,
             "headroom": 0.710661,
-            "gap_fraction": -0.007093
+            "gap_fraction": -0.007093,
+            "null_p": 0.000999000999000999,
+            "null_supported": true
           },
           {
             "model": "esm2-t6-8m-ur50d",
@@ -4704,7 +4881,9 @@
             "probe": 0.629863,
             "gap": 0.0,
             "headroom": 0.370137,
-            "gap_fraction": 0.0
+            "gap_fraction": 0.0,
+            "null_p": 0.000999000999000999,
+            "null_supported": true
           },
           {
             "model": "esm2-t12-35m-ur50d-random",
@@ -4713,7 +4892,9 @@
             "probe": 0.259899,
             "gap": -0.023057,
             "headroom": 0.717044,
-            "gap_fraction": -0.032156
+            "gap_fraction": -0.032156,
+            "null_p": 0.000999000999000999,
+            "null_supported": true
           },
           {
             "model": "esm2-t12-35m-ur50d",
@@ -4722,7 +4903,9 @@
             "probe": 0.877362,
             "gap": 0.139286,
             "headroom": 0.261924,
-            "gap_fraction": 0.53178
+            "gap_fraction": 0.53178,
+            "null_p": 0.000999000999000999,
+            "null_supported": true
           },
           {
             "model": "esm2-t30-150m-ur50d-random",
@@ -4731,7 +4914,9 @@
             "probe": 0.247355,
             "gap": -0.018495,
             "headroom": 0.73415,
-            "gap_fraction": -0.025192
+            "gap_fraction": -0.025192,
+            "null_p": 0.000999000999000999,
+            "null_supported": true
           },
           {
             "model": "esm2-t30-150m-ur50d",
@@ -4740,7 +4925,9 @@
             "probe": 0.961783,
             "gap": 0.267066,
             "headroom": 0.305283,
-            "gap_fraction": 0.874815
+            "gap_fraction": 0.874815,
+            "null_p": 0.000999000999000999,
+            "null_supported": true
           },
           {
             "model": "protbert",
@@ -4749,7 +4936,9 @@
             "probe": 0.768971,
             "gap": 0.289378,
             "headroom": 0.520407,
-            "gap_fraction": 0.556061
+            "gap_fraction": 0.556061,
+            "null_p": 0.000999000999000999,
+            "null_supported": true
           },
           {
             "model": "ankh-base",
@@ -4758,7 +4947,9 @@
             "probe": 0.996104,
             "gap": 0.003412,
             "headroom": 0.007308,
-            "gap_fraction": 0.466886
+            "gap_fraction": 0.466886,
+            "null_p": 0.000999000999000999,
+            "null_supported": true
           },
           {
             "model": "esm1b-t33-650m-ur50s",
@@ -4767,7 +4958,9 @@
             "probe": 0.962267,
             "gap": 0.020324,
             "headroom": 0.058057,
-            "gap_fraction": 0.35007
+            "gap_fraction": 0.35007,
+            "null_p": 0.000999000999000999,
+            "null_supported": true
           },
           {
             "model": "esm1v-t33-650m-ur90s-1",
@@ -4776,7 +4969,9 @@
             "probe": 0.816976,
             "gap": -0.173853,
             "headroom": 0.009171,
-            "gap_fraction": -18.95682
+            "gap_fraction": -18.95682,
+            "null_p": 0.000999000999000999,
+            "null_supported": true
           },
           {
             "model": "esm2-t33-650m-ur50d-random",
@@ -4785,7 +4980,9 @@
             "probe": 0.248157,
             "gap": -0.065854,
             "headroom": 0.685989,
-            "gap_fraction": -0.095999
+            "gap_fraction": -0.095999,
+            "null_p": 0.000999000999000999,
+            "null_supported": true
           },
           {
             "model": "esm2-t33-650m-ur50d",
@@ -4794,7 +4991,9 @@
             "probe": 0.906983,
             "gap": 0.158615,
             "headroom": 0.251632,
-            "gap_fraction": 0.630345
+            "gap_fraction": 0.630345,
+            "null_p": 0.000999000999000999,
+            "null_supported": true
           },
           {
             "model": "ankh-large",
@@ -4803,7 +5002,9 @@
             "probe": 0.947508,
             "gap": 0.132358,
             "headroom": 0.18485,
-            "gap_fraction": 0.716029
+            "gap_fraction": 0.716029,
+            "null_p": 0.000999000999000999,
+            "null_supported": true
           },
           {
             "model": "prot-t5-xl",
@@ -4812,7 +5013,9 @@
             "probe": 0.931578,
             "gap": 0.384743,
             "headroom": 0.453165,
-            "gap_fraction": 0.849013
+            "gap_fraction": 0.849013,
+            "null_p": 0.000999000999000999,
+            "null_supported": true
           },
           {
             "model": "esm2-t36-3b-ur50d",
@@ -4821,7 +5024,9 @@
             "probe": 0.918807,
             "gap": -0.071491,
             "headroom": 0.009702,
-            "gap_fraction": -7.368687
+            "gap_fraction": -7.368687,
+            "null_p": 0.000999000999000999,
+            "null_supported": true
           },
           {
             "model": "esm2-t48-15b-ur50d",
@@ -4830,9 +5035,13 @@
             "probe": 0.993725,
             "gap": 0.025128,
             "headroom": 0.031403,
-            "gap_fraction": 0.800178
+            "gap_fraction": 0.800178,
+            "null_p": 0.000999000999000999,
+            "null_supported": true
           }
-        ]
+        ],
+        "n_supported": 16,
+        "null_alpha": 0.05
       },
       "ESM2": {
         "family": "ESM2",
@@ -4863,7 +5072,9 @@
             "probe": 0.284298,
             "gap": -0.005041,
             "headroom": 0.710661,
-            "gap_fraction": -0.007093
+            "gap_fraction": -0.007093,
+            "null_p": 0.000999000999000999,
+            "null_supported": true
           },
           {
             "model": "esm2-t6-8m-ur50d",
@@ -4872,7 +5083,9 @@
             "probe": 0.629863,
             "gap": 0.0,
             "headroom": 0.370137,
-            "gap_fraction": 0.0
+            "gap_fraction": 0.0,
+            "null_p": 0.000999000999000999,
+            "null_supported": true
           },
           {
             "model": "esm2-t12-35m-ur50d-random",
@@ -4881,7 +5094,9 @@
             "probe": 0.259899,
             "gap": -0.023057,
             "headroom": 0.717044,
-            "gap_fraction": -0.032156
+            "gap_fraction": -0.032156,
+            "null_p": 0.000999000999000999,
+            "null_supported": true
           },
           {
             "model": "esm2-t12-35m-ur50d",
@@ -4890,7 +5105,9 @@
             "probe": 0.877362,
             "gap": 0.139286,
             "headroom": 0.261924,
-            "gap_fraction": 0.53178
+            "gap_fraction": 0.53178,
+            "null_p": 0.000999000999000999,
+            "null_supported": true
           },
           {
             "model": "esm2-t30-150m-ur50d-random",
@@ -4899,7 +5116,9 @@
             "probe": 0.247355,
             "gap": -0.018495,
             "headroom": 0.73415,
-            "gap_fraction": -0.025192
+            "gap_fraction": -0.025192,
+            "null_p": 0.000999000999000999,
+            "null_supported": true
           },
           {
             "model": "esm2-t30-150m-ur50d",
@@ -4908,7 +5127,9 @@
             "probe": 0.961783,
             "gap": 0.267066,
             "headroom": 0.305283,
-            "gap_fraction": 0.874815
+            "gap_fraction": 0.874815,
+            "null_p": 0.000999000999000999,
+            "null_supported": true
           },
           {
             "model": "esm2-t33-650m-ur50d-random",
@@ -4917,7 +5138,9 @@
             "probe": 0.248157,
             "gap": -0.065854,
             "headroom": 0.685989,
-            "gap_fraction": -0.095999
+            "gap_fraction": -0.095999,
+            "null_p": 0.000999000999000999,
+            "null_supported": true
           },
           {
             "model": "esm2-t33-650m-ur50d",
@@ -4926,7 +5149,9 @@
             "probe": 0.906983,
             "gap": 0.158615,
             "headroom": 0.251632,
-            "gap_fraction": 0.630345
+            "gap_fraction": 0.630345,
+            "null_p": 0.000999000999000999,
+            "null_supported": true
           },
           {
             "model": "esm2-t36-3b-ur50d",
@@ -4935,7 +5160,9 @@
             "probe": 0.918807,
             "gap": -0.071491,
             "headroom": 0.009702,
-            "gap_fraction": -7.368687
+            "gap_fraction": -7.368687,
+            "null_p": 0.000999000999000999,
+            "null_supported": true
           },
           {
             "model": "esm2-t48-15b-ur50d",
@@ -4944,30 +5171,34 @@
             "probe": 0.993725,
             "gap": 0.025128,
             "headroom": 0.031403,
-            "gap_fraction": 0.800178
+            "gap_fraction": 0.800178,
+            "null_p": 0.000999000999000999,
+            "null_supported": true
           }
-        ]
+        ],
+        "n_supported": 10,
+        "null_alpha": 0.05
       }
     },
     "pr3-fold-recognition": {
       "all": {
         "family": "all",
         "raw": {
-          "slope_per_decade": 0.01914,
-          "r2": 0.3312,
-          "n": 5,
+          "slope_per_decade": 0.0175,
+          "r2": 0.4175,
+          "n": 6,
           "ci95": [
-            -0.03083,
-            0.0691
+            -0.01119,
+            0.0462
           ]
         },
         "normalised": {
-          "slope_per_decade": 0.03792,
-          "r2": 0.3674,
-          "n": 5,
+          "slope_per_decade": 0.03487,
+          "r2": 0.4587,
+          "n": 6,
           "ci95": [
-            -0.0535,
-            0.12935
+            -0.01771,
+            0.08745
           ]
         },
         "verdict": "No trend distinguishable from zero in either the raw or the normalised gap. On this evidence the gap does not measurably change with scale, which is a legitimate answer and should be published as one.",
@@ -4979,7 +5210,9 @@
             "probe": 0.458402,
             "gap": 0.01528,
             "headroom": 0.556878,
-            "gap_fraction": 0.027439
+            "gap_fraction": 0.027439,
+            "null_p": 0.000999000999000999,
+            "null_supported": true
           },
           {
             "model": "esm2-t12-35m-ur50d",
@@ -4988,7 +5221,9 @@
             "probe": 0.498952,
             "gap": 0.024147,
             "headroom": 0.525195,
-            "gap_fraction": 0.045977
+            "gap_fraction": 0.045977,
+            "null_p": 0.000999000999000999,
+            "null_supported": true
           },
           {
             "model": "esm2-t30-150m-ur50d",
@@ -4997,7 +5232,9 @@
             "probe": 0.533761,
             "gap": 0.043867,
             "headroom": 0.510106,
-            "gap_fraction": 0.085996
+            "gap_fraction": 0.085996,
+            "null_p": 0.000999000999000999,
+            "null_supported": true
           },
           {
             "model": "esm2-t33-650m-ur50d",
@@ -5006,37 +5243,54 @@
             "probe": 0.569953,
             "gap": 0.101529,
             "headroom": 0.531576,
-            "gap_fraction": 0.190996
+            "gap_fraction": 0.190996,
+            "null_p": 0.000999000999000999,
+            "null_supported": true
           },
           {
             "model": "esm2-t36-3b-ur50d",
             "params": 3000000000,
-            "behavioural": 0.503257,
-            "probe": 0.541947,
-            "gap": 0.03869,
-            "headroom": 0.496743,
-            "gap_fraction": 0.077887
+            "behavioural": 0.504138,
+            "probe": 0.540906,
+            "gap": 0.036768,
+            "headroom": 0.495862,
+            "gap_fraction": 0.07415,
+            "null_p": 0.000999000999000999,
+            "null_supported": true
+          },
+          {
+            "model": "esm2-t48-15b-ur50d",
+            "params": 15000000000,
+            "behavioural": 0.488245,
+            "probe": 0.5649,
+            "gap": 0.076655,
+            "headroom": 0.511755,
+            "gap_fraction": 0.149788,
+            "null_p": 0.000999000999000999,
+            "null_supported": true
           }
-        ]
+        ],
+        "n_supported": 6,
+        "null_alpha": 0.05
       },
       "ESM2": {
         "family": "ESM2",
         "raw": {
-          "slope_per_decade": 0.01914,
-          "r2": 0.3312,
-          "n": 5,
+          "slope_per_decade": 0.0175,
+          "r2": 0.4175,
+          "n": 6,
           "ci95": [
-            -0.03083,
-            0.0691
+            -0.01119,
+            0.0462
           ]
         },
         "normalised": {
-          "slope_per_decade": 0.03792,
-          "r2": 0.3674,
-          "n": 5,
+          "slope_per_decade": 0.03487,
+          "r2": 0.4587,
+          "n": 6,
           "ci95": [
-            -0.0535,
-            0.12935
+            -0.01771,
+            0.08745
           ]
         },
         "verdict": "No trend distinguishable from zero in either the raw or the normalised gap. On this evidence the gap does not measurably change with scale, which is a legitimate answer and should be published as one.",
@@ -5048,7 +5302,9 @@
             "probe": 0.458402,
             "gap": 0.01528,
             "headroom": 0.556878,
-            "gap_fraction": 0.027439
+            "gap_fraction": 0.027439,
+            "null_p": 0.000999000999000999,
+            "null_supported": true
           },
           {
             "model": "esm2-t12-35m-ur50d",
@@ -5057,7 +5313,9 @@
             "probe": 0.498952,
             "gap": 0.024147,
             "headroom": 0.525195,
-            "gap_fraction": 0.045977
+            "gap_fraction": 0.045977,
+            "null_p": 0.000999000999000999,
+            "null_supported": true
           },
           {
             "model": "esm2-t30-150m-ur50d",
@@ -5066,7 +5324,9 @@
             "probe": 0.533761,
             "gap": 0.043867,
             "headroom": 0.510106,
-            "gap_fraction": 0.085996
+            "gap_fraction": 0.085996,
+            "null_p": 0.000999000999000999,
+            "null_supported": true
           },
           {
             "model": "esm2-t33-650m-ur50d",
@@ -5075,18 +5335,35 @@
             "probe": 0.569953,
             "gap": 0.101529,
             "headroom": 0.531576,
-            "gap_fraction": 0.190996
+            "gap_fraction": 0.190996,
+            "null_p": 0.000999000999000999,
+            "null_supported": true
           },
           {
             "model": "esm2-t36-3b-ur50d",
             "params": 3000000000,
-            "behavioural": 0.503257,
-            "probe": 0.541947,
-            "gap": 0.03869,
-            "headroom": 0.496743,
-            "gap_fraction": 0.077887
+            "behavioural": 0.504138,
+            "probe": 0.540906,
+            "gap": 0.036768,
+            "headroom": 0.495862,
+            "gap_fraction": 0.07415,
+            "null_p": 0.000999000999000999,
+            "null_supported": true
+          },
+          {
+            "model": "esm2-t48-15b-ur50d",
+            "params": 15000000000,
+            "behavioural": 0.488245,
+            "probe": 0.5649,
+            "gap": 0.076655,
+            "headroom": 0.511755,
+            "gap_fraction": 0.149788,
+            "null_p": 0.000999000999000999,
+            "null_supported": true
           }
-        ]
+        ],
+        "n_supported": 6,
+        "null_alpha": 0.05
       }
     },
     "pr4-ec-number": {
@@ -5119,7 +5396,9 @@
             "probe": 0.358728,
             "gap": 0.015552,
             "headroom": 0.656824,
-            "gap_fraction": 0.023678
+            "gap_fraction": 0.023678,
+            "null_p": 0.000999000999000999,
+            "null_supported": true
           },
           {
             "model": "esm2-t12-35m-ur50d",
@@ -5128,7 +5407,9 @@
             "probe": 0.421776,
             "gap": 0.039604,
             "headroom": 0.617828,
-            "gap_fraction": 0.064102
+            "gap_fraction": 0.064102,
+            "null_p": 0.000999000999000999,
+            "null_supported": true
           },
           {
             "model": "esm2-t30-150m-ur50d",
@@ -5137,7 +5418,9 @@
             "probe": 0.37912,
             "gap": 0.075962,
             "headroom": 0.696842,
-            "gap_fraction": 0.109009
+            "gap_fraction": 0.109009,
+            "null_p": 0.000999000999000999,
+            "null_supported": true
           },
           {
             "model": "esm2-t33-650m-ur50d",
@@ -5146,7 +5429,9 @@
             "probe": 0.453976,
             "gap": 0.138472,
             "headroom": 0.684496,
-            "gap_fraction": 0.202298
+            "gap_fraction": 0.202298,
+            "null_p": 0.000999000999000999,
+            "null_supported": true
           },
           {
             "model": "esm2-t36-3b-ur50d",
@@ -5155,9 +5440,13 @@
             "probe": 0.425063,
             "gap": 0.060179,
             "headroom": 0.635116,
-            "gap_fraction": 0.094753
+            "gap_fraction": 0.094753,
+            "null_p": 0.000999000999000999,
+            "null_supported": true
           }
-        ]
+        ],
+        "n_supported": 5,
+        "null_alpha": 0.05
       },
       "ESM2": {
         "family": "ESM2",
@@ -5188,7 +5477,9 @@
             "probe": 0.358728,
             "gap": 0.015552,
             "headroom": 0.656824,
-            "gap_fraction": 0.023678
+            "gap_fraction": 0.023678,
+            "null_p": 0.000999000999000999,
+            "null_supported": true
           },
           {
             "model": "esm2-t12-35m-ur50d",
@@ -5197,7 +5488,9 @@
             "probe": 0.421776,
             "gap": 0.039604,
             "headroom": 0.617828,
-            "gap_fraction": 0.064102
+            "gap_fraction": 0.064102,
+            "null_p": 0.000999000999000999,
+            "null_supported": true
           },
           {
             "model": "esm2-t30-150m-ur50d",
@@ -5206,7 +5499,9 @@
             "probe": 0.37912,
             "gap": 0.075962,
             "headroom": 0.696842,
-            "gap_fraction": 0.109009
+            "gap_fraction": 0.109009,
+            "null_p": 0.000999000999000999,
+            "null_supported": true
           },
           {
             "model": "esm2-t33-650m-ur50d",
@@ -5215,7 +5510,9 @@
             "probe": 0.453976,
             "gap": 0.138472,
             "headroom": 0.684496,
-            "gap_fraction": 0.202298
+            "gap_fraction": 0.202298,
+            "null_p": 0.000999000999000999,
+            "null_supported": true
           },
           {
             "model": "esm2-t36-3b-ur50d",
@@ -5224,9 +5521,13 @@
             "probe": 0.425063,
             "gap": 0.060179,
             "headroom": 0.635116,
-            "gap_fraction": 0.094753
+            "gap_fraction": 0.094753,
+            "null_p": 0.000999000999000999,
+            "null_supported": true
           }
-        ]
+        ],
+        "n_supported": 5,
+        "null_alpha": 0.05
       }
     },
     "sc1-celltype-transfer": {
@@ -5243,9 +5544,13 @@
             "probe": 0.568825,
             "gap": 0.0,
             "headroom": 0.431175,
-            "gap_fraction": 0.0
+            "gap_fraction": 0.0,
+            "null_p": 0.000999000999000999,
+            "null_supported": true
           }
-        ]
+        ],
+        "n_supported": 1,
+        "null_alpha": 0.05
       }
     },
     "sc4-donor-invariance": {
@@ -5254,7 +5559,9 @@
         "raw": null,
         "normalised": null,
         "verdict": "Not enough models to fit a trend; at least three are needed.",
-        "points": []
+        "points": [],
+        "n_supported": 0,
+        "null_alpha": 0.05
       }
     }
   },
@@ -5274,8 +5581,8 @@
     "grid": {
       "protein": {
         "A1": 52,
-        "A5": 58,
-        "A3": 12,
+        "A5": 59,
+        "A3": 13,
         "A4": 6
       },
       "dna": {
@@ -5576,7 +5883,7 @@
         "zero_shot": 0.540689,
         "behavioural": 0.588546,
         "probe": 0.530274,
-        "elicited": null,
+        "elicited": 0.612407,
         "readout_budget": {
           "n_components": 64,
           "C": 1.0,
@@ -5593,8 +5900,8 @@
       },
       "derived": {
         "elicitation_gap": -0.058272,
-        "recoverability": null,
-        "headroom": -0.13184
+        "recoverability": 0.023861,
+        "headroom": -0.177727
       },
       "baselines": {
         "majority_class": 0.302326,
@@ -5625,11 +5932,11 @@
           "clustering": "position-disjoint: mutations at a given residue are confined to one side of the split, so the probe cannot score by learning which positions matter",
           "n_clusters_total": 525,
           "elicited_curve": {
-            "25": 0.3617021276595745,
-            "50": 0.3023255813953488,
-            "100": 0.3023255813953488,
-            "200": 0.3023255813953488,
-            "400": 0.3023255813953488
+            "25": 0.5167464114832536,
+            "50": 0.525484884981934,
+            "100": 0.43365253077975374,
+            "200": 0.4003553449807522,
+            "400": 0.6124069380643118
           },
           "elicited_budget": {
             "method": "LoRA + linear head",
@@ -5641,6 +5948,9 @@
             "lora_alpha": 16,
             "warmup_fraction": 0.1,
             "normalise_pooled": true,
+            "standardise_pooled": true,
+            "standardise_sample": 512,
+            "drift_reference_ratio": 10.0,
             "examples_seen": 3200,
             "checkpoints": [
               25,
@@ -5648,7 +5958,9 @@
               100,
               200,
               400
-            ]
+            ],
+            "adapter_lr_effective": 9.394265861170336e-05,
+            "feature_ratio": 106.45
           },
           "per_layer_scores": {
             "layer-0": 0.548887,
@@ -5694,15 +6006,15 @@
         "rank_reversal_risk": {}
       },
       "compute": {
-        "device": "unloaded",
-        "seconds": 105.54,
+        "device": "cuda",
+        "seconds": 123.3,
         "gpu_hours": null,
         "peak_memory_gb": null
       },
       "provenance": {
         "code_commit": null,
-        "run_id": "8211e500e124",
-        "run_date": "2026-08-18T10:31:16+00:00",
+        "run_id": "d01149bf076c",
+        "run_date": "2026-08-18T17:53:27+00:00",
         "seed": 0,
         "env_lock_sha256": null,
         "harness_version": "1.0"
@@ -5710,8 +6022,7 @@
       "caveats": [
         "Does not survive the position-matched null (p=0.145); treat the score as unsupported.",
         "Exceeds the empirical ceiling (0.520): the representation adds over the best cheap supervised readout of composition features.",
-        "Elicitation gap -0.0583 has a paired 95% interval [-0.1249, +0.0090] spanning zero (positive in 4% of cluster resamples); not distinguishable from no gap on this dataset.",
-        "Fine-tuning collapsed: the score was identical at every checkpoint from step 100 onward, which is what a head answering a single class produces. F is withheld rather than reported, because that constant is a property of the label distribution and not of this model."
+        "Elicitation gap -0.0583 has a paired 95% interval [-0.1249, +0.0090] spanning zero (positive in 4% of cluster resamples); not distinguishable from no gap on this dataset."
       ],
       "disclosure_tier": 0
     },
@@ -5731,7 +6042,7 @@
         "zero_shot": 0.538996,
         "behavioural": 0.599929,
         "probe": 0.546093,
-        "elicited": null,
+        "elicited": 0.613303,
         "readout_budget": {
           "n_components": 64,
           "C": 1.0,
@@ -5748,8 +6059,8 @@
       },
       "derived": {
         "elicitation_gap": -0.053836,
-        "recoverability": null,
-        "headroom": -0.153731
+        "recoverability": 0.013374,
+        "headroom": -0.17945
       },
       "baselines": {
         "majority_class": 0.302326,
@@ -5780,11 +6091,11 @@
           "clustering": "position-disjoint: mutations at a given residue are confined to one side of the split, so the probe cannot score by learning which positions matter",
           "n_clusters_total": 525,
           "elicited_curve": {
-            "25": 0.3617021276595745,
-            "50": 0.3023255813953488,
-            "100": 0.3023255813953488,
-            "200": 0.3023255813953488,
-            "400": 0.3023255813953488
+            "25": 0.4798534798534798,
+            "50": 0.5007672528201725,
+            "100": 0.5683431894147664,
+            "200": 0.5619604800893374,
+            "400": 0.6133027794788724
           },
           "elicited_budget": {
             "method": "LoRA + linear head",
@@ -5796,6 +6107,9 @@
             "lora_alpha": 16,
             "warmup_fraction": 0.1,
             "normalise_pooled": true,
+            "standardise_pooled": true,
+            "standardise_sample": 512,
+            "drift_reference_ratio": 10.0,
             "examples_seen": 3200,
             "checkpoints": [
               25,
@@ -5803,7 +6117,9 @@
               100,
               200,
               400
-            ]
+            ],
+            "adapter_lr_effective": 0.0001089399836711799,
+            "feature_ratio": 91.79
           },
           "per_layer_scores": {
             "layer-0": 0.548887,
@@ -5867,15 +6183,15 @@
         "rank_reversal_risk": {}
       },
       "compute": {
-        "device": "unloaded",
-        "seconds": 273.69,
+        "device": "cuda",
+        "seconds": 322.63,
         "gpu_hours": null,
         "peak_memory_gb": null
       },
       "provenance": {
         "code_commit": null,
-        "run_id": "b28d259b7470",
-        "run_date": "2026-08-18T10:35:53+00:00",
+        "run_id": "1efad3db5e8e",
+        "run_date": "2026-08-18T17:58:52+00:00",
         "seed": 0,
         "env_lock_sha256": null,
         "harness_version": "1.0"
@@ -5883,8 +6199,7 @@
       "caveats": [
         "Does not survive the position-matched null (p=0.145); treat the score as unsupported.",
         "Exceeds the empirical ceiling (0.520): the representation adds over the best cheap supervised readout of composition features.",
-        "Elicitation gap -0.0538 has a paired 95% interval [-0.1138, +0.0040] spanning zero (positive in 3% of cluster resamples); not distinguishable from no gap on this dataset.",
-        "Fine-tuning collapsed: the score was identical at every checkpoint from step 100 onward, which is what a head answering a single class produces. F is withheld rather than reported, because that constant is a property of the label distribution and not of this model."
+        "Elicitation gap -0.0538 has a paired 95% interval [-0.1138, +0.0040] spanning zero (positive in 3% of cluster resamples); not distinguishable from no gap on this dataset."
       ],
       "disclosure_tier": 0
     },
@@ -5904,7 +6219,7 @@
         "zero_shot": 0.621888,
         "behavioural": 0.653211,
         "probe": 0.591103,
-        "elicited": null,
+        "elicited": 0.66555,
         "readout_budget": {
           "n_components": 64,
           "C": 1.0,
@@ -5921,8 +6236,8 @@
       },
       "derived": {
         "elicitation_gap": -0.062108,
-        "recoverability": null,
-        "headroom": -0.256198
+        "recoverability": 0.012339,
+        "headroom": -0.279927
       },
       "baselines": {
         "majority_class": 0.302326,
@@ -5953,11 +6268,11 @@
           "clustering": "position-disjoint: mutations at a given residue are confined to one side of the split, so the probe cannot score by learning which positions matter",
           "n_clusters_total": 525,
           "elicited_curve": {
-            "25": 0.3617021276595745,
-            "50": 0.3617021276595745,
-            "100": 0.3023255813953488,
-            "200": 0.3023255813953488,
-            "400": 0.3023255813953488
+            "25": 0.5350890862812322,
+            "50": 0.6110169868264419,
+            "100": 0.3774148918630241,
+            "200": 0.44000000000000006,
+            "400": 0.6655501823370857
           },
           "elicited_budget": {
             "method": "LoRA + linear head",
@@ -5969,6 +6284,9 @@
             "lora_alpha": 16,
             "warmup_fraction": 0.1,
             "normalise_pooled": true,
+            "standardise_pooled": true,
+            "standardise_sample": 512,
+            "drift_reference_ratio": 10.0,
             "examples_seen": 3200,
             "checkpoints": [
               25,
@@ -5976,7 +6294,9 @@
               100,
               200,
               400
-            ]
+            ],
+            "adapter_lr_effective": 6.772304465998462e-05,
+            "feature_ratio": 147.66
           },
           "per_layer_scores": {
             "layer-0": 0.548887,
@@ -6043,22 +6363,21 @@
         "rank_reversal_risk": {}
       },
       "compute": {
-        "device": "unloaded",
-        "seconds": 604.42,
+        "device": "cuda",
+        "seconds": 732.36,
         "gpu_hours": null,
         "peak_memory_gb": null
       },
       "provenance": {
         "code_commit": null,
-        "run_id": "c683ebdedc64",
-        "run_date": "2026-08-18T10:46:00+00:00",
+        "run_id": "5e1e781711be",
+        "run_date": "2026-08-18T18:11:08+00:00",
         "seed": 0,
         "env_lock_sha256": null,
         "harness_version": "1.0"
       },
       "caveats": [
-        "Exceeds the empirical ceiling (0.520): the representation adds over the best cheap supervised readout of composition features.",
-        "Fine-tuning collapsed: the score was identical at every checkpoint from step 100 onward, which is what a head answering a single class produces. F is withheld rather than reported, because that constant is a property of the label distribution and not of this model."
+        "Exceeds the empirical ceiling (0.520): the representation adds over the best cheap supervised readout of composition features."
       ],
       "disclosure_tier": 0
     },
@@ -6078,7 +6397,7 @@
         "zero_shot": 0.647587,
         "behavioural": 0.673907,
         "probe": 0.631082,
-        "elicited": null,
+        "elicited": 0.683388,
         "readout_budget": {
           "n_components": 64,
           "C": 1.0,
@@ -6095,8 +6414,8 @@
       },
       "derived": {
         "elicitation_gap": -0.042825,
-        "recoverability": null,
-        "headroom": -0.295999
+        "recoverability": 0.009481,
+        "headroom": -0.314232
       },
       "baselines": {
         "majority_class": 0.302326,
@@ -6126,8 +6445,37 @@
         "extra": {
           "clustering": "position-disjoint: mutations at a given residue are confined to one side of the split, so the probe cannot score by learning which positions matter",
           "n_clusters_total": 525,
-          "elicited_curve": {},
-          "elicited_budget": {},
+          "elicited_curve": {
+            "25": 0.6047348167977247,
+            "50": 0.6120382115110194,
+            "100": 0.6033741827217545,
+            "200": 0.6375612094140202,
+            "400": 0.6833875059457746
+          },
+          "elicited_budget": {
+            "method": "LoRA + linear head",
+            "steps": 400,
+            "lr": 0.001,
+            "head_lr": 0.01,
+            "batch_size": 8,
+            "lora_r": 8,
+            "lora_alpha": 16,
+            "warmup_fraction": 0.1,
+            "normalise_pooled": true,
+            "standardise_pooled": true,
+            "standardise_sample": 512,
+            "drift_reference_ratio": 10.0,
+            "examples_seen": 3200,
+            "checkpoints": [
+              25,
+              50,
+              100,
+              200,
+              400
+            ],
+            "adapter_lr_effective": 3.466506640569843e-05,
+            "feature_ratio": 288.47
+          },
           "per_layer_scores": {
             "layer-0": 0.548887,
             "layer-1": 0.542141,
@@ -6196,23 +6544,22 @@
         "rank_reversal_risk": {}
       },
       "compute": {
-        "device": "unloaded",
-        "seconds": 80.7,
+        "device": "cuda",
+        "seconds": 2435.51,
         "gpu_hours": null,
         "peak_memory_gb": null
       },
       "provenance": {
         "code_commit": null,
-        "run_id": "193225e1f56b",
-        "run_date": "2026-08-18T10:18:31+00:00",
+        "run_id": "479174d58c9f",
+        "run_date": "2026-08-18T18:51:47+00:00",
         "seed": 0,
         "env_lock_sha256": null,
         "harness_version": "1.0"
       },
       "caveats": [
         "Exceeds the empirical ceiling (0.520): the representation adds over the best cheap supervised readout of composition features.",
-        "Elicitation gap -0.0428 has a paired 95% interval [-0.0963, +0.0099] spanning zero (positive in 5% of cluster resamples); not distinguishable from no gap on this dataset.",
-        "Fine-tuning (F) not measured: adapter does not support it."
+        "Elicitation gap -0.0428 has a paired 95% interval [-0.0963, +0.0099] spanning zero (positive in 5% of cluster resamples); not distinguishable from no gap on this dataset."
       ],
       "disclosure_tier": 0
     },
@@ -6232,7 +6579,7 @@
         "zero_shot": 0.564134,
         "behavioural": 0.566185,
         "probe": 0.525427,
-        "elicited": null,
+        "elicited": 0.576821,
         "readout_budget": {
           "n_components": 64,
           "C": 1.0,
@@ -6249,8 +6596,8 @@
       },
       "derived": {
         "elicitation_gap": -0.040758,
-        "recoverability": null,
-        "headroom": -0.088837
+        "recoverability": 0.010636,
+        "headroom": -0.109291
       },
       "baselines": {
         "majority_class": 0.302326,
@@ -6281,11 +6628,11 @@
           "clustering": "position-disjoint: mutations at a given residue are confined to one side of the split, so the probe cannot score by learning which positions matter",
           "n_clusters_total": 525,
           "elicited_curve": {
-            "25": 0.3617021276595745,
-            "50": 0.3023255813953488,
-            "100": 0.3023255813953488,
-            "200": 0.3023255813953488,
-            "400": 0.3023255813953488
+            "25": 0.4999751231404548,
+            "50": 0.4159972401557341,
+            "100": 0.5236985905934903,
+            "200": 0.40897150939583754,
+            "400": 0.5768214589583986
           },
           "elicited_budget": {
             "method": "LoRA + linear head",
@@ -6297,6 +6644,9 @@
             "lora_alpha": 16,
             "warmup_fraction": 0.1,
             "normalise_pooled": true,
+            "standardise_pooled": true,
+            "standardise_sample": 512,
+            "drift_reference_ratio": 10.0,
             "examples_seen": 3200,
             "checkpoints": [
               25,
@@ -6304,7 +6654,9 @@
               100,
               200,
               400
-            ]
+            ],
+            "adapter_lr_effective": 0.00011031770866298819,
+            "feature_ratio": 90.65
           },
           "per_layer_scores": {
             "layer-0": 0.548887,
@@ -6344,15 +6696,15 @@
         "rank_reversal_risk": {}
       },
       "compute": {
-        "device": "unloaded",
-        "seconds": 60.22,
+        "device": "cuda",
+        "seconds": 68.28,
         "gpu_hours": null,
         "peak_memory_gb": null
       },
       "provenance": {
         "code_commit": null,
-        "run_id": "991f16ed267c",
-        "run_date": "2026-08-18T10:29:27+00:00",
+        "run_id": "19fc732d3551",
+        "run_date": "2026-08-18T17:51:20+00:00",
         "seed": 0,
         "env_lock_sha256": null,
         "harness_version": "1.0"
@@ -6360,8 +6712,7 @@
       "caveats": [
         "Does not survive the position-matched null (p=0.288); treat the score as unsupported.",
         "Exceeds the empirical ceiling (0.520): the representation adds over the best cheap supervised readout of composition features.",
-        "Elicitation gap -0.0408 has a paired 95% interval [-0.1082, +0.0273] spanning zero (positive in 11% of cluster resamples); not distinguishable from no gap on this dataset.",
-        "Fine-tuning collapsed: the score was identical at every checkpoint from step 100 onward, which is what a head answering a single class produces. F is withheld rather than reported, because that constant is a property of the label distribution and not of this model."
+        "Elicitation gap -0.0408 has a paired 95% interval [-0.1082, +0.0273] spanning zero (positive in 11% of cluster resamples); not distinguishable from no gap on this dataset."
       ],
       "disclosure_tier": 0
     },
@@ -14860,9 +15211,9 @@
       "dataset_sha256": "37e9e4e59a03",
       "scores": {
         "zero_shot": 0.366498,
-        "behavioural": 0.503257,
-        "probe": 0.541947,
-        "elicited": null,
+        "behavioural": 0.504138,
+        "probe": 0.540906,
+        "elicited": 0.62231,
         "readout_budget": {
           "n_components": 64,
           "C": 1.0,
@@ -14878,9 +15229,9 @@
         }
       },
       "derived": {
-        "elicitation_gap": 0.03869,
-        "recoverability": null,
-        "headroom": -1.870763
+        "elicitation_gap": 0.036768,
+        "recoverability": 0.118172,
+        "headroom": -2.296456
       },
       "baselines": {
         "majority_class": 0.012975,
@@ -14899,9 +15250,9 @@
           "n_permutations": 1000,
           "matched_covariate": "domain_length",
           "p_value": 0.000999000999000999,
-          "null_mean": 0.0942640725931856,
-          "null_std": 0.008560581459835861,
-          "observed": 0.5419473311685331
+          "null_mean": 0.09425661355593286,
+          "null_std": 0.00856645641787201,
+          "observed": 0.5409056334233616
         },
         "ceiling": {
           "method": "empirical: best of {scaled, unscaled} x {raw, pca50, pca128} x {C=1, C=0.1} logistic regression; configuration chosen on a validation carve of the training set (validation), then refit on the full training set and scored once on test",
@@ -14931,61 +15282,87 @@
             "3.30.70": 181,
             "3.40.50": 188
           },
+          "elicited_curve": {
+            "25": 0.16836927787793804,
+            "50": 0.3773234745573868,
+            "100": 0.5172584969568341,
+            "200": 0.5938916606592656,
+            "400": 0.6223102285697399
+          },
+          "elicited_budget": {
+            "method": "LoRA + linear head",
+            "steps": 400,
+            "lr": 0.001,
+            "head_lr": 0.01,
+            "batch_size": 8,
+            "lora_r": 8,
+            "lora_alpha": 16,
+            "warmup_fraction": 0.1,
+            "normalise_pooled": true,
+            "examples_seen": 3200,
+            "checkpoints": [
+              25,
+              50,
+              100,
+              200,
+              400
+            ]
+          },
           "per_layer_scores": {
-            "layer-0": 0.171904,
+            "layer-0": 0.17114,
             "layer-1": 0.272242,
-            "layer-2": 0.319181,
-            "layer-3": 0.340603,
-            "layer-4": 0.386159,
-            "layer-5": 0.390916,
+            "layer-2": 0.318646,
+            "layer-3": 0.339473,
+            "layer-4": 0.386167,
+            "layer-5": 0.392447,
             "layer-6": 0.42451,
             "layer-7": 0.440897,
-            "layer-8": 0.438323,
-            "layer-9": 0.451359,
-            "layer-10": 0.460204,
-            "layer-11": 0.474272,
+            "layer-8": 0.439939,
+            "layer-9": 0.451287,
+            "layer-10": 0.457497,
+            "layer-11": 0.475015,
             "layer-12": 0.471765,
-            "layer-13": 0.522874,
-            "layer-14": 0.523468,
-            "layer-15": 0.540463,
-            "layer-16": 0.527534,
-            "layer-17": 0.554791,
-            "layer-18": 0.566157,
-            "layer-19": 0.540647,
-            "layer-20": 0.541947,
-            "layer-21": 0.565749,
-            "layer-22": 0.552231,
+            "layer-13": 0.522226,
+            "layer-14": 0.521926,
+            "layer-15": 0.541288,
+            "layer-16": 0.527051,
+            "layer-17": 0.556534,
+            "layer-18": 0.566913,
+            "layer-19": 0.538461,
+            "layer-20": 0.540906,
+            "layer-21": 0.565066,
+            "layer-22": 0.552711,
             "layer-23": 0.543386,
-            "layer-24": 0.569491,
-            "layer-25": 0.558903,
-            "layer-26": 0.54699,
-            "layer-27": 0.568846,
-            "layer-28": 0.545939,
-            "layer-29": 0.559983,
-            "layer-30": 0.543393,
+            "layer-24": 0.56699,
+            "layer-25": 0.560783,
+            "layer-26": 0.547894,
+            "layer-27": 0.568166,
+            "layer-28": 0.543587,
+            "layer-29": 0.561067,
+            "layer-30": 0.543316,
             "layer-31": 0.58344,
-            "layer-32": 0.574026,
+            "layer-32": 0.572952,
             "layer-33": 0.555703,
-            "layer-34": 0.574308,
-            "layer-35": 0.5369,
-            "layer-36": 0.503257
+            "layer-34": 0.574899,
+            "layer-35": 0.538082,
+            "layer-36": 0.504138
           },
           "per_class_f1_probe": {
             "1.10.10": 0.487047,
             "1.10.150": 0.290323,
             "1.10.287": 0.375691,
             "1.10.8": 0.282609,
-            "1.20.120": 0.421053,
+            "1.20.120": 0.4,
             "1.20.5": 0.601504,
-            "1.20.58": 0.371795,
+            "1.20.58": 0.367089,
             "1.25.40": 0.584071,
-            "2.30.30": 0.597015,
+            "2.30.30": 0.608696,
             "2.40.128": 0.615385,
             "2.40.50": 0.550725,
             "2.60.120": 0.626866,
             "2.60.40": 0.748936,
-            "3.30.70": 0.746154,
-            "3.40.50": 0.83004
+            "3.30.70": 0.741313,
+            "3.40.50": 0.833333
           },
           "class_balance": {
             "1.10.10": 281,
@@ -15011,6 +15388,13 @@
             "n_classes_total": 15,
             "min_label_count": 5
           },
+          "hit_coverage": 0.009294,
+          "hit_conditional_accuracy": 0.6,
+          "hit_n_test_with_hit": 10,
+          "hit_n_test": 1076,
+          "hit_conditional_chance_accuracy": 0.066667,
+          "homology_nearest_neighbour_max_attainable_macro_f1": 0.030501,
+          "homology_transfer_interpretation": "DIAMOND reaches 10 of 1076 test domains (0.9%); on those it transfers the topology 60% of the time against 6.7% chance. Remoteness here is a matter of how rarely similarity transfer applies, not of it failing where it does \u2014 so read these two numbers and not the nearest-neighbour macro-F1, whose floor is set by the class count",
           "class_names": {
             "1.10.10": "Arc Repressor Mutant, subunit A",
             "1.10.150": "DNA polymerase; domain 1",
@@ -15035,36 +15419,306 @@
       },
       "uncertainty": {
         "ci95": [
-          0.4892083235280529,
-          0.5795732386368732
+          0.4880085673017357,
+          0.5783143260363646
         ],
         "n_bootstrap": 2000,
-        "std": 0.022966897838378093,
+        "std": 0.02296332623173035,
         "gap_ci95": [
-          -0.00011989258628873454,
-          0.07691602928188979
+          -0.00246886068244095,
+          0.07423719274698852
         ],
-        "gap_positive_fraction": 0.974,
+        "gap_positive_fraction": 0.966,
         "rank_reversal_risk": {}
       },
       "compute": {
         "device": "cuda",
-        "seconds": 550.94,
+        "seconds": 1639.29,
         "gpu_hours": null,
         "peak_memory_gb": null
       },
       "provenance": {
         "code_commit": null,
-        "run_id": "5241202a5126",
-        "run_date": "2026-08-17T02:46:14+00:00",
+        "run_id": "f4822514848a",
+        "run_date": "2026-08-18T13:58:39+00:00",
         "seed": 0,
         "env_lock_sha256": null,
         "harness_version": "1.0"
       },
       "caveats": [
         "Exceeds the empirical ceiling (0.189): the representation adds over the best cheap supervised readout of composition features. On this task that is the expected outcome rather than evidence of saturation, because composition cannot nearly solve fold recognition, so the ceiling is a comparator and not an attainable maximum. `derived.headroom` is therefore negative and must not be read as headroom on PR3.",
-        "Elicitation gap +0.0387 has a paired 95% interval [-0.0001, +0.0769] spanning zero (positive in 97% of group resamples); not distinguishable from no gap on this dataset.",
-        "Fine-tuning (F) not measured: adapter does not support it."
+        "Elicitation gap +0.0368 has a paired 95% interval [-0.0025, +0.0742] spanning zero (positive in 97% of group resamples); not distinguishable from no gap on this dataset."
+      ],
+      "disclosure_tier": 0
+    },
+    {
+      "model": "esm2-t48-15b-ur50d",
+      "modality": "protein",
+      "task": "pr3-fold-recognition",
+      "task_version": "1.0",
+      "axis": [
+        "A3",
+        "A5"
+      ],
+      "metric": "macro_f1",
+      "dataset_id": "cath-fold",
+      "dataset_sha256": "37e9e4e59a03",
+      "scores": {
+        "zero_shot": 0.382285,
+        "behavioural": 0.488245,
+        "probe": 0.5649,
+        "elicited": null,
+        "readout_budget": {
+          "n_components": 64,
+          "C": 1.0,
+          "max_iter": 2000,
+          "metric": "macro_f1"
+        },
+        "probe_best_layer": "layer-32",
+        "layer_selection": "validation",
+        "effective_width": {
+          "behavioural": 64,
+          "probe": 64,
+          "budget": 64
+        }
+      },
+      "derived": {
+        "elicitation_gap": 0.076655,
+        "recoverability": null,
+        "headroom": -1.992348
+      },
+      "baselines": {
+        "majority_class": 0.012975,
+        "length_only": 0.097405,
+        "composition_pca50_logreg": 0.081215,
+        "composition_centroid": 0.226178,
+        "homology_nearest_neighbour": 0.022638
+      },
+      "controls": {
+        "group_stratified": true,
+        "group_key": "cath_superfamily",
+        "n_groups_train": 1543,
+        "n_groups_test": 655,
+        "null": {
+          "method": "covariate-matched label permutation (10 quantile bins)",
+          "n_permutations": 1000,
+          "matched_covariate": "domain_length",
+          "p_value": 0.000999000999000999,
+          "null_mean": 0.10232731418659922,
+          "null_std": 0.00871125396384354,
+          "observed": 0.5648995288525582
+        },
+        "ceiling": {
+          "method": "empirical: best of {scaled, unscaled} x {raw, pca50, pca128} x {C=1, C=0.1} logistic regression; configuration chosen on a validation carve of the training set (validation), then refit on the full training set and scored once on test",
+          "value": 0.18878155020824935,
+          "note": "Won by scaled/pca50/C=1. Interpret model scores relative to this: at or above it, the representation adds nothing over standard supervised practice on the raw features."
+        },
+        "extra": {
+          "clustering": "DIAMOND all-vs-all, single-linkage at >=30% identity and >=50% query coverage, then unioned with CATH homologous superfamily",
+          "n_groups_total": 2198,
+          "n_identity_clusters": 3102,
+          "n_superfamilies": 2229,
+          "n_superfamilies_leaked_across_split": 0,
+          "superfamilies_per_class_train": {
+            "1.10.10": 137,
+            "1.10.150": 51,
+            "1.10.287": 100,
+            "1.10.8": 70,
+            "1.20.120": 112,
+            "1.20.5": 83,
+            "1.20.58": 108,
+            "1.25.40": 60,
+            "2.30.30": 64,
+            "2.40.128": 47,
+            "2.40.50": 47,
+            "2.60.120": 82,
+            "2.60.40": 235,
+            "3.30.70": 181,
+            "3.40.50": 188
+          },
+          "elicited_curve": {
+            "25": 0.3359856281629459,
+            "50": 0.3194966211573887,
+            "100": 0.38129317888602154,
+            "200": 0.010080183276059564,
+            "400": 0.013478139793929266
+          },
+          "elicited_budget": {
+            "method": "LoRA + linear head",
+            "steps": 400,
+            "lr": 0.001,
+            "head_lr": 0.01,
+            "batch_size": 8,
+            "lora_r": 8,
+            "lora_alpha": 16,
+            "warmup_fraction": 0.1,
+            "normalise_pooled": true,
+            "standardise_pooled": true,
+            "standardise_sample": 512,
+            "drift_reference_ratio": 10.0,
+            "examples_seen": 3200,
+            "checkpoints": [
+              25,
+              50,
+              100,
+              200,
+              400
+            ],
+            "adapter_lr_effective": 0.001,
+            "feature_ratio": 0.95
+          },
+          "per_layer_scores": {
+            "layer-0": 0.171261,
+            "layer-1": 0.27307,
+            "layer-2": 0.263856,
+            "layer-3": 0.299897,
+            "layer-4": 0.318241,
+            "layer-5": 0.298513,
+            "layer-6": 0.335243,
+            "layer-7": 0.332281,
+            "layer-8": 0.373871,
+            "layer-9": 0.379051,
+            "layer-10": 0.404505,
+            "layer-11": 0.411388,
+            "layer-12": 0.431244,
+            "layer-13": 0.433781,
+            "layer-14": 0.454772,
+            "layer-15": 0.466241,
+            "layer-16": 0.48741,
+            "layer-17": 0.505293,
+            "layer-18": 0.511568,
+            "layer-19": 0.521912,
+            "layer-20": 0.553767,
+            "layer-21": 0.561494,
+            "layer-22": 0.554178,
+            "layer-23": 0.544273,
+            "layer-24": 0.546785,
+            "layer-25": 0.541701,
+            "layer-26": 0.540251,
+            "layer-27": 0.551258,
+            "layer-28": 0.536111,
+            "layer-29": 0.552668,
+            "layer-30": 0.546805,
+            "layer-31": 0.554095,
+            "layer-32": 0.5649,
+            "layer-33": 0.565821,
+            "layer-34": 0.558653,
+            "layer-35": 0.569334,
+            "layer-36": 0.561993,
+            "layer-37": 0.575122,
+            "layer-38": 0.577108,
+            "layer-39": 0.570708,
+            "layer-40": 0.567293,
+            "layer-41": 0.570895,
+            "layer-42": 0.56381,
+            "layer-43": 0.557505,
+            "layer-44": 0.559149,
+            "layer-45": 0.542912,
+            "layer-46": 0.533891,
+            "layer-47": 0.530956,
+            "layer-48": 0.488245
+          },
+          "per_class_f1_probe": {
+            "1.10.10": 0.467005,
+            "1.10.150": 0.310345,
+            "1.10.287": 0.435644,
+            "1.10.8": 0.108108,
+            "1.20.120": 0.421769,
+            "1.20.5": 0.592593,
+            "1.20.58": 0.451613,
+            "1.25.40": 0.698113,
+            "2.30.30": 0.647059,
+            "2.40.128": 0.641509,
+            "2.40.50": 0.592593,
+            "2.60.120": 0.730159,
+            "2.60.40": 0.777778,
+            "3.30.70": 0.725191,
+            "3.40.50": 0.874016
+          },
+          "class_balance": {
+            "1.10.10": 281,
+            "1.10.150": 120,
+            "1.10.287": 293,
+            "1.10.8": 144,
+            "1.20.120": 286,
+            "1.20.5": 233,
+            "1.20.58": 254,
+            "1.25.40": 166,
+            "2.30.30": 153,
+            "2.40.128": 107,
+            "2.40.50": 126,
+            "2.60.120": 221,
+            "2.60.40": 400,
+            "3.30.70": 400,
+            "3.40.50": 400
+          },
+          "split_report": {
+            "n_units_dropped": 0,
+            "labels_dropped": [],
+            "n_classes_scored": 15,
+            "n_classes_total": 15,
+            "min_label_count": 5
+          },
+          "hit_coverage": 0.009294,
+          "hit_conditional_accuracy": 0.6,
+          "hit_n_test_with_hit": 10,
+          "hit_n_test": 1076,
+          "hit_conditional_chance_accuracy": 0.066667,
+          "homology_nearest_neighbour_max_attainable_macro_f1": 0.030501,
+          "homology_transfer_interpretation": "DIAMOND reaches 10 of 1076 test domains (0.9%); on those it transfers the topology 60% of the time against 6.7% chance. Remoteness here is a matter of how rarely similarity transfer applies, not of it failing where it does \u2014 so read these two numbers and not the nearest-neighbour macro-F1, whose floor is set by the class count",
+          "class_names": {
+            "1.10.10": "Arc Repressor Mutant, subunit A",
+            "1.10.150": "DNA polymerase; domain 1",
+            "1.10.287": "Helix Hairpins",
+            "1.10.8": "Helicase, Ruva Protein; domain 3",
+            "1.20.120": "Four Helix Bundle (Hemerythrin (Met), subunit A)",
+            "1.20.5": "Single alpha-helices involved in coiled-coils or other helix-helix interfaces",
+            "1.20.58": "Methane Monooxygenase Hydroxylase; Chain G, domain 1",
+            "1.25.40": "Serine Threonine Protein Phosphatase 5, Tetratricopeptide repeat",
+            "2.30.30": "SH3 type barrels.",
+            "2.40.128": "Lipocalin",
+            "2.40.50": "OB fold (Dihydrolipoamide Acetyltransferase, E2P)",
+            "2.60.120": "Jelly Rolls",
+            "2.60.40": "Immunoglobulin-like",
+            "3.30.70": "Alpha-Beta Plaits",
+            "3.40.50": "Rossmann fold"
+          },
+          "n_bootstrap_usable": 2000,
+          "licence": "CC BY 4.0. CATH: Protein Structure Classification Database by I. Sillitoe, N. Dawson, T. Lewis, D. Lee, J. Lees, C. Orengo, University College London (https://www.cathdb.info)",
+          "ceiling_interpretation": "comparator, not a bound: fold recognition is not a task cheap composition features can nearly solve, so a model above this value is expected rather than saturated"
+        }
+      },
+      "uncertainty": {
+        "ci95": [
+          0.5146065019442451,
+          0.5985661345379499
+        ],
+        "n_bootstrap": 2000,
+        "std": 0.021541054508529306,
+        "gap_ci95": [
+          0.03927553290166895,
+          0.11373244331802075
+        ],
+        "gap_positive_fraction": 1.0,
+        "rank_reversal_risk": {}
+      },
+      "compute": {
+        "device": "unloaded",
+        "seconds": 1058.49,
+        "gpu_hours": null,
+        "peak_memory_gb": null
+      },
+      "provenance": {
+        "code_commit": null,
+        "run_id": "91ce5c80467c",
+        "run_date": "2026-08-18T19:13:50+00:00",
+        "seed": 0,
+        "env_lock_sha256": null,
+        "harness_version": "1.0"
+      },
+      "caveats": [
+        "Exceeds the empirical ceiling (0.189): the representation adds over the best cheap supervised readout of composition features. On this task that is the expected outcome rather than evidence of saturation, because composition cannot nearly solve fold recognition, so the ceiling is a comparator and not an attainable maximum. `derived.headroom` is therefore negative and must not be read as headroom on PR3.",
+        "Fine-tuning (F) withheld: it ran the full budget and diverged \u2014 macro-F1 peaked at 0.381 by step 100 and fell to 0.013 by step 400. This is a property of this model under the pinned budget, not a limitation of the harness, and it means the budget does not transfer unchanged to this scale."
       ],
       "disclosure_tier": 0
     },
@@ -15530,7 +16184,7 @@
         "zero_shot": 0.260456,
         "behavioural": 0.382172,
         "probe": 0.421776,
-        "elicited": null,
+        "elicited": 0.452655,
         "readout_budget": {
           "n_components": 64,
           "C": 1.0,
@@ -15547,8 +16201,8 @@
       },
       "derived": {
         "elicitation_gap": 0.039604,
-        "recoverability": null,
-        "headroom": -2.939107
+        "recoverability": 0.070483,
+        "headroom": -3.227496
       },
       "baselines": {
         "majority_class": 0.008463,
@@ -15624,8 +16278,32 @@
           "collision_max_branch_share": 0.030928,
           "collision_n_split_groups": 1370,
           "collision_interpretation": "93.9% of family branches host exactly one EC subclass, so knowing the branch nearly settles the label \u2014 which is why holding branches out is a real intervention. The reverse does not hold: the thinnest class was learned from 29 distinct branches and no class draws more than 3.1% of its units from a single branch, so no class is a lineage in disguise and none can be deleted by the split. The collision is one-directional, which is the survivable direction",
-          "elicited_curve": {},
-          "elicited_budget": {},
+          "elicited_curve": {
+            "25": 0.13321851445514185,
+            "50": 0.2244866229321699,
+            "100": 0.32644196658204533,
+            "200": 0.4067040142033372,
+            "400": 0.4526547513806929
+          },
+          "elicited_budget": {
+            "method": "LoRA + linear head",
+            "steps": 400,
+            "lr": 0.001,
+            "head_lr": 0.01,
+            "batch_size": 8,
+            "lora_r": 8,
+            "lora_alpha": 16,
+            "warmup_fraction": 0.1,
+            "normalise_pooled": true,
+            "examples_seen": 3200,
+            "checkpoints": [
+              25,
+              50,
+              100,
+              200,
+              400
+            ]
+          },
           "per_layer_scores": {
             "layer-0": 0.160139,
             "layer-1": 0.182377,
@@ -15728,22 +16406,21 @@
       },
       "compute": {
         "device": "cuda",
-        "seconds": 117.64,
+        "seconds": 231.2,
         "gpu_hours": null,
         "peak_memory_gb": null
       },
       "provenance": {
         "code_commit": null,
-        "run_id": "1bac34881c83",
-        "run_date": "2026-08-17T18:35:22+00:00",
+        "run_id": "9fa76ba15e48",
+        "run_date": "2026-08-18T14:18:37+00:00",
         "seed": 0,
         "env_lock_sha256": null,
         "harness_version": "1.0"
       },
       "caveats": [
         "Exceeds the empirical ceiling (0.107): the representation adds over the best cheap supervised readout of composition features. On this task that is the expected outcome rather than evidence of saturation, because composition cannot nearly solve cross-family enzyme-class transfer, so the ceiling is a comparator and not an attainable maximum. `derived.headroom` is therefore negative and must not be read as headroom on PR4.",
-        "The empirical ceiling (0.107) is below a cheap composition baseline (0.146). The ceiling sweeps only logistic regressions, which overfit training lineages on a family-disjoint split where a nearest-centroid readout does not, so the ceiling understates what composition features yield here and `derived.headroom` is not interpretable on this card.",
-        "Fine-tuning (F) not measured: adapter does not support it."
+        "The empirical ceiling (0.107) is below a cheap composition baseline (0.146). The ceiling sweeps only logistic regressions, which overfit training lineages on a family-disjoint split where a nearest-centroid readout does not, so the ceiling understates what composition features yield here and `derived.headroom` is not interpretable on this card."
       ],
       "disclosure_tier": 0
     },
@@ -15763,7 +16440,7 @@
         "zero_shot": 0.242583,
         "behavioural": 0.303158,
         "probe": 0.37912,
-        "elicited": null,
+        "elicited": 0.46006,
         "readout_budget": {
           "n_components": 64,
           "C": 1.0,
@@ -15780,8 +16457,8 @@
       },
       "derived": {
         "elicitation_gap": 0.075962,
-        "recoverability": null,
-        "headroom": -2.540728
+        "recoverability": 0.156902,
+        "headroom": -3.296654
       },
       "baselines": {
         "majority_class": 0.008463,
@@ -15857,8 +16534,32 @@
           "collision_max_branch_share": 0.030928,
           "collision_n_split_groups": 1370,
           "collision_interpretation": "93.9% of family branches host exactly one EC subclass, so knowing the branch nearly settles the label \u2014 which is why holding branches out is a real intervention. The reverse does not hold: the thinnest class was learned from 29 distinct branches and no class draws more than 3.1% of its units from a single branch, so no class is a lineage in disguise and none can be deleted by the split. The collision is one-directional, which is the survivable direction",
-          "elicited_curve": {},
-          "elicited_budget": {},
+          "elicited_curve": {
+            "25": 0.12648442912349908,
+            "50": 0.22910731219410696,
+            "100": 0.3336293022725838,
+            "200": 0.3584645958462105,
+            "400": 0.4600604023801985
+          },
+          "elicited_budget": {
+            "method": "LoRA + linear head",
+            "steps": 400,
+            "lr": 0.001,
+            "head_lr": 0.01,
+            "batch_size": 8,
+            "lora_r": 8,
+            "lora_alpha": 16,
+            "warmup_fraction": 0.1,
+            "normalise_pooled": true,
+            "examples_seen": 3200,
+            "checkpoints": [
+              25,
+              50,
+              100,
+              200,
+              400
+            ]
+          },
           "per_layer_scores": {
             "layer-0": 0.160209,
             "layer-1": 0.178114,
@@ -15979,22 +16680,21 @@
       },
       "compute": {
         "device": "cuda",
-        "seconds": 219.29,
+        "seconds": 547.72,
         "gpu_hours": null,
         "peak_memory_gb": null
       },
       "provenance": {
         "code_commit": null,
-        "run_id": "ef4d7b1fa57f",
-        "run_date": "2026-08-17T18:39:04+00:00",
+        "run_id": "b065cfe615db",
+        "run_date": "2026-08-18T14:27:47+00:00",
         "seed": 0,
         "env_lock_sha256": null,
         "harness_version": "1.0"
       },
       "caveats": [
         "Exceeds the empirical ceiling (0.107): the representation adds over the best cheap supervised readout of composition features. On this task that is the expected outcome rather than evidence of saturation, because composition cannot nearly solve cross-family enzyme-class transfer, so the ceiling is a comparator and not an attainable maximum. `derived.headroom` is therefore negative and must not be read as headroom on PR4.",
-        "The empirical ceiling (0.107) is below a cheap composition baseline (0.146). The ceiling sweeps only logistic regressions, which overfit training lineages on a family-disjoint split where a nearest-centroid readout does not, so the ceiling understates what composition features yield here and `derived.headroom` is not interpretable on this card.",
-        "Fine-tuning (F) not measured: adapter does not support it."
+        "The empirical ceiling (0.107) is below a cheap composition baseline (0.146). The ceiling sweeps only logistic regressions, which overfit training lineages on a family-disjoint split where a nearest-centroid readout does not, so the ceiling understates what composition features yield here and `derived.headroom` is not interpretable on this card."
       ],
       "disclosure_tier": 0
     },
@@ -16014,7 +16714,7 @@
         "zero_shot": 0.256695,
         "behavioural": 0.315504,
         "probe": 0.453976,
-        "elicited": null,
+        "elicited": 0.500546,
         "readout_budget": {
           "n_components": 64,
           "C": 1.0,
@@ -16031,8 +16731,8 @@
       },
       "derived": {
         "elicitation_gap": 0.138472,
-        "recoverability": null,
-        "headroom": -3.239833
+        "recoverability": 0.185042,
+        "headroom": -3.674766
       },
       "baselines": {
         "majority_class": 0.008463,
@@ -16108,8 +16808,32 @@
           "collision_max_branch_share": 0.030928,
           "collision_n_split_groups": 1370,
           "collision_interpretation": "93.9% of family branches host exactly one EC subclass, so knowing the branch nearly settles the label \u2014 which is why holding branches out is a real intervention. The reverse does not hold: the thinnest class was learned from 29 distinct branches and no class draws more than 3.1% of its units from a single branch, so no class is a lineage in disguise and none can be deleted by the split. The collision is one-directional, which is the survivable direction",
-          "elicited_curve": {},
-          "elicited_budget": {},
+          "elicited_curve": {
+            "25": 0.1274254213787881,
+            "50": 0.2412162396330424,
+            "100": 0.37845186126422664,
+            "200": 0.4460783538941725,
+            "400": 0.5005458282748653
+          },
+          "elicited_budget": {
+            "method": "LoRA + linear head",
+            "steps": 400,
+            "lr": 0.001,
+            "head_lr": 0.01,
+            "batch_size": 8,
+            "lora_r": 8,
+            "lora_alpha": 16,
+            "warmup_fraction": 0.1,
+            "normalise_pooled": true,
+            "examples_seen": 3200,
+            "checkpoints": [
+              25,
+              50,
+              100,
+              200,
+              400
+            ]
+          },
           "per_layer_scores": {
             "layer-0": 0.160153,
             "layer-1": 0.177366,
@@ -16233,22 +16957,21 @@
       },
       "compute": {
         "device": "cuda",
-        "seconds": 393.15,
+        "seconds": 1206.38,
         "gpu_hours": null,
         "peak_memory_gb": null
       },
       "provenance": {
         "code_commit": null,
-        "run_id": "c423832c4ed3",
-        "run_date": "2026-08-17T18:45:39+00:00",
+        "run_id": "8f40137e50fe",
+        "run_date": "2026-08-18T14:47:56+00:00",
         "seed": 0,
         "env_lock_sha256": null,
         "harness_version": "1.0"
       },
       "caveats": [
         "Exceeds the empirical ceiling (0.107): the representation adds over the best cheap supervised readout of composition features. On this task that is the expected outcome rather than evidence of saturation, because composition cannot nearly solve cross-family enzyme-class transfer, so the ceiling is a comparator and not an attainable maximum. `derived.headroom` is therefore negative and must not be read as headroom on PR4.",
-        "The empirical ceiling (0.107) is below a cheap composition baseline (0.146). The ceiling sweeps only logistic regressions, which overfit training lineages on a family-disjoint split where a nearest-centroid readout does not, so the ceiling understates what composition features yield here and `derived.headroom` is not interpretable on this card.",
-        "Fine-tuning (F) not measured: adapter does not support it."
+        "The empirical ceiling (0.107) is below a cheap composition baseline (0.146). The ceiling sweeps only logistic regressions, which overfit training lineages on a family-disjoint split where a nearest-centroid readout does not, so the ceiling understates what composition features yield here and `derived.headroom` is not interpretable on this card."
       ],
       "disclosure_tier": 0
     },
@@ -16525,7 +17248,7 @@
         "zero_shot": 0.288128,
         "behavioural": 0.343176,
         "probe": 0.358728,
-        "elicited": null,
+        "elicited": 0.379006,
         "readout_budget": {
           "n_components": 64,
           "C": 1.0,
@@ -16542,8 +17265,8 @@
       },
       "derived": {
         "elicitation_gap": 0.015552,
-        "recoverability": null,
-        "headroom": -2.35028
+        "recoverability": 0.03583,
+        "headroom": -2.539663
       },
       "baselines": {
         "majority_class": 0.008463,
@@ -16619,8 +17342,32 @@
           "collision_max_branch_share": 0.030928,
           "collision_n_split_groups": 1370,
           "collision_interpretation": "93.9% of family branches host exactly one EC subclass, so knowing the branch nearly settles the label \u2014 which is why holding branches out is a real intervention. The reverse does not hold: the thinnest class was learned from 29 distinct branches and no class draws more than 3.1% of its units from a single branch, so no class is a lineage in disguise and none can be deleted by the split. The collision is one-directional, which is the survivable direction",
-          "elicited_curve": {},
-          "elicited_budget": {},
+          "elicited_curve": {
+            "25": 0.11586040855272509,
+            "50": 0.216510790804445,
+            "100": 0.27704997275845267,
+            "200": 0.3439800790088814,
+            "400": 0.3790064017722207
+          },
+          "elicited_budget": {
+            "method": "LoRA + linear head",
+            "steps": 400,
+            "lr": 0.001,
+            "head_lr": 0.01,
+            "batch_size": 8,
+            "lora_r": 8,
+            "lora_alpha": 16,
+            "warmup_fraction": 0.1,
+            "normalise_pooled": true,
+            "examples_seen": 3200,
+            "checkpoints": [
+              25,
+              50,
+              100,
+              200,
+              400
+            ]
+          },
           "per_layer_scores": {
             "layer-0": 0.160153,
             "layer-1": 0.184374,
@@ -16717,14 +17464,14 @@
       },
       "compute": {
         "device": "cuda",
-        "seconds": 101.85,
+        "seconds": 152.51,
         "gpu_hours": null,
         "peak_memory_gb": null
       },
       "provenance": {
         "code_commit": null,
-        "run_id": "f01d8d4d0390",
-        "run_date": "2026-08-17T18:33:22+00:00",
+        "run_id": "fdb93995224e",
+        "run_date": "2026-08-18T14:14:43+00:00",
         "seed": 0,
         "env_lock_sha256": null,
         "harness_version": "1.0"
@@ -16732,8 +17479,7 @@
       "caveats": [
         "Exceeds the empirical ceiling (0.107): the representation adds over the best cheap supervised readout of composition features. On this task that is the expected outcome rather than evidence of saturation, because composition cannot nearly solve cross-family enzyme-class transfer, so the ceiling is a comparator and not an attainable maximum. `derived.headroom` is therefore negative and must not be read as headroom on PR4.",
         "The empirical ceiling (0.107) is below a cheap composition baseline (0.146). The ceiling sweeps only logistic regressions, which overfit training lineages on a family-disjoint split where a nearest-centroid readout does not, so the ceiling understates what composition features yield here and `derived.headroom` is not interpretable on this card.",
-        "Elicitation gap +0.0156 has a paired 95% interval [-0.0169, +0.0493] spanning zero (positive in 83% of group resamples); not distinguishable from no gap on this dataset.",
-        "Fine-tuning (F) not measured: adapter does not support it."
+        "Elicitation gap +0.0156 has a paired 95% interval [-0.0169, +0.0493] spanning zero (positive in 83% of group resamples); not distinguishable from no gap on this dataset."
       ],
       "disclosure_tier": 0
     },
