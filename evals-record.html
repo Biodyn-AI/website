@@ -27,7 +27,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="evals.css?v=6">
+  <link rel="stylesheet" href="evals.css?v=7">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
 </head>
 <body class="ev-page">
@@ -106,8 +106,10 @@
           <div class="ev-track">
             <h3>F, elicited</h3>
             <p>
-              What light fine-tuning recovers. Not yet measured on any model here, and
-              shown as n/a rather than omitted.
+              What light fine-tuning recovers, under a pinned budget recorded on the
+              card. Measured on the fold task, where it lands above both other
+              surfaces. Shown as n/a where it was not run, and withheld where the
+              run collapsed onto a single class rather than reported as a number.
             </p>
           </div>
         </div>
@@ -159,6 +161,6 @@
   </footer>
 
   <script src="script.js"></script>
-  <script src="evals.js?v=6"></script>
+  <script src="evals.js?v=7"></script>
 </body>
 </html>

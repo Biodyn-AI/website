@@ -572,6 +572,21 @@
       scale: [0, 1],
       foot: '',
     },
+    'br1-viral-fitness': {
+      title: 'Predicting what a mutation does to a virus',
+      plain: 'Given one changed letter in a viral protein, say whether the virus '
+        + 'still works. The measurements come from published laboratory experiments.',
+      scale: [0, 1],
+      foot: 'Three separate viruses are measured; the striped row is what you get '
+        + 'from amino-acid counts with no model at all.',
+    },
+    'pr4-ec-number': {
+      title: 'Naming what an enzyme does',
+      plain: 'Given a protein, say which of fifteen chemical reactions it catalyses, '
+        + 'with every related protein family held out of training.',
+      scale: [0, 1],
+      foot: '',
+    },
     'sc1-celltype-transfer': {
       title: 'Naming a cell type in a person the model never saw',
       plain: 'What kind of cell is this, in a person the model never saw?',

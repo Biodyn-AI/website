@@ -30,7 +30,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="evals.css?v=6">
+  <link rel="stylesheet" href="evals.css?v=7">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
 </head>
 <body class="ev-page">
@@ -229,24 +229,53 @@
           </div>
         </div>
 
-        <h3 class="ev-h3">What others have already shown on the risk side</h3>
+        <h3 class="ev-h3">What we can now measure on the risk side</h3>
         <p class="ev-sub">
-          We have no numbers here yet. Other groups do.
+          Our first numbers here. Three viral proteins — influenza, HIV, SARS-CoV-2 —
+          where laboratories have measured what thousands of single mutations do, and
+          the models are asked to predict it from sequence alone.
         </p>
+        <p class="ev-caption">
+          They clear a no-model comparison only narrowly, by a few points on a scale
+          where counting amino acids already gets about 0.51 to 0.55. On influenza the
+          three smallest models fail the shuffled-label test outright: once you control
+          for which residue was changed, their scores are not distinguishable from
+          chance. Only the two largest learn anything on that virus at all.
+        </p>
+        <details class="ev-more">
+          <summary>Why we are not summarising this as one number</summary>
+          <div class="ev-more-body">
+            <p>
+              The three viruses disagree with each other. On SARS-CoV-2 the internal
+              layers read more than the model's own output does, on every model. On
+              influenza and HIV they read <em>less</em>. Same protocol, same models,
+              opposite sign — so any single assay would characterise the virus as much
+              as the method, and we report all three rather than the average.
+            </p>
+            <p>
+              These are published laboratory measurements of mutations other people
+              have already made. Nothing here designs a sequence or proposes one, and
+              the numbers are model-level aggregates rather than per-mutation
+              predictions.
+            </p>
+          </div>
+        </details>
+
+        <h3 class="ev-h3">What others have shown</h3>
         <div class="ev-tracks">
           <div class="ev-track">
             <h3>Filtering training data does not remove the capability</h3>
             <p>
-              Evo 2 excluded viral sequences from training. Fifty fine-tuning steps, under
-              an hour on one GPU, put the capability back.
+              Evo 2 excluded viral sequences from training. Fifty fine-tuning steps,
+              under an hour on one GPU, put the capability back.
             </p>
             <p><a href="https://arxiv.org/abs/2510.27629" rel="noopener">Wei et al. 2025 →</a></p>
           </div>
           <div class="ev-track">
             <h3>Design tools can route around screening</h3>
             <p>
-              Design software produced variants of proteins of concern that DNA synthesis
-              screening did not reliably catch.
+              Design software produced variants of proteins of concern that DNA
+              synthesis screening did not reliably catch.
             </p>
             <p><a href="https://doi.org/10.1126/science.adu8578" rel="noopener">Wittmann et al., Science 2025 →</a></p>
           </div>
@@ -265,10 +294,11 @@
           capable.
         </p>
         <p class="ev-sub">
-          First answer: <strong>no measurable change</strong>. Across four tasks and
-          up to seventeen models, in protein models and now independently in genome
-          models, the gap neither grows nor shrinks with size by an amount
-          distinguishable from zero. That is a result, not a failure to find one.
+          Answer, on the evidence so far: <strong>no measurable change</strong>. Six
+          tasks, three kinds of model, and ladders from four to seventeen models —
+          protein, genome, and now viral fitness. Every one of them gives a trend
+          indistinguishable from zero. That is a result, not a failure to find one,
+          and it is more solid for having been checked six times in three modalities.
         </p>
         <details class="ev-more">
           <summary>Why that answer is worth more than it sounds</summary>
@@ -440,6 +470,6 @@
   </footer>
 
   <script src="script.js"></script>
-  <script src="evals.js?v=6"></script>
+  <script src="evals.js?v=7"></script>
 </body>
 </html>
