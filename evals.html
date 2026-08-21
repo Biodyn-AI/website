@@ -30,7 +30,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="evals.css?v=14">
+  <link rel="stylesheet" href="evals.css?v=15">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
 </head>
 <body class="ev-page">
@@ -294,14 +294,48 @@
           capable.
         </p>
         <p class="ev-sub">
-          Answer, on the evidence so far: <strong>no measurable change</strong>. Six
-          tasks across protein, genome and viral fitness. The longest ladder runs
-          from 8 million parameters to 15 billion — a factor of 1,875 — and the
-          answer does not move anywhere along it. Every task gives a trend
-          indistinguishable from zero. That is a result, not a failure to find one.
+          This page said <strong>no measurable change</strong> until 20 August 2026.
+          We have withdrawn that answer. It came from running each task once, and
+          when we repeated the hardest one six times over, the gap
+          <strong>widened</strong> as models grew — the direction that makes
+          output-only assessment less trustworthy, not more.
+        </p>
+        <p class="ev-sub">
+          What we can say now is narrower and less comfortable. On fold recognition,
+          six repeats give a gap that grows by about two points for every tenfold
+          increase in model size, and every one of the six agrees. The other five
+          tasks have been run once each, so we do not yet know whether they behave
+          the same way. We are not replacing one confident answer with another.
         </p>
         <details class="ev-more">
-          <summary>Why that answer is worth more than it sounds</summary>
+          <summary>Why we withdrew it, in detail</summary>
+          <div class="ev-more-body">
+            <p>
+              Running a task once gives a wide enough margin of error to contain
+              almost anything, and "contains zero" is not the same as "is zero". Our
+              single run gave a trend of +0.018 with a margin of −0.011 to +0.046,
+              which we reported as no change. Six runs gave +0.020 with a margin of
+              +0.009 to +0.031. <strong>The measurement barely moved; only the
+              uncertainty did.</strong> The first number was a statement about how
+              little we had run, dressed as a statement about models.
+            </p>
+            <p>
+              It holds up to the checks we could think of: dropping the largest
+              model, the smallest, or the strongest performer each leaves a trend
+              still clear of zero, and all six repeats point the same way.
+            </p>
+            <p>
+              We are wary of it anyway, because on the same day we were nearly
+              fooled in the opposite direction. A second family of models appeared
+              to show the gap <em>closing</em> sharply — until we ran it four times
+              and the four disagreed with each other entirely. A result from a single
+              run cannot be trusted in either direction, and that applies to this
+              one until the remaining tasks are repeated too.
+            </p>
+          </div>
+        </details>
+        <details class="ev-more">
+          <summary>Why that answer was worth more than it sounded</summary>
           <div class="ev-more-body">
             <p>
               An earlier build of this page said the gap shrank with scale. It did
@@ -470,6 +504,6 @@
   </footer>
 
   <script src="script.js"></script>
-  <script src="evals.js?v=14"></script>
+  <script src="evals.js?v=15"></script>
 </body>
 </html>
