@@ -30,7 +30,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="evals.css?v=15">
+  <link rel="stylesheet" href="evals.css?v=16">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
 </head>
 <body class="ev-page">
@@ -294,30 +294,72 @@
           capable.
         </p>
         <p class="ev-sub">
-          This page said <strong>no measurable change</strong> until 20 August 2026.
-          We have withdrawn that answer. It came from running each task once, and
-          when we repeated the hardest one six times over, the gap
-          <strong>widened</strong> as models grew — the direction that makes
-          output-only assessment less trustworthy, not more.
+          Answer, on the evidence so far: <strong>it depends on the task, and we
+          cannot yet say why</strong>. On two of five tasks the gap clearly widens
+          as models grow — the direction that makes output-only assessment less
+          trustworthy, not more. On two others there is no change we can detect.
+          On a genome task it appears to close.
         </p>
         <p class="ev-sub">
-          What we can say now is narrower and less comfortable. On fold recognition,
-          six repeats give a gap that grows by about two points for every tenfold
-          increase in model size, and every one of the six agrees. The other five
-          tasks have been run once each, so we do not yet know whether they behave
-          the same way. We are not replacing one confident answer with another.
+          This page said <strong>no measurable change</strong> until 20 August 2026,
+          on all six tasks. That was wrong, and the reason it was wrong is the most
+          useful thing we have learned: each task had been run once, and a single
+          run of an experiment like this has a margin of error wide enough to
+          contain almost anything. Repeating each task six times changed the answer
+          on two of them and left it unchanged on the rest.
         </p>
         <details class="ev-more">
-          <summary>Why we withdrew it, in detail</summary>
+          <summary>The five tasks, and what each one says</summary>
           <div class="ev-more-body">
             <p>
-              Running a task once gives a wide enough margin of error to contain
-              almost anything, and "contains zero" is not the same as "is zero". Our
-              single run gave a trend of +0.018 with a margin of −0.011 to +0.046,
-              which we reported as no change. Six runs gave +0.020 with a margin of
-              +0.009 to +0.031. <strong>The measurement barely moved; only the
-              uncertainty did.</strong> The first number was a statement about how
-              little we had run, dressed as a statement about models.
+              Each number below is six independent repeats of the whole experiment,
+              on model families spanning roughly a thousandfold in size. "Room to
+              improve" is how far the models are from a perfect score — a gap cannot
+              grow where there is nowhere left to go.
+            </p>
+            <table class="ev-table">
+              <tr><th>Task</th><th>Room to improve</th><th>Does the gap change with size?</th></tr>
+              <tr><td>Fold recognition</td><td>0.54</td><td><strong>Widens</strong> — all six repeats agree</td></tr>
+              <tr><td>Enzyme function</td><td>0.66</td><td><strong>Widens</strong> — all six repeats agree</td></tr>
+              <tr><td>Transcription-factor family</td><td>0.33</td><td>No change detectable</td></tr>
+              <tr><td>Transcription-factor identity</td><td>0.12</td><td>No change detectable</td></tr>
+              <tr><td>Enhancer classes (genome)</td><td>0.52</td><td>Appears to close — but repeats disagree</td></tr>
+            </table>
+            <p>
+              The two clear results are the strongest thing on this site. Fold
+              recognition and enzyme function share no data, no categories and no
+              method of splitting train from test, and they agree to within a
+              thousandth. Twelve repeats out of twelve point the same way.
+            </p>
+            <p>
+              Room to improve explains part of the pattern and not all of it. The
+              task showing nothing is the one nearest a perfect score, where a gap
+              is squeezed shut by arithmetic rather than by anything the model is
+              doing. But the genome task has as much room as fold recognition and
+              points the other way. So something else separates them — modality,
+              architecture, or the particular models — and our current design cannot
+              tell which. We would rather say that than pick the flattering
+              explanation.
+            </p>
+            <p>
+              Two of the numbers are weak and we mark them so. The genome result and
+              a second protein family both clear zero by less than a hundredth while
+              their repeats disagree in direction. We have twice watched a margin
+              that narrow fail to survive more repeats, in both directions, and see
+              no reason to trust these ones further.
+            </p>
+          </div>
+        </details>
+        <details class="ev-more">
+          <summary>Why a single run is not enough, in detail</summary>
+          <div class="ev-more-body">
+            <p>
+              Our single run of fold recognition gave a trend of +0.018 with a margin
+              of −0.011 to +0.046, which we reported as no change. Six runs gave
+              +0.020 with a margin of +0.009 to +0.031. <strong>The measurement
+              barely moved; only the uncertainty did.</strong> The first number was a
+              statement about how little we had run, dressed as a statement about
+              models.
             </p>
             <p>
               It holds up to the checks we could think of: dropping the largest
@@ -325,20 +367,16 @@
               still clear of zero, and all six repeats point the same way.
             </p>
             <p>
-              The habit of repeating runs was learned the hard way, and in the
-              opposite direction. A second family of models appeared, on one run, to
-              show the gap <em>closing</em> sharply. Run four times, the four
-              disagreed with each other entirely and the effect vanished. A single
-              run misleads in whichever direction it happens to fall, which is why
-              the figure above rests on six.
+              The habit was learned the hard way, in the opposite direction. A second
+              family of models appeared, on one run, to show the gap <em>closing</em>
+              sharply. Run four times, the four disagreed entirely and the effect
+              vanished. A single run misleads in whichever direction it happens to
+              fall, which is why every figure above rests on six.
             </p>
             <p>
-              What remains genuinely open is not whether that figure is solid but
-              whether fold recognition is typical. It is one task of six. The other
-              five have been run once each, and a single run is exactly what we have
-              just finished distrusting — so we do not know what they would say
-              repeated. Until they are, this is a finding about one task and not a
-              law about scale.
+              This matters beyond our own results. Benchmark papers in this field
+              routinely report a single run across four to six model sizes. If our
+              headline could reverse under repetition, so can others.
             </p>
           </div>
         </details>
@@ -512,6 +550,6 @@
   </footer>
 
   <script src="script.js"></script>
-  <script src="evals.js?v=15"></script>
+  <script src="evals.js?v=16"></script>
 </body>
 </html>
