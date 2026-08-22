@@ -95,8 +95,8 @@
         + 'is a card carrying the baseline the model has to beat, the ceiling the data actually '
         + 'allows, and the null that could have killed the result.',
       links: [
-        { title: 'PROBE, the evaluation programme', venue: 'Evals', url: 'evals.html' },
-        { title: 'The six rules every card is held to', venue: 'PROBE Standard', url: 'evals-standard.html' }
+        { title: 'SONDE, the evaluation programme', venue: 'Evals', url: 'evals.html' },
+        { title: 'The six rules every card is held to', venue: 'SONDE Standard', url: 'evals-standard.html' }
       ]
     },
     {
@@ -214,8 +214,8 @@
     }
   ];
 
-  /* Case II detail, the PROBE evaluation programme. Every area links to the
-     PROBE pages already on the site rather than restating them here. */
+  /* Case II detail, the SONDE evaluation programme. Every area links to the
+     SONDE pages already on the site rather than restating them here. */
   const AUDIT_AREAS = [
     {
       key: 'gap',
@@ -230,8 +230,8 @@
         + 'Elicitation gap = P \u2212 B is the part of what a model has learned that its sanctioned '
         + 'interface never exposes.',
       links: [
-        { title: 'The measurement, surface by surface', venue: 'PROBE · Evals', url: 'evals.html' },
-        { title: 'Current results, with baselines, ceilings and nulls', venue: 'PROBE · Results', url: 'evals.html#evBoards' }
+        { title: 'The measurement, surface by surface', venue: 'SONDE · Evals', url: 'evals.html' },
+        { title: 'Current results, with baselines, ceilings and nulls', venue: 'SONDE · Results', url: 'evals.html#evBoards' }
       ]
     },
     {
@@ -246,7 +246,7 @@
         + 'populated for the reference adapters, which do not support fine-tuning, and the '
         + 'leaderboard says so in its own payload rather than leaving the column blank.',
       links: [
-        { title: 'How B, P and F are measured under one budget', venue: 'PROBE · Evals', url: 'evals.html' }
+        { title: 'How B, P and F are measured under one budget', venue: 'SONDE · Evals', url: 'evals.html' }
       ]
     },
     {
@@ -260,7 +260,7 @@
         + 'result with a covariate-matched null first. Pin the dataset hash, checkpoint, commit '
         + 'and seed into every card. A card cannot be emitted without its controls.',
       links: [
-        { title: 'The six rules and what each one refuses to do', venue: 'PROBE · Standard', url: 'evals-standard.html' }
+        { title: 'The six rules and what each one refuses to do', venue: 'SONDE · Standard', url: 'evals-standard.html' }
       ]
     },
     {
@@ -273,8 +273,8 @@
         + 'principle that a foundation model which cannot beat PCA on a task has not earned the '
         + 'compute. The programme publishes its own gaps in the same payload as its results.',
       links: [
-        { title: 'Axis and modality coverage grid', venue: 'PROBE · Coverage', url: 'evals.html#evCoverage' },
-        { title: 'What the programme does not yet support', venue: 'PROBE · Evals', url: 'evals.html' }
+        { title: 'Axis and modality coverage grid', venue: 'SONDE · Coverage', url: 'evals.html#evCoverage' },
+        { title: 'What the programme does not yet support', venue: 'SONDE · Evals', url: 'evals.html' }
       ]
     }
   ];

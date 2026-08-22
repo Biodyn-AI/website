@@ -1,4 +1,4 @@
-# PROBE handoff
+# SONDE handoff
 
 For whoever is working on the evaluations programme. Written 2026-08-15, after a
 redesign pass over the rest of the site. Nothing here constrains the research;
@@ -18,7 +18,7 @@ Two repos, side by side.
 
 | file | what it is |
 |---|---|
-| `evals.html` | the PROBE landing page |
+| `evals.html` | the SONDE landing page |
 | `evals-standard.html` | the six rules |
 | `evals-registry.html` | model / task registry |
 | `evals.css` | styles for all three |
@@ -128,7 +128,7 @@ and extracting biology at scale. It runs on one 3D figure that turns between
 cases and morphs a level deeper when an area is opened. That same experience is
 embedded on the main page below the hero.
 
-**PROBE is case II.** It is presented as the instrument the second argument
+**SONDE is case II.** It is presented as the instrument the second argument
 needs, across four areas: elicitation gap, recoverability, the Standard, and
 coverage. So the evals pages are not a side section any more, they carry one
 third of the site's argument. Worth knowing when deciding how much a page has

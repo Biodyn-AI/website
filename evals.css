@@ -1,5 +1,5 @@
 /* ========================================
-   PROBE evaluation pages
+   SONDE evaluation pages
    Data-dense, deliberately plain. Uses the site's tokens so it themes with
    everything else; adds only what a measurement report needs.
    ======================================== */
@@ -354,7 +354,7 @@
 }
 
 /* ---------------------------------------
-   PROBE wordmark
+   SONDE wordmark
    The evaluations work carries its own name,
    so the page leads with it.
    --------------------------------------- */

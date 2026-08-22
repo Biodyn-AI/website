@@ -42,7 +42,7 @@
   /* Which detail set a case shows, and which figure map goes with it. */
   const AREA_SETS = {
     0: { areas: A.ORGANISM_AREAS, figures: ORGANISM_FIGURES, heading: 'Why this is the right venue' },
-    1: { areas: A.AUDIT_AREAS, figures: AUDIT_FIGURES, heading: 'The instrument: PROBE' },
+    1: { areas: A.AUDIT_AREAS, figures: AUDIT_FIGURES, heading: 'The instrument: SONDE' },
     2: { areas: A.APPLICATIONS, figures: APP_FIGURES, heading: 'Where this has already produced results' }
   };
 
